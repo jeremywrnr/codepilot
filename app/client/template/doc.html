@@ -1,0 +1,31 @@
+<template name="fileTitle">
+  <div class="navbar navbar-default">
+    <form class="navbar-form pull-left">
+      {{> loginButtons}}
+    </form>
+    <form class="navbar-form pull-right">
+      {{#if editMeta}}
+      <input class="form-control" type="text" name="title" value="{{title}}">
+      {{else}}
+      <button class="btn btn-warning btn-small edit">Rename</button>
+      {{/if}}
+      <button class="btn btn-danger btn-small del">Delete this file</button>
+    </form>
+  </div>
+</template>
+
+<template name="fileList">
+  <h1>CodePilot</h1>
+  <h3>Files <button class="btn btn-success pull-right">New</button> </h3>
+  <ul class="nav nav-pills nav-stacked list">
+    {{#each files}}
+    {{> fileItem}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="fileItem">
+  <li class="{{#if current}}active{{/if}}">
+    <a href="#">{{title}}</a>
+  </li>
+</template>

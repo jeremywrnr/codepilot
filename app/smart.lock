@@ -1,0 +1,21 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "mizzao:sharejs": {
+        "path": "../sharejs-base"
+      },
+      "mizzao:sharejs-ace": {
+        "path": "../sharejs-ace"
+      }
+    },
+    "packages": {
+      "mizzao:sharejs": {
+        "path": "../sharejs-base"
+      },
+      "mizzao:sharejs-ace": {
+        "path": "../sharejs-ace"
+      }
+    }
+  }
+}

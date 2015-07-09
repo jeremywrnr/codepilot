@@ -1,0 +1,19 @@
+<template name="chat">
+  <h3>Chat</h3>
+  {{> input }}
+  <ul class="list">
+    {{> messages }}
+  </ul>
+</template>
+
+<template name="input">
+  <p>Message: <input type="text" id="message"></p>
+</template>
+
+<template name="messages">
+  {{#each messages}}
+  <li>
+    <strong>{{name}}:</strong> {{message}}
+  </li>
+  {{/each}}
+</template>
