@@ -10,7 +10,7 @@
 </template>
 
 <template name="fileitem">
-  <li class="{{#if current}}active{{/if}} file">
-    <a href="#">{{title}}</a>
+  <li class="file">
+    <a href="#">{{#if current}}->{{/if}} {{title}}</a>
   </li>
 </template>

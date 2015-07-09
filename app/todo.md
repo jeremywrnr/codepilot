@@ -3,6 +3,7 @@ TODOS
 
 ## UI
 
+insert a better glyph for the current file
 removing login with email (just github)
 move filerename under fileitem, d load.
 change template based on roles
