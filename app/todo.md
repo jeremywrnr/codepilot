@@ -1,25 +1,27 @@
 TODOS
 =====
 
+## GITHUB API (online)
+
+creating an issue on this repo - could be helpful to PROF
+load specific files for a specific group id???
+walk through commits (like desktop apps)
+testing out pushing to an existing repo
+loading a repos content, commit history
+ability to snapshot/fork code
+
 ## UI
 
 insert a better glyph for the current file
+or rather how to do some routing in meteor
+tabbed user interface - elseif in meteor?
 removing login with email (just github)
-move filerename under fileitem, d load.
+doing something with the footer
 change template based on roles
 clean up css duplication rules
-make message box look nicer
 autofocus namefield on rename
+make message box look nicer
 option to pick roles
-tabbed user interface - elseif in meteor?
-
-## GITHUB API (online)
-
-testing out pushing to an existing repo
-loading a repos content, commit history
-walk through commits (like desktop apps)
-ability to snapshot/fork code
-creating an issue on this repo - could be helpful to PROF
 
 ## TESTING
 
