@@ -31,6 +31,7 @@ Template.editor.events = {
   "click button.edit": function (e) {
     e.preventDefault();
     Session.set("renaming", true);
+    $("namefield").focus();
   },
 
   // delete the current file

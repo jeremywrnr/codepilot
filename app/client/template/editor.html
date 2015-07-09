@@ -9,13 +9,24 @@
 
 <template name="filename">
   <div class="navbar navbar-default">
-    <form class="navbar-form pull-right">
+    <div class="container-fluid">
+
       {{#if rename}}
-      <input class="form-control" type="text" name="title" value="{{title}}">
+      <form class="navbar-form pull-left">
+        <input id="namefield" class="form-control" type="text"
+        name="title" value="{{title}}">
+      </form>
       {{else}}
-      <button class="edit btn btn-warning btn-small">Rename</button>
+      <strong>
+        <p class="navbar-text"> ~/{{title}} </p>
+      </strong>
       {{/if}}
-      <button class="del btn btn-danger btn-small">Delete</button>
-    </form>
+
+      <form class="navbar-form pull-right">
+        <button class="edit btn btn-warning btn-small">Rename</button>
+        <button class="del btn btn-danger btn-small">Delete</button>
+      </form>
+
+    </div>
   </div>
 </template>

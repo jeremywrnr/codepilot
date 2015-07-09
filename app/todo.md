@@ -6,6 +6,7 @@ TODOS
 removing login with email (just github)
 move filerename under fileitem, d load.
 change template based on roles
+autofocus namefield on rename
 tabbed user interface
 option to pick roles
 
