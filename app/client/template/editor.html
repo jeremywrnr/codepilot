@@ -1,6 +1,7 @@
 <!-- editor layout -->
 
 <template name="editor">
+  {{#if nulldoc}} {{> loadprompt}} {{/if}}
   {{#with docid}}
   {{> filename this}}
   {{> sharejsAce docid=this onRender=configAce id="editor"}}
@@ -8,7 +9,7 @@
 </template>
 
 <template name="filename">
-  <div class="navbar navbar-default">
+  <div class="navbar">
     <div class="container-fluid">
 
       {{#if rename}}
@@ -28,5 +29,11 @@
       </form>
 
     </div>
+  </div>
+</template>
+
+<template name="loadprompt">
+  <div class="alert alert-success">
+    Click a file (or make a new one) to start editing your code!
   </div>
 </template>

@@ -2,6 +2,9 @@
 
 Template.editor.helpers({
 
+  nulldoc: function() {
+    return Session.equals("document", null);
+  },
   docid: function() {
     return Session.get("document");
   },

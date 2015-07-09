@@ -6,18 +6,25 @@ TODOS
 removing login with email (just github)
 move filerename under fileitem, d load.
 change template based on roles
+clean up css duplication rules
 autofocus namefield on rename
-tabbed user interface
 option to pick roles
+tabbed user interface
+    - elseif in meteor?
 
 ## GITHUB API (online)
 
 testing out pushing to an existing repo
 loading a repos content, commit history
 walk through commits (like desktop apps)
+ability to snapshot/fork code
 creating an issue on this repo
     - could be helpful to PROF
-ability to snapshot/fork code
+
+## TESTING
+
+look into how to write meteor tests
+starting doing so please
 
 ## NOTES / ERRORS
 
@@ -36,6 +43,7 @@ Uncaught SyntaxError: Unexpected token Y
 
 <!--
 have a link to rename or edit the project files...
+make prompt to open new file on close
 make login info pop to the left | align it right
 deleting and renaming button (NOW DOES) work
 remove autopublish, p/s specific datasets

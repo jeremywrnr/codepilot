@@ -3,11 +3,16 @@
 
     <div class="row upper">
       <div class="col-xs-3 full-height">
-        {{> filelist }}
-        {{> chat }}
+        <div class="sidebar">
+          {{> filelist }}
+          {{> chat }}
+        </div>
       </div>
       <div class="col-xs-9 editor-container full-height">
+        {{> tabs }}
         {{> editor }}
+        <!--<p> testing... </p>-->
+        <!--<p> linking... </p>-->
       </div>
     </div>
 
@@ -16,4 +21,12 @@
     </div>
 
   </div>
+</template>
+
+<template name="tabs">
+  <ul class="nav nav-pills">
+    <li role="presentation"><a href="#">Code</a></li>
+    <li role="presentation"><a href="#">Tests</a></li>
+    <li role="presentation"><a href="#">Links</a></li>
+  </ul>
 </template>
