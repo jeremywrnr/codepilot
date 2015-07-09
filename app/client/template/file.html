@@ -1,21 +1,17 @@
 <!--display a list of files -->
 
-<template name="fileList">
-  <h2>CodePilot</h2>
-  <div class="navbar">
-  <form class="navbar-form pull-left">
-    {{> loginButtons}}
-  </form>
-  </div>
+<template name="filelist">
+  <h1> CodePilot </h1>
+  {{> loginButtons}}
   <h3>Files <button class="btn btn-success pull-right new">New</button> </h3>
   <ul class="nav nav-pills nav-stacked list">
     {{#each files}}
-    {{> fileItem}}
+    {{> fileitem}}
     {{/each}}
   </ul>
 </template>
 
-<template name="fileItem">
+<template name="fileitem">
   <li class="{{#if current}}active{{/if}} file">
     <a href="#">{{title}}</a>
   </li>

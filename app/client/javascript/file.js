@@ -1,12 +1,12 @@
 // file things
 
-Template.fileList.helpers({
+Template.filelist.helpers({
   files: function() {
     return Files.find();
   }
 });
 
-Template.fileList.events = {
+Template.filelist.events = {
   "click .new": function() {
     return Files.insert({
       title: "untitled"
@@ -17,13 +17,13 @@ Template.fileList.events = {
   }
 };
 
-Template.fileItem.helpers({
+Template.fileitem.helpers({
   current: function() {
     return Session.equals("document", this._id);
   }
 });
 
-Template.fileItem.events = {
+Template.fileitem.events = {
   "click .file": function(e) {
     e.preventDefault();
     return Session.set("document", this._id);
