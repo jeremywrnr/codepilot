@@ -14,10 +14,3 @@
     </div>
   </div>
 </template>
-
-<template name="editor">
-  {{> fileTitle this}}
-  {{#with docid}}
-  {{> sharejsAce docid=this onRender=configAce id="editor"}}
-  {{/with}}
-</template>

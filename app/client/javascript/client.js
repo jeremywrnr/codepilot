@@ -2,5 +2,5 @@
 
 Meteor.subscribe('files');
 Meteor.subscribe('messages');
+Session.setDefault("renaming", false);
 Session.setDefault("editorType", "ace");
-Session.setDefault("editMeta", false);

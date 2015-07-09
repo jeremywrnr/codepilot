@@ -1,12 +1,9 @@
 TODOS
 =====
 
-squash git history
-
 ## UI
 
 removing login with email option, just github
-make the chat list nicer
 tabbed user interface
 
 ## GITHUB API
@@ -47,5 +44,7 @@ spometimes: Uncaught SyntaxError: Unexpected token Y
 ### done
 
 <!--
+make the chat list nicer
 make login info pop to the left | align it right...
+squash preforked git history
 -->

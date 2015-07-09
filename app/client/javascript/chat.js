@@ -14,7 +14,7 @@ Template.input.events = {
       if (Meteor.user()) {
         name = Meteor.user().profile.name;
       } else {
-        name = 'Anonymous';
+        name = 'Anon';
       }
       message = document.getElementById('message');
       if (message.value !== '') {
