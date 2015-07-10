@@ -34,7 +34,13 @@ Template.editor.events = {
   "click button.edit": function (e) {
     e.preventDefault();
     Session.set("renaming", true);
-    $("namefield").focus();
+    setInterval(function() {
+      if ($('#namefield').length) {
+        $('#namefield').focus();
+        console.log("Exists!");
+        clearInterval(checkExist);
+      }
+    }, 100); // check every 100ms
   },
 
   // delete the current file

@@ -11,6 +11,11 @@
 
 <template name="fileitem">
   <li class="file">
-    <a href="#">{{#if current}}->{{/if}} {{title}}</a>
+    <a href="#">
+       {{#if current}}
+       <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+       {{/if}}
+       {{title}}
+    </a>
   </li>
 </template>
