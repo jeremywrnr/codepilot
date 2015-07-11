@@ -3,3 +3,4 @@
 packages/*
 private/local-login.json
 private/live-login.json
+.tern-project
