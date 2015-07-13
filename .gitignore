@@ -20,3 +20,4 @@ npm-debug.log
 .build*
 
 .DS_Store
+clock.yml
