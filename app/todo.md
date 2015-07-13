@@ -38,11 +38,12 @@ starting doing so please
 
 ## NOTES / ERRORS
 
-a teacher can have lecture code stored in the repo, and then walk through
-bit by bit (eg commits), even if not runnable in the browser/cloud
-form controls must share editor template, or will break
-sometimes after longtime of unwatching:
-Uncaught SyntaxError: Unexpected token Y
+if try to edit file contents while renaming, many errors - go back to not
+renaming on the rename form losing focus. a teacher can have lecture code
+stored in the repo, and then walk through bit by bit (eg commits), even if not
+runnable in the browser/cloud form controls must share editor template, or will
+break sometimes after longtime of unwatching: Uncaught SyntaxError: Unexpected
+token Y
 
 - conflict with sharejs and docs??? renaming to files
 - probably something to do with using autopublish
