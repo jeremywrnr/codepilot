@@ -15,3 +15,4 @@ accounts-password
 alanning:roles
 accounts-github
 accounts-ui
+iron:router
