@@ -5,9 +5,6 @@ TODOS
 
 roles management
 github integration
-looking at roles
-    changing editing profiles
-    copilot doesnt edit code, testing interface
 gutter indicator, where they wre editing recently
 creating an issue on this repo - could be helpful to PROF
 load specific files for a specific group id???
@@ -18,18 +15,12 @@ ability to snapshot/fork code
 
 ## UI
 
-insert a better glyph for the current file
-or rather how to do some routing in meteor
-tabbed user interface - elseif in meteor?
 removing login with email (just github)
-just make rename field focus a function
-when make a newfile, autofocus rename
-doing something with the footer
 change template based on roles
-clean up css duplication rules
-autofocus namefield on rename
 make message box look nicer
-option to pick roles
+looking at roles
+    changing editing profiles
+    copilot doesnt edit code, testing interface
 
 ## TESTING
 
@@ -53,6 +44,14 @@ token Y
 ### done
 
 <!--
+insert a better glyph for the current file
+tabbed user interface - elseif in meteor?
+or rather how to do some routing in meteor
+just make rename field focus a function
+when make a newfile, autofocus rename
+autofocus namefield on rename
+clean up css duplication rules
+option to pick roles
 have a link to rename or edit the project files...
 make login info pop to the left | align it right
 deleting and renaming button (NOW DOES) work
