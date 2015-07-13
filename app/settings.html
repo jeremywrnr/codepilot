@@ -1,0 +1,42 @@
+<!--allow user to configure things-->
+
+<template name="settings">
+  {{> welcome }}
+  <h2> Settings </h2>
+  {{> loginInfo }}
+  {{> roles }}
+</template>
+
+<template name="welcome">
+  <h2> Welcome to Code Pilot!</h2>
+  <p> This is a tool meant to help people collaborate on code more seamlessly.
+  The model is based on that of a pilot and a co-pilot, where the pilot does
+  most of the actual programming, and the co-pilot performs background coding
+  tasks. This can include version control management, system testing, online
+  reference lookup, and commenting/documenting source code.</p>
+</template>
+
+<template name="loginInfo">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Account Status</h3>
+    </div>
+    <div class="panel-body">
+      <p> {{ loginInfo }}</p>
+    </div>
+  </div>
+</template>
+
+<template name="roles">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Role</h3>
+    </div>
+    <div class="panel-body">
+      <form id="roleselect" class="center navbar-form">
+        <button class="grn btn btn-small">Pilot</button>
+        <button class="grn btn btn-small">CoPilot</button>
+      </form>
+    </div>
+  </div>
+</template>

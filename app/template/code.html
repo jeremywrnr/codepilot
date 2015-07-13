@@ -1,4 +1,8 @@
-<!-- editor layout -->
+<!-- code editor layout -->
+
+<template name="code">
+  {{> editor }}
+</template>
 
 <template name="editor">
   {{#if nulldoc}} {{> loadprompt}} {{/if}}
