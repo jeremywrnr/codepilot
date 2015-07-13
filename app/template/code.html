@@ -1,7 +1,9 @@
 <!-- code editor layout -->
 
 <template name="code">
-  {{> editor }}
+  <div class="col-xs-9 editor-container full-height">
+    {{> editor }}
+  </div>
 </template>
 
 <template name="editor">
@@ -24,8 +26,7 @@
 
       {{#if rename}}
       <form class="navbar-form pull-left">
-        <input id="namefield" class="form-control" type="text"
-        name="title" value="{{title}}">
+        <input id="namefield" class="form-control" type="text" name="title" value="{{title}}">
       </form>
       {{else}}
       <strong>

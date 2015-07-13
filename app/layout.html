@@ -8,27 +8,29 @@
       <div class="col-xs-3 full-height">
         <div class="sidebar">
           <h1><a href="/"> Code Pilot </a></h1>
-          {{> navigationTabs }}
           {{> loginButtons}}
+          {{#if currentUser }}
+          {{> navigation }}
           {{> filelist }}
           {{> chat }}
+          {{/if}}
         </div>
       </div>
-      <div class="col-xs-9 editor-container full-height">
 
-        {{> yield}}
+      {{> yield}}
 
-      </div>
     </div>
   </div>
 </template>
 
-<template name="navigationTabs">
-  <ul class="nav nav-pills">
-    <li role="presentation"><a href="{{pathFor route='code'}}">Code</a></li>
-    <li role="presentation"><a href="{{pathFor route='tests'}}">Tests</a></li>
-    <li role="presentation"><a href="{{pathFor route='git'}}">Git</a></li>
-    <li role="presentation"><a href="{{pathFor route='settings'}}">Config</a></li>
-  </ul>
-</template>
+<template name="navigation">
 
+  <div class="btn-group" role="toolbar">
+    {{#each navItems}}
+    <a role='button' class='btn btn-primary' href="{{ iconpath }}">
+      <span class="glyphicon glyphicon-{{ iconname }}" aria-hidden="true"></span>
+    </a>
+    {{/each}}
+  </div>
+
+</template>
