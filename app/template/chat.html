@@ -1,19 +1,25 @@
+<!--chat with other users-->
+
 <template name="chat">
-  <h3>Chat</h3>
-  {{> input }}
-  <ul class="nav list">
-    {{> messages }}
-  </ul>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Feed</h3>
+    </div>
+    <div class="panel-body">
+      {{> chatter }}
+      {{> messages }}
+    </div>
+  </div>
 </template>
 
-<template name="input">
-  <p>Message: <input type="text" id="message"></p>
+<template name="chatter">
+  <input type="text" id="message" class="form-control" placeholder="Talk here...">
 </template>
 
 <template name="messages">
-  {{#each messages}}
-  <li>
-    <strong>{{name}}:</strong> {{message}}
-  </li>
-  {{/each}}
+  <ul class="nav list chat">
+    {{#each messages}}
+    <li> <strong>{{name}}:</strong> {{message}} </li>
+    {{/each}}
+  </ul>
 </template>

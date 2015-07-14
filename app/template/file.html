@@ -1,21 +1,29 @@
 <!--display a list of files -->
 
 <template name="filelist">
-  <h3>Files <button class="btn btn-success pull-right new">New</button> </h3>
-  <ul class="nav nav-pills nav-stacked list">
-    {{#each files}}
-    {{> fileitem}}
-    {{/each}}
-  </ul>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Files
+        <button class="btn btn-xs btn-primary pull-right new">New</button>
+      </h3>
+    </div>
+    <div class="panel-body">
+      <ul class="nav nav-pills nav-stacked list">
+        {{#each files}}
+        {{> fileitem}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
 </template>
 
 <template name="fileitem">
-  <li class="file">
-    <a href="#">
-       {{#if current}}
-       <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
-       {{/if}}
-       {{title}}
+  <li class="file {{#if current}}active{{/if}}">
+    <a id='{{#if current}}active-file{{/if}}' href="#">
+      {{#if current}}
+      <span class="glyphicon glyphicon-triangle-right"></span>
+      {{/if}}
+      {{title}}
     </a>
   </li>
 </template>

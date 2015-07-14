@@ -12,7 +12,7 @@ Template.filelist.events = {
       title: "untitled"
     }, function(err, id) {
       if (!id) { return; }
-      return Session.set("document", id);
+      Session.set("document", id);
     });
   }
 };
@@ -26,6 +26,6 @@ Template.fileitem.helpers({
 Template.fileitem.events = {
   "click .file": function(e) {
     e.preventDefault();
-    return Session.set("document", this._id);
+    Session.set("document", this._id);
   }
 };

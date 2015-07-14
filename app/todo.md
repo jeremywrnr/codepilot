@@ -18,8 +18,10 @@ ability to snapshot/fork code
 
 ## UI
 
+make settings panel info boex success?
 removing login with email (just github)
 a distributed task - 1 pilot, 4 copilots
+chat: only show initials for briefness?
 change template based on roles
 make message box look nicer
 pilot - read view of tests

@@ -40,8 +40,7 @@ Template.editor.events = {
     setInterval(function() {
       if ($('#namefield').length) {
         $('#namefield').focus();
-        console.log("Exists!");
-        clearInterval(checkExist);
+        clearInterval(this);
       }
     }, 100); // check every 100ms
   },

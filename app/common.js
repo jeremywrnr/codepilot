@@ -15,10 +15,8 @@ Router.onBeforeAction(function() {
 });
 
 Router.map(function () {
-
   this.route('code', { path: '/', });
   this.route('tests');
   this.route('git')
   this.route('settings');
-
 });
