@@ -1,22 +1,32 @@
 <!-- code editor layout -->
 
 <template name="code">
-  <div class="col-xs-9 editor-container full-height">
-    {{> editor }}
-  </div>
+  {{#if nulldoc}}
+  {{> loadprompt}}
+  {{/if}}
+  {{> editor }}
 </template>
 
 <template name="editor">
-  {{#if nulldoc}} {{> loadprompt}} {{/if}}
-  {{#with docid}}
-  {{> filename this}}
-  {{> sharejsAce docid=this onRender=configAce id="editor"}}
-  {{/with}}
+  <div class="col-xs-9 editor-container full-height">
+    {{#with docid}}
+    {{> filename this}}
+    {{> sharejsAce docid=this onRender=configAce id="editor"}}
+    {{/with}}
+  </div>
 </template>
 
 <template name="loadprompt">
-  <div class="alert alert-success">
-    Please click a file (or make a new one) to start editing your code!
+  <div class="col-xs-6 full-height">
+    <h2> Code </h2>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Let's get started!</h3>
+      </div>
+      <div class="panel-body">
+        Please click a file (or make a new one) to start editing your code!
+      </div>
+    </div>
   </div>
 </template>
 

@@ -5,6 +5,9 @@ TODOS
 
 roles management
 github integration
+snapshot code: save to github, notes section
+diff/commit on the user
+activity feed along with the chat
 gutter indicator, where they wre editing recently
 creating an issue on this repo - could be helpful to PROF
 load specific files for a specific group id???
@@ -16,8 +19,12 @@ ability to snapshot/fork code
 ## UI
 
 removing login with email (just github)
+a distributed task - 1 pilot, 4 copilots
 change template based on roles
 make message box look nicer
+pilot - read view of tests
+copilot - write veiw of tests
+video or talk embedding
 looking at roles
     changing editing profiles
     copilot doesnt edit code, testing interface

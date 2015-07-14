@@ -1,38 +1,28 @@
 @import 'nib'
 
 html
-  font-family Verdana, sans-serif
-  padding 10px
+    font-family Verdana, sans-serif
+    padding 10px
 
 html, body, .full-height
     height: 100%
-
-body
-    margin: 10px
-    padding: 0px
 
 .navbar
     border: 1px solid rgba(0, 0, 0, 1)
     border-radius: 4px 4px 0px 0px
 
-.row.upper
-    height: 85%
-
-.row.footer
-    height: 15%
+.sidebar
+    margin-right: auto
+    margin-left: auto
+    max-width: 250px
 
 .center
     margin-right: auto
     margin-left: auto
 
 .list
+    max-height: 300px
     overflow: auto
-    max-height: 40%
-
-.sidebar
-    margin-right: auto
-    margin-left: auto
-    max-width: 200px
 
 .btn:hover
     color: white
@@ -54,17 +44,18 @@ body
     padding: 0px
 
 #editor.shareJSAce
-  position: absolute
-  top: 52px
-  bottom: 0
-  right: 0
-  left: 0
+    position: absolute
+    margin-bottom: 15px
+    top: 52px
+    bottom: 0
+    right: 0
+    left: 0
 
 #editor.shareJSText
-  width: 100%
-  height: 80%
+    width: 100%
+    height: 80%
 
-#login-buttons, #role-buttons
+#login-buttons
     line-height: 1.42857143
     background-color: black
     border: 1px solid #ccc

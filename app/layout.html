@@ -4,27 +4,24 @@
 
 <template name="main">
   <div class="container full-height">
-    <div class="row upper">
-      <div class="col-xs-3 full-height">
-        <div class="sidebar">
-          <h1><a href="/"> Code Pilot </a></h1>
-          {{> loginButtons}}
-          {{#if currentUser }}
-          {{> navigation }}
-          {{> filelist }}
-          {{> chat }}
-          {{/if}}
-        </div>
+    <div class="col-xs-3 full-height">
+      <div class="sidebar">
+        <h1><a href="/"> Code Pilot </a></h1>
+        {{> loginButtons}}
+        {{#if currentUser }}
+        {{> navigation }}
+        {{> filelist }}
+        {{> chat }}
+        {{/if}}
       </div>
-
-      {{> yield}}
-
     </div>
+
+    {{> yield}}
+
   </div>
 </template>
 
 <template name="navigation">
-
   <div class="btn-group btn-group-justified" role="toolbar">
     {{#each navItems}}
     <a role='button' class='btn btn-primary' href="{{ iconpath }}">
@@ -33,5 +30,4 @@
     </a>
     {{/each}}
   </div>
-
 </template>

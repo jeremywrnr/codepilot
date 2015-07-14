@@ -1,10 +1,13 @@
-// editor things
+// code editor things
+
+Template.code.helpers({
+  nulldoc: function() {
+    return Session.equals("document", null);
+  }
+});
 
 Template.editor.helpers({
 
-  nulldoc: function() {
-    return Session.equals("document", null);
-  },
   docid: function() {
     return Session.get("document");
   },
