@@ -17,3 +17,4 @@ accounts-ui
 iron:router
 accounts-base
 service-configuration
+http
