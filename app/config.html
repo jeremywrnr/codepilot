@@ -1,12 +1,10 @@
 <!--allow user to configure things-->
 
-<template name="settings">
+<template name="config">
   <div class="col-xs-6 full-height">
     {{> welcome }}
     {{#if currentUser }}
-    <h2> Settings </h2>
-    {{> loginInfo }}
-    {{> roles }}
+    {{> settings }}
     {{/if}}
   </div>
 </template>
@@ -20,27 +18,21 @@
   reference lookup, and commenting/documenting source code.</p>
 </template>
 
-<template name="loginInfo">
-  <div class="panel panel-info">
+<template name="settings">
+  <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title">Account Status</h3>
+      <h2 class="panel-title"> Settings </h2>
     </div>
     <div class="panel-body">
-      <p> {{ loginInfo }}</p>
-    </div>
-  </div>
-</template>
+      <p>{{ loginInfo }}</p>
 
-<template name="roles">
-  <div class="panel panel-info">
-    <div class="panel-heading">
+
       <h3 class="panel-title">Role</h3>
-    </div>
-    <div class="panel-body">
       <form id="roleselect" class="center navbar-form">
         <button class="grn btn btn-small">Pilot</button>
         <button class="grn btn btn-small">CoPilot</button>
       </form>
     </div>
+
   </div>
 </template>

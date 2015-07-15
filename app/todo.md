@@ -8,6 +8,7 @@ github integration
 snapshot code: save to github, notes section
 diff/commit on the user
 activity feed along with the chat
+make tasks have a message - no null
 gutter indicator, where they wre editing recently
 creating an issue on this repo - could be helpful to PROF
 load specific files for a specific group id???

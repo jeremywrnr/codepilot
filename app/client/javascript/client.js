@@ -1,6 +1,7 @@
 // startup
 
 Meteor.subscribe('files');
+Meteor.subscribe("tasks");
 Meteor.subscribe('messages');
 Session.setDefault("document", null);
 Session.setDefault("renaming", false);
@@ -12,23 +13,17 @@ Template.navigation.helpers({
   navItems: function(){
     return [
       { iconpath:'/', iconname:'pencil' },
-      { iconpath:'/tests', iconname:'play' },
+      { iconpath:'/test', iconname:'play' },
       { iconpath:'/git', iconname:'list-alt' },
-      { iconpath:'/settings', iconname:'cog' }
+      { iconpath:'/config', iconname:'cog' }
     ];
   }
 });
 
 // account info
 
-Template.loginInfo.helpers({
+Template.settings.helpers({
   loginInfo: function() {
-    if (Meteor.user()) {
-      var name = Meteor.user().profile.name;
-      return 'Currently logged in as ' + name + '.'
-    } else {
-      return 'ERROR: Not currently logged in.'
-    }
+    return 'Currently logged in as ' +Meteor.user().profile.name+ '.'
   }
 });
-

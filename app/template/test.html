@@ -1,0 +1,77 @@
+<!--testing stuff here-->
+
+<template name="test">
+  <div class="col-xs-9 full-height">
+    <h2> Testing </h2>
+    {{> testtasks }}
+    {{> tester}}
+  </div>
+</template>
+
+<template name="testtasks">
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"> Tasks ({{incompleteCount}})
+        <label class="label pull-right">
+          <input type="checkbox" checked="{{hideCompleted}}"/> Hide Completed
+        </label>
+      </h3>
+    </div>
+
+
+    <div class="panel-body">
+      <form class="new-task">
+        <input type="text" class="form-control" name="text" placeholder="Add new tasks..." />
+      </form>
+      <ul class="list-group top-list">
+        {{#each tasks}}
+        {{> todotask}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+
+</template>
+
+<template name="todotask">
+  <li class="list-group-item {{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+    <button class="delete">&times;</button>
+    <span class="input-group-addon">
+      <input type="checkbox" class="toggle-checked" checked="{{checked}}" aria-label="...">
+    </span>
+    <input type="text" class="form-control" aria-label="...">
+
+
+    {{#if isOwner}}
+    <button class="toggle-private">
+      {{#if private}}
+      Private
+      {{else}}
+      Public
+      {{/if}}
+    </button>
+    {{/if}}
+
+    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="...">
+      </span>
+      <input type="text" class="form-control" aria-label="...">
+    </div><!-- /input-group -->
+
+  </li>
+</template>
+
+<template name="tester">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"> Tester </h3>
+    </div>
+    <div class="panel-body">
+      actually let user plan / do some testing
+    </div>
+  </div>
+</template>
