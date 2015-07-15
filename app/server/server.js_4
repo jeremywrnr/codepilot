@@ -13,10 +13,17 @@ var inDevelopment = function(){return process.env.NODE_ENV === "development"; };
 Meteor.startup(function () { // get correct github auth key
 
   ServiceConfiguration.configurations.remove({service: "github"});
-  var prodAuth = JSON.parse(Assets.getText('production.json'));
-  var devAuth = JSON.parse(Assets.getText('development.json'));
-  var GHAuth = ( inDevelopment() ? devAuth : prodAuth );
-  ServiceConfiguration.configurations.insert( GHAuth );
+  var prodAuth = JSON.parse(Assets.getText('development.json'))
+  var devAuth = JSON.parse(Assets.getText('production.json'))
+
+  GithubInfo.upsert( 'prod', [{"prod" : prodAuth}]);
+  GithubInfo.upsert( "dev",  [{"dev"  : devAuth}]);
+
+  var githubAuth = ( inDevelopment() ? devAuth : prodAuth );
+
+  console.log( GithubInfo.find('dev') );
+  console.log( GithubInfo.find('prod') );
+  ServiceConfiguration.configurations.insert( GithubInfo.findOne()[0] );
 
 });
 

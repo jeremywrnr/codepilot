@@ -5,7 +5,6 @@
 
 insecure
 standard-app-packages
-coffeescript
 stylus
 mizzao:sharejs-ace
 mizzao:sharejs-codemirror
@@ -16,3 +15,5 @@ alanning:roles
 accounts-github
 accounts-ui
 iron:router
+accounts-base
+service-configuration

@@ -20,10 +20,28 @@ Template.navigation.helpers({
   }
 });
 
-// account info
+// login setup
 
-Template.settings.helpers({
-  loginInfo: function() {
-    return 'Currently logged in as ' +Meteor.user().profile.name+ '.'
+Template.userLoggedout.events({
+  "click #login": function(e, tmpl) {
+    Meteor.loginWithGithub({
+      requestPermissions: ['user', 'public_repo']
+    }, function(err) {
+      if (err){ // error handling
+        Session.set('errorMessage', err.reason || 'Login problem: unknown error.');
+      }
+    });
+  }
+});
+
+Template.userLoggedin.events({
+  "click #logout": function(e, tmpl) {
+    Meteor.logout(function(err) {
+      if (err){
+        // error handling
+      } else {
+        // show an alert
+      }
+    });
   }
 });

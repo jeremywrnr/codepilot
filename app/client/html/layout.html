@@ -7,7 +7,7 @@
     <div class="col-xs-3 full-height">
       <div class="sidebar">
         <h1><a href="/"> Code Pilot </a></h1>
-        {{> loginButtons}}
+        {{> loginGithub }}
         {{#if currentUser }}
         {{> navigation }}
         {{> filelist }}
@@ -21,15 +21,54 @@
   </div>
 </template>
 
+<!--login templates-->
+
+<template name="loginGithub">
+  <div class="btn-group btn-group-justified" role="group" aria-label="...">
+    <div class="btn-group" role="group">
+      {{#if currentUser }}
+      {{> userLoggedin }}
+      {{else}}
+      {{> userLoggedout }}
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="userLoggedin">
+  {{#if loggingIn }}
+  <button type="button" class="btn btn-default">Logging in...</button>
+  {{else}}
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+      {{ currentUser.profile.name }}
+    <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="#">Action</a></li>
+      <li><a href="#">Another action</a></li>
+      <li><a href="#">Something else here</a></li>
+      <li><a href="#">Separated link</a></li>
+    </ul>
+  </div>
+  {{/if}}
+</template>
+
+<template name="userLoggedout">
+  <button id="login" type="button" class="btn btn-default">Login with Github</button>
+</template>
+
 <!-- navigation icons from http://glyphicons.com/ -->
 
 <template name="navigation">
   <div class="btn-group btn-group-justified" role="toolbar">
+
     {{#each navItems}}
     <a role='button' class='btn btn-primary' href="{{ iconpath }}">
-      <span class="glyphicon glyphicon-{{ iconname }}"
-            aria-label="{{ iconname }}"></span>
+      <span class="glyphicon glyphicon-{{iconname}}" aria-label="{{iconname}}">
+      </span>
     </a>
     {{/each}}
+
   </div>
 </template>
