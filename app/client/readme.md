@@ -1,7 +1,6 @@
 Client readme
 =============
 
-
 ### File structure
 
     .
@@ -19,7 +18,6 @@ Client readme
         └── main.html
 
 ### Explanation
-
 
 ├── client.styl
     client page styling
