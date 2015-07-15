@@ -1,8 +1,8 @@
 // data publishing
 
-this.Messages = new Meteor.Collection('messages');
-this.Files = new Meteor.Collection('files');
-this.Tasks = new Meteor.Collection("tasks");
+Messages = new Mongo.Collection('messages');
+Files = new Mongo.Collection('files');
+Tasks = new Mongo.Collection("tasks");
 
 //Accounts.ui.config({ passwordSignupFields: "USERNAME_ONLY" });
 
