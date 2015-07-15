@@ -1,12 +1,12 @@
 # keeping passwords in source control:
 # http://ejohn.org/blog/keeping-passwords-in-source-control/
 
-CONF_FILE1=live-login.json
-CONF_FILE2=local-login.json
+CONF_FILE1=development.json
+CONF_FILE2=production.json
 AUTHOR=jeremywrnr@gmail.com
 
 prompt: # 'private' task for echoing instructions
-	@echo "Contact ${AUTHOR} for the password, then run 'make decrypt'"
+	@echo "Contact ${AUTHOR} for the password."
 
 decrypt: prompt
 	openssl cast5-cbc -d -in ${CONF_FILE1}.cast5 -out ${CONF_FILE1}
