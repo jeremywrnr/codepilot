@@ -40,15 +40,12 @@
   <button type="button" class="btn btn-default">Logging in...</button>
   {{else}}
   <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
       {{ currentUser.profile.name }}
     <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li><a href="#">Action</a></li>
-      <li><a href="#">Another action</a></li>
-      <li><a href="#">Something else here</a></li>
-      <li><a href="#">Separated link</a></li>
+      <li><a href="#" id="logout">Log out</a></li>
     </ul>
   </div>
   {{/if}}
