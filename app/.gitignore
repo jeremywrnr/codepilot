@@ -1,6 +1,5 @@
 .idea
 .meteor/.*
 packages/*
-private/local-login.json
-private/live-login.json
+private/*.json
 .tern-project
