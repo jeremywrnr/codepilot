@@ -1,4 +1,5 @@
 // common methods
+
 (function () {
   Meteor.methods({
 

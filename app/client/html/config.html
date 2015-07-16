@@ -31,12 +31,28 @@
         {{ currentUser.profile.login }}</a>
       </p>
 
-      <h3>Role (now: {{currentRole}})</h3>
+      <h3>Role ({{currentUser.profile.role}})</h3>
       <form id="roleselect" class="center navbar-form">
         <button id="makePilot" class="grn btn btn-small">Pilot</button>
         <button id="makeCopilot" class="grn btn btn-small">CoPilot</button>
       </form>
 
+      {{#if isPilot}}
+      {{> pilotView}}
+      {{else}}
+      {{> copilotView}}
+      {{/if}}
+
     </div>
   </div>
+</template>
+
+<template name="pilotView">
+  <p>This view is only seen by pilots.</p>
+  <img class="img-rounded" style="height: 150px" src="http://www.cinemablend.com/images/news_img/33975/top_gun_33975.jpg">
+</template>
+
+<template name="copilotView">
+  <p>This view is only seen by copilots.</p>
+  <img class="img-rounded" style="height: 150px" src="https://s-media-cache-ak0.pinimg.com/236x/55/50/32/5550323e05e7a5f719de5263d7f160d2.jpg">
 </template>

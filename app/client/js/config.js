@@ -1,9 +1,11 @@
 // configuration page
 
 Template.settings.helpers({
-  currentRole: function(){
-    return Meteor.user().profile.role;
-  }
+
+  isPilot: function() {
+    return Meteor.user().profile.role == "pilot";
+  },
+
 });
 
 Template.settings.events({
