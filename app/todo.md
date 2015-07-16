@@ -15,6 +15,8 @@ diff/commit on the user
 
 ## UI / UX
 
+making the task items more usable
+clicking on a file should go to edit tab
 a distributed task - 1 pilot, 4 copilots
 gutter indicator, where they wre editing recently
 chat: only show initials for briefness?
