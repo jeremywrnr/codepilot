@@ -11,7 +11,7 @@ Accounts.onCreateUser(function(options, user){
   profile = _.pick( result.data,
                    "login", "name", "avatar_url", "url", "blog", "email", "html_url");
   user.profile = profile;
-  user.role = "copilot"
+  user.profile.role = "copilot"
   return user;
 
 })
