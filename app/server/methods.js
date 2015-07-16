@@ -1,4 +1,4 @@
-// server methods
+// server (called) methods
 
 (function () {
   Meteor.methods({
@@ -8,12 +8,18 @@
       ShareJS.model["delete"](id);
     },
 
-    setPilot: function(id) {
-      return Users.update({"_id":id, {$set : {"role":"pilot"}} });
+    setPilot: function() {
+      return Meteor.users.update(
+        {"_id":Meteor.userId()},
+        {$set : {"profile.role":"pilot"}}
+      );
     },
 
-    setCopilot: function(id) {
-      return Users.update({"_id":id, {$set : {"role":"copilot"}} });
+    setCopilot: function(){
+      return Meteor.users.update(
+        {"_id":Meteor.userId()},
+        {$set : {"profile.role":"copilot"}}
+      );
     }
 
   });

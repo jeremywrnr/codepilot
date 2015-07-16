@@ -1,9 +1,7 @@
 // file things
 
 Template.filelist.helpers({
-  files: function() {
-    return Files.find();
-  }
+  files: function() { return Files.find() }
 });
 
 Template.filelist.events = {

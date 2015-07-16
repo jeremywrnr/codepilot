@@ -24,12 +24,19 @@
       <h2 class="panel-title"> Settings </h2>
     </div>
     <div class="panel-body">
-      <p>{{ currentUser.profile.login }}</p>
-      <h3 class="panel-title">Role</h3>
+
+      <h3>Login Info</h3>
+      <p><img class="img-rounded" style="height: 50px" src="{{currentUser.profile.avatar_url}}">
+      {{currentUser.profile.name}} / <a href="{{currentUser.profile.html_url}}">
+        {{ currentUser.profile.login }}</a>
+      </p>
+
+      <h3>Role (now: {{currentRole}})</h3>
       <form id="roleselect" class="center navbar-form">
-        <button class="grn btn btn-small">Pilot</button>
-        <button class="grn btn btn-small">CoPilot</button>
+        <button id="makePilot" class="grn btn btn-small">Pilot</button>
+        <button id="makeCopilot" class="grn btn btn-small">CoPilot</button>
       </form>
+
     </div>
   </div>
 </template>
