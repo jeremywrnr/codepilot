@@ -3,8 +3,9 @@
 <template name="code">
   {{#if nulldoc}}
   {{> loadprompt}}
-  {{/if}}
+  {{else}}
   {{> editor }}
+  {{/if}}
 </template>
 
 <template name="editor">
