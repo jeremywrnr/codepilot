@@ -7,7 +7,7 @@ Template.chatter.events = {
       var message = $('input#message')[0];
       if (message.value !== '') {
         Messages.insert({
-          name: Meteor.user().profile.name,
+          name: Meteor.user().profile.login,
           message: message.value,
           time: Date.now()
         });

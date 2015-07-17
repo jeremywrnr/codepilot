@@ -1,12 +1,6 @@
 // configuration page
 
-Template.settings.helpers({
-
-  isPilot: function() {
-    return Meteor.user().profile.role == "pilot";
-  },
-
-});
+//Template.settings.helpers({});
 
 Template.settings.events({
 

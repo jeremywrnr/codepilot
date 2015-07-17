@@ -17,9 +17,11 @@
 </template>
 
 <template name="messages">
-  <ul class="nav list top-list">
-    {{#each messages}}
-    <li> <strong>{{name}}:</strong> {{message}} </li>
-    {{/each}}
-  </ul>
+  <div class="well well-sm">
+    <ul class="nav list">
+      {{#each messages}}
+      <li> <strong>{{name}}:</strong> {{message}} </li>
+      {{/each}}
+    </ul>
+  </div>
 </template>

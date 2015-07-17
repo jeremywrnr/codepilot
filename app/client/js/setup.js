@@ -1,4 +1,4 @@
-// data and startup
+// data + startup
 
 Meteor.subscribe('files');
 Meteor.subscribe('tasks');
@@ -18,6 +18,12 @@ Template.navigation.helpers({
       { iconpath:'/config', iconname:'cog' }
     ];
   }
+});
+
+// global helper(s)
+
+Template.registerHelper('isPilot', function(){
+  return Meteor.user().profile.role == "pilot";
 });
 
 // login setup
