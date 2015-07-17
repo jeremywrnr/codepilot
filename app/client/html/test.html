@@ -9,7 +9,6 @@
 </template>
 
 <template name="testtasks">
-
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h3 class="panel-title"> Tasks ({{incompleteCount}})
@@ -19,7 +18,6 @@
         </label>
       </h3>
     </div>
-
 
     <div class="panel-body">
       <form class="new-task">
@@ -32,18 +30,13 @@
       </ul>
     </div>
   </div>
-
 </template>
 
 <template name="todotask">
   <li class="list-group-item toggle-checked {{#if checked}}checked disabled{{/if}}">
-
     <input type="checkbox" class="toggle-checked" checked="{{checked}}"> {{text}}
-
     <button class="pull-right label btn del">&times;</button>
-
     <button class="pull-right label btn btn-info">{{username}}</button>
-
   </li>
 </template>
 
