@@ -14,7 +14,8 @@
     <div class="panel-heading">
       <h3 class="panel-title"> Tasks ({{incompleteCount}})
         <label class="label pull-right">
-          <input type="checkbox" checked="{{hideCompleted}}"/> Hide Completed
+          Hide Completed
+          <input type="checkbox" checked="{{hideCompleted}}" class="hide-completed"/>
         </label>
       </h3>
     </div>
@@ -24,7 +25,7 @@
       <form class="new-task">
         <input type="text" class="form-control" name="text" placeholder="Add new tasks..." />
       </form>
-      <ul class="list-group top-list">
+      <ul class="list-group">
         {{#each tasks}}
         {{> todotask}}
         {{/each}}
@@ -35,32 +36,13 @@
 </template>
 
 <template name="todotask">
-  <li class="list-group-item {{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-    <button class="delete">&times;</button>
-    <span class="input-group-addon">
-      <input type="checkbox" class="toggle-checked" checked="{{checked}}" aria-label="...">
-    </span>
-    <input type="text" class="form-control" aria-label="...">
+  <li class="list-group-item {{#if checked}}checked disabled{{/if}}">
 
+    <input type="checkbox" class="toggle-checked" checked="{{checked}}"> {{text}}
 
-    {{#if isOwner}}
-    <button class="toggle-private">
-      {{#if private}}
-      Private
-      {{else}}
-      Public
-      {{/if}}
-    </button>
-    {{/if}}
+    <button class="pull-right label btn del">&times;</button>
 
-    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
-
-    <div class="input-group">
-      <span class="input-group-addon">
-        <input type="checkbox" aria-label="..."> Private
-      </span>
-      <input type="text" class="form-control" aria-label="...">
-    </div><!-- /input-group -->
+    <button class="pull-right label btn btn-info">{{username}}</button>
 
   </li>
 </template>
@@ -71,7 +53,8 @@
       <h3 class="panel-title"> Tester </h3>
     </div>
     <div class="panel-body">
-      actually let user plan / do some testing
+      actually let user plan / do some testing. maybe with
+      <a href="http://sharejs.org/readonly/html.html">this</a>
     </div>
   </div>
 </template>

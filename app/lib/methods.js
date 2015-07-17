@@ -13,7 +13,7 @@
         text: text,
         createdAt: new Date(),
         owner: Meteor.userId(),
-        username: Meteor.user().username
+        username: Meteor.user().profile.login
       });
     },
 
