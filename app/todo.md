@@ -3,6 +3,10 @@ TODOS
 
 ## GITHUB API (online)
 
+madeye.io
+meteor testing manual
+velocity - testing solution
+
 EDITING GITHUB PERMISSION REQUESTS:
 testing out pushing to an existing repo
 loading a repos content, commit history
@@ -15,9 +19,11 @@ diff/commit on the user
 
 ## UI / UX
 
-clicking on a file should go to edit tab
+add more labels to task on right side of input
+attach links for refenece to file issue
+make show / hide (hide completed) button
 a distributed task - 1 pilot, 4 copilots
-chat: only show initials for briefness?
+if no files yet, say clicknew in list
 making the task items more usable
 change template based on roles
 copilot - write veiw of tests
@@ -27,6 +33,7 @@ video or talk embedding
 copilot doesnt edit code
 better testing interface
 gutter indicators:
+    copilot comments
     recent edits
 
 ## NOTES / ERRORS
@@ -53,6 +60,7 @@ have a link to rename or edit the project files...
 looking at roles, changing editing profiles
 make login info pop to the left | align it right
 deleting and renaming button (NOW DOES) work
+chat: only show initials for briefness?
 github integration
 remove autopublish, p/s specific datasets
 have partially curved border, lower ace
@@ -64,6 +72,7 @@ insert a better glyph for the current file
 make settings panel info boex success?
 tabbed user interface - elseif in meteor?
 or rather how to do some routing in meteor
+clicking on a file should go to edit tab
 just make rename field focus a function
 when make a newfile, autofocus rename
 autofocus namefield on rename

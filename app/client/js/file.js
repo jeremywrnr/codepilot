@@ -23,7 +23,6 @@ Template.fileitem.helpers({
 
 Template.fileitem.events = {
   "click .file": function(e) {
-    e.preventDefault();
     Session.set("document", this._id);
   }
 };
