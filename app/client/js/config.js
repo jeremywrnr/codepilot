@@ -4,12 +4,12 @@
 
 Template.settings.events({
 
-  "click #makePilot": function(e) {
+  "click .makePilot": function(e) {
     e.preventDefault();
     Meteor.call("setPilot");
   },
 
-  "click #makeCopilot": function(e) {
+  "click .makeCopilot": function(e) {
     e.preventDefault();
     Meteor.call("setCopilot");
   }

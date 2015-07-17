@@ -19,15 +19,14 @@ diff/commit on the user
 
 ## UI / UX
 
-add more labels to task on right side of input
+add more labels on right side of task input
+coloring login button based on copilot
 attach links for refenece to file issue
 make show / hide (hide completed) button
 a distributed task - 1 pilot, 4 copilots
-if no files yet, say clicknew in list
 making the task items more usable
 change template based on roles
 copilot - write veiw of tests
-make message box look nicer
 pilot - read view of tests
 video or talk embedding
 copilot doesnt edit code
@@ -62,10 +61,12 @@ make login info pop to the left | align it right
 deleting and renaming button (NOW DOES) work
 chat: only show initials for briefness?
 github integration
+make message box look nicer
 remove autopublish, p/s specific datasets
 have partially curved border, lower ace
 make prompt to open new file on close
 color rename/delete buttons on hover
+if no files yet, say clicknew in list
 squash preforked git history
 make the chat list nicer
 insert a better glyph for the current file

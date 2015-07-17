@@ -7,9 +7,13 @@
     <div class="col-xs-3 full-height">
       <div class="sidebar">
         <h1><a href="/"> Code Pilot </a></h1>
-        {{> loginGithub }}
         {{#if currentUser }}
         {{> navigation }}
+        {{/if}}
+
+        {{> loginGithub }}
+
+        {{#if currentUser }}
         {{> filelist }}
         {{> chat }}
         {{/if}}
@@ -42,17 +46,19 @@
   <div class="dropdown">
     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
       {{ currentUser.profile.name }}
-    <span class="caret"></span>
+      <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li><a href="#" id="logout">Log out</a></li>
+      <li><a href="/config"> {{currentUser.profile.login }}
+          / {{currentUser.profile.role }} </a></li>
+      <li class="logout"><a href="#">Log out</a></li>
     </ul>
   </div>
   {{/if}}
 </template>
 
 <template name="userLoggedout">
-  <button id="login" type="button" class="btn btn-default">Login with Github</button>
+  <button type="button" class="btn btn-default login">Login with Github</button>
 </template>
 
 <!-- navigation icons from http://glyphicons.com/ -->

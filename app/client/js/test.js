@@ -1,4 +1,4 @@
-// todo list management for testing page
+// testing page management
 
 Template.testtasks.helpers({
 

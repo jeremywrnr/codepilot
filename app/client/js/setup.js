@@ -7,6 +7,12 @@ Session.setDefault('document', null);
 Session.setDefault('renaming', false);
 Session.setDefault('editorType', 'ace');
 
+// global helper(s)
+
+Template.registerHelper('isPilot', function(){
+  return Meteor.user().profile.role == "pilot";
+});
+
 // navbar options
 
 Template.navigation.helpers({
@@ -20,16 +26,10 @@ Template.navigation.helpers({
   }
 });
 
-// global helper(s)
-
-Template.registerHelper('isPilot', function(){
-  return Meteor.user().profile.role == "pilot";
-});
-
 // login setup
 
 Template.userLoggedout.events({
-  'click #login': function(e, tmpl) {
+  'click .login': function(e, tmpl) {
     Meteor.loginWithGithub({
       requestPermissions: ['user', 'public_repo']
     }, function(err) {
@@ -39,7 +39,7 @@ Template.userLoggedout.events({
 });
 
 Template.userLoggedin.events({
-  'click #logout': function(e, tmpl) {
+  'click .logout': function(e, tmpl) {
     Meteor.logout(function(err) {
       if (err) Session.set('errorMessage', err.reason);
     });

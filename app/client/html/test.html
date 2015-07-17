@@ -36,7 +36,7 @@
 </template>
 
 <template name="todotask">
-  <li class="list-group-item {{#if checked}}checked disabled{{/if}}">
+  <li class="list-group-item toggle-checked {{#if checked}}checked disabled{{/if}}">
 
     <input type="checkbox" class="toggle-checked" checked="{{checked}}"> {{text}}
 
