@@ -3,6 +3,10 @@ TODOS
 
 madeye.io meteor // testing manual velocity // testing solution
 
+hardcode three files
+start syntax highlightinh
+reconfigure public only repos
+
 ## GITHUB API (online)
 
 EDITING GITHUB PERMISSION REQUESTS:
@@ -17,6 +21,7 @@ diff/commit on the user
 
 ## UI / UX
 
+bug - clicking on box doesnt disable it??
 add more labels on right side of task input
 coloring login button based on copilot
 attach links for refenece to file issue
