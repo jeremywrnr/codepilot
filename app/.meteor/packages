@@ -13,7 +13,6 @@ bruz:github-api
 accounts-password
 alanning:roles
 accounts-github
-accounts-ui
 iron:router
 accounts-base
 service-configuration
