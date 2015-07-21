@@ -4,8 +4,16 @@ TODOS
 madeye.io meteor // testing manual velocity // testing solution
 
 hardcode three files
-start syntax highlightinh
+start syntax highlighting
 reconfigure public only repos
+structure of repo - make one for each user, have user request to collaborate on
+another users repo, make a
+
+copilot is tkaing snapshots of the code while testing - save files under the
+test, so testing does not disrupt  the editing. branching for testing, and then
+when passing tyhe tests do a merge from mater in the testing app
+
+testing / checkin / issues
 
 ## GITHUB API (online)
 
