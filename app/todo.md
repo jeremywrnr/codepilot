@@ -15,6 +15,12 @@ when passing tyhe tests do a merge from mater in the testing app
 
 testing / checkin / issues
 
+Let the pair switch off whenever they want if one person is getting tired or
+stuck or wants a chill break to be hanging out more passively in the background
+
+also case study from Mythical Man Month of surgeon + multiple assistants model
+of programming.
+
 ## GITHUB API (online)
 
 EDITING GITHUB PERMISSION REQUESTS:
