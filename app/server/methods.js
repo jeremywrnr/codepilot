@@ -4,9 +4,9 @@ Meteor.methods({
 
 
 
-  //////////////////
-  // FILE MANAGEMENT
-  //////////////////
+  ///////////////////////
+  // FILE/ROLE MANAGEMENT
+  ///////////////////////
 
   deleteFile: function(id) {
     Files.remove(id);
@@ -57,7 +57,6 @@ Meteor.methods({
   },
 
   getBlobs: function(tr) { //tree results
-    var response = [];
     function updateBlob(b){
       var oldcontent = github.gitdata.getBlob({
         headers:{"Accept":"application/vnd.github.VERSION.raw"},
@@ -70,7 +69,6 @@ Meteor.methods({
       response.push( {title:b.path, content:oldcontent} );
     }
     tr.tree.forEach(updateBlob)
-    return response;
   },
 
   getShareJSDoc: function(doc) { //document id
@@ -81,21 +79,17 @@ Meteor.methods({
     return content;
   },
 
-  // update the contents of the buffer based on a certain commit:
-  // store the current file status in a temp-state - can be returned to
-  // clock the commit to select it, then load the buffer with these calls:
-  // var br = Meteor.call('getBranch','master')
-  // var tr = Meteor.call('getTree', br)
-  // var bb = Meteor.call('getBlobs', tr)
-  // bb will then have title and content fields, which you can use to update
-  // the share js doc
-
+  postShareJSDoc: function(blobs) { //array of _ids and content
   // method for updating the content of the share js doc:
   // get current doc string with above method
   // get the current version number as well
   // delete in an applyOp call, and insert new content:
   // ShareJS.model.applyOp(id, {op:[{p:0, d:oldcontent, i:newcontent}],
   // v:version, meta:null}, // function(e,r){})
+
+  },
+
+
 
   ///////////////////////
   // GITHUB POST REQUESTS
@@ -215,6 +209,23 @@ Meteor.methods({
     function commitInsert(c){Commits.insert(c)}
     var commits = Meteor.call('getAllCommits');
     commits.map(commitInsert);
+
+  },
+
+
+  /////////////////////////////////////////////////
+  // top level function, pull files and load editor
+  /////////////////////////////////////////////////
+
+  loadCommit: function() {
+  // update the contents of the buffer based on a certain commit:
+  // store the current file status in a temp-state - can be returned to
+  // clock the commit to select it, then load the buffer with these calls:
+  // var br = Meteor.call('getBranch','master')
+  // var tr = Meteor.call('getTree', br)
+  // var bb = Meteor.call('getBlobs', tr)
+  // bb will then have title and content fields, which you can use to update
+  // the share js doc
 
   }
 

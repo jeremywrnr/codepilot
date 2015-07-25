@@ -16,6 +16,11 @@ copilot is taking snapshots of the code while testing
 save files under the test, so testing does not disrupt  the editing
 passing the tests do a merge from mater in the testing app
 writing to the contents of a sharejs document
+making a message with the commit
+implementing a folder structure
+having sessions or groups - scaling app
+load a specific commit instead of the latest
+will involve storing the hashes in commits
 
 
 ## UI / UX
