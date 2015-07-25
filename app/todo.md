@@ -1,53 +1,34 @@
 TODOS
 =====
 
-madeye.io meteor // testing manual velocity // testing solution
-
-hardcode three files
-start syntax highlighting
-reconfigure public only repos
-structure of repo - make one for each user, have user request to collaborate on
-another users repo, make a
-
-copilot is tkaing snapshots of the code while testing - save files under the
-test, so testing does not disrupt  the editing. branching for testing, and then
-when passing tyhe tests do a merge from mater in the testing app
-
-testing / checkin / issues
-
-Let the pair switch off whenever they want if one person is getting tired or
-stuck or wants a chill break to be hanging out more passively in the background
-
-also case study from Mythical Man Month of surgeon + multiple assistants model
-of programming.
 
 ## GITHUB API (online)
 
-EDITING GITHUB PERMISSION REQUESTS:
-testing out pushing to an existing repo
-loading a repos content, commit history
+making a new repo
+branching for testing
+loading content from a repo into files, then docs
 ability to snapshot/fork code
 walk through commits (too much like desktop apps?)
 make tasks have a message - no null
 creating an issue on this repo - could be helpful to PROF
 activity feed along with the chat
-diff/commit on the user
+copilot is taking snapshots of the code while testing
+save files under the test, so testing does not disrupt  the editing
+passing the tests do a merge from mater in the testing app
+writing to the contents of a sharejs document
+
 
 ## UI / UX
 
-bug - clicking on box doesnt disable it??
+gutter indicators: copilot comments, recent edits
 add more labels on right side of task input
-coloring login button based on copilot
-attach links for refenece to file issue
-make show / hide (hide completed) button
+attach links for reference to file issue
 a distributed task - 1 pilot, 4 copilots
-copilot - write veiw of tests
-pilot - read view of tests
-copilot doesnt edit code
 actual testing interface
-gutter indicators:
-    copilot comments
-    recent edits
+copilot doesnt edit code
+copilot - write view of tests
+pilot - read view of tests
+
 
 ## NOTES / ERRORS
 
@@ -59,11 +40,28 @@ file contents while renaming, many errors - go back to not renaming on the
 rename form losing focus. a teacher can have lecture code stored in the repo,
 and then walk through bit by bit (eg commits), even if not runnable in the
 browser/cloud form controls must share editor template, or will break sometimes
-after longtime of unwatching: Uncaught SyntaxError: Unexpected token Y
+after longtime of unwatching: Uncaught SyntaxError: Unexpected token Y start
+syntax highlighting structure of repo - make one for each user, have user
+request to collaborate on another users repo, make a - Let the pair switch off
+whenever they want if one person is getting tired or stuck or wants a chill
+break to be hanging out more passively in the background maybe include and
+automated metric on how 'in flow' the person is, and hardcode three files
+suggest a change if it drops below a certain point - testing / checkin / issues
+madeye.io meteor // testing manual velocity // testing solution - also case
+study from Mythical Man Month of surgeon + multiple assistants model of
+programming.
+
 
 ### done
 
 <!--
+hardcode three files
+make show / hide (hide completed) button
+bug - clicking on box doesnt disable it??
+EDITING GITHUB PERMISSION REQUESTS:
+testing out pushing to an existing repo
+loading a repos content, commit history
+reconfigure public only repos
 change template based on roles
 making the task items more usable
 conflict with sharejs and docs??? renaming to files
