@@ -29,6 +29,31 @@ Meteor.methods({
 
 
 
+  /////////////////////
+  // SHAREJS MANAGEMENT
+  /////////////////////
+
+  getShareJSDoc: function(doc) { //document id
+    var response = {};
+    ShareJS.model.getSnapshot(doc, function(err, res){
+        response = { 'content': res.snapshot, 'version': res.v }
+    });
+    return response; //return content and version
+  },
+
+  postShareJSDoc: function(b) { //blobs with _id
+    var old = Meteor.call('getShareJSDoc', b._id); // get doc and version
+    ShareJS.model.applyOp( b._id, {
+      op: [
+        { p:0, d:old.content }, // delete old content
+        { p:0, i:b.content } // insert new blob content
+      ],
+      meta:null, v:old.version // apply it to last seen version
+    });
+  },
+
+
+
   //////////////////////
   // GITHUB GET REQUESTS
   //////////////////////
@@ -65,28 +90,9 @@ Meteor.methods({
         sha: b.sha
       });
       // $set component instead of creating a new object
-      Files.upsert({'title':b.path},{$set: {'oldcontent':oldcontent} });
-      response.push( {title:b.path, content:oldcontent} );
+      Files.upsert({'title':b.path},{$set: {'content':oldcontent} });
     }
     tr.tree.forEach(updateBlob)
-  },
-
-  getShareJSDoc: function(doc) { //document id
-    var content = '';
-    ShareJS.model.getSnapshot(doc, function(err, res){
-      content=res.snapshot
-    });
-    return content;
-  },
-
-  postShareJSDoc: function(blobs) { //array of _ids and content
-  // method for updating the content of the share js doc:
-  // get current doc string with above method
-  // get the current version number as well
-  // delete in an applyOp call, and insert new content:
-  // ShareJS.model.applyOp(id, {op:[{p:0, d:oldcontent, i:newcontent}],
-  // v:version, meta:null}, // function(e,r){})
-
   },
 
 
@@ -167,9 +173,10 @@ Meteor.methods({
 
     // getting file ids, names, and content
     var files = Files.find({},{_id:1}).map(function(f){
+      var shareJSDoc =  Meteor.call('getShareJSDoc', f._id)
       return {
         path: f.title,
-        content: Meteor.call('getShareJSDoc', f._id)
+        content: shareJSDoc.content
       }
     });
 
@@ -217,16 +224,17 @@ Meteor.methods({
   // top level function, pull files and load editor
   /////////////////////////////////////////////////
 
-  loadCommit: function() {
-  // update the contents of the buffer based on a certain commit:
-  // store the current file status in a temp-state - can be returned to
-  // clock the commit to select it, then load the buffer with these calls:
-  // var br = Meteor.call('getBranch','master')
-  // var tr = Meteor.call('getTree', br)
-  // var bb = Meteor.call('getBlobs', tr)
-  // bb will then have title and content fields, which you can use to update
-  // the share js doc
+  loadCommit: function() { // update the sharejs contents based on a  commit:
+    // at some point, this should be able to take different branches or commits
+    // along that branch to load instead of just the head od master
 
+    // put github repo contents in oldcontents field
+    var br = Meteor.call('getBranch','master')
+    var tr = Meteor.call('getTree', br)
+    Meteor.call('getBlobs', tr)
+    var files = Files.find({})
+    function updateShareJS(f){ Meteor.call('postShareJSDoc',f)}
+    return files.map(updateShareJS)
   }
 
 });

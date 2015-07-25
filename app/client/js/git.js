@@ -6,8 +6,8 @@ Template.commitPanel.events = {
     Meteor.call('makeCommit');
   },
 
-  "click .loadgithub": function(e) {
-    console.log('Coming soon...');
+  "click .loadcommit": function(e) {
+    Meteor.call('loadCommit');
   }
 
 };
