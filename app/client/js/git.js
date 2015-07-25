@@ -15,3 +15,4 @@ Template.git.events = {
   }
 
 };
+

@@ -6,7 +6,7 @@
   <div class="container full-height">
     <div class="col-xs-3 full-height">
       <div class="sidebar">
-        <h1><a href="/"> Code Pilot </a></h1>
+        <h1><a href="/"> code pilot </a></h1>
         {{#if currentUser }}
         {{> navigation }}
         {{/if}}
@@ -41,24 +41,16 @@
 
 <template name="userLoggedin">
   {{#if loggingIn }}
-  <button type="button" class="btn btn-default">Logging in...</button>
+  <button type="button" class="btn btn-default">logging in...</button>
   {{else}}
-  <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-      {{ currentUser.profile.name }}
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a href="/config"> {{currentUser.profile.login }}
-          / {{currentUser.profile.role }} </a></li>
-      <li class="logout"><a href="#">Log out</a></li>
-    </ul>
-  </div>
+  <button class="btn btn-default logout" type="button">
+    {{ currentUser.profile.login }} | logout
+  </button>
   {{/if}}
 </template>
 
 <template name="userLoggedout">
-  <button type="button" class="btn btn-default login">Login with Github</button>
+  <button type="button" class="btn btn-default login">login with Github</button>
 </template>
 
 <!-- navigation icons from http://glyphicons.com/ -->
