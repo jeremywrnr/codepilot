@@ -2,6 +2,7 @@
 
 Meteor.subscribe('files');
 Meteor.subscribe('tasks');
+Meteor.subscribe('commits');
 Meteor.subscribe('messages');
 Session.setDefault('document', null);
 Session.setDefault('renaming', false);

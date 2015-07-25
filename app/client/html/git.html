@@ -2,20 +2,31 @@
 
 <template name="git">
   <div class="col-xs-6 full-height">
-    <h2> git versioning</h2>
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title"> github </h3>
-      </div>
-      <div class="panel-body">
-        <button class='btn grn newcommit'>new commit</button>
-        <button class='btn grn loadgithub'>load github</button>
-        <ul class="nav nav-pills nav-stacked list">
-          {{#each commits}}
-          {{> commit}}
-          {{/each}}
-        </ul>
-      </div>
+    <h2> version control </h2>
+    {{> commitPanel }}
+    {{> history }}
+  </div>
+</template>
+
+<template name="commitPanel">
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h3 class="panel-title"> github integration </h3></div>
+    <div class="panel-body">
+      <button class='btn grn newcommit'>new commit</button>
+      <button class='btn grn loadgithub'>load github</button>
+    </div>
+  </div>
+</template>
+
+<template name="history">
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h3 class="panel-title"> history </h3></div>
+    <div class="panel-body">
+      <ul class="nav nav-pills nav-stacked list">
+        {{#each commits}}
+        {{> commit}}
+        {{/each}}
+      </ul>
     </div>
   </div>
 </template>

@@ -1,10 +1,6 @@
 // git things
 
-Template.git.helpers({
-  commits: function() { return Commits.find() }
-});
-
-Template.git.events = {
+Template.commitPanel.events = {
 
   "click .newcommit": function(e) {
     Meteor.call('makeCommit');
@@ -15,4 +11,8 @@ Template.git.events = {
   }
 
 };
+
+Template.history.helpers({
+  commits: function() { return Commits.find() }
+});
 

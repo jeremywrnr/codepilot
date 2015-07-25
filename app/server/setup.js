@@ -1,6 +1,7 @@
 // data publishing
 
 Meteor.publish('messages', function() { return Messages.find(); });
+Meteor.publish('commits', function() { return Commits.find(); });
 Meteor.publish('files', function() { return Files.find(); });
 Meteor.publish("tasks", function () {
   return Tasks.find({ $or: [ { private: {$ne: true} },{owner: this.userId} ] });
