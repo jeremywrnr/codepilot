@@ -1,11 +1,11 @@
 // data publishing
+// to sort and filter publishung:
+// return db.find({ $or: [ { private: {$ne: true} },{owner: this.userId} ] });
 
 Meteor.publish('messages', function() { return Messages.find(); });
 Meteor.publish('commits', function() { return Commits.find(); });
 Meteor.publish('files', function() { return Files.find(); });
-Meteor.publish("tasks", function () {
-  return Tasks.find({ $or: [ { private: {$ne: true} },{owner: this.userId} ] });
-});
+Meteor.publish('tasks', function() { return Tasks.find(); });
 
 // github config
 
@@ -40,10 +40,4 @@ Meteor.startup(function () { // get correct github auth key
     commits.map(commitInsert);
   }
 
-  // hard coding the file structure
-  Files.upsert({'title':'site.html'},{'title':'site.html'});
-  Files.upsert({'title':'site.css'},{'title':'site.css'});
-  Files.upsert({'title':'site.js'},{'title':'site.js'});
-
 });
-

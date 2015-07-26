@@ -4,23 +4,25 @@ TODOS
 
 ## GITHUB API (online)
 
-making a new repo
-branching for testing
-loading content from a repo into files, then docs
-ability to snapshot/fork code
-walk through commits (too much like desktop apps?)
-make tasks have a message - no null
-creating an issue on this repo - could be helpful to PROF
-activity feed along with the chat
-copilot is taking snapshots of the code while testing
-save files under the test, so testing does not disrupt  the editing
-passing the tests do a merge from mater in the testing app
-writing to the contents of a sharejs document
 making a message with the commit
+make tasks have a message - no null
+activity feed along with the chat
+
+walk through commits (too much like desktop apps?)
+creating an issue on this repo - could be helpful to PROF
+copilot is taking snapshots of the code while testing
+passing the tests do a merge from mater in the testing app
+save files under the test, so testing does not disrupt  the editing
+add a snapshot feature
 implementing a folder structure
 having sessions or groups - scaling app
+listiing a users repos / 'collabable'
+dropdown to select one to use in codepilot
+create branching for testing
+future: create a new repo with thbe api
 load a specific commit instead of the latest
 will involve storing the hashes in commits
+ability to fork code from parent repo
 
 
 ## UI / UX
@@ -61,6 +63,8 @@ programming.
 
 <!--
 hardcode three files
+writing to the contents of a sharejs document
+loading content from a repo into files, then docs
 make show / hide (hide completed) button
 bug - clicking on box doesnt disable it??
 EDITING GITHUB PERMISSION REQUESTS:

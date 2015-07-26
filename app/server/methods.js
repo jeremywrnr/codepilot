@@ -13,6 +13,14 @@ Meteor.methods({
     ShareJS.model["delete"](id);
   },
 
+  resetFiles: function() { // hard coding the file structure
+    Files.find({}).map(function(f){ ShareJS.model["delete"](f.id); });
+    Files.remove({});
+    Files.insert({'title':'site.html'});
+    Files.insert({'title':'site.css'});
+    Files.insert({'title':'site.js'});
+  },
+
   setPilot: function() {
     return Meteor.users.update(
       {"_id":Meteor.userId()},
@@ -36,7 +44,7 @@ Meteor.methods({
   getShareJSDoc: function(doc) { //document id
     var response = {};
     ShareJS.model.getSnapshot(doc, function(err, res){
-        response = { 'content': res.snapshot, 'version': res.v }
+      response = { 'content': res.snapshot, 'version': res.v }
     });
     return response; //return content and version
   },

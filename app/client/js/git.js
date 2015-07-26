@@ -2,6 +2,10 @@
 
 Template.commitPanel.events = {
 
+  "click .resetfiles": function(e) {
+    Meteor.call('resetFiles');
+  },
+
   "click .newcommit": function(e) {
     Meteor.call('makeCommit');
   },
