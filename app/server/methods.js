@@ -48,7 +48,8 @@ Meteor.methods({
         { p:0, d:old.content }, // delete old content
         { p:0, i:b.content } // insert new blob content
       ],
-      meta:null, v:old.version // apply it to last seen version
+      meta:null,
+      v:old.version // apply it to last seen version
     });
   },
 
@@ -200,10 +201,10 @@ Meteor.methods({
 
     // make the new commit object
     var cr = Meteor.call('postCommit', {
-      message: "made with the API",
+      message: Meteor.user().login + "made with the github API",
       author: {
-        name: "codepilot",
-        email: "codepilot@gmail.com",
+        name: Meteor.user().name,
+        email: Meteor.user().email,
         date: new Date()
       },
       parents: [ branch.commit.sha ],
@@ -232,6 +233,8 @@ Meteor.methods({
     var br = Meteor.call('getBranch','master')
     var tr = Meteor.call('getTree', br)
     Meteor.call('getBlobs', tr)
+
+    // move files old contents into sharejsdoc
     var files = Files.find({})
     function updateShareJS(f){ Meteor.call('postShareJSDoc',f)}
     return files.map(updateShareJS)
