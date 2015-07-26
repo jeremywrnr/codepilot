@@ -12,8 +12,10 @@ walk through commits (too much like desktop apps?)
 creating an issue on this repo - could be helpful to PROF
 copilot is taking snapshots of the code while testing
 passing the tests do a merge from mater in the testing app
-save files under the test, so testing does not disrupt  the editing
+save files under the test, so testing does not disrupt the editing
+have a diff below each of the commits
 add a snapshot feature
+store commit shas locally
 implementing a folder structure
 having sessions or groups - scaling app
 listiing a users repos / 'collabable'
@@ -31,6 +33,7 @@ gutter indicators: copilot comments, recent edits
 add more labels on right side of task input
 attach links for reference to file issue
 a distributed task - 1 pilot, 4 copilots
+form validation: chat, rename, task, commit
 actual testing interface
 copilot doesnt edit code
 copilot - write view of tests

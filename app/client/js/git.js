@@ -17,6 +17,20 @@ Template.commitPanel.events = {
 };
 
 Template.history.helpers({
-  commits: function() { return Commits.find() }
+  commits: function() {
+    return Commits.find()
+  }
 });
 
+
+Template.commit.helpers({
+  current: function() {
+    return Session.equals("commit", this._id);
+  }
+});
+
+Template.commit.events = {
+  "click .commit": function(e) {
+    Session.set("commit", this._id);
+  }
+};

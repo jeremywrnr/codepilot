@@ -14,7 +14,7 @@
     <div class="panel-body">
       <button class='btn grn newcommit'>new commit</button>
       <button class='btn grn loadcommit'>load commit</button>
-      <button class='btn grn resetfiles'>reset files</button>
+      <button class='btn del resetfiles'>reset files</button>
     </div>
   </div>
 </template>
@@ -33,5 +33,7 @@
 </template>
 
 <template name="commit">
-  <li><a href='#'> + {{ commit.message }} </a></li>
+  <li class="commit {{#if current}}active{{/if}}">
+    <a href="#"> - {{ commit.message }} </a>
+  </li>
 </template>
