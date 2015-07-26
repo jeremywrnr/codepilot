@@ -1,7 +1,7 @@
 <!--chat with other users-->
 
 <template name="chat">
-  <div class="panel panel-info">
+  <div class="panel panel-info sidepanel">
     <div class="panel-heading">
       <h3 class="panel-title">feed</h3>
     </div>
@@ -18,10 +18,10 @@
 
 <template name="messages">
   <div class="well well-sm">
-    <ul class="nav list">
+    <ul class="nav sidelist">
       {{#each messages}}
       <li> <strong>{{name}}:</strong> {{message}} </li>
       {{/each}}
     </ul>
-  </div>
+    </div>
 </template>

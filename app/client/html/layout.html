@@ -4,16 +4,14 @@
 
 <template name="main">
   <div class="container full-height">
-    <div class="col-xs-3 full-height">
+    <div class="col-xs-4 full-height">
       <div class="sidebar">
         <h1><a href="/"> code pilot </a></h1>
-        {{#if currentUser }}
-        {{> navigation }}
-        {{/if}}
 
         {{> loginGithub }}
 
         {{#if currentUser }}
+        {{> navigation }}
         {{> filelist }}
         {{> chat }}
         {{/if}}

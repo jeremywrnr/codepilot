@@ -22,7 +22,6 @@ Template.history.helpers({
   }
 });
 
-
 Template.commit.helpers({
   current: function() {
     return Session.equals("commit", this._id);
@@ -34,3 +33,6 @@ Template.commit.events = {
     Session.set("commit", this._id);
   }
 };
+
+//function validateForm() { var x = $('fname').value; if (x == null || x == "")
+//{ console.log("Name must be filled out"); return false; } }

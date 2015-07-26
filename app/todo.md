@@ -7,6 +7,7 @@ TODOS
 making a message with the commit
 make tasks have a message - no null
 activity feed along with the chat
+set up iframe html
 
 walk through commits (too much like desktop apps?)
 creating an issue on this repo - could be helpful to PROF
@@ -34,6 +35,7 @@ add more labels on right side of task input
 attach links for reference to file issue
 a distributed task - 1 pilot, 4 copilots
 form validation: chat, rename, task, commit
+add git options to each commit item
 actual testing interface
 copilot doesnt edit code
 copilot - write view of tests

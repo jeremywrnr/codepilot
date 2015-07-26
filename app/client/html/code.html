@@ -9,7 +9,7 @@
 </template>
 
 <template name="editor">
-  <div class="col-xs-9 editor-container full-height">
+  <div class="col-xs-8 editor-container full-height">
     {{#with docid}}
     {{> filename this}}
     {{> sharejsAce docid=this onRender=configAce id="editor"}}
@@ -18,7 +18,7 @@
 </template>
 
 <template name="loadprompt">
-  <div class="col-xs-6 full-height">
+  <div class="col-xs-8 full-height">
     <h2> code editor </h2>
     <div class="panel panel-primary">
       <div class="panel-heading">

@@ -16,6 +16,8 @@ Template.editor.helpers({
       ace.setTheme('ace/theme/monokai');
       ace.setShowPrintMargin(false);
       ace.getSession().setUseWrapMode(true);
+      //different style colors based on filename
+      //return filename.split('.').pop();
     };
   }
 
