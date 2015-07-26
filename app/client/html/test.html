@@ -46,8 +46,31 @@
       <h3 class="panel-title"> tester </h3>
     </div>
     <div class="panel-body">
-      actually let user plan / do some testing. maybe with
-      <a href="http://sharejs.org/readonly/html.html">this</a>
+      {{> iframe}}
     </div>
   </div>
+</template>
+
+<template name="iframe">
+  <html>
+    <head>
+
+      <style type="text/css">
+      /* put your CSS code here */
+      </style>
+
+      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+      <script type="text/javascript">
+      $(document).ready(function() {
+        /* put your JavaScript code here */
+      });
+      </script>
+
+    </head>
+    <body>
+
+      <!-- put your HTML code here -->
+
+    </body>
+  </html>
 </template>
