@@ -51,26 +51,21 @@
   </div>
 </template>
 
+<!--lol all the hackery...-->
 <template name="iframe">
-  <html>
-    <head>
-
-      <style type="text/css">
-      /* put your CSS code here */
-      </style>
-
-      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-      <script type="text/javascript">
-      $(document).ready(function() {
-        /* put your JavaScript code here */
-      });
-      </script>
-
-    </head>
-    <body>
-
-      <!-- put your HTML code here -->
-
-    </body>
-  </html>
+  <div style="margin:0px;padding:0px;overflow:hidden">
+    <iframe srcdoc='
+      <html>
+        <head>
+          <style type="text/css"> {{ getCSS }} </style>
+          <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+          <script type="text/javascript"> $(document).ready(function() { {{ getJS }} }); </script>
+        </head>
+        <body>
+        {{ getHTML }}
+        </body>
+      </html>
+      ' style="overflow:hidden;height:100%;width:100%"
+        frameborder="0" height="100%" width="100%" ></iframe>
+  </div>
 </template>

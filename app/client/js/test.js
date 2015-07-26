@@ -37,6 +37,22 @@ Template.testtasks.events({
 
 // task item helpers and events
 
+Template.iframe.helpers({
+
+  getHTML: function () {
+    return Files.findOne({title:/.*html/}).content
+  },
+
+  getCSS: function () {
+    return Files.findOne({title:/.*css/}).content
+  },
+
+  getJS: function () {
+    return Files.findOne({title:/.*js/}).content
+  },
+
+});
+
 Template.todotask.events({
 
   "click .toggle-checked": function () {
@@ -48,5 +64,3 @@ Template.todotask.events({
   }
 
 });
-
-//Template.todotask.helpers({});
