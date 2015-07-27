@@ -41,32 +41,20 @@ Meteor.methods({
   // SHAREJS MANAGEMENT
   /////////////////////
 
-  testShareJSDoc: function() { //record from Files
-    var f = Files.findOne();
-    var p = Meteor.call('getShareJSDoc',f);
-    return p
-  },
-
-  //ShareJSDoc = { 'content': res.snapshot, 'version': res.v };
-  getShareJSDoc: function(f) { //record from Files
-    var p = Q.defer();
-    ShareJS.model.getSnapshot(f._id, function(err, res){
-      if(res) p.resolve(res);
-      if(err) p.reject(err);
-    });
-    return p;
+  getShareJSDoc: function(f) { //record from Files, return editor copy
+    return Async.runSync(function(done){ ShareJS.model.getSnapshot
+                         (f._id, function(e,r){done(e,r)}) }).result;
   },
 
   postShareJSDoc: function(f) { //files with _id
-    Meteor.call('getShareJSDoc', b, function(sjs){ // get doc and version
-      ShareJS.model.applyOp( b._id, {
-        op: [
-          { p:0, d:sjs.content }, // delete old content
-          { p:0, i:b.content } // insert new blob content
-        ],
-        meta:null,
-        v:sjs.version // apply it to last seen version
-      });
+    var sjs = Meteor.call('getShareJSDoc', f) // get doc and version
+    ShareJS.model.applyOp( f._id, {
+      op: [
+        { p:0, d:sjs.content }, // delete old content
+        { p:0, i:f.content } // insert new blob content
+      ],
+      meta:null,
+      v:sjs.version // apply it to last seen version
     });
   },
 
@@ -184,14 +172,15 @@ Meteor.methods({
   // top level function, grab files and commit to github
   ////////////////////////////////////////////////////////
 
-  loadCommit: function() { // update the sharejs contents based on a  commit:
+  makeCommit: function() { // update the sharejs contents based on a  commit:
 
     // getting file ids, names, and content
     var files = Files.find({},{_id:1}).map(function(f){
-      var shareJSDoc =  Meteor.call('getShareJSDoc', f._id)
+      var shareJSDoc = Meteor.call('getShareJSDoc', f);
+      console.log(shareJSDoc)
       return {
         path: f.title,
-        content: shareJSDoc.content
+        content: shareJSDoc.snapshot
       }
     });
 
@@ -215,10 +204,10 @@ Meteor.methods({
 
     // make the new commit object
     var cr = Meteor.call('postCommit', {
-      message: Meteor.user().login + "made with the github API",
+      message: Meteor.user().profile.login + " - made with the github API",
       author: {
-        name: Meteor.user().name,
-        email: Meteor.user().email,
+        name: Meteor.user().profile.name,
+        email: Meteor.user().profile.email,
         date: new Date()
       },
       parents: [ branch.commit.sha ],
@@ -241,7 +230,7 @@ Meteor.methods({
 
   loadCommit: function() { // update the sharejs contents based on a  commit:
     // at some point, this should be able to take different branches or commits
-    // along that branch to load instead of just the head od master
+    // along that branch to load instead of just the head on master
 
     // put github repo contents in oldcontents field
     var br = Meteor.call('getBranch','master')

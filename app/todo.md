@@ -7,7 +7,8 @@ TODOS
 making a message with the commit
 make tasks have a message - no null
 activity feed along with the chat
-set up iframe html
+autolive view the code maybe?
+r lonly load into db on load commit
 
 walk through commits (too much like desktop apps?)
 creating an issue on this repo - could be helpful to PROF
@@ -68,6 +69,7 @@ programming. - look into using the promise library ql
 
 <!--
 hardcode three files
+set up iframe html
 writing to the contents of a sharejs document
 loading content from a repo into files, then docs
 make show / hide (hide completed) button
