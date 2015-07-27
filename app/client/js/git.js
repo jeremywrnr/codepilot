@@ -2,15 +2,15 @@
 
 Template.commitPanel.events = {
 
-  "click .resetfiles": function(e) {
+  "click .resetfiles": function() {
     Meteor.call('resetFiles');
   },
 
-  "click .newcommit": function(e) {
+  "click .newcommit": function() {
     Meteor.call('makeCommit');
   },
 
-  "click .loadcommit": function(e) {
+  "click .loadcommit": function() {
     Meteor.call('loadCommit');
   }
 
@@ -34,5 +34,3 @@ Template.commit.events = {
   }
 };
 
-//function validateForm() { var x = $('fname').value; if (x == null || x == "")
-//{ console.log("Name must be filled out"); return false; } }

@@ -8,12 +8,15 @@ Meteor.subscribe('messages');
 Session.setDefault('document', null);
 Session.setDefault('renaming', false);
 Session.setDefault('editorType', 'ace');
-//Session.setDefault('commit', null);
 
 // global helper(s)
 
+Template.registerHelper('validForm', function(e){
+  return (e !== null && e !== "");
+});
+
 Template.registerHelper('isPilot', function(){
-  return Meteor.user().profile.role == "pilot";
+  return Meteor.user().profile.role === "pilot";
 });
 
 // navbar options

@@ -1,6 +1,4 @@
 // data publishing
-// to sort and filter publishung:
-// return db.find({ $or: [ { private: {$ne: true} },{owner: this.userId} ] });
 
 Meteor.publish('files', function() { return Files.find(); });
 Meteor.publish('tasks', function() { return Tasks.find(); });
@@ -36,9 +34,8 @@ Meteor.startup(function () { // get correct github auth key
 
   // populating the commit log
   if (Commits.find().count() === 0){
-    function commitInsert(c){Commits.insert(c)}
     var commits = Meteor.call('getAllCommits');
-    commits.map(commitInsert);
+    commits.map(function commitInsert(c){Commits.insert(c)});
   }
 
 });

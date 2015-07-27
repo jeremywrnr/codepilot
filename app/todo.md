@@ -1,15 +1,15 @@
 TODOS
 =====
 
+making a message with the commit
+make tasks have a message - no null
+
 
 ## GITHUB API (online)
 
-autolive view the code maybe?
-making a message with the commit
-make tasks have a message - no null
 activity feed along with the chat
-only load into db on load commit
-
+autolive view the code maybe?
+only load into db on load commit?
 walk through commits (too much like desktop apps?)
 creating an issue on this repo - could be helpful to PROF
 copilot is taking snapshots of the code while testing
