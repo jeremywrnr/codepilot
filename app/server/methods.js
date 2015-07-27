@@ -41,23 +41,32 @@ Meteor.methods({
   // SHAREJS MANAGEMENT
   /////////////////////
 
-  getShareJSDoc: function(doc) { //document id
-    var response = {};
-    ShareJS.model.getSnapshot(doc, function(err, res){
-      response = { 'content': res.snapshot, 'version': res.v }
-    });
-    return response; //return content and version
+  testShareJSDoc: function() { //record from Files
+    var f = Files.findOne();
+    var p = Meteor.call('getShareJSDoc',f);
+    return p
   },
 
-  postShareJSDoc: function(b) { //blobs with _id
-    var old = Meteor.call('getShareJSDoc', b._id); // get doc and version
-    ShareJS.model.applyOp( b._id, {
-      op: [
-        { p:0, d:old.content }, // delete old content
-        { p:0, i:b.content } // insert new blob content
-      ],
-      meta:null,
-      v:old.version // apply it to last seen version
+  //ShareJSDoc = { 'content': res.snapshot, 'version': res.v };
+  getShareJSDoc: function(f) { //record from Files
+    var p = Q.defer();
+    ShareJS.model.getSnapshot(f._id, function(err, res){
+      if(res) p.resolve(res);
+      if(err) p.reject(err);
+    });
+    return p;
+  },
+
+  postShareJSDoc: function(f) { //files with _id
+    Meteor.call('getShareJSDoc', b, function(sjs){ // get doc and version
+      ShareJS.model.applyOp( b._id, {
+        op: [
+          { p:0, d:sjs.content }, // delete old content
+          { p:0, i:b.content } // insert new blob content
+        ],
+        meta:null,
+        v:sjs.version // apply it to last seen version
+      });
     });
   },
 
@@ -91,7 +100,7 @@ Meteor.methods({
   },
 
   getBlobs: function(tr) { //tree results
-    function updateBlob(b){
+    tr.tree.forEach(function updateBlob(b){
       var oldcontent = github.gitdata.getBlob({
         headers:{"Accept":"application/vnd.github.VERSION.raw"},
         user: "jeremywrnr",
@@ -100,8 +109,7 @@ Meteor.methods({
       });
       // $set component instead of creating a new object
       Files.upsert({'title':b.path},{$set: {'content':oldcontent} });
-    }
-    tr.tree.forEach(updateBlob)
+    });
   },
 
 
@@ -147,7 +155,7 @@ Meteor.methods({
       type: "token",
       token: Meteor.user().services.github.accessToken
     });
-    var response = github.gitdata.createCommit({
+    return github.gitdata.createCommit({
       user: "jeremywrnr",
       repo: "testing",
       message: c.message,
@@ -155,7 +163,6 @@ Meteor.methods({
       parents: c.parents,
       tree: c.tree
     });
-    return response;
   },
 
   postRef: function(cr){ // update ref to new commit, with commit results
@@ -163,13 +170,12 @@ Meteor.methods({
       type: "token",
       token: Meteor.user().services.github.accessToken
     });
-    var response = github.gitdata.updateReference({
+    return  github.gitdata.updateReference({
       user: "jeremywrnr",
       repo: "testing",
       ref: "heads/master",
       sha: cr.sha
     });
-    return response;
   },
 
 
@@ -178,7 +184,7 @@ Meteor.methods({
   // top level function, grab files and commit to github
   ////////////////////////////////////////////////////////
 
-  makeCommit: function() {
+  loadCommit: function() { // update the sharejs contents based on a  commit:
 
     // getting file ids, names, and content
     var files = Files.find({},{_id:1}).map(function(f){

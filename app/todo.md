@@ -61,7 +61,7 @@ automated metric on how 'in flow' the person is, and hardcode three files
 suggest a change if it drops below a certain point - testing / checkin / issues
 madeye.io meteor // testing manual velocity // testing solution - also case
 study from Mythical Man Month of surgeon + multiple assistants model of
-programming.
+programming. - look into using the promise library ql
 
 
 ### done
