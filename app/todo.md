@@ -4,11 +4,11 @@ TODOS
 
 ## GITHUB API (online)
 
+autolive view the code maybe?
 making a message with the commit
 make tasks have a message - no null
 activity feed along with the chat
-autolive view the code maybe?
-r lonly load into db on load commit
+only load into db on load commit
 
 walk through commits (too much like desktop apps?)
 creating an issue on this repo - could be helpful to PROF

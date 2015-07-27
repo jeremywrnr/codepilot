@@ -2,14 +2,15 @@
 // to sort and filter publishung:
 // return db.find({ $or: [ { private: {$ne: true} },{owner: this.userId} ] });
 
-Meteor.publish('messages', function() { return Messages.find(); });
-Meteor.publish('commits', function() { return Commits.find(); });
 Meteor.publish('files', function() { return Files.find(); });
 Meteor.publish('tasks', function() { return Tasks.find(); });
+Meteor.publish('messages', function() { return Messages.find(); });
+Meteor.publish('commits', function() { return Commits.find(
+  {}, {sort: {"commit.committer.date":-1}} )});
 
 // github config
 
-var inDevelopment = function(){return process.env.NODE_ENV === "development"; };
+var inDevelopment = function(){return process.env.NODE_ENV === "development"}
 
 Meteor.startup(function () { // get correct github auth key
 

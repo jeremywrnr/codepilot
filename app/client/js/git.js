@@ -18,7 +18,7 @@ Template.commitPanel.events = {
 
 Template.history.helpers({
   commits: function() {
-    return Commits.find()
+    return Commits.find();
   }
 });
 
