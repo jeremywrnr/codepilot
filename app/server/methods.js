@@ -172,7 +172,7 @@ Meteor.methods({
   // top level function, grab files and commit to github
   ////////////////////////////////////////////////////////
 
-  makeCommit: function() { // update the sharejs contents based on a  commit:
+  makeCommit: function(msg) { // update the sharejs contents based on a  commit:
 
     // getting file ids, names, and content
     var files = Files.find({},{_id:1}).map(function(f){
@@ -204,7 +204,7 @@ Meteor.methods({
 
     // make the new commit object
     var cr = Meteor.call('postCommit', {
-      message: Meteor.user().profile.login + " - made with the github API",
+      message: msg, // passed in
       author: {
         name: Meteor.user().profile.name,
         email: Meteor.user().profile.email,

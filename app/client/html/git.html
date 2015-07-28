@@ -1,4 +1,4 @@
-<!--git controls and api stuff here-->
+    <!--git controls and api stuff here-->
 
 <template name="git">
   <div class="col-xs-8 full-height">
@@ -12,14 +12,32 @@
   <div class="panel panel-primary">
     <div class="panel-heading"><h3 class="panel-title"> github integration </h3></div>
     <div class="panel-body">
+      {{#if committing}}
+
+      <div class="alert alert-success">
+        <div class="input-group">
+          <!--<span class="input-group-btn">-->
+            <!--<button type='button' class='btn grn cancelCommit'>commit</button>-->
+          <!--</span>-->
+          <form class="committer">
+            <input placeholder="enter a commit message..."
+                   id="commitMsg" class="form-control" type="text" name="title" value="">
+          </form>
+          <span class="input-group-btn">
+            <button type='button' class='btn del cancelCommit'>cancel</button>
+          </span>
+        </div>
+      </div>
+
+      <a target='_blank' href='https://octodex.github.com/'>
+        <img class="center" style='width:40%;' src='https://octodex.github.com/images/nyantocat.gif'/>
+        <!--<img class="center" style='width:40%;' src='http://random-octocat.herokuapp.com'/>-->
+      </a>
+
+      {{else}}
       <button class='btn grn newcommit'>new commit</button>
       <button class='btn grn loadcommit'>load commit</button>
       <button class='btn del resetfiles'>reset files</button>
-      {{#if committing}}
-      <form class="navbar-form">
-        <input id="commit-message" class="form-control" type="text"
-        name="title" value="enter a commit message:">
-      </form>
       {{/if}}
     </div>
   </div>

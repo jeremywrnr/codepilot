@@ -1,12 +1,14 @@
 TODOS
 =====
 
-making a message with the commit
+add 'repo' field to user
+choose target from list of on github - can get collab too?
+(only support blobs, no folders rn... later?)
+activity feed along with the chat
 
 
 ## GITHUB API (online)
 
-activity feed along with the chat
 autolive view the code maybe?
 sorting files alphabetically
 only load into db on load commit?
@@ -19,7 +21,10 @@ save files under the test, so testing does not disrupt the editing
 have a diff below each of the commits
 add a snapshot feature
 store commit shas locally
+do a check with commit contents, if different create the blob and do a diff
+against the current version with the github api, post before committing???
 implementing a folder structure
+maybe a loading bar for the commit progress
 having sessions or groups - scaling app
 listiing a users repos / 'collabable'
 dropdown to select one to use in codepilot
@@ -32,7 +37,9 @@ ability to fork code from parent repo
 
 ## UI / UX
 
+probably actually add a commit button?
 gutter indicators: copilot comments, recent edits
+maybe get rid of all the semicolons for stye++?
 add more labels on right side of task input
 click on task user label shouldnt complete
 perhaps they should show all with that tag?
@@ -107,6 +114,7 @@ make settings panel info boex success?
 tabbed user interface - elseif in meteor?
 or rather how to do some routing in meteor
 clicking on a file should go to edit tab
+making a message with the commit
 just make rename field focus a function
 when make a newfile, autofocus rename
 autofocus namefield on rename
