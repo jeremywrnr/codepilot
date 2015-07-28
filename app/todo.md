@@ -9,6 +9,7 @@ handle empty documents updating
 activity feed along with the chat
 not updating sharejs on server
 override the iframes logger so that it goes a box below with the javascript output
+generating shared session links
 
 ## GITHUB API (online)
 
