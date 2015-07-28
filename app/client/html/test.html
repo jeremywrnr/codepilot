@@ -11,17 +11,16 @@
 <template name="testtasks">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title"> tasks ({{incompleteCount}})
-        <label class="label pull-right">
-          hide complete
-          <input type="checkbox" checked="{{hideCompleted}}" class="hide-completed"/>
-        </label>
-      </h3>
+      <div class="panel-title">
+        tasks ({{incompleteCount}})
+      </div>
+      <label class="label pull-right"> hide complete
+        <input type="checkbox" checked="{{hideCompleted}}" class="hide-completed"/>
+      </label>
     </div>
-
     <div class="panel-body">
       <form class="new-task">
-        <input type="text" class="form-control" name="text" placeholder="add a task..." />
+        <input type="text" class="form-control" placeholder="add a task..." />
       </form>
       <ul class="list-group">
         {{#each tasks}}
@@ -43,16 +42,13 @@
 <template name="tester">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title"> tester </h3>
+      <div class="panel-title"> tester </div>
     </div>
-    <div class="panel-body">
-      {{> iframe}}
-    </div>
+    <div class="panel-body"> {{> iframe}} </div>
   </div>
 </template>
 
-<!--lol all the hackery...-->
-<template name="iframe">
+<template name="iframe"><!--lol all the hackery...-->
   <div style="margin:0px;padding:0px;overflow:hidden">
     <iframe srcdoc='
       <html>

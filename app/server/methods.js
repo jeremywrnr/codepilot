@@ -29,20 +29,19 @@ Meteor.methods({
     var base = [{'title':'site.html'},{'title':'site.css'},{'title':'site.js'}];
     base.map(function(f){ // for each of the hard coded files
       var id = Meteor.call('createFile', f.title);
-      //ShareJS.model["create"](id); // make sharejs models
     });
   },
 
   setPilot: function() {
     return Meteor.users.update(
-      {"_id":Meteor.userId()},
+      {"_id": Meteor.userId()},
       {$set : {"profile.role":"pilot"}}
     );
   },
 
   setCopilot: function(){
     return Meteor.users.update(
-      {"_id":Meteor.userId()},
+      {"_id": Meteor.userId()},
       {$set : {"profile.role":"copilot"}}
     );
   },
@@ -75,25 +74,32 @@ Meteor.methods({
   // GITHUB GET REQUESTS
   //////////////////////
 
+  getAllRepos: function() {
+    return github.repos.getCommits({
+      user: Meteor.user().profile.login,
+      repo: Meteor.user().profile.repo
+    });
+  },
+
   getAllCommits: function() {
     return github.repos.getCommits({
-      user: "jeremywrnr",
-      repo: "testing"
+      user: Meteor.user().profile.login,
+      repo: Meteor.user().profile.repo
     });
   },
 
   getBranch: function(bn) { //branch name
     return github.repos.getBranch({
-      user: "jeremywrnr",
-      repo: "testing",
+      user: Meteor.user().profile.login,
+      repo: Meteor.user().profile.repo,
       branch: bn
     });
   },
 
   getTree: function(br) { //branch results
     return github.gitdata.getTree({
-      user: "jeremywrnr",
-      repo: "testing",
+      user: Meteor.user().profile.login,
+      repo: Meteor.user().profile.repo,
       sha: br.commit.commit.tree.sha
     });
   },
@@ -102,8 +108,8 @@ Meteor.methods({
     tr.tree.forEach(function updateBlob(b){
       var oldcontent = github.gitdata.getBlob({
         headers:{"Accept":"application/vnd.github.VERSION.raw"},
-        user: "jeremywrnr",
-        repo: "testing",
+        user: Meteor.user().profile.login,
+        repo: Meteor.user().profile.repo,
         sha: b.sha
       });
       // $set component instead of creating a new object
@@ -119,13 +125,12 @@ Meteor.methods({
 
   postBlob: function(fc){ //returns blob SHA hash id
     var response = {};
-    github.authenticate({
-      type: "token",
-      token: Meteor.user().services.github.accessToken
+    github.authenticate({ type: "token",
+                        token: Meteor.user().services.github.accessToken
     });
     github.gitdata.createBlob({
-      user: "jeremywrnr",
-      repo: "testing",
+      user: Meteor.user().profile.login,
+      repo: Meteor.user().profile.repo,
       content: fc,
       encoding: "utf-8"
     }, function(err, res){
@@ -141,8 +146,8 @@ Meteor.methods({
       token: Meteor.user().services.github.accessToken
     });
     var response = github.gitdata.createTree({
-      user: "jeremywrnr",
-      repo: "testing",
+      user: Meteor.user().profile.login,
+      repo: Meteor.user().profile.repo,
       tree: t.tree,
       base_tree: t.base
     });
@@ -155,8 +160,8 @@ Meteor.methods({
       token: Meteor.user().services.github.accessToken
     });
     return github.gitdata.createCommit({
-      user: "jeremywrnr",
-      repo: "testing",
+      user: Meteor.user().profile.login,
+      repo: Meteor.user().profile.repo,
       message: c.message,
       author: c.author,
       parents: c.parents,
@@ -170,9 +175,9 @@ Meteor.methods({
       token: Meteor.user().services.github.accessToken
     });
     return  github.gitdata.updateReference({
-      user: "jeremywrnr",
-      repo: "testing",
-      ref: "heads/master",
+      user: Meteor.user().profile.login,
+      repo: Meteor.user().profile.repo,
+      ref: "heads/master", // TODO give choice for branch
       sha: cr.sha
     });
   },

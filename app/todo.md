@@ -1,19 +1,25 @@
 TODOS
 =====
 
-choose target from list of on github - can get collab too?
+choose target from list of on github
+
+buffer to content - then can test
+finally, commit these changes
 make a test button, save three buffers and load into iframe
 forcing todo some testing before the commit
+design project structure
+creating a repo
+
 
 ## GITHUB API (online)
 
-(only support blobs, no folders rn... later?)
+refactor authentication code - methods
 handle empty documents updating
 activity feed along with the chat
 not updating sharejs on server
+(only support blobs, no folders rn... later?)
 override the iframes logger so that it goes a box below with the javascript output
 generating shared session links
-
 autolive view the code maybe?
 sorting files alphabetically
 only load into db on load commit?
@@ -38,6 +44,7 @@ future: create a new repo with thbe api
 load a specific commit instead of the latest
 will involve storing the hashes in commits
 ability to fork code from parent repo
+parse the head out of the html source file
 
 
 ## UI / UX
@@ -118,6 +125,7 @@ color rename/delete buttons on hover
 if no files yet, say clicknew in list
 squash preforked git history
 make the chat list nicer
+hard to get collab or contributor repos.
 insert a better glyph for the current file
 make settings panel info boex success?
 tabbed user interface - elseif in meteor?
