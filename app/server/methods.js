@@ -4,21 +4,33 @@ Meteor.methods({
 
 
 
-  ///////////////////////
-  // FILE/ROLE MANAGEMENT
-  ///////////////////////
+  /////////////////////////
+  // FILE & ROLE MANAGEMENT
+  /////////////////////////
 
-  deleteFile: function(id) {
-    Files.remove(id);
-    ShareJS.model["delete"](id);
+  newFile: function() { // create a new file, unnamed, return id
+    return Meteor.call('createFile', 'untitled');
   },
 
-  resetFiles: function() { // hard coding the file structure
-    Files.find({}).map(function(f){ ShareJS.model["delete"](f.id); });
-    Files.remove({});
-    Files.insert({'title':'site.html'});
-    Files.insert({'title':'site.css'});
-    Files.insert({'title':'site.js'});
+  createFile: function(ft) { // make new file with filetitle (ft), return id
+    return Async.runSync(function(done){
+      Files.insert({title:ft},function(e,id){done(e,id)})
+    }).result;
+  },
+
+  deleteFile: function(id) { // with id, delete a file from system
+    ShareJS.model["delete"](id);
+    Files.remove(id);
+    Docs.remove(id);
+  },
+
+  resetFiles: function() { // reset db and hard code the file structure
+    Files.find({}).map(function(f){ Meteor.call('deleteFile', f._id)});
+    var base = [{'title':'site.html'},{'title':'site.css'},{'title':'site.js'}];
+    base.map(function(f){ // for each of the hard coded files
+      var id = Meteor.call('createFile', f.title);
+      //ShareJS.model["create"](id); // make sharejs models
+    });
   },
 
   setPilot: function() {
@@ -41,20 +53,19 @@ Meteor.methods({
   // SHAREJS MANAGEMENT
   /////////////////////
 
-  getShareJSDoc: function(f) { //record from Files, return editor copy
-    return Async.runSync(function(done){ ShareJS.model.getSnapshot
-                         (f._id, function(e,r){done(e,r)}) }).result;
+  getShareJSDoc: function(f) { // return live editor copy, v and snapshot
+    return Docs.find({ _id: f._id }).fetch()[0].data
   },
 
   postShareJSDoc: function(f) { //files with _id
     var sjs = Meteor.call('getShareJSDoc', f) // get doc and version
     ShareJS.model.applyOp( f._id, {
       op: [
-        { p:0, d:sjs.content }, // delete old content
+        { p:0, d:sjs.snapshot }, // delete old content
         { p:0, i:f.content } // insert new blob content
       ],
       meta:null,
-      v:sjs.version // apply it to last seen version
+      v:sjs.v // apply it to last seen version
     });
   },
 
@@ -238,9 +249,10 @@ Meteor.methods({
     Meteor.call('getBlobs', tr)
 
     // move files old contents into sharejsdoc
-    var files = Files.find({})
-    function updateShareJS(f){ Meteor.call('postShareJSDoc',f)}
-    return files.map(updateShareJS)
+    var fr = Files.find({})
+    return fr.map(function updateShareJS(f){
+      Meteor.call('postShareJSDoc',f)
+    });
   }
 
 });

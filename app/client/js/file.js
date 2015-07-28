@@ -1,17 +1,17 @@
 // file things
 
 Template.filelist.helpers({
-  files: function() { return Files.find() }
+
+  files: function() {
+    return Files.find()
+  }
+
 });
 
 Template.filelist.events = {
-  "click .new": function() {
-    return Files.insert({
-      title: "untitled"
-    }, function(err, id) {
-      if (!id) { return; }
-      Session.set("document", id);
-    });
+  "click .new": function(e) {
+    var id = Meteor.call('newFile');
+    Session.set("document", id);
   }
 };
 

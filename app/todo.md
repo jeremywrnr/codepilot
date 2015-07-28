@@ -1,11 +1,14 @@
 TODOS
 =====
 
-add 'repo' field to user
+make a test button, save three buffers and load into iframe
+forcing todo some testing before the commit
 choose target from list of on github - can get collab too?
 (only support blobs, no folders rn... later?)
+handle empty documents updating
 activity feed along with the chat
-
+not updating sharejs on server
+override the iframes logger so that it goes a box below with the javascript output
 
 ## GITHUB API (online)
 
@@ -74,7 +77,9 @@ automated metric on how 'in flow' the person is, and hardcode three files
 suggest a change if it drops below a certain point - testing / checkin / issues
 madeye.io meteor // testing manual velocity // testing solution - also case
 study from Mythical Man Month of surgeon + multiple assistants model of
-programming. - look into using the promise library ql
+programming. - look into using the promise library ql. the sharejs template
+creates a new doc for it when you press the new button, but you can do this
+automatically, with the model.create from sharejs.
 
 
 ### done
@@ -82,6 +87,8 @@ programming. - look into using the promise library ql
 <!--
 hardcode three files
 set up iframe html
+add 'repo' field to user
+make welcome template seperate, less wide
 writing to the contents of a sharejs document
 loading content from a repo into files, then docs
 make show / hide (hide completed) button

@@ -1,16 +1,21 @@
 <!--allow user to configure things-->
 
 <template name="config">
-  <div class="col-xs-8 full-height">
-    {{> welcome }}
-    {{#if currentUser }}
-    {{> settings }}
-    {{/if}}
-  </div>
+  {{#if currentUser }}
+  {{> settings }}
+  {{else}}
+  {{> welcome }}
+  {{/if}}
 </template>
 
 <template name="welcome">
-  <h2> welcome to code pilot!</h2>
+  <div class="col-xs-6 full-height">
+    <h2> welcome to code pilot!</h2>
+    {{> about }}
+  </div>
+</template>
+
+<template name="about">
   <p> This is a tool meant to help people collaborate on code more seamlessly.
   The model is based on that of a pilot and a co-pilot, where the pilot does
   most of the actual programming, and the co-pilot performs background coding
@@ -19,32 +24,35 @@
 </template>
 
 <template name="settings">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2 class="panel-title"> Settings </h2>
-    </div>
-    <div class="panel-body">
+  <div class="col-xs-8 full-height">
+    <h2> settings </h2>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h2 class="panel-title"> config </h2>
+      </div>
+      <div class="panel-body">
 
-      <h5>Account</h5>
-      <p><img class="img-rounded" style="height: 50px" src="{{currentUser.profile.avatar_url}}">
-      {{currentUser.profile.name}} / <a href="{{currentUser.profile.html_url}}">
-        {{ currentUser.profile.login }}</a> / {{currentUser.profile.role}}
-      </p>
+        <h5>account</h5>
+        <p><img class="img-rounded" style="height: 50px" src="{{currentUser.profile.avatar_url}}">
+        {{currentUser.profile.name}} / <a href="{{currentUser.profile.html_url}}">
+          {{ currentUser.profile.login }}</a> / {{currentUser.profile.role}}
+        </p>
 
-      <h5>Role</h5>
-      <form id="roleselect" class="center navbar-form">
-        <button class="makePilot grn btn btn-small">Pilot</button>
-        <button class="makeCopilot grn btn btn-small">CoPilot</button>
-      </form>
+        <h5>role</h5>
+        <form id="roleselect" class="center navbar-form">
+          <button class="makePilot grn btn btn-small">Pilot</button>
+          <button class="makeCopilot grn btn btn-small">CoPilot</button>
+        </form>
 
-      {{#if isPilot}}
-      <p>This view is only seen by pilots.</p>
-      <img class="img-rounded" style="height: 150px" src="http://www.cinemablend.com/images/news_img/32554/Top_Gun_2_32554.jpg">
-      {{else}}
-      <p>This view is only seen by copilots.</p>
-      <img class="img-rounded" style="height: 150px" src="https://s-media-cache-ak0.pinimg.com/236x/55/50/32/5550323e05e7a5f719de5263d7f160d2.jpg">
-      {{/if}}
+        {{#if isPilot}}
+        <p>This view is only seen by pilots.</p>
+        <img class="img-rounded" style="height: 150px" src="http://www.cinemablend.com/images/news_img/32554/Top_Gun_2_32554.jpg">
+        {{else}}
+        <p>This view is only seen by copilots.</p>
+        <img class="img-rounded" style="height: 150px" src="https://s-media-cache-ak0.pinimg.com/236x/55/50/32/5550323e05e7a5f719de5263d7f160d2.jpg">
+        {{/if}}
 
+      </div>
     </div>
   </div>
 </template>

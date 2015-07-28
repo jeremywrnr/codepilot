@@ -12,6 +12,7 @@ Accounts.onCreateUser(function(options, user){
                    "login", "name", "avatar_url", "url", "blog", "email", "html_url");
   user.profile = profile;
   user.profile.role = "copilot"
+  user.profile.repo = "testing"
   return user;
 
 })

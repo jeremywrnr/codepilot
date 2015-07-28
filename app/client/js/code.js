@@ -1,9 +1,11 @@
 // code editor things
 
 Template.code.helpers({
+
   nulldoc: function() {
     return Session.equals("document", null);
   }
+
 });
 
 Template.editor.helpers({
@@ -23,7 +25,8 @@ Template.editor.helpers({
 
 });
 
-  Template.filename.helpers({
+Template.filename.helpers({
+
   rename: function() {
     return Session.equals("renaming", true);
   },
@@ -31,6 +34,7 @@ Template.editor.helpers({
     var ref;
     return (ref = Files.findOne(this + "")) != null ? ref.title : void 0;
   }
+
 });
 
 Template.filename.events = {
