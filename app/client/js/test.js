@@ -39,6 +39,20 @@ Template.testtasks.events({
 
 // task item helpers and events
 
+Template.todotask.events({
+
+  "click .toggle-checked": function () {
+    Meteor.call("setChecked", this._id, ! this.checked);
+  },
+
+  "click .del": function () {
+    Meteor.call("deleteTask", this._id);
+  }
+
+});
+
+// iframe helper - load content from editor
+
 Template.iframe.helpers({
 
   getHTML: function () {
@@ -55,14 +69,3 @@ Template.iframe.helpers({
 
 });
 
-Template.todotask.events({
-
-  "click .toggle-checked": function () {
-    Meteor.call("setChecked", this._id, ! this.checked);
-  },
-
-  "click .del": function () {
-    Meteor.call("deleteTask", this._id);
-  }
-
-});

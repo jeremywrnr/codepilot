@@ -58,30 +58,38 @@
       <html>
         <head>
 
-          <style type="text/css"> {{ getCSS }} </style>
+          <style type="text/css"> {{getCSS}} </style>
 
           <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
-          <script type="text/javascript"> $(document).ready(function() { {{ getJS }} }); </script>
+          <script type="text/javascript">
+          $(document).ready(function(){ {{getJS}} });
+          </script>
 
-          <script type="text/javascript"> // overwrite local console.log
-          (function () { var old = console.log; var logger = document.getElementById("log");
-          console.log = function (message) { if (typeof message == "object") {
+          <script type="text/javascript">
+          // overwrite local console.log for iframe
+          (function () {
+          var old = console.log;
+          var logger = $("#log");
+          console.log = function (message)
+          {
+          if (typeof message == "object") {
           logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + "<br />";
-          } else { logger.innerHTML += message + "<br />";
-          }}})();
+          } else {
+          logger.innerHTML += message + "<br />";}
+          }
+          })();
           </script>
 
         </head>
         <body>
 
-        {{ getHTML }}
-        <div id="log"></div>
+          <div id="log"></div> {{ getHTML }}
 
         </body>
       </html>
       ' style="overflow:hidden;height:100%;width:100%"
-        frameborder="0" height="100%" width="100%" >
+        frameborder="0" height="100%" width="100%">
     </iframe>
   </div>
 </template>

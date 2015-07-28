@@ -1,17 +1,18 @@
 TODOS
 =====
 
+choose target from list of on github - can get collab too?
 make a test button, save three buffers and load into iframe
 forcing todo some testing before the commit
-choose target from list of on github - can get collab too?
+
+## GITHUB API (online)
+
 (only support blobs, no folders rn... later?)
 handle empty documents updating
 activity feed along with the chat
 not updating sharejs on server
 override the iframes logger so that it goes a box below with the javascript output
 generating shared session links
-
-## GITHUB API (online)
 
 autolive view the code maybe?
 sorting files alphabetically
