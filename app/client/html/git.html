@@ -15,6 +15,12 @@
       <button class='btn grn newcommit'>new commit</button>
       <button class='btn grn loadcommit'>load commit</button>
       <button class='btn del resetfiles'>reset files</button>
+      {{#if committing}}
+      <form class="navbar-form">
+        <input id="commit-message" class="form-control" type="text"
+        name="title" value="enter a commit message:">
+      </form>
+      {{/if}}
     </div>
   </div>
 </template>

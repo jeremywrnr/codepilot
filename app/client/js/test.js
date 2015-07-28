@@ -24,9 +24,11 @@ Template.testtasks.events({
 
   "submit .new-task": function (e) {
     var text = e.target.text.value;
-    Meteor.call("addTask", text);
-    e.target.text.value = ""; // Clear form
-    return false; // Prevent default form submit
+    if (text !== null && text !== ''){
+      Meteor.call("addTask", text);
+      e.target.text.value = ''; // Clear form
+    } // Prevent default form submit
+    return false;
   },
 
   "change .hide-completed": function (e) {

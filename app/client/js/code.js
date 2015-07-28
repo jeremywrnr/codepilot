@@ -23,28 +23,34 @@ Template.editor.helpers({
 
 });
 
-Template.editor.events = {
+  Template.filename.helpers({
+  rename: function() {
+    return Session.equals("renaming", true);
+  },
+  title: function() {
+    var ref;
+    return (ref = Files.findOne(this + "")) != null ? ref.title : void 0;
+  }
+});
+
+Template.filename.events = {
 
   // rename the current file
-  "keydown input[name=title]": function(e) {
-    if (e.keyCode !== 13) { return; }
+  "submit .rename": function(e) {
     e.preventDefault();
     $(e.target).blur();
+    var txt = $('#filetitle')[0].value;
+    if (txt == null || txt == '') return false;
     var id = Session.get("document");
     Session.set("renaming", false);
-    Files.update(id, { title: e.target.value });
+    Files.update(id, {$set:{title:txt}} );
   },
 
   // enable changing of filename
   "click button.edit": function (e) {
     e.preventDefault();
     Session.set("renaming", true);
-    setInterval(function() {
-      if ($('#namefield').length) {
-        $('#namefield').focus();
-        clearInterval(this);
-      }
-    }, 100); // check every 100ms
+    focusForm('#filetitle');
   },
 
   // delete the current file
@@ -57,14 +63,4 @@ Template.editor.events = {
   }
 
 };
-
-Template.filename.helpers({
-  rename: function() {
-    return Session.equals("renaming", true);
-  },
-  title: function() {
-    var ref;
-    return (ref = Files.findOne(this + "")) != null ? ref.title : void 0;
-  }
-});
 

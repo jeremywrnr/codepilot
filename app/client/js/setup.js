@@ -7,17 +7,23 @@ Meteor.subscribe('messages');
 
 Session.setDefault('document', null);
 Session.setDefault('renaming', false);
+Session.setDefault('committing', false);
 Session.setDefault('editorType', 'ace');
 
-// global helper(s)
-
-Template.registerHelper('validForm', function(e){
-  return (e !== null && e !== "");
-});
+// global client helpers
 
 Template.registerHelper('isPilot', function(){
   return Meteor.user().profile.role === "pilot";
 });
+
+focusForm = function(id){
+  setInterval(function() {
+    if ($(id).length) {
+      $(id).focus();
+      clearInterval(this);
+    } //wait til element exists, focus
+  }, 100); // check every 100ms
+};
 
 // navbar options
 

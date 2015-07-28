@@ -25,7 +25,7 @@ Meteor.startup(function () { // get correct github auth key
     debug: true,
     protocol: "https",
     headers: { "User-Agent": "code pilot" }
-  }); // oauth for api 5000/day)
+  }); // oauth for api 5000/day
   github.authenticate({
     type: "oauth",
     key: GHAuth.clientId,

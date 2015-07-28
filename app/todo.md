@@ -2,14 +2,15 @@ TODOS
 =====
 
 making a message with the commit
-make tasks have a message - no null
 
 
 ## GITHUB API (online)
 
 activity feed along with the chat
 autolive view the code maybe?
+sorting files alphabetically
 only load into db on load commit?
+make the rest of the server methods async -> sync
 walk through commits (too much like desktop apps?)
 creating an issue on this repo - could be helpful to PROF
 copilot is taking snapshots of the code while testing
@@ -33,12 +34,16 @@ ability to fork code from parent repo
 
 gutter indicators: copilot comments, recent edits
 add more labels on right side of task input
+click on task user label shouldnt complete
+perhaps they should show all with that tag?
+make a new task also adds an item to feed
 attach links for reference to file issue
 a distributed task - 1 pilot, 4 copilots
 form validation: chat, rename, task, commit
 add git options to each commit item
 actual testing interface
 copilot doesnt edit code
+handle null filename better
 copilot - write view of tests
 pilot - read view of tests
 
