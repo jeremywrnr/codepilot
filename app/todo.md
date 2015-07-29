@@ -3,7 +3,6 @@ TODOS
 
 form validation: chat, rename, task, commit
 only give user the user things: tag with id
-make a fake github account, collab with me
 
 ## GITHUB API (online)
 
@@ -95,6 +94,7 @@ reconfigure public only repos
 change template based on roles
 making the task items more usable
 conflict with sharejs and docs??? renaming to files
+make a fake github account, collab with me
 probably something to do with using autopublish
 removing login with email (just github)
 have a link to rename or edit the project files...
