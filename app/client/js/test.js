@@ -22,13 +22,13 @@ Template.testtasks.helpers({
 
 Template.testtasks.events({
 
-  "submit .new-task": function (e) {
-    var text = e.target.text.value;
-    if (text !== null && text !== ''){
-      Meteor.call("addTask", text);
-      e.target.text.value = ''; // Clear form
-    } // Prevent default form submit
-    return false;
+  // rename the current file
+  "submit .new-task": function(e) {
+    e.preventDefault();
+    $(e.target).blur();
+    var task = $('#task-name')[0].value;
+    if (task == null || task == '') return false;
+    Meteor.call('addTask', task);
   },
 
   "change .hide-completed": function (e) {
@@ -38,6 +38,12 @@ Template.testtasks.events({
 });
 
 // task item helpers and events
+
+Template.todotask.helpers({
+  mine: function() {
+    return (Meteor.user().profile.login === this.username)
+  }
+});
 
 Template.todotask.events({
 

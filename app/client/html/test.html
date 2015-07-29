@@ -20,7 +20,7 @@
     </div>
     <div class="panel-body">
       <form class="new-task">
-        <input type="text" class="form-control" placeholder="add a task..." />
+        <input id="task-name" type="text" class="form-control" placeholder="add a task..." />
       </form>
       <ul class="list-group">
         {{#each tasks}}
@@ -35,7 +35,7 @@
   <li class="list-group-item toggle-checked {{#if checked}}checked disabled{{/if}}">
     <input type="checkbox" class="toggle-checked" checked="{{checked}}"> {{text}}
     <button class="pull-right label btn del">&times;</button>
-    <button class="pull-right label btn btn-info">{{username}}</button>
+    <label class="pull-right btn label {{#if mine}}label-primary{{else}}label-info{{/if}}">{{username}}</label>
   </li>
 </template>
 

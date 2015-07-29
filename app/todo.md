@@ -1,12 +1,10 @@
 TODOS
 =====
 
-form validation: chat, rename, task, commit
+
+## SERVER
+
 only give user the user things: tag with id
-
-## GITHUB API (online)
-
-adding branch options to config panel
 commit these changes only after testing
 override the iframes logger so that it goes a box below with the javascript output
 generating shared session links
@@ -36,6 +34,7 @@ parse the head out of the html source file
 ## UI / UX
 
 make a test button, load buffer
+adding branch options to config panel
 save three buffers and load into iframe
 gutter indicators: copilot comments, recent edits
 add more labels on right side of task input
@@ -78,10 +77,12 @@ pilot, 4 copilots
 <!--
 hardcode three files
 set up iframe html
+form validation: chat, rename, task, commit
 add 'repo' field to user
 actual testing interface
 handle null filename better
 sorting files alphabetically
+show which commit owner
 make welcome template seperate, less wide
 writing to the contents of a sharejs document
 loading content from a repo into files, then docs
