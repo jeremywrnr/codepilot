@@ -74,11 +74,25 @@ Meteor.methods({
   // GITHUB GET REQUESTS
   //////////////////////
 
-  getAllRepos: function() {
-    return github.repos.getCommits({
-      user: Meteor.user().profile.login,
-      repo: Meteor.user().profile.repo
+  ghAuth: function(){ // authenticate for secure api calls
+    github.authenticate({
+      type: "token",
+      token: Meteor.user().services.github.accessToken
     });
+  },
+
+  getAllRepos: function() { //put them in db, serve to user (rather than return)
+    Meteor.call('ghAuth');
+    var repos = github.repos.getAll({ user: Meteor.user().profile.login});
+  repos.map(function(gr){
+    Repos.upsert({ //attach git repo (gr) to user
+      user: Meteor.userId(),
+      id: gr.id
+    },{
+      user: Meteor.userId(),
+      id: gr.id,
+      repo: gr
+    })});
   },
 
   getAllCommits: function() {
@@ -125,9 +139,7 @@ Meteor.methods({
 
   postBlob: function(fc){ //returns blob SHA hash id
     var response = {};
-    github.authenticate({ type: "token",
-                        token: Meteor.user().services.github.accessToken
-    });
+    Meteor.call('ghAuth');
     github.gitdata.createBlob({
       user: Meteor.user().profile.login,
       repo: Meteor.user().profile.repo,
@@ -141,10 +153,7 @@ Meteor.methods({
   },
 
   postTree: function(t){ //returns tree SHA hash id
-    github.authenticate({
-      type: "token",
-      token: Meteor.user().services.github.accessToken
-    });
+    Meteor.call('ghAuth');
     var response = github.gitdata.createTree({
       user: Meteor.user().profile.login,
       repo: Meteor.user().profile.repo,
@@ -155,10 +164,7 @@ Meteor.methods({
   },
 
   postCommit: function(c) { //returns all commit info
-    github.authenticate({
-      type: "token",
-      token: Meteor.user().services.github.accessToken
-    });
+    Meteor.call('ghAuth');
     return github.gitdata.createCommit({
       user: Meteor.user().profile.login,
       repo: Meteor.user().profile.repo,
@@ -170,10 +176,7 @@ Meteor.methods({
   },
 
   postRef: function(cr){ // update ref to new commit, with commit results
-    github.authenticate({
-      type: "token",
-      token: Meteor.user().services.github.accessToken
-    });
+    Meteor.call('ghAuth');
     return  github.gitdata.updateReference({
       user: Meteor.user().profile.login,
       repo: Meteor.user().profile.repo,
@@ -181,7 +184,6 @@ Meteor.methods({
       sha: cr.sha
     });
   },
-
 
 
   ////////////////////////////////////////////////////////
@@ -254,8 +256,7 @@ Meteor.methods({
     Meteor.call('getBlobs', tr)
 
     // move files old contents into sharejsdoc
-    var fr = Files.find({})
-    return fr.map(function updateShareJS(f){
+    Files.find({}).map(function updateShareJS(f){
       Meteor.call('postShareJSDoc',f)
     });
   }

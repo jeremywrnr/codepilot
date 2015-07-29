@@ -3,8 +3,12 @@
 Meteor.publish('files', function() { return Files.find(); });
 Meteor.publish('tasks', function() { return Tasks.find(); });
 Meteor.publish('messages', function() { return Messages.find(); });
-Meteor.publish('commits', function() { return Commits.find(
-  {}, {sort: {"commit.committer.date":-1}} )});
+  // only serve writable repos
+Meteor.publish('repos', function() { return Repos.find({}); });
+  //return Repos.find({ user: this.userId })
+Meteor.publish('commits', function() { // serve commits in time order
+  return Commits.find({}, {sort: {"commit.committer.date":-1}} );
+});
 
 // github config
 

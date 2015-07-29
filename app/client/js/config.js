@@ -1,6 +1,12 @@
 // configuration page
 
-//Template.settings.helpers({});
+Template.settings.helpers({
+
+  repos: function(){
+    return Repos.find();
+  }
+
+});
 
 Template.settings.events({
 
@@ -12,6 +18,11 @@ Template.settings.events({
   "click .makeCopilot": function(e) {
     e.preventDefault();
     Meteor.call("setCopilot");
+  },
+
+  "click .loadRepos": function(e) {
+    e.preventDefault();
+    Meteor.call("getAllRepos");
   }
 
 });

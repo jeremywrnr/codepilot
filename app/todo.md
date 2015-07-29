@@ -15,6 +15,7 @@ creating a repo
 
 refactor authentication code - methods
 handle empty documents updating
+make caching save commits, or only add latest
 activity feed along with the chat
 not updating sharejs on server
 (only support blobs, no folders rn... later?)

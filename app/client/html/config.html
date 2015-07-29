@@ -27,21 +27,43 @@
   <div class="col-xs-8 full-height">
     <h2> settings </h2>
     <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h2 class="panel-title"> config </h2>
-      </div>
+      <div class="panel-heading"> <h2 class="panel-title"> config </h2> </div>
       <div class="panel-body">
 
         <h5>account</h5>
-        <p><img class="img-rounded" style="height: 50px" src="{{currentUser.profile.avatar_url}}">
-        {{currentUser.profile.name}} / <a href="{{currentUser.profile.html_url}}">
-          {{ currentUser.profile.login }}</a> / {{currentUser.profile.role}}
-        </p>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img class="img-rounded" style="height: 75px;" src="{{currentUser.profile.avatar_url}}">
+            {{currentUser.profile.name}}
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">
+              github: <a href="{{currentUser.profile.html_url}}">{{ currentUser.profile.login }}</a>
+              / <a href="{{currentUser.profile.html_url}}/{{ currentUser.profile.repo }}">
+                {{ currentUser.profile.repo }}</a>
+            </li>
+            <li class="list-group-item">role: {{currentUser.profile.role}}</li>
+          </ul>
+        </div>
+
+        <h5>github repo</h5>
+        <div class="btn-group">
+          <button type="button" class="btn grn dropdown-toggle" data-toggle="dropdown">
+            choose <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header">write-able GH repos</li>
+            {{#each repos}}
+            {{> repo}}
+            {{/each}}
+          </ul>
+        </div>
+        <button type="button" class="loadRepos grn btn">refresh</button>
 
         <h5>role</h5>
         <form id="roleselect" class="center navbar-form">
-          <button class="makePilot grn btn btn-small">Pilot</button>
-          <button class="makeCopilot grn btn btn-small">CoPilot</button>
+          <button class="makePilot grn btn">pilot</button>
+          <button class="makeCopilot grn btn">co-pilot</button>
         </form>
 
         {{#if isPilot}}
@@ -55,4 +77,8 @@
       </div>
     </div>
   </div>
+</template>
+
+<template name="repo">
+  <li><a href="#">{{ repo.name }}</a></li>
 </template>

@@ -2,6 +2,7 @@
 
 Meteor.subscribe('files');
 Meteor.subscribe('tasks');
+Meteor.subscribe('repos');
 Meteor.subscribe('commits');
 Meteor.subscribe('messages');
 
