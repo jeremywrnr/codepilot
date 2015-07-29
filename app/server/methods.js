@@ -93,36 +93,32 @@ Meteor.methods({
   getAllRepos: function() { //put them in db, serve to user (rather than return)
     Meteor.call('ghAuth');
     var repos = github.repos.getAll({ user: Meteor.user().profile.login});
-    repos.map(function(gr){
-      Repos.upsert({ //attach git repo (gr) to user
-        user: Meteor.userId(),
-        id: gr.id
-      },{
-        user: Meteor.userId(),
-        id: gr.id,
-        repo: gr
-      })});
+    repos.map(function(gr){ //attach git repo (gr) to user
+      Repos.upsert(
+        { user: Meteor.userId(), id: gr.id },
+        { user: Meteor.userId(), id: gr.id, repo: gr }
+      )});
   },
 
   getAllCommits: function() {
     return github.repos.getCommits({
-      user: Meteor.user().profile.login,
-      repo: Meteor.user().profile.repo
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName
     });
   },
 
   getBranch: function(bn) { //branch name
     return github.repos.getBranch({
-      user: Meteor.user().profile.login,
-      repo: Meteor.user().profile.repo,
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
       branch: bn
     });
   },
 
   getTree: function(br) { //branch results
     return github.gitdata.getTree({
-      user: Meteor.user().profile.login,
-      repo: Meteor.user().profile.repo,
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
       sha: br.commit.commit.tree.sha
     });
   },
@@ -131,8 +127,8 @@ Meteor.methods({
     tr.tree.forEach(function updateBlob(b){
       var oldcontent = github.gitdata.getBlob({
         headers:{"Accept":"application/vnd.github.VERSION.raw"},
-        user: Meteor.user().profile.login,
-        repo: Meteor.user().profile.repo,
+        user: Meteor.user().profile.repoOwner,
+        repo: Meteor.user().profile.repoName,
         sha: b.sha
       });
       // $set component instead of creating a new object
@@ -150,8 +146,8 @@ Meteor.methods({
     var response = {};
     Meteor.call('ghAuth');
     github.gitdata.createBlob({
-      user: Meteor.user().profile.login,
-      repo: Meteor.user().profile.repo,
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
       content: fc,
       encoding: "utf-8"
     }, function(err, res){
@@ -164,8 +160,8 @@ Meteor.methods({
   postTree: function(t){ //returns tree SHA hash id
     Meteor.call('ghAuth');
     var response = github.gitdata.createTree({
-      user: Meteor.user().profile.login,
-      repo: Meteor.user().profile.repo,
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
       tree: t.tree,
       base_tree: t.base
     });
@@ -175,8 +171,8 @@ Meteor.methods({
   postCommit: function(c) { //returns all commit info
     Meteor.call('ghAuth');
     return github.gitdata.createCommit({
-      user: Meteor.user().profile.login,
-      repo: Meteor.user().profile.repo,
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
       message: c.message,
       author: c.author,
       parents: c.parents,
@@ -187,8 +183,8 @@ Meteor.methods({
   postRef: function(cr){ // update ref to new commit, with commit results
     Meteor.call('ghAuth');
     return  github.gitdata.updateReference({
-      user: Meteor.user().profile.login,
-      repo: Meteor.user().profile.repo,
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
       ref: "heads/master", // TODO give choice for branch
       sha: cr.sha
     });
@@ -229,7 +225,7 @@ Meteor.methods({
     var newTree = { "base": oldTree.sha, "tree": blobs };
     var treeSHA = Meteor.call('postTree', newTree);
 
-    // make the new commit object
+    // make the new commit result (cr) object
     var cr = Meteor.call('postCommit', {
       message: msg, // passed in
       author: {

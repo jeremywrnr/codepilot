@@ -13,10 +13,10 @@
     <div class="panel-heading">
       <div class="panel-title">
         tasks ({{incompleteCount}})
+        <label class="label pull-right"> hide complete
+          <input type="checkbox" checked="{{hideCompleted}}" class="hide-completed"/>
+        </label>
       </div>
-      <label class="label pull-right"> hide complete
-        <input type="checkbox" checked="{{hideCompleted}}" class="hide-completed"/>
-      </label>
     </div>
     <div class="panel-body">
       <form class="new-task">

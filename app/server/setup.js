@@ -1,5 +1,6 @@
 // data publishing
 
+
 Meteor.publish('repos', function() { // only serve writable repos
   return Repos.find({user: this.userId}, {sort: {"repo.owner":-1}} );
 });
@@ -10,7 +11,9 @@ Meteor.publish('messages', function() { return Messages.find(); });
 Meteor.publish('files', function() { return Files.find(); });
 Meteor.publish('tasks', function() { return Tasks.find(); });
 
+
 // github config
+
 
 var inDevelopment = function(){return process.env.NODE_ENV === "development"}
 
