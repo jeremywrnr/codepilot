@@ -1,4 +1,4 @@
-    <!--git controls and api stuff here-->
+<!--git controls and api stuff here-->
 
 <template name="git">
   <div class="col-xs-6 full-height">
@@ -17,7 +17,7 @@
       <div class="alert alert-success">
         <div class="input-group">
           <!--<span class="input-group-btn">-->
-            <!--<button type='button' class='btn grn cancelCommit'>commit</button>-->
+          <!--<button type='button' class='btn grn cancelCommit'>commit</button>-->
           <!--</span>-->
           <form class="committer">
             <input placeholder="enter a commit message..."
@@ -36,7 +36,7 @@
 
       {{else}}
       <button class='btn grn newcommit'>new commit</button>
-      <button class='btn grn loadcommit'>load commit</button>
+      <button class='btn edit loadcommit'>load commit</button>
       <button class='btn del resetfiles'>reset files</button>
       {{/if}}
     </div>
@@ -47,17 +47,20 @@
   <div class="panel panel-primary">
     <div class="panel-heading"><h3 class="panel-title"> history </h3></div>
     <div class="panel-body">
-      <ul class="nav nav-pills nav-stacked">
+      <div class="list-group">
         {{#each commits}}
         {{> commit}}
         {{/each}}
-      </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <template name="commit">
-  <li class="commit {{#if current}}active{{/if}}">
-    <a href="#"> - {{ commit.message }} </a>
-  </li>
+  <a class="list-group-item commit" id="{{#if current}}active-commit{{/if}}" href="#">
+    {{ commit.message }}
+    <span class="pull-right label {{#if mine}}label-primary{{else}}label-info{{/if}}">
+      {{author.login}}
+    </span>
+  </a>
 </template>

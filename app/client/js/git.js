@@ -47,6 +47,9 @@ Template.history.helpers({
 Template.commit.helpers({
   current: function() {
     return Session.equals("commit", this._id);
+  },
+  mine: function() {
+    return (Meteor.user().profile.login === this.author.login)
   }
 });
 
