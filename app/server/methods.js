@@ -46,6 +46,15 @@ Meteor.methods({
     );
   },
 
+  setRepo: function(gr) { //set git repo
+    return Meteor.users.update(
+      {"_id": Meteor.userId()},
+      {$set : {
+        "profile.repoName": gr.repo.name,
+        "profile.repoOwner": gr.repo.owner.login
+      }});
+  },
+
 
 
   /////////////////////
@@ -84,15 +93,15 @@ Meteor.methods({
   getAllRepos: function() { //put them in db, serve to user (rather than return)
     Meteor.call('ghAuth');
     var repos = github.repos.getAll({ user: Meteor.user().profile.login});
-  repos.map(function(gr){
-    Repos.upsert({ //attach git repo (gr) to user
-      user: Meteor.userId(),
-      id: gr.id
-    },{
-      user: Meteor.userId(),
-      id: gr.id,
-      repo: gr
-    })});
+    repos.map(function(gr){
+      Repos.upsert({ //attach git repo (gr) to user
+        user: Meteor.userId(),
+        id: gr.id
+      },{
+        user: Meteor.userId(),
+        id: gr.id,
+        repo: gr
+      })});
   },
 
   getAllCommits: function() {

@@ -3,7 +3,7 @@
 Template.settings.helpers({
 
   repos: function(){
-    return Repos.find();
+    return Repos.find({});
   }
 
 });
@@ -26,3 +26,12 @@ Template.settings.events({
   }
 
 });
+
+Template.repo.events = {
+
+  "click .repo": function(e) {
+    Meteor.call("setRepo", this);
+  }
+
+};
+

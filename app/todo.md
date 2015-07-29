@@ -2,13 +2,14 @@ TODOS
 =====
 
 choose target from list of on github
-
+sort owned and all other editable repos
 buffer to content - then can test
 finally, commit these changes
 make a test button, save three buffers and load into iframe
 forcing todo some testing before the commit
 design project structure
 creating a repo
+refactor on repoName
 
 
 ## GITHUB API (online)
