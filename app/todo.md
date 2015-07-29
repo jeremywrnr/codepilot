@@ -1,31 +1,16 @@
 TODOS
 =====
 
-choose target from list of on github
-sort owned and all other editable repos
-buffer to content - then can test
-finally, commit these changes
-make a test button, save three buffers and load into iframe
-forcing todo some testing before the commit
-design project structure
-creating a repo
-refactor on repoName
-
+form validation: chat, rename, task, commit
+only give user the user things: tag with id
+make a fake github account, collab with me
 
 ## GITHUB API (online)
 
-refactor authentication code - methods
-handle empty documents updating
-make caching save commits, or only add latest
-activity feed along with the chat
-not updating sharejs on server
-(only support blobs, no folders rn... later?)
+adding branch options to config panel
+commit these changes only after testing
 override the iframes logger so that it goes a box below with the javascript output
 generating shared session links
-autolive view the code maybe?
-sorting files alphabetically
-only load into db on load commit?
-make the rest of the server methods async -> sync
 walk through commits (too much like desktop apps?)
 creating an issue on this repo - could be helpful to PROF
 copilot is taking snapshots of the code while testing
@@ -51,20 +36,15 @@ parse the head out of the html source file
 
 ## UI / UX
 
-probably actually add a commit button?
+make a test button, load buffer
+save three buffers and load into iframe
 gutter indicators: copilot comments, recent edits
-maybe get rid of all the semicolons for stye++?
 add more labels on right side of task input
 click on task user label shouldnt complete
-perhaps they should show all with that tag?
 make a new task also adds an item to feed
 attach links for reference to file issue
-a distributed task - 1 pilot, 4 copilots
-form validation: chat, rename, task, commit
 add git options to each commit item
-actual testing interface
 copilot doesnt edit code
-handle null filename better
 copilot - write view of tests
 pilot - read view of tests
 
@@ -90,7 +70,8 @@ madeye.io meteor // testing manual velocity // testing solution - also case
 study from Mythical Man Month of surgeon + multiple assistants model of
 programming. - look into using the promise library ql. the sharejs template
 creates a new doc for it when you press the new button, but you can do this
-automatically, with the model.create from sharejs.
+automatically, with the model.create from sharejs. - a distributed task - 1
+pilot, 4 copilots
 
 
 ### done
@@ -99,6 +80,9 @@ automatically, with the model.create from sharejs.
 hardcode three files
 set up iframe html
 add 'repo' field to user
+actual testing interface
+handle null filename better
+sorting files alphabetically
 make welcome template seperate, less wide
 writing to the contents of a sharejs document
 loading content from a repo into files, then docs
@@ -114,6 +98,7 @@ conflict with sharejs and docs??? renaming to files
 probably something to do with using autopublish
 removing login with email (just github)
 have a link to rename or edit the project files...
+refactor authentication code - methods
 looking at roles, changing editing profiles
 make login info pop to the left | align it right
 deleting and renaming button (NOW DOES) work
@@ -140,4 +125,7 @@ autofocus namefield on rename
 clean up css duplication rules
 option to pick roles
 basic roles management
+refactor on repoName
+choose target from list of on github
+sort owned and all other editable repos
 -->
