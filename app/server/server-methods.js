@@ -4,9 +4,9 @@ Meteor.methods({
 
 
 
-  /////////////////////////
-  // FILE & ROLE MANAGEMENT
-  /////////////////////////
+  //////////////////
+  // FILE MANAGEMENT
+  //////////////////
 
   newFile: function() { // create a new file, unnamed, return id
     return Meteor.call('createFile', 'untitled');
@@ -30,29 +30,6 @@ Meteor.methods({
     base.map(function(f){ // for each of the hard coded files
       var id = Meteor.call('createFile', f.title);
     });
-  },
-
-  setPilot: function() {
-    return Meteor.users.update(
-      {"_id": Meteor.userId()},
-      {$set : {"profile.role":"pilot"}}
-    );
-  },
-
-  setCopilot: function(){
-    return Meteor.users.update(
-      {"_id": Meteor.userId()},
-      {$set : {"profile.role":"copilot"}}
-    );
-  },
-
-  setRepo: function(gr) { //set git repo
-    return Meteor.users.update(
-      {"_id": Meteor.userId()},
-      {$set : {
-        "profile.repoName": gr.repo.name,
-        "profile.repoOwner": gr.repo.owner.login
-      }});
   },
 
 
@@ -210,14 +187,14 @@ Meteor.methods({
     // getting file ids, names, and content
     var files = Files.find({},{_id:1}).map(function(f){
       var shareJSDoc = Meteor.call('getShareJSDoc', f);
-      console.log(shareJSDoc)
+      if (debug) console.log(shareJSDoc);
       return {
         path: f.title,
         content: shareJSDoc.snapshot
       }
     });
 
-    // a diff would be done here, remove unchanged files
+    // a diff would be done here, remove unchanged files from list
 
     // push blobs, get shas
     var blobs = files.map(function (f){
@@ -254,6 +231,9 @@ Meteor.methods({
     var commits = Meteor.call('getAllCommits');
     commits.map(commitInsert);
 
+    // update the feed with new commit
+    Meteor.call('addMessage', "commited '" + msg + "'");
+
   },
 
 
@@ -262,6 +242,7 @@ Meteor.methods({
   /////////////////////////////////////////////////
 
   loadCommit: function() { // update the sharejs contents based on a  commit:
+
     // at some point, this should be able to take different branches or commits
     // along that branch to load instead of just the head on master
 
@@ -271,9 +252,8 @@ Meteor.methods({
     Meteor.call('getBlobs', tr)
 
     // move files old contents into sharejsdoc
-    Files.find({}).map(function updateShareJS(f){
-      Meteor.call('postShareJSDoc',f)
-    });
+    Files.find({}).map(function loadSJS(f){ Meteor.call('postShareJSDoc',f) });
+
   }
 
 });

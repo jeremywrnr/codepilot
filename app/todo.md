@@ -1,18 +1,15 @@
 TODOS
 =====
 
-integrate feed hooks into tasks
-integrate feed hooks into commits
-undo offline editing hack
 file specific syntax highlighting
-change tasks collection to 'feed'
+change tasks collection to feed?
+undo offline editing hack
 
 
 ## SERVER
 
 only give user the user things: tag with id
-    what about giving them resources related to another project?
-
+what about giving them resources related to another project?
 commit these changes only after testing
 override the iframes logger so that it goes to custom javascript output
 generating shared session links
@@ -85,6 +82,7 @@ pilot, 4 copilots
 <!--
 hardcode three files
 set up iframe html
+integrate feed hooks into tasks
 make a test button, load buffer
 save three buffers and load into iframe
 form validation: chat, rename, task, commit
@@ -95,6 +93,7 @@ sorting files alphabetically
 show which commit owner
 make welcome template seperate, less wide
 writing to the contents of a sharejs document
+integrate feed hooks into commits
 loading content from a repo into files, then docs
 make show / hide (hide completed) button
 bug - clicking on box doesnt disable it??

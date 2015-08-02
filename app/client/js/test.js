@@ -6,7 +6,7 @@ Template.testtasks.helpers({
     if (Session.get("hideCompleted")) {
       return Tasks.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
     } else {
-      return Tasks.find({}, {sort: {createdAt: -1}});
+      return Tasks.find({}, {sort: {checked: 1, createdAt: -1}});
     }
   },
 
@@ -29,6 +29,7 @@ Template.testtasks.events({
     var task = $('#task-name')[0].value;
     if (task == null || task == '') return false;
     Meteor.call('addTask', task);
+    Meteor.call('addMessage', Meteor().profile.login + ' created ' + task);
   },
 
   "change .hide-completed": function (e) {
@@ -49,10 +50,12 @@ Template.todotask.events({
 
   "click .toggle-checked": function () {
     Meteor.call("setChecked", this._id, ! this.checked);
+    Meteor.call("addMessage", Meteor.user().profile.login + ' checked task: ' + this.text);
   },
 
   "click .del": function () {
     Meteor.call("deleteTask", this._id);
+    Meteor.call("addMessage", Meteor.user().profile.login + ' delete task: ' + this.text);
   }
 
 });
