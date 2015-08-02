@@ -35,9 +35,10 @@
       </a>
 
       {{else}}
+      <a href="/config"><button class='btn grn'>branch: {{ currentBranch }}</button></a>
       <button class='btn grn newcommit'>new commit</button>
-      <button class='btn edit loadcommit'>load master</button>
-      <button class='btn del resetfiles'>reset files</button>
+      <button class='btn edit loadcommit'>load branch HEAD</button>
+      <button class='btn del resetfiles'>reset to head</button>
       {{/if}}
     </div>
   </div>

@@ -2,8 +2,6 @@
 
 Meteor.methods({
 
-
-
   //////////////////
   // FEED MANAGEMENT
   //////////////////

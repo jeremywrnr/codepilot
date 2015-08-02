@@ -1,12 +1,11 @@
 TODOS
 =====
 
-active commit has reset buttons
+undo offline editing hack
 file specific syntax highlighting
 deliver resources based on active repo
-undo offline editing hack
+pick data from github for scaling
 when committing, use content
-
 
 
 ## SERVER
@@ -14,8 +13,7 @@ when committing, use content
 \_pick your data as to not bloat the database
 difference between author and committer in git?
 ACTUALLY design what the fields should be plz
-only give user the user things: tag with id
-what about giving them resources related to another project?
+only give user the user things related to their repo
 commit these changes only after testing
 override the iframes logger so that it goes to custom javascript output
 generating shared session links
@@ -33,6 +31,7 @@ maybe a loading bar for the commit progress
 having sessions or groups - scaling app
 dropdown to select one to use in codepilot
 load a specific commit instead of the latest
+commit reset buttons actually do something
 parse the head out of the html source file
 will involve storing the hashes in commits
 future: create a new repo with the api
@@ -125,15 +124,14 @@ looking at roles, changing editing profiles
 make login info pop to the left | align it right
 deleting and renaming button (NOW DOES) work
 chat: only show initials for briefness?
-github integration
 make message box look nicer
+choose target from list of on github
+sort owned and all other editable repos
 remove autopublish, p/s specific datasets
 have partially curved border, lower ace
 make prompt to open new file on close
 color rename/delete buttons on hover
 if no files yet, say clicknew in list
-squash preforked git history
-make the chat list nicer
 hard to get collab or contributor repos.
 insert a better glyph for the current file
 make settings panel info boex success?
@@ -145,9 +143,10 @@ just make rename field focus a function
 when make a newfile, autofocus rename
 autofocus namefield on rename
 clean up css duplication rules
+squash preforked git history
+make the chat list nicer
+github integration
 option to pick roles
 basic roles management
 refactor on repoName
-choose target from list of on github
-sort owned and all other editable repos
 -->

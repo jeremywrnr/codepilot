@@ -11,12 +11,11 @@
 <template name="testtasks">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <div class="panel-title">
-        tasks ({{incompleteCount}})
+      <h3 class="panel-title"> tasks ({{incompleteCount}})
         <label class="label pull-right"> hide complete
           <input type="checkbox" checked="{{hideCompleted}}" class="hide-completed"/>
         </label>
-      </div>
+      </h3>
     </div>
     <div class="panel-body">
       <form class="new-task">
@@ -57,9 +56,10 @@
           <style type="text/css"> {{ getCSS }} </style>
           <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
-          <script type="text/javascript">// overwrite console.log for iframe
-          var old = console.log;
-          var logger = $("#log");
+          <script type="text/javascript">
+          // overwrite console.log for iframe
+          oldlog = console.log;
+          logger = document.getElementById("log");
           console.log = function (msg)
           {
           if (typeof msg == "object") {
@@ -67,20 +67,19 @@
           } else {
           logger.innerHTML += msg + "<br/>";}
           }
-          </script>
-
-          <script type="text/javascript">$(document).ready(function(){
+          //$(document).ready(function(){
           {{ getJS }}
-          });</script>
+          //});
+          </script>
 
         </head>
         <body>
 
-          <div id="log"></div> {{ getHTML }}
+          <div id="log">Console output:</div> {{ getHTML }}
 
         </body>
       </html>
-      ' style="height:100%;width:100%"
+      ' style="min-height:300px;height:100%;width:100%"
         frameborder="0" height="100%" width="100%">
     </iframe>
   </div>
