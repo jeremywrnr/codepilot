@@ -36,7 +36,7 @@
 
       {{else}}
       <button class='btn grn newcommit'>new commit</button>
-      <button class='btn edit loadcommit'>load commit</button>
+      <button class='btn edit loadcommit'>load master</button>
       <button class='btn del resetfiles'>reset files</button>
       {{/if}}
     </div>
@@ -57,10 +57,23 @@
 </template>
 
 <template name="commit">
+  {{#if current}}
   <a class="list-group-item commit" id="{{#if current}}active-commit{{/if}}" href="#">
     {{ commit.message }}
     <span class="pull-right label {{#if mine}}label-primary{{else}}label-info{{/if}}">
       {{author.login}}
     </span>
   </a>
+  <a class="list-group-item" href="#">
+    <button class='btn edit loadcommit'>load commit</button>
+    <button class='btn del resetfiles'>reset files</button>
+  </a>
+  {{else}}
+  <a class="list-group-item commit" href="#">
+    {{ commit.message }}
+    <span class="pull-right label {{#if mine}}label-primary{{else}}label-info{{/if}}">
+      {{author.login}}
+    </span>
+  </a>
+  {{/if}}
 </template>

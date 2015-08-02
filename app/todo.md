@@ -1,8 +1,9 @@
 TODOS
 =====
 
+active commit has reset buttons
 file specific syntax highlighting
-change tasks collection to feed?
+deliver resources based on active repo
 undo offline editing hack
 
 
@@ -37,10 +38,6 @@ implementing a folder structure
 create branching for testing
 store commit shas locally
 add a snapshot feature
-
-idea: choose ANY public repo on github, fork it for user, then start editing
-that repo. this prevents the issue of having permission to push to the branch,
-and maybe also include option to make a PR or be a collaborator
 
 
 ## UI / UX
@@ -81,7 +78,11 @@ study from Mythical Man Month of surgeon + multiple assistants model of
 programming. - look into using the promise library ql. the sharejs template
 creates a new doc for it when you press the new button, but you can do this
 automatically, with the model.create from sharejs. - a distributed task - 1
-pilot, 4 copilots
+pilot, 4 copilots - idea: choose ANY public repo on github, fork it for user,
+then start editing that repo. this prevents the issue of having permission to
+push to the branch, and maybe also include option to make a PR or be a
+collaborator
+
 
 
 ### done

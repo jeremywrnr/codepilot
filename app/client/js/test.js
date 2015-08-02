@@ -55,17 +55,17 @@ Template.todotask.events({
 
   "click .del": function () {
     Meteor.call("deleteTask", this._id);
-    Meteor.call("addMessage", Meteor.user().profile.login + ' delete task: ' + this.text);
+    Meteor.call("addMessage", Meteor.user().profile.login + ' deleted task: ' + this.text);
   }
 
 });
 
-// update all file contents
+// update all file contents, resfresing the tester frame
 
 Template.tester.events({
 
   "click .reload": function () {
-    Meteor.call('testShareJS');
+    Meteor.call("testShareJS");
   },
 
 });
