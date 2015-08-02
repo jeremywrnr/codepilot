@@ -5,6 +5,8 @@ active commit has reset buttons
 file specific syntax highlighting
 deliver resources based on active repo
 undo offline editing hack
+when committing, use content
+
 
 
 ## SERVER
@@ -23,6 +25,7 @@ copilot is taking snapshots of the code while testing
 passing the tests do a merge from master in the testing app
 save files under the test, so testing does not disrupt the editing
 have a diff below each of the commits
+some way to cache file contents if they havent changed from commit to commit
 scrape head,body of html document for testing
 do a check with commit contents, if different create the blob and do a diff
 against the current version with the github api, post before committing???
