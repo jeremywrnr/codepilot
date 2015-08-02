@@ -9,7 +9,7 @@ Template.filelist.helpers({
 });
 
 Template.filelist.events = {
-  "click .new": function(e) {
+  "click .new": function() {
     var id = Meteor.call('newFile');
     Session.set("document", id);
   }
@@ -22,7 +22,7 @@ Template.fileitem.helpers({
 });
 
 Template.fileitem.events = {
-  "click .file": function(e) {
+  "click .file": function() {
     Session.set("document", this._id);
   }
 };

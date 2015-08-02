@@ -8,6 +8,9 @@ undo offline editing hack
 
 ## SERVER
 
+\_pick your data as to not bloat the database
+difference between author and committer in git?
+ACTUALLY design what the fields should be plz
 only give user the user things: tag with id
 what about giving them resources related to another project?
 commit these changes only after testing
@@ -34,6 +37,10 @@ implementing a folder structure
 create branching for testing
 store commit shas locally
 add a snapshot feature
+
+idea: choose ANY public repo on github, fork it for user, then start editing
+that repo. this prevents the issue of having permission to push to the branch,
+and maybe also include option to make a PR or be a collaborator
 
 
 ## UI / UX

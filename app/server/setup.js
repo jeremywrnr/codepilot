@@ -1,6 +1,5 @@
 // data publishing
 
-
 Meteor.publish('repos', function() { // only serve writable repos
   return Repos.find({user: this.userId});
 });
@@ -19,7 +18,6 @@ Meteor.publish('tasks', function() {
 
 
 // github config
-
 
 var inDevelopment = function(){return process.env.NODE_ENV === "development"}
 
