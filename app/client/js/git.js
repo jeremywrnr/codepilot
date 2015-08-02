@@ -54,8 +54,14 @@ Template.commit.helpers({
 });
 
 Template.commit.events = {
+
   "click .commit": function(e) {
-    Session.set("commit", this._id);
+    if ( Session.equals("commit", this._id) ) {
+      Session.set("commit", null);
+    } else {
+      Session.set("commit", this._id);
+    }
   }
+
 };
 
