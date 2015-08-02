@@ -3,7 +3,7 @@
 Template.settings.helpers({
 
   repos: function(){
-    return Repos.find({});
+    return Repos.find({}, {sort: {"repo.owner": -1, "repo.name": -1}} );
   }
 
 });

@@ -3,7 +3,7 @@
 Template.filelist.helpers({
 
   files: function() {
-    return Files.find()
+    return Files.find({}, {sort: {"title": 1}} )
   }
 
 });

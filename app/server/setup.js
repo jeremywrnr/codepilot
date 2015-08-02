@@ -2,16 +2,20 @@
 
 
 Meteor.publish('repos', function() { // only serve writable repos
-  return Repos.find({user: this.userId}, {sort: {"repo.owner": -1}} );
+  return Repos.find({user: this.userId});
 });
-Meteor.publish('commits', function() { // serve commits in time order
-  return Commits.find({}, {sort: {"commit.committer.date": -1}} );
+Meteor.publish('commits', function() {
+  return Commits.find({});
 });
-Meteor.publish('files', function() { // serve files alphabetically
-  return Files.find({}, {sort: {"title": 1}} );
+Meteor.publish('files', function() {
+  return Files.find({});
 });
-Meteor.publish('messages', function() { return Messages.find(); });
-Meteor.publish('tasks', function() { return Tasks.find(); });
+Meteor.publish('messages', function() {
+  return Messages.find({});
+});
+Meteor.publish('tasks', function() {
+  return Tasks.find({});
+});
 
 
 // github config
