@@ -42,16 +42,14 @@
 <template name="tester">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <button type="button" class="btn btn-default btn-lg grn">reload tester</button>
+      <button type="button" class="btn btn-default reload btn-lg grn">reload tester</button>
     </div>
-    <div class="panel-body">
-      {{> iframe}}
-    </div>
+    {{> iframe}}
   </div>
 </template>
 
 <template name="iframe"><!--lol all the hackery...-->
-  <div style="margin:0px;padding:0px;overflow:hidden">
+  <div  class="panel-body" style="margin:0px;padding:0px;">
     <iframe srcdoc='
       <html>
         <head>
@@ -65,14 +63,13 @@
           </script>
 
           <script type="text/javascript">
-          // overwrite local console.log for iframe
-          (function () {
+          (function () { // overwrite local console.log for iframe
           var old = console.log;
           var logger = $("#log");
           console.log = function (message)
           {
           if (typeof message == "object") {
-          logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + "<br />";
+          logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + "<br/>";
           } else {
           logger.innerHTML += message + "<br />";}
           }
@@ -86,7 +83,7 @@
 
         </body>
       </html>
-      ' style="overflow:hidden;height:100%;width:100%"
+      ' style="height:100%;width:100%"
         frameborder="0" height="100%" width="100%">
     </iframe>
   </div>

@@ -25,7 +25,7 @@ Meteor.methods({
   },
 
   resetFiles: function() { // reset db and hard code the file structure
-    Files.find({}).map(function(f){ Meteor.call('deleteFile', f._id)});
+    Files.find({}).map(function delFile(f){ Meteor.call('deleteFile', f._id)});
     var base = [{'title':'site.html'},{'title':'site.css'},{'title':'site.js'}];
     base.map(function(f){ // for each of the hard coded files
       var id = Meteor.call('createFile', f.title);
@@ -74,6 +74,16 @@ Meteor.methods({
       ],
       meta:null,
       v:sjs.v // apply it to last seen version
+    });
+  },
+
+  testShareJS: function() { // update contents from sjs
+    Files.find({}).map(function readSJS(f){
+      Files.update(
+        {"_id": f._id},
+        {$set:
+          { content: Meteor.call('getShareJSDoc',f).snapshot }
+        });
     });
   },
 

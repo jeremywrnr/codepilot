@@ -57,6 +57,16 @@ Template.todotask.events({
 
 });
 
+// update all file contents
+
+Template.tester.events({
+
+  "click .reload": function () {
+    Meteor.call('testShareJS');
+  },
+
+});
+
 // iframe helper - load content from editor
 
 Template.iframe.helpers({
@@ -74,4 +84,3 @@ Template.iframe.helpers({
   },
 
 });
-

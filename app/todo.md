@@ -1,41 +1,49 @@
 TODOS
 =====
 
+integrate feed hooks into tasks
+integrate feed hooks into commits
+undo offline editing hack
+file specific syntax highlighting
+change tasks collection to 'feed'
+
 
 ## SERVER
 
 only give user the user things: tag with id
+    what about giving them resources related to another project?
+
 commit these changes only after testing
-override the iframes logger so that it goes a box below with the javascript output
+override the iframes logger so that it goes to custom javascript output
 generating shared session links
-walk through commits (too much like desktop apps?)
 creating an issue on this repo - could be helpful to PROF
+walk through commits (too much like desktop apps?)
 copilot is taking snapshots of the code while testing
-passing the tests do a merge from mater in the testing app
+passing the tests do a merge from master in the testing app
 save files under the test, so testing does not disrupt the editing
 have a diff below each of the commits
-add a snapshot feature
-store commit shas locally
+scrape head,body of html document for testing
 do a check with commit contents, if different create the blob and do a diff
 against the current version with the github api, post before committing???
-implementing a folder structure
 maybe a loading bar for the commit progress
 having sessions or groups - scaling app
-listiing a users repos / 'collabable'
 dropdown to select one to use in codepilot
-create branching for testing
-future: create a new repo with thbe api
 load a specific commit instead of the latest
-will involve storing the hashes in commits
-ability to fork code from parent repo
 parse the head out of the html source file
+will involve storing the hashes in commits
+future: create a new repo with the api
+ability to fork code from parent repo
+implementing a folder structure
+create branching for testing
+store commit shas locally
+add a snapshot feature
 
 
 ## UI / UX
 
-make a test button, load buffer
+on logout, route to '/'
 adding branch options to config panel
-save three buffers and load into iframe
+stop panel-body from hiding iframe contents (clearfix?)
 gutter indicators: copilot comments, recent edits
 add more labels on right side of task input
 click on task user label shouldnt complete
@@ -77,6 +85,8 @@ pilot, 4 copilots
 <!--
 hardcode three files
 set up iframe html
+make a test button, load buffer
+save three buffers and load into iframe
 form validation: chat, rename, task, commit
 add 'repo' field to user
 actual testing interface
@@ -97,6 +107,7 @@ making the task items more usable
 conflict with sharejs and docs??? renaming to files
 make a fake github account, collab with me
 probably something to do with using autopublish
+listiing a users repos / 'collabable'
 removing login with email (just github)
 have a link to rename or edit the project files...
 refactor authentication code - methods
