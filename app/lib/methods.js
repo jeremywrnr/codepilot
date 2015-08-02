@@ -36,7 +36,7 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     Tasks.insert({
       text: text,
-      createdAt: new Date(),
+      time: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().profile.login
     });

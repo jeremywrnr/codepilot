@@ -4,9 +4,9 @@ Template.testtasks.helpers({
 
   tasks: function () {
     if (Session.get("hideCompleted")) {
-      return Tasks.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
+      return Tasks.find({checked: {$ne: true}}, {sort: {time: -1}});
     } else {
-      return Tasks.find({}, {sort: {checked: 1, createdAt: -1}});
+      return Tasks.find({}, {sort: {checked: 1, time: -1}});
     }
   },
 
