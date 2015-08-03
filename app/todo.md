@@ -2,10 +2,12 @@ TODOS
 =====
 
 file specific syntax highlighting
-checking out cloud9, project import
-deliver resources based on active repo
-pick data from github for scaling
+sketch new ui ideas
+make and show project id
+what's up with delete files
 when committing, use content
+pick data from github for scaling
+deliver resources based on active repo
 
 
 ## SERVER
@@ -142,6 +144,7 @@ making a message with the commit
 just make rename field focus a function
 when make a newfile, autofocus rename
 autofocus namefield on rename
+checking out cloud9, project import
 clean up css duplication rules
 squash preforked git history
 make the chat list nicer

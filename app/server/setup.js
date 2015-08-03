@@ -3,6 +3,9 @@
 Meteor.publish('repos', function() { // only serve writable repos
   return Repos.find({user: this.userId});
 });
+Meteor.publish('branches', function() { // only serve user branches
+  return Branches.find({user: this.userId});
+});
 Meteor.publish('commits', function() {
   return Commits.find({});
 });

@@ -37,11 +37,16 @@
           </div>
           <ul class="list-group">
             <li class="list-group-item"> github:
-              <a href="{{currentUser.profile.html_url}}" target="_blank">{{ currentUser.profile.login }}</a>
+              <a href="{{currentUser.profile.html_url}}" target="_blank">
+                {{ currentUser.profile.login }}</a>
             </li>
             <li class="list-group-item"> repo:
               <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}"
                  target="_blank">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+            </li>
+            <li class="list-group-item"> branch:
+              <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/{{ currentUser.profile.repoBranch }}"
+                 target="_blank">{{ currentUser.profile.repoBranch }}</a>
             </li>
             <li class="list-group-item">role: {{currentUser.profile.role}}</li>
           </ul>
@@ -49,21 +54,36 @@
 
         <h5>github repo</h5>
         <div class="btn-group">
-          <button class="btn grn dropdown-toggle" data-toggle="dropdown">
-            choose <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li class="dropdown-header">repos</li>
-            {{#each repos}}
-            {{> repo}}
-            {{/each}}
-          </ul>
+          <button class="loadGHData grn btn">refresh</button>
+          <div class="btn-group">
+            <button class="btn grn dropdown-toggle" data-toggle="dropdown">
+              choose repo <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">repos</li>
+              {{#each repos}}
+              {{> repo}}
+              {{/each}}
+            </ul>
+          </div>
+          <div class="btn-group">
+            <button class="btn grn dropdown-toggle" data-toggle="dropdown">
+              choose branch <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">branches</li>
+              {{#each branches}}
+              {{> branch}}
+              {{/each}}
+            </ul>
+          </div>
         </div>
-        <button class="loadRepos grn btn">refresh</button>
 
         <h5>role</h5>
-        <button class="makePilot grn btn">pilot</button>
-        <button class="makeCopilot grn btn">co-pilot</button>
+        <div class="btn-group">
+          <button class="makePilot grn btn">pilot</button>
+          <button class="makeCopilot grn btn">co-pilot</button>
+        </div>
 
         {{#if isPilot}}
         <p>This view is only seen by pilots.</p>
@@ -80,4 +100,8 @@
 
 <template name="repo">
   <li class="repo"><a href="#">{{ repo.full_name }}</a></li>
+</template>
+
+<template name="branch">
+  <li class="branch"><a href="#">{{ branch.name }}</a></li>
 </template>

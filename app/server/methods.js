@@ -2,8 +2,6 @@
 
 Meteor.methods({
 
-
-
   //////////////////
   // FILE MANAGEMENT
   //////////////////
@@ -80,12 +78,26 @@ Meteor.methods({
 
   getAllRepos: function() { //put them in db, serve to user (rather than return)
     Meteor.call('ghAuth');
-    var repos = github.repos.getAll({ user: Meteor.user().profile.login});
+    var repos = github.repos.getAll({ user: Meteor.user().profile.login });
     repos.map(function(gr){ //attach git repo (gr) to user
       Repos.upsert(
         { user: Meteor.userId(), id: gr.id },
         { user: Meteor.userId(), id: gr.id, repo: gr }
-      )});
+      );
+    });
+  },
+
+  getAllBranches: function() {
+    var branches = github.repos.getBranches({
+      user: profile.repoOwner,
+      repo: profile.repoName
+    });
+    branches.map(function(br){ //attach branch (br) to user
+      Branches.upsert(
+        { user: Meteor.userId(), repo: Meteor.user().profile.repoName, name: br.name },
+        { user: Meteor.userId(), repo: Meteor.user().profile.repoName, name: br.name, branch: br }
+      );
+    });
   },
 
   getAllCommits: function() {
@@ -208,7 +220,8 @@ Meteor.methods({
     });
 
     // get old tree and update it with new shas, post and get that sha
-    var branch = Meteor.call('getBranch', 'master');
+    var bname = Meteor.user().profile.repoBranch;
+    var branch = Meteor.call('getBranch', bname);
     var oldTree = Meteor.call('getTree', branch);
     var newTree = { "base": oldTree.sha, "tree": blobs };
     var treeSHA = Meteor.call('postTree', newTree);
@@ -233,7 +246,7 @@ Meteor.methods({
     commits.map(commitInsert);
 
     // update the feed with new commit
-    Meteor.call('addMessage', "commited '" + msg + "'");
+    Meteor.call('addMessage', "commited '" +msg+ "'");
 
   },
 

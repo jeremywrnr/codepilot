@@ -37,6 +37,8 @@ Meteor.methods({
       time: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().profile.login
+    }, function addToFeed(err, id){
+      if (! err) Meter.call('addMessage', 'added '+text+' to tasks');
     });
   },
 
@@ -56,14 +58,6 @@ Meteor.methods({
     Tasks.update(taskId, { $set: { checked: setChecked} });
   },
 
-  // Make sure only the task owner can make a task private
-  setPrivate: function (taskId, setToPrivate) {
-    var task = Tasks.findOne(taskId);
-    if (task.owner !== Meteor.userId())
-      throw new Meteor.Error("not-authorized");
-    Tasks.update(taskId, { $set: { private: setToPrivate } });
-  },
-
 
 
   //////////////////
@@ -77,12 +71,18 @@ Meteor.methods({
     );
   },
 
-  setCopilot: function(){
+  setCopilot: function() {
     return Meteor.users.update(
       {"_id": Meteor.userId()},
       {$set : {"profile.role":"copilot"}}
     );
   },
+
+
+
+  //////////////////
+  // REPO MANAGEMENT
+  //////////////////
 
   setRepo: function(gr) { //set git repo
     return Meteor.users.update(
@@ -90,6 +90,14 @@ Meteor.methods({
       {$set : {
         "profile.repoName": gr.repo.name,
         "profile.repoOwner": gr.repo.owner.login
+      }});
+  },
+
+  setBranch: function(bn) { //set branch name
+    return Meteor.users.update(
+      {"_id": Meteor.userId()},
+      {$set : {
+        "profile.repoBranch": bn,
       }});
   }
 

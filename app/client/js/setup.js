@@ -4,6 +4,7 @@ Meteor.subscribe('files');
 Meteor.subscribe('tasks');
 Meteor.subscribe('repos');
 Meteor.subscribe('commits');
+Meteor.subscribe('branches');
 Meteor.subscribe('messages');
 
 Session.setDefault('document', null);

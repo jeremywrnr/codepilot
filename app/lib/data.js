@@ -195,6 +195,14 @@ Repos = new Mongo.Collection('repos');
 //push: true,
 //pull: true } } }
 
+Branches = new Mongo.Collection('branches');
+
+/*  _id - unique identifier of commit
+    repo - unique identifier of repo file belongs to
+    sha - git hash code for this commit
+    collaborators - array of user ids that can push
+    */
+
 Tasks = new Mongo.Collection('tasks');
 
 /*  _id - unique identifier of task
