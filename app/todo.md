@@ -1,8 +1,8 @@
 TODOS
 =====
 
-undo offline editing hack
 file specific syntax highlighting
+checking out cloud9, project import
 deliver resources based on active repo
 pick data from github for scaling
 when committing, use content
