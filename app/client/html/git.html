@@ -16,9 +16,6 @@
 
       <div class="alert alert-success">
         <div class="input-group">
-          <!--<span class="input-group-btn">-->
-          <!--<button type='button' class='btn grn'>commit</button>-->
-          <!--</span>-->
           <form class="committer">
             <input placeholder="enter a commit message..."
                    id="commitMsg" class="form-control" type="text" name="title" value="">
@@ -35,9 +32,8 @@
       </a>
 
       {{else}}
-      <a href="/config"><button class='btn grn'>branch: {{ currentBranch }}</button></a>
       <button class='btn grn newcommit'>new commit</button>
-      <button class='btn edit loadcommit'>load branch HEAD</button>
+      <button class='btn edit loadcommit'>load HEAD</button>
       <button class='btn del resetfiles'>reset to head</button>
       {{/if}}
     </div>

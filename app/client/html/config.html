@@ -36,6 +36,9 @@
               {{currentUser.profile.name}}</h4>
           </div>
           <ul class="list-group">
+            <li class="list-group-item">
+              project id: {{ currentUser.profile.repo }}
+            </li>
             <li class="list-group-item"> github:
               <a href="{{currentUser.profile.html_url}}" target="_blank">
                 {{ currentUser.profile.login }}</a>

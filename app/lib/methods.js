@@ -9,7 +9,7 @@ Meteor.methods({
   // Make sure the user is logged in before inserting a task
   addMessage: function (msg) {
     if (! Meteor.userId())
-      throw new Meteor.Error("not-authorized");
+      throw new Meteor.Error('not-authorized');
     if (msg.value !== '') {
       Messages.insert({
         owner: Meteor.userId(),
@@ -18,9 +18,8 @@ Meteor.methods({
         time: Date.now()
       });
     } else
-      throw new Meteor.Error("null-message");
+      throw new Meteor.Error('null-message');
   },
-
 
 
 
@@ -31,7 +30,7 @@ Meteor.methods({
   // Make sure the user is logged in before inserting a task
   addTask: function (text) {
     if (! Meteor.userId())
-      throw new Meteor.Error("not-authorized");
+      throw new Meteor.Error('not-authorized');
     Tasks.insert({
       text: text,
       time: new Date(),
@@ -46,7 +45,7 @@ Meteor.methods({
   deleteTask: function (taskId) {
     var task = Tasks.findOne(taskId);
     if (task.private && task.owner !== Meteor.userId())
-      throw new Meteor.Error("not-authorized");
+      throw new Meteor.Error('not-authorized');
     Tasks.remove(taskId);
   },
 
@@ -54,7 +53,7 @@ Meteor.methods({
   setChecked: function (taskId, setChecked) {
     var task = Tasks.findOne(taskId);
     if (task.private && task.owner !== Meteor.userId())
-      throw new Meteor.Error("not-authorized");
+      throw new Meteor.Error('not-authorized');
     Tasks.update(taskId, { $set: { checked: setChecked} });
   },
 
@@ -66,15 +65,15 @@ Meteor.methods({
 
   setPilot: function() {
     return Meteor.users.update(
-      {"_id": Meteor.userId()},
-      {$set : {"profile.role":"pilot"}}
+      {'_id': Meteor.userId()},
+      {$set : {'profile.role':'pilot'}}
     );
   },
 
   setCopilot: function() {
     return Meteor.users.update(
-      {"_id": Meteor.userId()},
-      {$set : {"profile.role":"copilot"}}
+      {'_id': Meteor.userId()},
+      {$set : {'profile.role':'copilot'}}
     );
   },
 
@@ -86,18 +85,19 @@ Meteor.methods({
 
   setRepo: function(gr) { //set git repo
     return Meteor.users.update(
-      {"_id": Meteor.userId()},
+      {'_id': Meteor.userId()},
       {$set : {
-        "profile.repoName": gr.repo.name,
-        "profile.repoOwner": gr.repo.owner.login
+        'profile.repo': gr._id,
+        'profile.repoName': gr.repo.name,
+        'profile.repoOwner': gr.repo.owner.login
       }});
   },
 
   setBranch: function(bn) { //set branch name
     return Meteor.users.update(
-      {"_id": Meteor.userId()},
+      {'_id': Meteor.userId()},
       {$set : {
-        "profile.repoBranch": bn,
+        'profile.repoBranch': bn,
       }});
   }
 

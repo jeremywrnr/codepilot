@@ -3,18 +3,18 @@
 Accounts.onCreateUser(function(options, user){
 
   var accessToken = user.services.github.accessToken, result, profile;
-  var result = Meteor.http.get("https://api.github.com/user", {
-    headers: { "User-Agent": "Code Pilot" },
+  var result = Meteor.http.get('https://api.github.com/user', {
+    headers: { 'User-Agent': 'Code Pilot' },
     params: { access_token: accessToken }
   });
   if (result.error) throw result.error;
   profile = _.pick(
-    result.data, "login", "name", "avatar_url", "url", "email", "html_url");
+    result.data, 'login', 'name', 'avatar_url', 'url', 'email', 'html_url');
   user.profile = profile
 
   // use default address if none publicly available
   if(!user.profile.email)
-    user.profile.email = user.profile.login + "@users.noreply.github.com";
+    user.profile.email = user.profile.login + '@users.noreply.github.com';
 
   // use login as name if none publicly available
   if(!user.profile.name)
@@ -22,8 +22,9 @@ Accounts.onCreateUser(function(options, user){
 
   // set default target repo
   user.profile.repoOwner = profile.login
-  user.profile.repoName = "testing"
-  user.profile.role = "copilot"
+  user.profile.repoName = 'testing'
+  user.profile.role = 'choose a repo below!'
+  user.profile.role = 'copilot'
   return user;
 
 })

@@ -1,38 +1,43 @@
 // git things
 
 Template.commitPanel.helpers({
+
+  currentBranch: function() {
+    return Meteor.user().profile.repoBranch;
+  },
   committing: function() {
     return Session.get('committing');
   }
+
 });
 
 Template.commitPanel.events = {
 
   // rename the current file
-  "submit .committer": function(e) {
+  'submit .committer': function(e) {
     e.preventDefault();
     $(e.target).blur();
     var msg = $('#commitMsg')[0].value;
     if (msg == null || msg == '') return false;
-    Session.set("committing", false);
+    Session.set('committing', false);
     Meteor.call('makeCommit', msg);
   },
 
-  "click .resetfiles": function(e) {
+  'click .resetfiles': function(e) {
     Meteor.call('resetFiles');
   },
 
-  "click .newcommit": function(e) {
+  'click .newcommit': function(e) {
     e.preventDefault();
     Session.set('committing', true);
     focusForm('#commitMsg');
   },
 
-  "click .cancelCommit": function(e) {
+  'click .cancelCommit': function(e) {
     Session.set('committing', false);
   },
 
-  "click .loadcommit": function(e) {
+  'click .loadcommit': function(e) {
     Meteor.call('loadCommit');
   }
 
@@ -40,13 +45,13 @@ Template.commitPanel.events = {
 
 Template.history.helpers({
   commits: function() {
-    return Commits.find({}, {sort: {"commit.committer.date": -1}} );
+    return Commits.find({}, {sort: {'commit.committer.date': -1}} );
   }
 });
 
 Template.commit.helpers({
   current: function() {
-    return Session.equals("commit", this._id);
+    return Session.equals('commit', this._id);
   },
   mine: function() {
     return (Meteor.user().profile.login === this.author.login)
@@ -55,11 +60,11 @@ Template.commit.helpers({
 
 Template.commit.events = {
 
-  "click .commit": function(e) {
-    if ( Session.equals("commit", this._id) ) {
-      Session.set("commit", null);
+  'click .commit': function(e) {
+    if ( Session.equals('commit', this._id) ) {
+      Session.set('commit', null);
     } else {
-      Session.set("commit", this._id);
+      Session.set('commit', this._id);
     }
   }
 

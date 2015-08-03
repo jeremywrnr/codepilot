@@ -22,11 +22,11 @@ Meteor.publish('tasks', function() {
 
 // github config
 
-var inDevelopment = function(){return process.env.NODE_ENV === "development"}
+var inDevelopment = function(){return process.env.NODE_ENV === 'development'}
 
 Meteor.startup(function () { // get correct github auth key
 
-  ServiceConfiguration.configurations.remove({service: "github"});
+  ServiceConfiguration.configurations.remove({service: 'github'});
   var prodAuth = JSON.parse(Assets.getText('production.json'));
   var devAuth = JSON.parse(Assets.getText('development.json'));
   var GHAuth = ( inDevelopment() ? devAuth : prodAuth );
@@ -34,14 +34,14 @@ Meteor.startup(function () { // get correct github auth key
 
   // node-github setup
   github = new GitHub({
-    version: "3.0.0",
+    version: '3.0.0',
     timeout: 5000,
     debug: true,
-    protocol: "https",
-    headers: { "User-Agent": "code pilot" }
+    protocol: 'https',
+    headers: { 'User-Agent': 'code pilot' }
   }); // oauth for api 5000/day
   github.authenticate({
-    type: "oauth",
+    type: 'oauth',
     key: GHAuth.clientId,
     secret: GHAuth.secret
   });

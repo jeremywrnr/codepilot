@@ -3,7 +3,7 @@
 Template.testtasks.helpers({
 
   tasks: function () {
-    if (Session.get("hideCompleted")) {
+    if (Session.get('hideCompleted')) {
       return Tasks.find({checked: {$ne: true}}, {sort: {time: -1}});
     } else {
       return Tasks.find({}, {sort: {checked: 1, time: -1}});
@@ -11,7 +11,7 @@ Template.testtasks.helpers({
   },
 
   hideCompleted: function () {
-    return Session.get("hideCompleted");
+    return Session.get('hideCompleted');
   },
 
   incompleteCount: function () {
@@ -23,17 +23,18 @@ Template.testtasks.helpers({
 Template.testtasks.events({
 
   // rename the current file
-  "submit .new-task": function(e) {
+  'submit .new-task': function(e) {
     e.preventDefault();
     $(e.target).blur();
     var task = $('#task-name')[0].value;
     if (task == null || task == '') return false;
     Meteor.call('addTask', task);
-    Meteor.call('addMessage', Meteor().profile.login + ' created ' + task);
+    Meteor.call('addMessage', 'created task: ' + task);
+    $('#task-name')[0].value = ''; // reset txt
   },
 
-  "change .hide-completed": function (e) {
-    Session.set("hideCompleted", e.target.checked);
+  'change .hide-completed': function (e) {
+    Session.set('hideCompleted', e.target.checked);
   }
 
 });
@@ -48,14 +49,14 @@ Template.todotask.helpers({
 
 Template.todotask.events({
 
-  "click .toggle-checked": function () {
-    Meteor.call("setChecked", this._id, ! this.checked);
-    Meteor.call("addMessage", Meteor.user().profile.login + ' checked task: ' + this.text);
+  'click .toggle-checked': function () {
+    Meteor.call('setChecked', this._id, ! this.checked);
+    Meteor.call('addMessage', ' checked task: ' + this.text);
   },
 
-  "click .del": function () {
-    Meteor.call("deleteTask", this._id);
-    Meteor.call("addMessage", Meteor.user().profile.login + ' deleted task: ' + this.text);
+  'click .del': function () {
+    Meteor.call('deleteTask', this._id);
+    Meteor.call('addMessage', ' deleted task: ' + this.text);
   }
 
 });
@@ -64,8 +65,8 @@ Template.todotask.events({
 
 Template.tester.events({
 
-  "click .reload": function () {
-    Meteor.call("testShareJS");
+  'click .reload': function () {
+    Meteor.call('testShareJS');
   },
 
 });

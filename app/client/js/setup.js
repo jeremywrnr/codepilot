@@ -15,7 +15,7 @@ Session.setDefault('editorType', 'ace');
 // global client helpers
 
 Template.registerHelper('isPilot', function(){
-  return Meteor.user().profile.role === "pilot";
+  return Meteor.user().profile.role === 'pilot';
 });
 
 focusForm = function(id){

@@ -1,9 +1,12 @@
 TODOS
 =====
 
+use repo id as project id
+lots of refactoring
+show project id
+
 file specific syntax highlighting
 sketch new ui ideas
-make and show project id
 what's up with delete files
 when committing, use content
 pick data from github for scaling
@@ -12,7 +15,7 @@ deliver resources based on active repo
 
 ## SERVER
 
-\_pick your data as to not bloat the database
+_pick_ your data as to not bloat the database
 difference between author and committer in git?
 ACTUALLY design what the fields should be plz
 only give user the user things related to their repo

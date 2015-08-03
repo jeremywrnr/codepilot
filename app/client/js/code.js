@@ -3,7 +3,7 @@
 Template.code.helpers({
 
   nulldoc: function() {
-    return Session.equals("document", null);
+    return Session.equals('document', null);
   }
 
 });
@@ -11,7 +11,7 @@ Template.code.helpers({
 Template.editor.helpers({
 
   docid: function() {
-    return Session.get("document");
+    return Session.get('document');
   },
   configAce: function() {
     return function(ace) {
@@ -28,11 +28,11 @@ Template.editor.helpers({
 Template.filename.helpers({
 
   rename: function() {
-    return Session.equals("renaming", true);
+    return Session.equals('renaming', true);
   },
   title: function() {
     var ref;
-    return (ref = Files.findOne(this + "")) != null ? ref.title : void 0;
+    return (ref = Files.findOne(this + '')) != null ? ref.title : void 0;
   }
 
 });
@@ -40,30 +40,30 @@ Template.filename.helpers({
 Template.filename.events = {
 
   // rename the current file
-  "submit .rename": function(e) {
+  'submit .rename': function(e) {
     e.preventDefault();
     $(e.target).blur();
     var txt = $('#filetitle')[0].value;
     if (txt == null || txt == '') return false;
-    var id = Session.get("document");
-    Session.set("renaming", false);
+    var id = Session.get('document');
+    Session.set('renaming', false);
     Files.update(id, {$set:{title:txt}} );
   },
 
   // enable changing of filename
-  "click button.edit": function (e) {
+  'click button.edit': function (e) {
     e.preventDefault();
-    Session.set("renaming", true);
+    Session.set('renaming', true);
     focusForm('#filetitle');
   },
 
   // delete the current file
-  "click button.del": function(e) {
+  'click button.del': function(e) {
     e.preventDefault();
-    var id = Session.get("document");
-    Meteor.call("deleteFile", id);
-    Session.set("renaming", false);
-    Session.set("document", null);
+    var id = Session.get('document');
+    Meteor.call('deleteFile', id);
+    Session.set('renaming', false);
+    Session.set('document', null);
   }
 
 };
