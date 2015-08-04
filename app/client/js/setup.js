@@ -5,7 +5,7 @@ Meteor.subscribe('tasks');
 Meteor.subscribe('repos');
 Meteor.subscribe('commits');
 Meteor.subscribe('branches');
-Meteor.subscribe('messages');
+Meteor.subscribe('messages', Meteor.user().profile.repo);
 
 Session.setDefault('document', null);
 Session.setDefault('renaming', false);

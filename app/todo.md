@@ -9,6 +9,22 @@ deliver resources based on active repo
 use repo id as project id, lots of refactoring
 
 
+## UI / UX
+
+on logout, route to '/'
+adding branch options to config panel
+stop panel-body from hiding iframe contents (clearfix?)
+gutter indicators: copilot comments, recent edits
+add more labels on right side of task input
+click on task user label shouldnt complete
+make a new task also adds an item to feed
+attach links for reference to file issue
+add git options to each commit item
+copilot doesnt edit code
+copilot - write view of tests
+pilot - read view of tests
+
+
 ## SERVER
 
 _pick_ your data as to not bloat the database
@@ -30,8 +46,7 @@ do a check with commit contents, if different create the blob and do a diff
 against the current version with the github api, post before committing???
 maybe a loading bar for the commit progress
 having sessions or groups - scaling app
-dropdown to select one to use in codepilot
-load a specific commit instead of the latest
+text box to select one to use in codepilot
 commit reset buttons actually do something
 parse the head out of the html source file
 will involve storing the hashes in commits
@@ -41,22 +56,6 @@ implementing a folder structure
 create branching for testing
 store commit shas locally
 add a snapshot feature
-
-
-## UI / UX
-
-on logout, route to '/'
-adding branch options to config panel
-stop panel-body from hiding iframe contents (clearfix?)
-gutter indicators: copilot comments, recent edits
-add more labels on right side of task input
-click on task user label shouldnt complete
-make a new task also adds an item to feed
-attach links for reference to file issue
-add git options to each commit item
-copilot doesnt edit code
-copilot - write view of tests
-pilot - read view of tests
 
 
 ## NOTES / ERRORS
@@ -118,6 +117,7 @@ conflict with sharejs and docs??? renaming to files
 make a fake github account, collab with me
 probably something to do with using autopublish
 listiing a users repos / 'collabable'
+load a specific commit instead of the latest
 removing login with email (just github)
 have a link to rename or edit the project files...
 refactor authentication code - methods

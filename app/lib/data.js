@@ -195,6 +195,7 @@ Repos = new Mongo.Collection('repos');
 //push: true,
 //pull: true } } }
 
+// probably make this a subfield of repo
 Branches = new Mongo.Collection('branches');
 
 /*  _id - unique identifier of commit

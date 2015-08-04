@@ -13,6 +13,7 @@ Meteor.methods({
     if (msg.value !== '') {
       Messages.insert({
         owner: Meteor.userId(),
+        repo: Meteor.user().profile.repo,
         name: Meteor.user().profile.login,
         message: msg,
         time: Date.now()

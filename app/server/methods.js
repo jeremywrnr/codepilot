@@ -13,7 +13,9 @@ Meteor.methods({
   createFile: function(ft) { // make new file with filetitle (ft), return id
     Meteor.call('addMessage', ' created file: ' + ft);
     return Async.runSync(function(done){
-      Files.insert({title:ft},function(e,id){done(e,id)})
+      Files.insert(
+        {title: ft, repo: Meteor.user().profile.repo},
+        function(e,id){done(e,id)});
     }).result;
   },
 

@@ -12,8 +12,8 @@ Meteor.publish('commits', function() {
 Meteor.publish('files', function() {
   return Files.find({});
 });
-Meteor.publish('messages', function() {
-  return Messages.find({});
+Meteor.publish('messages', function(repoId) {
+  return Messages.find({repo: repoId});
 });
 Meteor.publish('tasks', function() {
   return Tasks.find({});
