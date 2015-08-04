@@ -1,19 +1,20 @@
 // data + startup
 
-Meteor.subscribe('repos');
-if(Meteor.user()){
-  console.log( Meteor.user().profile.repo );
-  var repoId = Meteor.user().profile.repo;
-  Meteor.subscribe('files', repoId);
-  Meteor.subscribe('tasks', repoId);
-  Meteor.subscribe('commits', repoId);
-  Meteor.subscribe('messages', repoId);
-}
-
 Session.setDefault('document', null);
 Session.setDefault('renaming', false);
 Session.setDefault('committing', false);
 Session.setDefault('editorType', 'ace');
+
+Meteor.subscribe('repos');
+Tracker.autorun(function(){
+  if(Meteor.user()){
+    var repoId = Meteor.user().profile.repo;
+    Meteor.subscribe('files', repoId);
+    Meteor.subscribe('tasks', repoId);
+    Meteor.subscribe('commits', repoId);
+    Meteor.subscribe('messages', repoId);
+  }
+});
 
 // global client helpers/functions
 
