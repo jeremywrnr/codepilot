@@ -14,14 +14,16 @@ Router.map(function () {
 
 Router.onBeforeAction(function preLogin() {
   if (! Meteor.userId() || Meteor.loggingIn())
-    Router.go('login');
-  this.next();
+    this.render('login');
+  else
+    this.render();
 }, {except: ['login']});
 
 // redirect user to code after login
 
 Router.onBeforeAction(function postLogin() {
   if (Meteor.userId())
-    Router.go('code');
-  this.next();
+    this.render('code');
+  else
+    this.render();
 }, {only: ['login']});
