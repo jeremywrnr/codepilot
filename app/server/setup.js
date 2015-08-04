@@ -3,20 +3,17 @@
 Meteor.publish('repos', function() { // only serve writable repos
   return Repos.find({user: this.userId});
 });
-Meteor.publish('branches', function() { // only serve user branches
-  return Branches.find({user: this.userId});
+Meteor.publish('commits', function(repoId) {
+  return Commits.find({repo: repoId});
 });
-Meteor.publish('commits', function() {
-  return Commits.find({});
-});
-Meteor.publish('files', function() {
-  return Files.find({});
+Meteor.publish('files', function(repoId) {
+  return Files.find({repo: repoId});
 });
 Meteor.publish('messages', function(repoId) {
   return Messages.find({repo: repoId});
 });
-Meteor.publish('tasks', function() {
-  return Tasks.find({});
+Meteor.publish('tasks', function(repoId) {
+  return Tasks.find({repo: repoId});
 });
 
 

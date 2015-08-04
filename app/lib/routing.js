@@ -13,19 +13,15 @@ Router.map(function () {
 // ask user to login before coding
 
 Router.onBeforeAction(function preLogin() {
-  if (! Meteor.userId() || Meteor.loggingIn()) {
+  if (! Meteor.userId() || Meteor.loggingIn())
     Router.go('login');
-  } else {
-    this.next();
-  }
+  this.next();
 }, {except: ['login']});
 
 // redirect user to code after login
 
 Router.onBeforeAction(function postLogin() {
-  if (Meteor.userId()) {
+  if (Meteor.userId())
     Router.go('code');
-  } else {
-    this.next();
-  }
+  this.next();
 }, {only: ['login']});

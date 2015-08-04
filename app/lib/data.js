@@ -1,19 +1,19 @@
 // meteor mongo data publishing
 
-Files = new Mongo.Collection('files'); // used with github
-
-/*  _id - unique identifier
-    repo - unique identifier of repo file belongs to
-    title - name of the file
-    content - content of the file
-    */
-
 Docs = new Meteor.Collection('docs'); // used inside sjs
 
 /*  _id - unique identifier, corresponds to File._id
     data.v - latest version of file in the editor
     data.snapshot - latest content of file in the editor
     NOTE - some fields omitted
+    */
+
+Files = new Mongo.Collection('files'); // used with github
+
+/*  _id - unique identifier, same as Doc._id
+    repo - unique identifier of repo file belongs to
+    title - name of the file
+    content - content of the file
     */
 
 Messages = new Mongo.Collection('messages'); // client side feed
@@ -99,6 +99,12 @@ Repos = new Mongo.Collection('repos');
     repo - unique identifier of repo file belongs to
     sha - git hash code for this commit
     collaborators - array of user ids that can push
+    */
+
+//Branch inside
+/*  _id - unique identifier of commit
+    repo - unique identifier of repo file belongs to
+    sha - git hash code for this commit
     */
 
 // TODO: TRIM THIS DOCUMENT!!!
@@ -201,7 +207,6 @@ Branches = new Mongo.Collection('branches');
 /*  _id - unique identifier of commit
     repo - unique identifier of repo file belongs to
     sha - git hash code for this commit
-    collaborators - array of user ids that can push
     */
 
 Tasks = new Mongo.Collection('tasks');

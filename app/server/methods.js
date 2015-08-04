@@ -255,8 +255,7 @@ Meteor.methods({
   // top level function, pull files and load editor
   /////////////////////////////////////////////////
 
-  loadCommit: function() { // update the sharejs contents based on a  commit:
-
+  loadCommit: function(cs) { // takes commit sha
     // at some point, this should be able to take different branches or commits
     // along that branch to load instead of just the head on master
 
@@ -266,8 +265,8 @@ Meteor.methods({
     Meteor.call('getBlobs', tr)
 
     // move files old contents into sharejsdoc
-    Files.find({}).map(function loadSJS(f){ Meteor.call('postShareJSDoc',f) });
-
+    var repoFiles = Files.find({repo: Meteor.user().profile.repo});
+    repoFiles.map(function loadSJS(f){ Meteor.call('postShareJSDoc',f) });
   }
 
 });

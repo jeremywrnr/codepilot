@@ -7,6 +7,7 @@ when committing, use file.content
 pick data from github for scaling
 deliver resources based on active repo
 use repo id as project id, lots of refactoring
+purge dev/prod databases
 
 
 ## UI / UX

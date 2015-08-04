@@ -36,6 +36,7 @@ Meteor.methods({
       text: text,
       time: new Date(),
       owner: Meteor.userId(),
+      repo: Meteor.user().profile.repo,
       username: Meteor.user().profile.login
     }, function addToFeed(err, id){
       if (! err) Meter.call('addMessage', 'added '+text+' to tasks');

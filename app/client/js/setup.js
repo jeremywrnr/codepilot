@@ -1,18 +1,21 @@
 // data + startup
 
-Meteor.subscribe('files');
-Meteor.subscribe('tasks');
 Meteor.subscribe('repos');
-Meteor.subscribe('commits');
-Meteor.subscribe('branches');
-Meteor.subscribe('messages', Meteor.user().profile.repo);
+if(Meteor.user()){
+  console.log( Meteor.user().profile.repo );
+  var repoId = Meteor.user().profile.repo;
+  Meteor.subscribe('files', repoId);
+  Meteor.subscribe('tasks', repoId);
+  Meteor.subscribe('commits', repoId);
+  Meteor.subscribe('messages', repoId);
+}
 
 Session.setDefault('document', null);
 Session.setDefault('renaming', false);
 Session.setDefault('committing', false);
 Session.setDefault('editorType', 'ace');
 
-// global client helpers
+// global client helpers/functions
 
 Template.registerHelper('isPilot', function(){
   return Meteor.user().profile.role === 'pilot';
