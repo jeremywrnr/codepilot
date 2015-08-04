@@ -31,6 +31,7 @@ Template.commitPanel.events = {
   },
 
   'click .cancelCommit': function(e) {
+    // TODO: reset commit field text
     Session.set('committing', false);
   },
 

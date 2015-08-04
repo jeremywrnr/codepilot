@@ -140,14 +140,6 @@ Repos = new Mongo.Collection('repos');
 //push: true,
 //pull: true } } }
 
-// probably make this a subfield of repo
-Branches = new Mongo.Collection('branches');
-
-/*  _id - unique identifier of commit
-    repo - unique identifier of repo file belongs to
-    sha - git hash code for this commit
-    */
-
 Tasks = new Mongo.Collection('tasks');
 
 /*  _id - unique identifier of task

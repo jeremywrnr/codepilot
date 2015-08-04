@@ -7,13 +7,12 @@ file specific syntax highlighting
 when committing, use file.content
 pick data from github for scaling
 deliver resources based on active repo
+on selecting a repo, load branches
 purge dev/prod databases
 
 
 ## UI / UX
 
-on logout, route to '/'
-adding branch options to config panel
 stop panel-body from hiding iframe contents (clearfix?)
 gutter indicators: copilot comments, recent edits
 add more labels on right side of task input
@@ -93,6 +92,8 @@ collaborator
 <!--
 hardcode three files
 set up iframe html
+on logout, route to '/'
+adding branch options to config panel
 integrate feed hooks into tasks
 make a test button, load buffer
 save three buffers and load into iframe

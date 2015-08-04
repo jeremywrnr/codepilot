@@ -94,18 +94,24 @@ Meteor.methods({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName
     });
-    brs.map(function(br){ //attach branch (br) to user
-      Branches.upsert(
-        { user: Meteor.userId(), repo: Meteor.user().profile.repoName, name: br.name },
-        { user: Meteor.userId(), repo: Meteor.user().profile.repoName, branch: br }
-      );
-    });
+    Repos.update(
+      { _id: Meteor.user().profile.repo },
+      { $set: {branches: brs} }
+    );
   },
 
   getAllCommits: function() {
     return github.repos.getCommits({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName
+    });
+  },
+
+  getCommit: function(sha) { //commit sha
+    return github.repos.getCommit({
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+      sha: sha
     });
   },
 
