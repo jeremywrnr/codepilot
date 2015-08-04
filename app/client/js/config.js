@@ -1,6 +1,6 @@
 // configuration page
 
-Template.settings.helpers({
+Template.config.helpers({
 
   repos: function(){
     return Repos.find({}, {sort: {'repo.owner': -1, 'repo.name': 1}} );
@@ -12,7 +12,7 @@ Template.settings.helpers({
 
 });
 
-Template.settings.events({
+Template.config.events({
 
   'click .makePilot': function(e) {
     e.preventDefault();

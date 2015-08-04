@@ -1,30 +1,7 @@
 <!--allow user to configure things-->
 
 <template name="config">
-  {{#if currentUser }}
-  {{> settings }}
-  {{else}}
-  {{> welcome }}
-  {{/if}}
-</template>
-
-<template name="welcome">
-  <div class="col-xs-4 full-height">
-    <h2> welcome to code pilot!</h2>
-    {{> about }}
-  </div>
-</template>
-
-<template name="about">
-  <p> This is a tool meant to help people collaborate on code more seamlessly.
-  The model is based on that of a pilot and a co-pilot, where the pilot does
-  most of the actual programming, and the co-pilot performs background coding
-  tasks. This can include version control management, system testing, online
-  reference lookup, and commenting/documenting source code.</p>
-</template>
-
-<template name="settings">
-  <div class="col-xs-6 full-height">
+  <div class="col-xs-8 full-height">
     <h2> settings </h2>
     <div class="panel panel-primary">
       <div class="panel-heading"> <h2 class="panel-title"> account </h2> </div>
@@ -55,12 +32,12 @@
           </ul>
         </div>
 
-        <h5>github repo</h5>
+        <h5>github config</h5>
         <div class="btn-group">
           <button class="loadGHData grn btn">refresh</button>
           <div class="btn-group">
             <button class="btn grn dropdown-toggle" data-toggle="dropdown">
-              choose repo <span class="caret"></span>
+              repo <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-header">repos</li>
@@ -71,7 +48,7 @@
           </div>
           <div class="btn-group">
             <button class="btn grn dropdown-toggle" data-toggle="dropdown">
-              choose branch <span class="caret"></span>
+              branch <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
               <li class="dropdown-header">branches</li>

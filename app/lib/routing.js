@@ -2,16 +2,30 @@
 
 Router.configure({ layoutTemplate: 'main' });
 
-// asks user to login before coding
-Router.onBeforeAction(function() {
-  if (! Meteor.userId()) {
-    this.render('config');
-  } else { this.next(); }
-});
-
 Router.map(function () {
+  this.route('login');
   this.route('code', { path: '/', });
   this.route('test');
-  this.route('git')
+  this.route('git');
   this.route('config');
 });
+
+// ask user to login before coding
+
+Router.onBeforeAction(function preLogin() {
+  if (! Meteor.userId() || Meteor.loggingIn()) {
+    Router.go('login');
+  } else {
+    this.next();
+  }
+}, {except: ['login']});
+
+// redirect user to code after login
+
+Router.onBeforeAction(function postLogin() {
+  if (Meteor.userId()) {
+    Router.go('code');
+  } else {
+    this.next();
+  }
+}, {only: ['login']});

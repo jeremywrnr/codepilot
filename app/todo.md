@@ -1,16 +1,12 @@
 TODOS
 =====
 
-use repo id as project id
-lots of refactoring
-show project id
-
-file specific syntax highlighting
 sketch new ui ideas
-what's up with delete files
-when committing, use content
+file specific syntax highlighting
+when committing, use file.content
 pick data from github for scaling
 deliver resources based on active repo
+use repo id as project id, lots of refactoring
 
 
 ## SERVER
@@ -155,4 +151,5 @@ github integration
 option to pick roles
 basic roles management
 refactor on repoName
+show project id
 -->
