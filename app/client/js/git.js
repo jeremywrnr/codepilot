@@ -2,9 +2,6 @@
 
 Template.commitPanel.helpers({
 
-  currentBranch: function() {
-    return Meteor.user().profile.repoBranch;
-  },
   committing: function() {
     return Session.get('committing');
   }
@@ -58,7 +55,7 @@ Template.commit.helpers({
     return Session.equals('commit', this._id);
   },
   mine: function() {
-    return (Meteor.user().profile.login === this.author.login)
+    return (Meteor.user().profile.login === this.commit.author.login)
   }
 });
 
