@@ -246,6 +246,7 @@ Meteor.methods({
 
     // update the ref, point to new commmit
     Meteor.call('postRef', cr);
+    var lastCommit = Meteor.call('getBranch', bname);
 
     // get the latest commit from the branch head
     // post into commit db with repo tag
