@@ -2,11 +2,11 @@ TODOS
 =====
 
 sketch new ui ideas
+push new commit to local db after github
 file specific syntax highlighting
 when committing, use file.content
 pick data from github for scaling
 deliver resources based on active repo
-use repo id as project id, lots of refactoring
 purge dev/prod databases
 
 
@@ -98,6 +98,7 @@ make a test button, load buffer
 save three buffers and load into iframe
 form validation: chat, rename, task, commit
 add 'repo' field to user
+use repo id as project id, lots of refactoring
 actual testing interface
 handle null filename better
 sorting files alphabetically

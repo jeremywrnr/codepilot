@@ -240,10 +240,9 @@ Meteor.methods({
 
     // update the ref, point to new commmit
     Meteor.call('postRef', cr);
-    Commits.remove({});
-    function commitInsert(c){Commits.upsert(c)}
-    var commits = Meteor.call('getAllCommits');
-    commits.map(commitInsert);
+
+    // get the latest commit from the branch head
+    // post into commit db with repo tag
 
     // update the feed with new commit
     Meteor.call('addMessage', 'commited ' + msg);
@@ -254,6 +253,7 @@ Meteor.methods({
   /////////////////////////////////////////////////
   // top level function, pull files and load editor
   /////////////////////////////////////////////////
+
 
   loadCommit: function(cs) { // takes commit sha
     // at some point, this should be able to take different branches or commits
@@ -267,6 +267,20 @@ Meteor.methods({
     // move files old contents into sharejsdoc
     var repoFiles = Files.find({repo: Meteor.user().profile.repo});
     repoFiles.map(function loadSJS(f){ Meteor.call('postShareJSDoc',f) });
+  },
+
+  initCommits: function(){ // re-populating the commit log
+    var gc = Meteor.call('getAllCommits');
+    gc.map(function addCommit(c){
+      Commits.upsert({
+        repo: Meteor.user().profile.repo,
+        sha: c.sha
+      },{
+        repo: Meteor.user().profile.repo,
+        sha: c.sha,
+        commit: c
+      });
+    });
   }
 
 });

@@ -39,7 +39,7 @@ Meteor.methods({
       repo: Meteor.user().profile.repo,
       username: Meteor.user().profile.login
     }, function addToFeed(err, id){
-      if (! err) Meter.call('addMessage', 'added '+text+' to tasks');
+      if (! err) Meteor.call('addMessage', 'added \''+text+'\' to tasks');
     });
   },
 

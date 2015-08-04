@@ -37,6 +37,10 @@ Template.commitPanel.events = {
     Session.set('committing', false);
   },
 
+  'click .refresh': function(e) {
+    Meteor.call('initCommits');
+  },
+
   'click .loadcommit': function(e) {
     Meteor.call('loadCommit');
   }

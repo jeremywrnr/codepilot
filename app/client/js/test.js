@@ -29,7 +29,6 @@ Template.testtasks.events({
     var task = $('#task-name')[0].value;
     if (task == null || task == '') return false;
     Meteor.call('addTask', task);
-    Meteor.call('addMessage', 'created task: ' + task);
     $('#task-name')[0].value = ''; // reset txt
   },
 

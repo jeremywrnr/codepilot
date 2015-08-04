@@ -1,5 +1,7 @@
 // data publishing
 
+debug = true;
+
 Meteor.publish('repos', function() { // only serve writable repos
   return Repos.find({user: this.userId});
 });
@@ -42,11 +44,5 @@ Meteor.startup(function () { // get correct github auth key
     key: GHAuth.clientId,
     secret: GHAuth.secret
   });
-
-  // re-populating the commit log
-  if (Commits.find().count() === 0){
-    var commits = Meteor.call('getAllCommits');
-    commits.map(function(c){Commits.insert(c)});
-  }
 
 });
