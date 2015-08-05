@@ -2,6 +2,7 @@ TODOS
 =====
 
 sketch new ui ideas
+fixing the load commit / docs
 push new commit to local db after github
 file specific syntax highlighting
 when committing, use file.content

@@ -37,7 +37,7 @@ Repos = new Mongo.Collection('repos');
 /*  _id - unique identifier of commit
     repo - unique identifier of repo file belongs to
     sha - git hash code for this commit
-    collaborators - array of user ids that can push
+    users - array of user ids that can push
     */
 
 //Branch inside

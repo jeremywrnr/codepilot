@@ -78,18 +78,19 @@ Meteor.methods({
     });
   },
 
-  getAllRepos: function() { //put them in db, serve to user (rather than return)
+  getAllRepos: function() { // put them in db, serve to user (not return)
     Meteor.call('ghAuth');
     var repos = github.repos.getAll({ user: Meteor.user().profile.login });
-    repos.map(function(gr){ //attach git repo (gr) to user
-      Repos.upsert(
-        { user: Meteor.userId(), id: gr.id },
-        { user: Meteor.userId(), id: gr.id, repo: gr }
-      );
+    // attach user to git repo (gr)
+    repos.map(function attachUser(gr){
+      if (Repos.findOne({repo: gr.id})) // repo already exists
+        Repos.update({ id: gr.id }, {$push: {users: Meteor.userId() }});
+      else
+        Repos.insert({ id: gr.id, users: [ Meteor.userId() ], repo: gr });
     });
   },
 
-  getAllBranches: function() {
+  getAllBranches: function() { // load all branches for current repo
     var brs = github.repos.getBranches({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName
@@ -100,34 +101,34 @@ Meteor.methods({
     );
   },
 
-  getAllCommits: function() {
+  getAllCommits: function() { // give all commits
     return github.repos.getCommits({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName
     });
   },
 
-  getCommit: function(sha) { //commit sha
+  getCommit: function(commitSHA) { // give commit res
     return github.repos.getCommit({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      sha: sha
+      sha: commitSHA
     });
   },
 
-  getBranch: function(bn) { //branch name
+  getBranch: function(branchName) { // give branch res
     return github.repos.getBranch({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      branch: bn
+      branch: branchName
     });
   },
 
-  getTree: function(br) { //branch results
+  getTree: function(treeSHA) { // gives tree res
     return github.gitdata.getTree({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      sha: br.commit.commit.tree.sha
+      sha: treeSHA
     });
   },
 
@@ -197,6 +198,7 @@ Meteor.methods({
   },
 
 
+
   ////////////////////////////////////////////////////////
   // top level function, grab files and commit to github
   ////////////////////////////////////////////////////////
@@ -246,10 +248,12 @@ Meteor.methods({
 
     // update the ref, point to new commmit
     Meteor.call('postRef', cr);
-    var lastCommit = Meteor.call('getBranch', bname);
 
     // get the latest commit from the branch head
+    var lastCommit = Meteor.call('getBranch', bname).commit;
+
     // post into commit db with repo tag
+    Meteor.call('addCommit', lastCommit);
 
     // update the feed with new commit
     Meteor.call('addMessage', 'commited ' + msg);
@@ -257,17 +261,19 @@ Meteor.methods({
   },
 
 
+
   /////////////////////////////////////////////////
   // top level function, pull files and load editor
   /////////////////////////////////////////////////
 
+  loadHead: function() { // load head of branch
+    var sha =  Meteor.call('getBranch', Meteor.user().profile.repoBranch).commit.sha;
+    Meteor.call('loadCommit', sha);
+  },
 
-  loadCommit: function(cs) { // takes commit sha
-    // at some point, this should be able to take different branches or commits
-    // along that branch to load instead of just the head on master
-
+  loadCommit: function(sha) { // takes commit sha
     // put github repo contents in oldcontents field
-    var br = Meteor.call('getBranch','master')
+    var cr = Meteor.call('getCommit', sha)
     var tr = Meteor.call('getTree', br)
     Meteor.call('getBlobs', tr)
 
@@ -276,18 +282,20 @@ Meteor.methods({
     repoFiles.map(function loadSJS(f){ Meteor.call('postShareJSDoc',f) });
   },
 
+  addCommit: function(c){
+    Commits.upsert({
+      repo: Meteor.user().profile.repo,
+      sha: c.sha
+    },{
+      repo: Meteor.user().profile.repo,
+      sha: c.sha,
+      commit: c
+    });
+  },
+
   initCommits: function(){ // re-populating the commit log
     var gc = Meteor.call('getAllCommits');
-    gc.map(function addCommit(c){
-      Commits.upsert({
-        repo: Meteor.user().profile.repo,
-        sha: c.sha
-      },{
-        repo: Meteor.user().profile.repo,
-        sha: c.sha,
-        commit: c
-      });
-    });
+    gc.map(function(c){Meteor.call('addCommit', c)});
   }
 
 });

@@ -3,7 +3,7 @@
 debug = true;
 
 Meteor.publish('repos', function() { // only serve writable repos
-  return Repos.find({user: this.userId});
+  return Repos.find({users: {$elemMatch: {$eq: this.userId}} });
 });
 Meteor.publish('commits', function(repoId) {
   return Commits.find({repo: repoId});
