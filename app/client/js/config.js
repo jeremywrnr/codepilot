@@ -7,10 +7,12 @@ Template.config.helpers({
   },
 
   branches: function(){
-    return Repos.find(
-      {_id: Meteor.user().profile.repo},
-      {fields: {branches: 1}}
-    ).fetch()[0].branches;
+    if(Repos.findOne(Meteor.user().profile.repo).branches)
+      return Repos.find(
+        {_id: Meteor.user().profile.repo},
+        {fields: {branches: 1}}
+      ).fetch()[0].branches;
+      else return [];
   }
 
 });

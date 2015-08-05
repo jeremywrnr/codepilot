@@ -110,7 +110,7 @@ Meteor.methods({
       user: gitRepo.owner.login,
       repo: gitRepo.name
     });
-    Repos.update({ id: gr.id }, { $set: {branches: brs} });
+    Repos.update({ id: getRepo.id }, { $set: {branches: brs} });
   },
 
   getBranch: function(branchName) { // give branch res
