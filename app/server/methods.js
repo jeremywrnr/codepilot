@@ -151,20 +151,6 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
-  postBlob: function( fileContent ) { // take file content, returns blob SHA
-    Meteor.call('ghAuth');
-    return Async.runSync(function(done) {
-      github.gitdata.createBlob({
-        user: Meteor.user().profile.repoOwner,
-        repo: Meteor.user().profile.repoName,
-        content: fileContent,
-        encoding: 'utf-8'
-      }, function(err, res){
-        if (!err) done(res);
-      })
-    }).sha;
-  },
-
   postTree: function(t){ // returns tree SHA hash id
     Meteor.call('ghAuth');
     return github.gitdata.createTree({
