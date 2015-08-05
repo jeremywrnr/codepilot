@@ -25,6 +25,17 @@ Messages = new Mongo.Collection('messages'); // client side feed
     time - message creation time
     */
 
+Tasks = new Mongo.Collection('tasks');
+
+/*  _id - unique identifier of task
+    text - name of the task, displayed
+    repo - unique identifier of repo task belongs to
+    time - time of creation of task
+    owner - userid of creator
+    username - profile.login of creator
+    checked - boolean whether done or not
+    */
+
 Commits = new Mongo.Collection('commits');
 
 /*  _id - unique identifier of commit
@@ -35,18 +46,19 @@ Commits = new Mongo.Collection('commits');
 Repos = new Mongo.Collection('repos');
 
 /*  _id - unique identifier of commit
-    repo - unique identifier of repo file belongs to
     sha - git hash code for this commit
     users - array of user ids that can push
+    branches - array of branches
+    repo - unique identifier of repo file belongs to
     */
 
-//Branch inside
+// Branch (inside)
 /*  _id - unique identifier of commit
     repo - unique identifier of repo file belongs to
     sha - git hash code for this commit
     */
 
-// TODO: TRIM THIS DOCUMENT!!!
+// repo.repo: TODO TRIM THIS DOCUMENT!!!
 
 //{ _id: 'cRwN6pXzev5wN6B7t',
 //user: 'ZGW8J85xAeWLYprXZ',
@@ -140,13 +152,3 @@ Repos = new Mongo.Collection('repos');
 //push: true,
 //pull: true } } }
 
-Tasks = new Mongo.Collection('tasks');
-
-/*  _id - unique identifier of task
-    text - name of the task, displayed
-    repo - unique identifier of repo task belongs to
-    time - time of creation of task
-    owner - userid of creator
-    username - profile.login of creator
-    checked - boolean whether done or not
-    */

@@ -3,6 +3,7 @@ TODOS
 
 file specific syntax highlighting
 iframes custom javascript logger output
+committing folders works, but can't load them - recursive trees
 
 
 ## UI / UX
@@ -13,11 +14,13 @@ gutter indicators: link to resources from task
 maybe a loading bar for the commit progress
 attach links for reference to file issue
 link to add a collaborator to the repo
+if files.count = 0, prompt
 sketch new ui ideas
 
 
 ## SERVER
 
+standardize server method names, documents
 only owner can add a collaborator: add option
 have a diff below each of the commits, before sending msg
 scrape head, body of html document for testing

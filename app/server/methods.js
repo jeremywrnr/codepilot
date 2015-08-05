@@ -15,10 +15,8 @@ Meteor.methods({
     Meteor.call('addMessage', ' created file: ' + ft);
     Files.insert(
       {title: ft, repo: Meteor.user().profile.repo},
-      function(err, id){
-        // create sharejs document with same id
-        var metaInfo = { mtime: new Date(), ctime: new Date() };
-        if(!err) ShareJS.model.create( id, 'text', metaInfo );
+      function(err, id){ // create sharejs document with same id
+        if(!err) newShareJSDoc(id);
         else dlog(err);
       }
     );
@@ -43,20 +41,22 @@ Meteor.methods({
   /////////////////////
 
   newShareJSDoc: function(id) { // create sharejs document with same id
-    Async.runSync(function(done){
+    return Async.runSync(function(done) {
+      var time = Math.round( new Date() / 1000 );
       ShareJS.model.create(
-        id, 'text', { mtime: new Date(), ctime: new Date() },
-        function(error, doc){ if (!error) done(doc); }
+        id, 'text', { mtime: time, ctime: time },
+        function(error, doc){ done(error, doc); }
       );
     });
   },
 
   getShareJSDoc: function(file) { // give live editor copy, v and snapshot
-    var sjs = Docs.find({ _id: file._id }).fetch()[0].data;
-    if (sjs)
-      return sjs;
+    var sjs = Docs.find( file._id );
+    if (sjs.count())
+      return sjs.fetch()[0].data;
     else
-      return newShareJSDoc(file._id).data;
+      Meteor.call('newShareJSDoc', file._id);
+    return Meteor.call('getShareJSDoc', file._id);
   },
 
   postShareJSDoc: function(file) { // update files with their ids
@@ -66,8 +66,8 @@ Meteor.methods({
         { p:0, d: sjs.snapshot }, // delete old content
         { p:0, i: file.content } // insert new blob content
       ],
-      meta:null,
-      v:sjs.v // apply it to last seen version
+      meta: null,
+      v: sjs.v // apply it to last seen version
     });
   },
 
@@ -144,23 +144,26 @@ Meteor.methods({
     return github.gitdata.getTree({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      sha: treeSHA
+      sha: treeSHA,
+      recursive: true // handle folders
     });
   },
 
   getBlobs: function(tr) { // update files with tree results (tr)
-    tr.tree.forEach(function updateBlob(b){
-      var oldcontent = github.gitdata.getBlob({
-        headers:{'Accept':'application/vnd.github.VERSION.raw'},
-        user: Meteor.user().profile.repoOwner,
-        repo: Meteor.user().profile.repoName,
-        sha: b.sha
-      });
-      // $set component instead of creating a new object
-      Files.upsert(
-        { repo: Meteor.user().profile.repo, title: b.path},
-        { $set: {content: oldcontent}}
-      );
+    tr.tree.forEach(function updateBlob(b) {
+      if (b.type === 'blob') { // only load files, not folders/trees
+        var oldcontent = github.gitdata.getBlob({
+          headers: {'Accept':'application/vnd.github.VERSION.raw'},
+          user: Meteor.user().profile.repoOwner,
+          repo: Meteor.user().profile.repoName,
+          sha: b.sha
+        });
+        // $set component instead of creating a new object
+        Files.upsert(
+          { repo: Meteor.user().profile.repo, title: b.path},
+          { $set: {content: oldcontent}}
+        );
+      };
     });
   },
 
@@ -288,11 +291,12 @@ Meteor.methods({
     var commitResults = Meteor.call('getCommit', sha);
     var treeResults = Meteor.call('getTree', commitResults.commit.tree.sha);
     var br = Meteor.call('getBlobs', treeResults);
+    dlog( treeResults );
 
     // move files old contents into sharejsdoc
     var repoFiles = Files.find({ repo: Meteor.user().profile.repo });
-    dlog( repoFiles.fetch() );
     repoFiles.map(function loadSJS(f){ Meteor.call('postShareJSDoc', f) });
+    dlog( repoFiles.fetch() );
   },
 
   addCommit: function(c){ // adds a commit, links to repo
@@ -309,6 +313,21 @@ Meteor.methods({
   initCommits: function(){ // re-populating the commit log
     var gc = Meteor.call('getAllCommits');
     gc.map(function(c){Meteor.call('addCommit', c)});
-  }
+  },
+
+
+
+  ///////////////////////////
+  // helper & testing methods
+  ///////////////////////////
+
+  resetAllData: function(){ // detroy everything
+    Messages.remove({});
+    Commits.remove({});
+    Repos.remove({});
+    Tasks.remove({});
+    Files.remove({});
+    Docs.remove({});
+  },
 
 });
