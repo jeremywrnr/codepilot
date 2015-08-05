@@ -19,9 +19,13 @@
 <template name="messages">
   <div class="well well-sm">
     <ul class="nav sidelist">
+      {{#if messages.count}}
       {{#each messages}}
       <li> <strong>{{name}}:</strong> {{message}} </li>
       {{/each}}
+      {{else}}
+      <li> quiet so far. </li>
+      {{/if}}
     </ul>
   </div>
 </template>

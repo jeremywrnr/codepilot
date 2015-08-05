@@ -39,11 +39,11 @@ Meteor.methods({
   // SHAREJS MANAGEMENT
   /////////////////////
 
-  getShareJSDoc: function(file) { // return live editor copy, v and snapshot
+  getShareJSDoc: function(file) { // give live editor copy, v and snapshot
     return Docs.find({ _id: file._id }).fetch()[0].data
   },
 
-  postShareJSDoc: function(file) { //files with _id
+  postShareJSDoc: function(file) { // update files with their ids
     var sjs = Meteor.call('getShareJSDoc', file) // get doc and version
     ShareJS.model.applyOp( file._id, {
       op: [
@@ -129,7 +129,7 @@ Meteor.methods({
     });
   },
 
-  getBlobs: function(tr) { //tree results
+  getBlobs: function(tr) { // update files with tree results (tr)
     tr.tree.forEach(function updateBlob(b){
       var oldcontent = github.gitdata.getBlob({
         headers:{'Accept':'application/vnd.github.VERSION.raw'},
@@ -151,7 +151,7 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
-  postTree: function(t){ // returns tree SHA hash id
+  postTree: function(t){ // gives tree SHA hash id
     Meteor.call('ghAuth');
     return github.gitdata.createTree({
       user: Meteor.user().profile.repoOwner,
@@ -161,7 +161,7 @@ Meteor.methods({
     }).sha;
   },
 
-  postCommit: function(c) { // returns all commit info
+  postCommit: function(c) { // gives all commit info, with commit c
     Meteor.call('ghAuth');
     return github.gitdata.createCommit({
       user: Meteor.user().profile.repoOwner,
@@ -173,12 +173,12 @@ Meteor.methods({
     });
   },
 
-  postRef: function(cr){ // update ref to new commit, with commit results
+  postRef: function(cr){ // update ref to new commit, with commit results (cr)
     Meteor.call('ghAuth');
     return  github.gitdata.updateReference({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      ref: 'heads/master',
+      ref: 'heads/' + Meteor.user().profile.repoBranch,
       sha: cr.sha
     });
   },
@@ -204,18 +204,19 @@ Meteor.methods({
     );
 
     // a diff would be done here, remove unchanged files from list
+    // or add new files, that were not in the previous commit
 
-    // push blobs, get file shas
+    // construct commit tree content
     var blobs = files.map(function(f){
       return {
         path: f.path,
         mode: '100644',
         type: 'blob',
-        content:  f.content
+        content: f.content
       }
     });
 
-    console.log(blobs);
+    if (debug) console.log(blobs);
 
     // get old tree and update it with new shas, post and get that sha
     var bname = Meteor.user().profile.repoBranch;
@@ -264,19 +265,17 @@ Meteor.methods({
     Meteor.call('loadCommit', sha);
   },
 
-  loadCommit: function(sha) { // takes commit sha
-
-    // put github repo contents in oldcontents field
-    var cr = Meteor.call('getCommit', sha)
-    var tr = Meteor.call('getTree', cr.commit.tree.sha)
-    var br = Meteor.call('getBlobs', tr)
+  loadCommit: function(sha) { // takes commit sha, loads into sjs
+    var commitResults = Meteor.call('getCommit', sha);
+    var treeResults = Meteor.call('getTree', commitResults.commit.tree.sha);
+    var br = Meteor.call('getBlobs', treeResults);
 
     // move files old contents into sharejsdoc
-    var repoFiles = Files.find({repo: Meteor.user().profile.repo});
-    repoFiles.map(function loadSJS(f){ Meteor.call('postShareJSDoc',f) });
+    var repoFiles = Files.find({ repo: Meteor.user().profile.repo });
+    repoFiles.map(function loadSJS(f){ Meteor.call('postShareJSDoc', f) });
   },
 
-  addCommit: function(c){
+  addCommit: function(c){ // adds a commit, links to repo
     Commits.upsert({
       repo: Meteor.user().profile.repo,
       sha: c.sha

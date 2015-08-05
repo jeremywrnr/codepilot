@@ -1,64 +1,29 @@
 TODOS
 =====
 
-sketch new ui ideas
-fixing the load commit / docs
-push new commit to local db after github
+test/fix production errors
 file specific syntax highlighting
-when committing, use file.content
-pick data from github for scaling
-deliver resources based on active repo
-on selecting a repo, load branches
-purge dev/prod databases
-
+iframes custom javascript logger output
 
 ## UI / UX
 
-add null msg for feed and commit
 stop panel-body from hiding iframe contents (clearfix?)
-gutter indicators: copilot comments, recent edits
-add more labels on right side of task input
-click on task user label shouldnt complete
-make a new task also adds an item to feed
+add more labels on right side of task input (gh issues)
+gutter indicators: link to resources from task
+maybe a loading bar for the commit progress
 attach links for reference to file issue
-add git options to each commit item
-copilot doesnt edit code
-copilot - write view of tests
-pilot - read view of tests
+link to add a collaborator to the repo
+sketch new ui ideas
 
 
 ## SERVER
 
-_pick_ your data as to not bloat the database
-difference between author and committer in git?
-ACTUALLY design what the fields should be plz
-only give user the user things related to their repo
-commit these changes only after testing
-override the iframes logger so that it goes to custom javascript output
-generating shared session links
-creating an issue on this repo - could be helpful to PROF
-walk through commits (too much like desktop apps?)
-copilot is taking snapshots of the code while testing
-passing the tests do a merge from master in the testing app
-save files under the test, so testing does not disrupt the editing
-have a diff below each of the commits
-some way to cache file contents if they havent changed from commit to commit
-scrape head,body of html document for testing
-do a check with commit contents, if different create the blob and do a diff
-against the current version with the github api, post before committing???
-maybe a loading bar for the commit progress
-having sessions or groups - scaling app
-text box to select one to use in codepilot
-commit reset buttons actually do something
-parse the head out of the html source file
-will involve storing the hashes in commits
-future: create a new repo with the api
-ability to fork code from parent repo
+have a diff below each of the commits, before sending msg
+scrape head, body of html document for testing
+closing / linking to actual github issues
 implementing a folder structure
 create branching for testing
-store commit shas locally
-add a snapshot feature
-creating a bunch of random files????
+purge prod database
 
 
 ## NOTES / ERRORS
@@ -86,8 +51,10 @@ automatically, with the model.create from sharejs. - a distributed task - 1
 pilot, 4 copilots - idea: choose ANY public repo on github, fork it for user,
 then start editing that repo. this prevents the issue of having permission to
 push to the branch, and maybe also include option to make a PR or be a
-collaborator
-
+collaborator - \_pick your data as to not bloat the database - future: create a
+new repo with the api - creating an issue on this repo, could be helpful to
+PROF - in the future, you could create pull requests instead of linking to the
+collaborators page.
 
 
 ### done
@@ -102,12 +69,15 @@ make a test button, load buffer
 save three buffers and load into iframe
 form validation: chat, rename, task, commit
 add 'repo' field to user
+add git options to each commit item
 use repo id as project id, lots of refactoring
 actual testing interface
 handle null filename better
 sorting files alphabetically
 show which commit owner
 make welcome template seperate, less wide
+deliver resources based on active repo
+push new commit to local db after github
 writing to the contents of a sharejs document
 integrate feed hooks into commits
 loading content from a repo into files, then docs
@@ -115,25 +85,38 @@ make show / hide (hide completed) button
 bug - clicking on box doesnt disable it??
 EDITING GITHUB PERMISSION REQUESTS:
 testing out pushing to an existing repo
+difference between author and committer in git?
+ACTUALLY design what the fields should be plz
+only give user the user things related to their repo
+generating shared session links - done with unique repo ids
 loading a repos content, commit history
 reconfigure public only repos
+autoset default branch
+having sessions or groups - scaling app
 change template based on roles
 making the task items more usable
 conflict with sharejs and docs??? renaming to files
 make a fake github account, collab with me
 probably something to do with using autopublish
+fixing the load commit / docs
+add null msg for feed and commit
 listiing a users repos / 'collabable'
 load a specific commit instead of the latest
+add a snapshot feature
+store commit shas locally
 removing login with email (just github)
 have a link to rename or edit the project files...
 refactor authentication code - methods
 looking at roles, changing editing profiles
+on selecting a repo, load branches
 make login info pop to the left | align it right
 deleting and renaming button (NOW DOES) work
+make a new task also adds an item to feed
 chat: only show initials for briefness?
 make message box look nicer
 choose target from list of on github
 sort owned and all other editable repos
+commit reset buttons actually do something
 remove autopublish, p/s specific datasets
 have partially curved border, lower ace
 make prompt to open new file on close

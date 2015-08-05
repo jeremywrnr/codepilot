@@ -38,6 +38,7 @@ Template.repo.events({
 
   'click .repo': function(e) {
     Meteor.call('setRepo', this);
+    Meteor.call('initCommits');
   }
 
 });

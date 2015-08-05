@@ -22,8 +22,9 @@ Accounts.onCreateUser(function(options, user){
 
   // set default target repo
   user.profile.repoOwner = profile.login
+  user.profile.repoBranch = 'master'
   user.profile.repoName = 'testing'
-  user.profile.role = 'choose a repo below!'
+  user.profile.repo = 'choose a repo to get a project id!'
   user.profile.role = 'copilot'
   return user;
 
