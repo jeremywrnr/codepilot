@@ -1,9 +1,9 @@
 TODOS
 =====
 
-test/fix production errors
 file specific syntax highlighting
 iframes custom javascript logger output
+
 
 ## UI / UX
 
@@ -18,6 +18,7 @@ sketch new ui ideas
 
 ## SERVER
 
+only owner can add a collaborator: add option
 have a diff below each of the commits, before sending msg
 scrape head, body of html document for testing
 closing / linking to actual github issues
@@ -112,6 +113,7 @@ on selecting a repo, load branches
 make login info pop to the left | align it right
 deleting and renaming button (NOW DOES) work
 make a new task also adds an item to feed
+test/fix get repo production errors
 chat: only show initials for briefness?
 make message box look nicer
 choose target from list of on github

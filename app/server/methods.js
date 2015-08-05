@@ -86,7 +86,6 @@ Meteor.methods({
       Repos.update({ id: gr.id }, {$push: {users: Meteor.userId() }});
       else
         Repos.insert({ id: gr.id, users: [ Meteor.userId() ], repo: gr });
-      Meteor.call('getBranches', gr);
     });
   },
 
@@ -110,7 +109,8 @@ Meteor.methods({
       user: gitRepo.owner.login,
       repo: gitRepo.name
     });
-    Repos.update({ id: getRepo.id }, { $set: {branches: brs} });
+    Repos.update({ id: gitRepo.id }, { $set: {branches: brs} });
+    Meteor.call('setBranch', brs[0].name) // set up default
   },
 
   getBranch: function(branchName) { // give branch res
