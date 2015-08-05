@@ -85,13 +85,14 @@ Meteor.methods({
   // REPO MANAGEMENT
   //////////////////
 
-  setRepo: function(gr) { //set git repo
+  setRepo: function(gr) { //set git repo & default branch
     return Meteor.users.update(
       {'_id': Meteor.userId()},
       {$set : {
         'profile.repo': gr._id,
         'profile.repoName': gr.repo.name,
-        'profile.repoOwner': gr.repo.owner.login
+        'profile.repoOwner': gr.repo.owner.login,
+        'profile.repoBranch': gr.repo.owner.default_branch
       }});
   },
 

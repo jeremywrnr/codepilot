@@ -6,7 +6,7 @@ Template.config.helpers({
     return Repos.find({}, {sort: {'repo.owner': -1, 'repo.name': 1}} );
   },
 
-  branches: function(){
+  branches: function(){ // if there are branches, give them
     if(Repos.findOne(Meteor.user().profile.repo).branches)
       return Repos.find(
         {_id: Meteor.user().profile.repo},
@@ -39,8 +39,9 @@ Template.config.events({
 Template.repo.events({
 
   'click .repo': function(e) {
-    Meteor.call('setRepo', this);
-    Meteor.call('initCommits');
+    Meteor.call('setRepo', this); // set the active project / repo
+    Meteor.call('getBranches', this); // get all the possible branches
+    Meteor.call('initCommits'); // pull commit history for this repo
   }
 
 });

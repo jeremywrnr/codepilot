@@ -1,4 +1,5 @@
 // server & github api methods
+// dlog is debugger, see server/setup.js
 
 Meteor.methods({
 
@@ -12,15 +13,19 @@ Meteor.methods({
 
   createFile: function(ft) { // make new file with filetitle (ft), return id
     Meteor.call('addMessage', ' created file: ' + ft);
-    return Async.runSync(function(done){
-      Files.insert(
-        {title: ft, repo: Meteor.user().profile.repo},
-        function(e,id){done(e,id)});
-    }).result;
+    Files.insert(
+      {title: ft, repo: Meteor.user().profile.repo},
+      function(err, id){
+        // create sharejs document with same id
+        var metaInfo = { mtime: new Date(), ctime: new Date() };
+        if(!err) ShareJS.model.create( id, 'text', metaInfo );
+        else dlog(err);
+      }
+    );
   },
 
   deleteFile: function(id) { // with id, delete a file from system
-    ShareJS.model['delete'](id);
+    ShareJS.model.delete(id);
     Files.remove(id);
     Docs.remove(id);
   },
@@ -28,9 +33,7 @@ Meteor.methods({
   resetFiles: function() { // reset db and hard code the file structure
     Files.find({}).map(function delFile(f){ Meteor.call('deleteFile', f._id)});
     var base = [{'title':'site.html'},{'title':'site.css'},{'title':'site.js'}];
-    base.map(function(f){ // for each of the hard coded files
-      var id = Meteor.call('createFile', f.title);
-    });
+    base.map(function(f){ Meteor.call('createFile', f.title) });
   },
 
 
@@ -39,8 +42,21 @@ Meteor.methods({
   // SHAREJS MANAGEMENT
   /////////////////////
 
+  newShareJSDoc: function(id) { // create sharejs document with same id
+    Async.runSync(function(done){
+      ShareJS.model.create(
+        id, 'text', { mtime: new Date(), ctime: new Date() },
+        function(error, doc){ if (!error) done(doc); }
+      );
+    });
+  },
+
   getShareJSDoc: function(file) { // give live editor copy, v and snapshot
-    return Docs.find({ _id: file._id }).fetch()[0].data
+    var sjs = Docs.find({ _id: file._id }).fetch()[0].data;
+    if (sjs)
+      return sjs;
+    else
+      return newShareJSDoc(file._id).data;
   },
 
   postShareJSDoc: function(file) { // update files with their ids
@@ -104,13 +120,16 @@ Meteor.methods({
     });
   },
 
-  getBranches: function(gitRepo) { // give all branches for repo
+  getBranches: function(gr) { // update all branches for repo
     var brs = github.repos.getBranches({
-      user: gitRepo.owner.login,
-      repo: gitRepo.name
+      user: gr.repo.owner.login,
+      repo: gr.repo.name
     });
-    Repos.update({ id: gitRepo.id }, { $set: {branches: brs} });
-    Meteor.call('setBranch', brs[0].name) // set up default
+    Repos.update(
+      { id: gr.repo.id },
+      { $set: {branches: brs}}
+    );
+    Meteor.call('setBranch', gr.repo.default_branch) // set default br
   },
 
   getBranch: function(branchName) { // give branch res
@@ -195,7 +214,7 @@ Meteor.methods({
     var files = Files.find({repo: Meteor.user().profile.repo}).map(
       function getFile(f){
         var shareJSDoc = Meteor.call('getShareJSDoc', f);
-        if (debug) console.log(shareJSDoc);
+        dlog( shareJSDoc );
         return {
           path: f.title,
           content: shareJSDoc.snapshot
@@ -216,7 +235,7 @@ Meteor.methods({
       }
     });
 
-    if (debug) console.log(blobs);
+    dlog( blobs );
 
     // get old tree and update it with new shas, post and get that sha
     var bname = Meteor.user().profile.repoBranch;
@@ -272,6 +291,7 @@ Meteor.methods({
 
     // move files old contents into sharejsdoc
     var repoFiles = Files.find({ repo: Meteor.user().profile.repo });
+    dlog( repoFiles.fetch() );
     repoFiles.map(function loadSJS(f){ Meteor.call('postShareJSDoc', f) });
   },
 
