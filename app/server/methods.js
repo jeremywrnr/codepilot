@@ -86,18 +86,8 @@ Meteor.methods({
         Repos.update({ id: gr.id }, {$push: {users: Meteor.userId() }});
       else
         Repos.insert({ id: gr.id, users: [ Meteor.userId() ], repo: gr });
+      Meteor.call('getBranches', gr);
     });
-  },
-
-  getAllBranches: function() { // load all branches for current repo
-    var brs = github.repos.getBranches({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName
-    });
-    Repos.update(
-      { _id: Meteor.user().profile.repo },
-      { $set: {branches: brs} }
-    );
   },
 
   getAllCommits: function() { // give all commits
@@ -113,6 +103,14 @@ Meteor.methods({
       repo: Meteor.user().profile.repoName,
       sha: commitSHA
     });
+  },
+
+  getBranches: function(gr) { // give all branches for repo
+    var brs = github.repos.getBranches({
+      user: gr.owner.login,
+      repo: gr.name
+    });
+    Repos.update({ id: gr.id }, { $set: {branches: brs} });
   },
 
   getBranch: function(branchName) { // give branch res
