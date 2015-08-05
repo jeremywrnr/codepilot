@@ -81,9 +81,8 @@ Meteor.methods({
   getAllRepos: function() { // put them in db, serve to user (not return)
     Meteor.call('ghAuth');
     var repos = github.repos.getAll({ user: Meteor.user().profile.login });
-    // attach user to git repo (gr)
-    repos.map(function attachUser(gr){
-      if (Repos.findOne({repo: gr.id})) // repo already exists
+    repos.map(function attachUser(gr){ // attach user to git repo (gr)
+      if (Repos.find({ id: gr.id }).count() > 0) // repo already exists
         Repos.update({ id: gr.id }, {$push: {users: Meteor.userId() }});
       else
         Repos.insert({ id: gr.id, users: [ Meteor.userId() ], repo: gr });
