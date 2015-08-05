@@ -20,6 +20,14 @@ Template.commitPanel.events = {
     Meteor.call('makeCommit', msg);
   },
 
+  'click .refresh': function(e) {
+    Meteor.call('initCommits');
+  },
+
+  'click .loadhead': function(e) {
+    Meteor.call('loadHead', Meteor.user().profile.repoBranch);
+  },
+
   'click .resetfiles': function(e) {
     Meteor.call('resetFiles');
   },
@@ -32,19 +40,11 @@ Template.commitPanel.events = {
 
   'click .cancelCommit': function(e) {
     Session.set('committing', false);
-  },
-
-  'click .refresh': function(e) {
-    Meteor.call('initCommits');
-  },
-
-  'click .loadcommit': function(e) {
-    Meteor.call('loadCommit');
   }
 
 };
 
-Template.history.helpers({
+Template.history.helpers({ // sort the commits by time
   commits: function() {
     return Commits.find({}, {sort: {'commit.commit.committer.date': -1}} );
   }
@@ -67,7 +67,11 @@ Template.commit.events = {
     } else {
       Session.set('commit', this._id);
     }
-  }
+  },
+
+  'click .loadcommit': function(e) {
+    Meteor.call('loadCommit', this.commit.sha);
+  },
 
 };
 

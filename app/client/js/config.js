@@ -30,7 +30,6 @@ Template.config.events({
   'click .loadGHData': function(e) {
     e.preventDefault();
     Meteor.call('getAllRepos');
-    Meteor.call('getAllBranches');
   }
 
 });

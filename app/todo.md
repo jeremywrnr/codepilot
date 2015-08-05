@@ -14,6 +14,7 @@ purge dev/prod databases
 
 ## UI / UX
 
+add null msg for feed and commit
 stop panel-body from hiding iframe contents (clearfix?)
 gutter indicators: copilot comments, recent edits
 add more labels on right side of task input
@@ -57,6 +58,7 @@ implementing a folder structure
 create branching for testing
 store commit shas locally
 add a snapshot feature
+creating a bunch of random files????
 
 
 ## NOTES / ERRORS
