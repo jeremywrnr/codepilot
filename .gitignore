@@ -16,6 +16,7 @@ pids
 logs
 results
 
+old/
 .npm
 npm-debug.log
 .build*
