@@ -1,57 +1,57 @@
 <!--allow user to configure things-->
 
-<template name="config">
-  <div class="col-xs-8 full-height">
+<template name='config'>
+  <div class='col-xs-8 full-height'>
     <h2> settings </h2>
-    <div class="panel panel-primary">
-      <div class="panel-heading"> <h2 class="panel-title"> account </h2> </div>
-      <div class="panel-body">
+    <div class='panel panel-primary'>
+      <div class='panel-heading'> <h2 class='panel-title'> account </h2> </div>
+      <div class='panel-body'>
 
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <h4><img class="img-rounded" style="height: 75px;" src="{{currentUser.profile.avatar_url}}">
+        <div class='panel panel-default'>
+          <div class='panel-body'>
+            <h4><img class='img-rounded' style='height: 75px;' src='{{currentUser.profile.avatar_url}}'>
               {{currentUser.profile.name}}</h4>
           </div>
-          <ul class="list-group">
-            <li class="list-group-item">
+          <ul class='list-group'>
+            <li class='list-group-item'>
               project id: {{ currentUser.profile.repo }}
             </li>
-            <li class="list-group-item"> github:
-              <a href="{{currentUser.profile.html_url}}" target="_blank">
+            <li class='list-group-item'> github:
+              <a href='{{currentUser.profile.html_url}}' target='_blank'>
                 {{ currentUser.profile.login }}</a>
             </li>
-            <li class="list-group-item"> repo:
-              <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}"
-                 target="_blank">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+            <li class='list-group-item'> repo:
+              <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
+                 target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
             </li>
-            <li class="list-group-item"> branch:
-              <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/{{ currentUser.profile.repoBranch }}"
-                 target="_blank">{{ currentUser.profile.repoBranch }}</a>
+            <li class='list-group-item'> branch:
+              <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/{{ currentUser.profile.repoBranch }}'
+                 target='_blank'>{{ currentUser.profile.repoBranch }}</a>
             </li>
-            <li class="list-group-item">role: {{currentUser.profile.role}}</li>
+            <li class='list-group-item'>role: {{currentUser.profile.role}}</li>
           </ul>
         </div>
 
         <h5>github config</h5>
-        <div class="btn-group">
-          <button class="loadGHData grn btn">refresh</button>
-          <div class="btn-group">
-            <button class="btn grn dropdown-toggle" data-toggle="dropdown">
-              repo <span class="caret"></span>
+        <div class='btn-group'>
+          <button class='loadGHData grn btn'>refresh</button>
+          <div class='btn-group'>
+            <button class='btn grn dropdown-toggle' data-toggle='dropdown'>
+              repo <span class='caret'></span>
             </button>
-            <ul class="dropdown-menu">
-              <li class="dropdown-header">repos</li>
+            <ul class='dropdown-menu'>
+              <li class='dropdown-header'>repos</li>
               {{#each repos}}
               {{> repo}}
               {{/each}}
             </ul>
           </div>
-          <div class="btn-group">
-            <button class="btn grn dropdown-toggle" data-toggle="dropdown">
-              branch <span class="caret"></span>
+          <div class='btn-group'>
+            <button class='btn grn dropdown-toggle' data-toggle='dropdown'>
+              branch <span class='caret'></span>
             </button>
-            <ul class="dropdown-menu">
-              <li class="dropdown-header">branches</li>
+            <ul class='dropdown-menu'>
+              <li class='dropdown-header'>branches</li>
               {{#each branches}}
               {{> branch}}
               {{/each}}
@@ -60,17 +60,17 @@
         </div>
 
         <h5>role</h5>
-        <div class="btn-group">
-          <button class="makePilot grn btn">pilot</button>
-          <button class="makeCopilot grn btn">co-pilot</button>
+        <div class='btn-group'>
+          <button class='makePilot grn btn'>pilot</button>
+          <button class='makeCopilot grn btn'>co-pilot</button>
         </div>
 
         {{#if isPilot}}
         <p>This view is only seen by pilots.</p>
-        <img class="img-rounded" style="height: 150px" src="http://www.cinemablend.com/images/news_img/32554/Top_Gun_2_32554.jpg">
+        <img class='img-rounded' style='height: 150px' src='http://www.cinemablend.com/images/news_img/32554/Top_Gun_2_32554.jpg'>
         {{else}}
         <p>This view is only seen by copilots.</p>
-        <img class="img-rounded" style="height: 150px" src="https://s-media-cache-ak0.pinimg.com/236x/55/50/32/5550323e05e7a5f719de5263d7f160d2.jpg">
+        <img class='img-rounded' style='height: 150px' src='https://s-media-cache-ak0.pinimg.com/236x/55/50/32/5550323e05e7a5f719de5263d7f160d2.jpg'>
         {{/if}}
 
       </div>
@@ -78,10 +78,10 @@
   </div>
 </template>
 
-<template name="repo">
-  <li class="repo"><a href="#">{{ repo.full_name }}</a></li>
+<template name='repo'>
+  <li class='repo'><a href='#'>{{ repo.full_name }}</a></li>
 </template>
 
-<template name="branch">
-  <li class="branch"><a href="#">{{ name }}</a></li>
+<template name='branch'>
+  <li class='branch'><a href='#'>{{ name }}</a></li>
 </template>

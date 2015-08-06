@@ -3,26 +3,32 @@
 Template.renderer.helpers({
 
   getHead: function () { // parse head of html file
-    var full = Files.findOne({title: /.*html/}).content;
-    var doc = $( '<html></html>' );
-    doc.html( full );
-    return $('head', doc)[0].innerHTML;
+    var full = Files.findOne({title: /.*html/i});
+    if (full) return grabTagContentsToRender(full, 'head');
   },
 
-  getBody: function () {
-    var full = Files.findOne({title: /.*html/}).content;
-    var doc = $( '<html></html>' );
-    doc.html( full );
-    return $('body', doc)[0].innerHTML;
+  getBody: function () { // parse body of file
+    var full = Files.findOne({title: /.*html/i});
+    if (full) return grabTagContentsToRender(full, 'body');
   },
+
+
+});
+
+Template.cssSource.helpers({
 
   getCSS: function () {
-    return Files.findOne({title: /.*css/}).content;
-  },
-
-  getJS: function () {
-    return Files.findOne({title: /.*js/}).content;
+    var css = Files.findOne({ title: /.*css/i});
+    if (css) return css.content
   },
 
 });
 
+Template.logger.helpers({
+
+  getJS: function () {
+    var js = Files.findOne({ title: /.*js/i});
+    if (js) return js.content
+  },
+
+});

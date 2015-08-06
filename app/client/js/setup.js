@@ -33,6 +33,12 @@ focusForm = function(id){
   }, 100); // check every 100ms
 };
 
+grabTagContentsToRender = function(full, tag){
+  var doc = $('<html></html>');
+  doc.html( full.content );
+  return $(tag, doc)[0].innerHTML;
+}
+
 // navbar options
 
 Template.navigation.helpers({

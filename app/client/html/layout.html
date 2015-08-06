@@ -2,11 +2,11 @@
   <title>code pilot</title>
 </head>
 
-<template name="main">
-  <div class="container full-height">
-    <div class="col-xs-4 full-height">
-      <div class="sidebar">
-        <h1><a href="/"> code pilot </a></h1>
+<template name='main'>
+  <div class='container full-height'>
+    <div class='col-xs-4 full-height'>
+      <div class='sidebar'>
+        <h1><a href='/'> code pilot </a></h1>
 
         {{> loginGithub }}
 
@@ -25,9 +25,9 @@
 
 <!--login templates-->
 
-<template name="loginGithub">
-  <div class="btn-group btn-group-justified" role="group">
-    <div class="btn-group" role="group">
+<template name='loginGithub'>
+  <div class='btn-group btn-group-justified' role='group'>
+    <div class='btn-group' role='group'>
       {{#if currentUser }}
       {{> userLoggedin }}
       {{else}}
@@ -37,28 +37,28 @@
   </div>
 </template>
 
-<template name="userLoggedin">
+<template name='userLoggedin'>
   {{#if loggingIn }}
-  <button type="button" class="btn btn-default">logging in...</button>
+  <button type='button' class='btn btn-default'>logging in...</button>
   {{else}}
-  <button class="btn btn-default logout" type="button">
+  <button class='btn btn-default logout' type='button'>
     {{ currentUser.profile.login }} | logout
   </button>
   {{/if}}
 </template>
 
-<template name="userLoggedout">
-  <button type="button" class="btn btn-default login">login with Github</button>
+<template name='userLoggedout'>
+  <button type='button' class='btn btn-default login'>login with Github</button>
 </template>
 
 <!-- navigation icons from http://glyphicons.com/ -->
 
-<template name="navigation">
-  <div class="btn-group btn-group-justified" role="toolbar">
+<template name='navigation'>
+  <div class='btn-group btn-group-justified' role='toolbar'>
 
     {{#each navItems}}
-    <a role='button' class='btn btn-primary' href="{{ iconpath }}">
-      <span class="glyphicon glyphicon-{{iconname}}" aria-label="{{iconname}}">
+    <a role='button' class='btn btn-primary' href='{{ iconpath }}'>
+      <span class='glyphicon glyphicon-{{iconname}}' aria-label='{{iconname}}'>
       </span>
     </a>
     {{/each}}

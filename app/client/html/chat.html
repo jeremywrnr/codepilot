@@ -1,24 +1,24 @@
 <!--chat with other users-->
 
-<template name="chat">
-  <div class="panel panel-info sidepanel">
-    <div class="panel-heading">
-      <h3 class="panel-title">feed</h3>
+<template name='chat'>
+  <div class='panel panel-info sidepanel'>
+    <div class='panel-heading'>
+      <h3 class='panel-title'>feed</h3>
     </div>
-    <div class="panel-body">
+    <div class='panel-body'>
       {{> chatter }}
       {{> messages }}
     </div>
   </div>
 </template>
 
-<template name="chatter">
-  <input type="text" id="message" class="form-control" placeholder="chat here...">
+<template name='chatter'>
+  <input type='text' id='message' class='form-control' placeholder='chat here...'>
 </template>
 
-<template name="messages">
-  <div class="well well-sm">
-    <ul class="nav sidelist">
+<template name='messages'>
+  <div class='well well-sm'>
+    <ul class='nav sidelist'>
       {{#if messages.count}}
       {{#each messages}}
       <li> <strong>{{name}}:</strong> {{message}} </li>

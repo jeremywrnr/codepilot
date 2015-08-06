@@ -1,12 +1,15 @@
 TODOS
 =====
 
+refactor config templates
 file specific syntax highlighting
 iframes custom javascript logger output
 production repo loading not working?
+more branch infrastructure - tag repo
 better iframe:
     serve template on route, have that be the src
 load file from github only on click?? reduce api calls
+deleting / renaming files with github
 
 
 ## guo meeting

@@ -1,31 +1,31 @@
 <!--display a list of files -->
 
-<template name="filelist">
-  <div class="panel panel-info sidepanel">
-    <div class="panel-heading">
-      <h3 class="panel-title">files
-        <button class="btn btn-xs grn btn-default pull-right new">new</button>
+<template name='filelist'>
+  <div class='panel panel-info sidepanel'>
+    <div class='panel-heading'>
+      <h3 class='panel-title'>files
+        <button class='btn btn-xs grn btn-default pull-right new'>new</button>
       </h3>
     </div>
-    <div class="panel-body">
-      <ul class="nav nav-pills nav-stacked sidelist">
+    <div class='panel-body'>
+      <ul class='nav nav-pills nav-stacked sidelist'>
         {{#if files.count}}
         {{#each files}}
         {{> fileitem}}
         {{/each}}
         {{else}}
-        <li class="file new"> <a href="#"> no files yet </a> </li>
+        <li class='file new'> <a href='#'> no files yet </a> </li>
         {{/if}}
       </ul>
     </div>
   </div>
 </template>
 
-<template name="fileitem">
-  <li class="file {{#if current}}active{{/if}}">
-    <a id='{{#if current}}active-file{{/if}}' href="/">
+<template name='fileitem'>
+  <li class='file {{#if current}}active{{/if}}'>
+    <a id='{{#if current}}active-file{{/if}}' href='/'>
       {{#if current}}
-      <span class="glyphicon glyphicon-triangle-right"></span>
+      <span class='glyphicon glyphicon-triangle-right'></span>
       {{/if}}
       {{title}}
     </a>

@@ -1,27 +1,27 @@
 <!--testing stuff here-->
 
-<template name="test">
-  <div class="col-xs-8 full-height">
+<template name='test'>
+  <div class='col-xs-8 full-height'>
     <h2> testing </h2>
     {{> testtasks }}
     {{> tester}}
   </div>
 </template>
 
-<template name="testtasks">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title"> tasks ({{incompleteCount}})
-        <label class="label pull-right"> hide complete
-          <input type="checkbox" checked="{{hideCompleted}}" class="hide-completed"/>
+<template name='testtasks'>
+  <div class='panel panel-primary'>
+    <div class='panel-heading'>
+      <h3 class='panel-title'> tasks ({{incompleteCount}})
+        <label class='label pull-right'> hide complete
+          <input type='checkbox' checked='{{hideCompleted}}' class='hide-completed'/>
         </label>
       </h3>
     </div>
-    <div class="panel-body">
-      <form class="new-task">
-        <input id="task-name" type="text" class="form-control" placeholder="add a task..." />
+    <div class='panel-body'>
+      <form class='new-task'>
+        <input id='task-name' type='text' class='form-control' placeholder='add a task...' />
       </form>
-      <ul class="list-group">
+      <ul class='list-group'>
         {{#each tasks}}
         {{> todotask}}
         {{/each}}
@@ -30,28 +30,30 @@
   </div>
 </template>
 
-<template name="todotask">
-  <li class="list-group-item toggle-checked {{#if checked}}checked disabled{{/if}}">
-    <input type="checkbox" class="toggle-checked" checked="{{checked}}"> {{text}}
-    <button class="pull-right label btn del">&times;</button>
-    <label class="pull-right btn label {{#if mine}}label-primary{{else}}label-info{{/if}}">{{username}}</label>
+<template name='todotask'>
+  <li class='list-group-item toggle-checked {{#if checked}}checked disabled{{/if}}'>
+    <input type='checkbox' class='toggle-checked' checked='{{checked}}'> {{text}}
+    <button class='pull-right label btn del'>&times;</button>
+    <label class='pull-right btn label {{#if mine}}label-primary{{else}}label-info{{/if}}'>{{username}}</label>
   </li>
 </template>
 
-<template name="tester">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <button type="button" class="btn btn-default reload btn-lg grn">reload tester</button>
+<template name='tester'>
+  <div class='panel panel-primary'>
+    <div class='panel-heading'>
+      <button type='button' class='btn btn-default reload btn-lg grn'>reload tester</button>
+      <a href='/renderer' target='_blank'>
+      <button type='button' class='btn btn-default btn-lg grn'>view in tab</button>
+      </a>
     </div>
     {{> iframe}}
   </div>
 </template>
 
-<template name="iframe"><!-- container div -->
-  <div  class="panel-body" style="margin:0px;padding:0px;">
-    <iframe src='/renderer'
-                           style="min-height:300px;height:100%;width:100%"
-                           frameborder="0" height="100%" width="100%">
+<template name='iframe'><!-- container div -->
+  <div  class='panel-body' style='margin:0px;padding:0px;'>
+    <iframe src='/renderer' style='min-height:300px;height:100%;width:100%'
+                            frameborder='0' height='100%' width='100%'>
     </iframe>
   </div>
 </template>
