@@ -3,7 +3,8 @@ TODOS
 
 file specific syntax highlighting
 iframes custom javascript logger output
-committing folders works, but can't load them - recursive trees
+better iframe:
+    serve template on route, have that be the src
 
 
 ## UI / UX
@@ -100,6 +101,7 @@ having sessions or groups - scaling app
 change template based on roles
 making the task items more usable
 conflict with sharejs and docs??? renaming to files
+committing folders works, but can't load them - recursive trees
 make a fake github account, collab with me
 probably something to do with using autopublish
 fixing the load commit / docs

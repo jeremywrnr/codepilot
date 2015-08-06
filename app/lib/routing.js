@@ -8,6 +8,7 @@ Router.map(function () {
   this.route('test');
   this.route('git');
   this.route('config');
+  this.route('renderer', {layoutTemplate: 'null' });
 });
 
 // ask user to login before coding
@@ -18,7 +19,7 @@ Router.onBeforeAction(function preLogin() {
     Router.go('code');
   } else
     this.next();
-});
+}, {except: ['renderer']});
 
 // redirect user to code after login
 

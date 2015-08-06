@@ -2,15 +2,15 @@
 
 Template.config.helpers({
 
-  repos: function(){
+  repos: function() {
     return Repos.find({}, {sort: {'repo.owner': -1, 'repo.name': 1}} );
   },
 
-  branches: function(){ // if there are branches, give them
-    var rId = Meteor.user().profile.repo;
-    if (!rId) // user has yet to set a repo
+  branches: function() { // if there are branches, give them
+    var repo = Repos.findOne( Meteor.user().profile.repo );
+    if (!repo) // user has yet to set a repo
       return [];
-    var brs = Repos.findOne(rId).branches;
+    var brs = repo.branches;
     if (brs)
       return brs;
     else // branches havent loaded || something else?

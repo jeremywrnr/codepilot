@@ -14,7 +14,7 @@ Meteor.methods({
   createFile: function(ft) { // make new file with filetitle (ft), return id
     Meteor.call('addMessage', ' created file: ' + ft);
     Files.insert(
-      {title: ft, repo: Meteor.user().profile.repo},
+      { title: ft, repo: Meteor.user().profile.repo },
       function(err, id){ // create sharejs document with same id
         if(!err) newShareJSDoc(id);
         else dlog(err);

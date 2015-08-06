@@ -72,18 +72,28 @@ Template.tester.events({
 
 // iframe helper - load content from editor
 
-Template.iframe.helpers({
+Template.renderer.helpers({
 
-  getHTML: function () {
-    return Files.findOne({title:/.*html/}).content
+  getHead: function () { // parse head of html file
+    var full = Files.findOne({title:/.*html/}).content;
+    var doc = $( '<html></html>' );
+    doc.html( full );
+    return $('head', doc)[0].innerHTML;
+  },
+
+  getBody: function () {
+    var full = Files.findOne({title:/.*html/}).content;
+    var doc = $( '<html></html>' );
+    doc.html( full );
+    return $('body', doc)[0].innerHTML;
   },
 
   getCSS: function () {
-    return Files.findOne({title:/.*css/}).content
+    return Files.findOne({title:/.*css/}).content;
   },
 
   getJS: function () {
-    return Files.findOne({title:/.*js/}).content
+    return Files.findOne({title:/.*js/}).content;
   },
 
 });
