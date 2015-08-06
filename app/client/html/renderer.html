@@ -4,23 +4,24 @@
   {{> yield }}
 </template>
 
-<template name="renderer"><!-- actual content -->
-  <html>
-    <head>
+<!-- actual content -->
 
-      {{ getHead }}
+<template name="renderer">
+  <head>
 
-      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    {{{ getHead }}}
 
-      <script type="text/javascript">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <script type="text/javascript">
 $(document).ready(function(){
 
   // overwrite console.log for iframe
   console.log = function (msg) {
-    if (typeof msg == "object")
-      $("#log").innerHTML += (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "<br/>";
+    if (typeof msg === "object")
+      $("#log")[0].innerHTML += (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "<br/>";
     else
-      $("#log").innerHTML += msg + "<br/>";
+      $("#log")[0].innerHTML += msg + "\n";
   }
 
   console.log('test message');
@@ -28,20 +29,19 @@ $(document).ready(function(){
   {{ getJS }}
 
 });
-      </script>
+    </script>
 
-      <style type="text/css"> {{ getCSS }} </style>
+    <style type="text/css"> {{ getCSS }} </style>
 
-    </head>
-    <body>
+  </head>
+  <body>
 
-      {{ getBody }}
+    {{{ getBody }}}
 
-      <div>console output:
-        <pre id="log"></pre>
-      </div>
+    <div>console output:
+      <pre id="log"></pre>
+    </div>
 
-    </body>
-  </html>
+  </body>
 </template>
 
