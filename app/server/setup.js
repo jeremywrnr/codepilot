@@ -7,8 +7,8 @@ dlog = function(msg){ if (debug) console.log(msg) }
 
 // data publishing
 
-Meteor.publish('repos', function() { // only serve writable repos
-  return Repos.find({users: {$elemMatch: {$eq: this.userId}} });
+Meteor.publish('repos', function(userId) { // only serve writable repos
+  return Repos.find({users: userId});
 });
 Meteor.publish('commits', function(repoId) { // only serve repo commits
   return Commits.find({repo: repoId});

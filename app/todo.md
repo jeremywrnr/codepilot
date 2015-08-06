@@ -1,10 +1,16 @@
 TODOS
 =====
 
+
 file specific syntax highlighting
 iframes custom javascript logger output
+production repo loading not working?
 better iframe:
     serve template on route, have that be the src
+
+## guo meeting
+
+time for MS visits?
 
 
 ## UI / UX
@@ -21,6 +27,7 @@ sketch new ui ideas
 
 ## SERVER
 
+only add to collaborators if not on list
 standardize server method names, documents
 only owner can add a collaborator: add option
 have a diff below each of the commits, before sending msg

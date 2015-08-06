@@ -5,9 +5,11 @@ Session.setDefault('renaming', false);
 Session.setDefault('committing', false);
 Session.setDefault('editorType', 'ace');
 
-Meteor.subscribe('repos');
 Tracker.autorun(function(){
-  if(Meteor.user()){
+  if(Meteor.userId()) {
+    Meteor.subscribe('repos', Meteor.userId());
+  }
+  if (Meteor.user().profile.repo;) {
     var repoId = Meteor.user().profile.repo;
     Meteor.subscribe('files', repoId);
     Meteor.subscribe('tasks', repoId);
