@@ -7,7 +7,6 @@ insecure
 standard-app-packages
 stylus
 mizzao:sharejs-ace
-mizzao:sharejs-codemirror
 twbs:bootstrap
 bruz:github-api
 accounts-password
