@@ -15,11 +15,18 @@ Template.editor.helpers({
   },
   configAce: function() {
     return function(ace) {
+
+      // default theme
       ace.setTheme('ace/theme/monokai');
       ace.setShowPrintMargin(false);
       ace.getSession().setUseWrapMode(true);
+
       //different style colors based on filename
-      //return filename.split('.').pop();
+      var modelist = ace.require('ace/ext/modelist');
+      var fileId = Session.get('document');
+      var filePath = Files.findOne( fileId );
+      var mode = modelist.getModeForPath(filePath).mode
+      editor.session.setMode(mode);
     };
   }
 
