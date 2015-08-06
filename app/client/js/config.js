@@ -10,7 +10,7 @@ Template.config.helpers({
     var rId = Meteor.user().profile.repo;
     if (!rId) // user has yet to set a repo
       return [];
-    var brs = Repos.findOne(r).branches;
+    var brs = Repos.findOne(rId).branches;
     if (brs)
       return brs;
     else // branches havent loaded || something else?
