@@ -1,0 +1,47 @@
+<!-- templates for rendering iframe locally  -->
+
+<template name="null">
+  {{> yield }}
+</template>
+
+<template name="renderer"><!-- actual content -->
+  <html>
+    <head>
+
+      {{ getHead }}
+
+      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+      <script type="text/javascript">
+$(document).ready(function(){
+
+  // overwrite console.log for iframe
+  console.log = function (msg) {
+    if (typeof msg == "object")
+      $("#log").innerHTML += (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "<br/>";
+    else
+      $("#log").innerHTML += msg + "<br/>";
+  }
+
+  console.log('test message');
+
+  {{ getJS }}
+
+});
+      </script>
+
+      <style type="text/css"> {{ getCSS }} </style>
+
+    </head>
+    <body>
+
+      {{ getBody }}
+
+      <div>console output:
+        <pre id="log"></pre>
+      </div>
+
+    </body>
+  </html>
+</template>
+

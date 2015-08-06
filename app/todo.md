@@ -1,12 +1,13 @@
 TODOS
 =====
 
-
 file specific syntax highlighting
 iframes custom javascript logger output
 production repo loading not working?
 better iframe:
     serve template on route, have that be the src
+load file from github only on click?? reduce api calls
+
 
 ## guo meeting
 

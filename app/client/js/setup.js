@@ -6,15 +6,15 @@ Session.setDefault('committing', false);
 Session.setDefault('editorType', 'ace');
 
 Tracker.autorun(function(){
-  if(Meteor.userId()) {
+  if (Meteor.user()) {
     Meteor.subscribe('repos', Meteor.userId());
-  }
-  if (Meteor.user().profile.repo;) {
-    var repoId = Meteor.user().profile.repo;
-    Meteor.subscribe('files', repoId);
-    Meteor.subscribe('tasks', repoId);
-    Meteor.subscribe('commits', repoId);
-    Meteor.subscribe('messages', repoId);
+    if (Meteor.user().profile.repo) {
+      var repoId = Meteor.user().profile.repo;
+      Meteor.subscribe('files', repoId);
+      Meteor.subscribe('tasks', repoId);
+      Meteor.subscribe('commits', repoId);
+      Meteor.subscribe('messages', repoId);
+    }
   }
 });
 

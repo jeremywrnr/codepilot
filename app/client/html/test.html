@@ -49,51 +49,9 @@
 
 <template name="iframe"><!-- container div -->
   <div  class="panel-body" style="margin:0px;padding:0px;">
-    <iframe src='http://localhost:3000/renderer' style="min-height:300px;height:100%;width:100%"
-                            frameborder="0" height="100%" width="100%"></iframe>
+    <iframe src='http://localhost:3000/renderer'
+                           style="min-height:300px;height:100%;width:100%"
+                           frameborder="0" height="100%" width="100%">
+    </iframe>
   </div>
-</template>
-
-<template name="null">
-  {{> yield }}
-</template>
-
-<template name="renderer"><!-- actual content -->
-  <html>
-    <head>
-
-      {{ getHead }}
-
-      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-
-      <script type="text/javascript">
-$(document).ready(function(){
-
-  // overwrite console.log for iframe
-  console.log = function (msg) {
-    if (typeof msg == "object") {
-      $("#log").innerHTML += (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "<br/>";
-    } else {
-      $("#log").innerHTML += msg + "<br/>";}
-  }
-
-  console.log('test message');
-
-  {{ getJS }}
-
-});</script>
-
-      <style type="text/css"> {{ getCSS }} </style>
-
-    </head>
-    <body>
-
-      {{ getBody }}
-
-      <div>console output:
-        <pre id="log"></pre>
-      </div>
-
-    </body>
-  </html>
 </template>
