@@ -7,12 +7,14 @@ Template.config.helpers({
   },
 
   branches: function(){ // if there are branches, give them
-    if(Repos.findOne(Meteor.user().profile.repo).branches)
-      return Repos.find(
-        {_id: Meteor.user().profile.repo},
-        {fields: {branches: 1}}
-      ).fetch()[0].branches;
-      else return [];
+    var rId = Meteor.user().profile.repo;
+    if (!rId) // user has yet to set a repo
+      return [];
+    var brs = Repos.findOne(r).branches;
+    if (brs)
+      return brs;
+    else // branches havent loaded || something else?
+      return [];
   }
 
 });
