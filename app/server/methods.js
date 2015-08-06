@@ -51,6 +51,7 @@ Meteor.methods({
   },
 
   getShareJSDoc: function(file) { // give live editor copy, v and snapshot
+    if(! file._id ) return null;
     var sjs = Docs.find( file._id );
     if (sjs.count())
       return sjs.fetch()[0].data;
@@ -61,6 +62,7 @@ Meteor.methods({
 
   postShareJSDoc: function(file) { // update files with their ids
     var sjs = Meteor.call('getShareJSDoc', file) // get doc and version
+    if( !sjs ) return null; // if file id broke, don't propagate error
     ShareJS.model.applyOp( file._id, {
       op: [
         { p:0, d: sjs.snapshot }, // delete old content
