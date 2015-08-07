@@ -102,6 +102,6 @@ Meteor.methods({
       {$set : {
         'profile.repoBranch': bn,
       }});
-  }
+  },
 
 });

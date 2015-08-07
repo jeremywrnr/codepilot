@@ -12,7 +12,7 @@
   <div class='col-xs-8 editor-container full-height'>
     {{#with docid}}
     {{> filename this}}
-    {{> sharejsAce docid=this onRender=configAce id='editor'}}
+    {{> sharejsAce docid=this onRender=config onConnect=setMode id='editor'}}
     {{/with}}
   </div>
 </template>

@@ -13,21 +13,23 @@ Template.editor.helpers({
   docid: function() {
     return Session.get('document');
   },
-  configAce: function() {
-    return function(ace) {
 
-      // default theme
-      ace.setTheme('ace/theme/monokai');
-      ace.setShowPrintMargin(false);
-      ace.getSession().setUseWrapMode(true);
-
-      //different style colors based on filename
-      var modelist = ace.require('ace/ext/modelist');
-      var fileId = Session.get('document');
-      var filePath = Files.findOne( fileId );
-      var mode = modelist.getModeForPath(filePath).mode
-      editor.session.setMode(mode);
+  config: function() {
+    return function(editor) { // set default theme
+      editor.setTheme('ace/theme/monokai');
+      editor.setShowPrintMargin(false);
+      editor.getSession().setUseWrapMode(true);
     };
+  },
+
+  setMode: function() {
+    return function(editor) { // different style on filetype
+      var fileId = Session.get('document');
+      var fileName = Files.findOne( fileId ).title;
+      Meteor.call('setModeForFile', fileName);
+      console.log( Session.get('fileMode') );
+      //editor.getSession().setMode(mode);
+    }
   }
 
 });
@@ -44,7 +46,7 @@ Template.filename.helpers({
 
 });
 
-Template.filename.events = {
+Template.filename.events({
 
   // rename the current file
   'submit .rename': function(e) {
@@ -73,5 +75,4 @@ Template.filename.events = {
     Session.set('document', null);
   }
 
-};
-
+});
