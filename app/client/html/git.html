@@ -18,7 +18,7 @@
         <div class='input-group'>
           <form class='committer'>
             <input placeholder='enter a commit message...'
-                   id='commitMsg' class='form-control' type='text' name='title' value=''>
+            id='commitMsg' class='form-control' type='text' name='title' value=''>
           </form>
           <span class='input-group-btn'>
             <button type='button' class='btn btn-default del cancelCommit'>cancel</button>
@@ -56,21 +56,22 @@
 
 <template name='commit'>
   {{#if current}}
-  <a class='list-group-item commit' id='{{#if current}}active-commit{{/if}}' href='#'>
+  <button class='list-group-item commit' id='{{#if current}}active-commit{{/if}}' href='#'>
     {{ commit.commit.message }}
     <span class='pull-right label {{#if mine}}label-primary{{else}}label-info{{/if}}'>
       {{ commit.author.login }}
     </span>
-  </a>
-  <a class='list-group-item' href='#'>
+  </button>
+  <button class='list-group-item' href='#'>
+    <a class='btn grn' target="_blank" href='{{ this.commit.html_url }}'> view commit </a>
     <button class='btn edit loadcommit'>load commit</button>
-  </a>
+  </button>
   {{else}}
-  <a class='list-group-item commit' href='#'>
+  <button class='list-group-item commit' href='#'>
     {{ commit.commit.message }}
     <span class='pull-right label {{#if mine}}label-primary{{else}}label-info{{/if}}'>
       {{ commit.author.login }}
     </span>
-  </a>
+  </button>
   {{/if}}
 </template>
