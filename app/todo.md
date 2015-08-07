@@ -1,4 +1,4 @@
-TODOS
+ODOS
 =====
 
 refactor config templates

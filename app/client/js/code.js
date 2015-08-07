@@ -26,9 +26,9 @@ Template.editor.helpers({
     return function(editor) { // different style on filetype
       var fileId = Session.get('document');
       var fileName = Files.findOne( fileId ).title;
-      Meteor.call('setModeForFile', fileName);
-      console.log( Session.get('fileMode') );
-      //editor.getSession().setMode(mode);
+      var modelist = ace.require('ace/ext/modelist');
+      var filemode = modelist.getModeForPath( fileName ).mode;
+      editor.getSession().setMode( filemode );
     }
   }
 
@@ -39,6 +39,7 @@ Template.filename.helpers({
   rename: function() {
     return Session.equals('renaming', true);
   },
+
   title: function() {
     var ref;
     return (ref = Files.findOne(this + '')) != null ? ref.title : void 0;
