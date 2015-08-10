@@ -1,15 +1,15 @@
 // common (server and client) methods
 
+// maybe need this in future:
+// if (! Meteor.userId()) throw new Meteor.Error('not-authorized');
+
 Meteor.methods({
 
   //////////////////
   // FEED MANAGEMENT
   //////////////////
 
-  // Make sure the user is logged in before inserting a task
-  addMessage: function (msg) {
-    if (! Meteor.userId())
-      throw new Meteor.Error('not-authorized');
+  addMessage: function (msg) { // add a generic message to the activity feed
     if (msg.value !== '') {
       Messages.insert({
         owner: Meteor.userId(),
@@ -28,35 +28,24 @@ Meteor.methods({
   // TASK MANAGEMENT
   //////////////////
 
-  // Make sure the user is logged in before inserting a task
-  addTask: function (text) {
-    if (! Meteor.userId())
-      throw new Meteor.Error('not-authorized');
+  addTask: function (text) { // add a task to repo, with this userid
     Tasks.insert({
       text: text,
       time: new Date(),
       owner: Meteor.userId(),
       repo: Meteor.user().profile.repo,
       username: Meteor.user().profile.login
-    }, function addToFeed(err, id){
-      if (! err) Meteor.call('addMessage', 'added \''+text+'\' to tasks');
     });
   },
 
-  // If the task is private, make sure only the owner can delete it
-  deleteTask: function (taskId) {
+  setChecked: function (taskId, setChecked) { // check task on completion
     var task = Tasks.findOne(taskId);
-    if (task.private && task.owner !== Meteor.userId())
-      throw new Meteor.Error('not-authorized');
-    Tasks.remove(taskId);
+    Tasks.update(taskId, { $set: { checked: setChecked} });
   },
 
-  // If the task is private, make sure only the owner can check it off
-  setChecked: function (taskId, setChecked) {
+  deleteTask: function (taskId) { // delete a task from the current repo
     var task = Tasks.findOne(taskId);
-    if (task.private && task.owner !== Meteor.userId())
-      throw new Meteor.Error('not-authorized');
-    Tasks.update(taskId, { $set: { checked: setChecked} });
+    Tasks.remove(taskId);
   },
 
 
@@ -65,14 +54,14 @@ Meteor.methods({
   // ROLE MANAGEMENT
   //////////////////
 
-  setPilot: function() {
+  setPilot: function() { // change the current users profile.role to pilot
     return Meteor.users.update(
       {'_id': Meteor.userId()},
       {$set : {'profile.role':'pilot'}}
     );
   },
 
-  setCopilot: function() {
+  setCopilot: function() { // change the current users profile.role to pilot
     return Meteor.users.update(
       {'_id': Meteor.userId()},
       {$set : {'profile.role':'copilot'}}
@@ -85,7 +74,7 @@ Meteor.methods({
   // REPO MANAGEMENT
   //////////////////
 
-  setRepo: function(gr) { //set git repo & default branch
+  setRepo: function(gr) { // set git repo & default branch
     return Meteor.users.update(
       {'_id': Meteor.userId()},
       {$set : {
@@ -96,7 +85,7 @@ Meteor.methods({
       }});
   },
 
-  setBranch: function(bn) { //set branch name
+  setBranch: function(bn) { // set branch name
     return Meteor.users.update(
       {'_id': Meteor.userId()},
       {$set : {
