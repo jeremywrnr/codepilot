@@ -2,7 +2,7 @@
 
 Template.testtasks.helpers({
 
-  tasks: function () {
+  tasks: function () { // sort and return tasks for this repo
     if (Session.get('hideCompleted')) {
       return Tasks.find({checked: {$ne: true}}, {sort: {time: -1}});
     } else {
@@ -10,11 +10,11 @@ Template.testtasks.helpers({
     }
   },
 
-  hideCompleted: function () {
+  hideCompleted: function () { // return whether to hide completed tasks
     return Session.get('hideCompleted');
   },
 
-  incompleteCount: function () {
+  incompleteCount: function () { // return amount of incomplete tasks
     return Tasks.find({checked: {$ne: true}}).count();
   }
 
@@ -22,17 +22,17 @@ Template.testtasks.helpers({
 
 Template.testtasks.events({
 
-  // rename the current file
-  'submit .new-task': function(e) {
+  'submit .new-task': function(e) { // create a new task
     e.preventDefault();
     $(e.target).blur();
     var task = $('#task-name')[0].value;
     if (task == null || task == '') return false;
     Meteor.call('addTask', task);
-    $('#task-name')[0].value = ''; // reset txt
+    Meteor.call('addMessage', 'created task \'' + task + '\'');
+    $('#task-name')[0].value = ''; // reset form text
   },
 
-  'change .hide-completed': function (e) {
+  'change .hide-completed': function (e) { // toggle for showing completed
     Session.set('hideCompleted', e.target.checked);
   }
 
@@ -41,21 +41,24 @@ Template.testtasks.events({
 // task item helpers and events
 
 Template.todotask.helpers({
-  mine: function() {
+
+  mine: function() { // return true for tasks this user created, used to style
     return (Meteor.user().profile.login === this.username)
   }
+
 });
 
 Template.todotask.events({
 
-  'click .toggle-checked': function () {
+  'click .toggle-checked': function () { // check or uncheck a task
+    var action = (this.checked ? 'checked' : 'unchecked');
     Meteor.call('setChecked', this._id, ! this.checked);
-    Meteor.call('addMessage', ' checked task: ' + this.text);
+    Meteor.call('addMessage', action + ' task \'' + this.text + '\'');
   },
 
-  'click .del': function () {
+  'click .del': function () { // delete a task from this repo
     Meteor.call('deleteTask', this._id);
-    Meteor.call('addMessage', ' deleted task: ' + this.text);
+    Meteor.call('addMessage', 'deleted task \'' + this.text + '\'');
   }
 
 });

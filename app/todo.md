@@ -1,20 +1,13 @@
-ODOS
+TODOS
 =====
 
-refactor config templates
-file specific syntax highlighting
-iframes custom javascript logger output
-production repo loading not working?
-more branch infrastructure - tag repo
-better iframe:
-    serve template on route, have that be the src
+better iframe: serve template on route, have that be the src
 load file from github only on click?? reduce api calls
-deleting / renaming files with github
-
-
-## guo meeting
-
-time for MS visits?
+    get current commit sha, then tree sha, then blob, then load into sharejs doc
+importing github issues
+    linking to a specific issue
+    displaying number of comments?
+    ability to close issue from codepilot
 
 
 ## UI / UX
@@ -24,8 +17,10 @@ add more labels on right side of task input (gh issues)
 gutter indicators: link to resources from task
 maybe a loading bar for the commit progress
 attach links for reference to file issue
+reduce margins, make better use of space
 link to add a collaborator to the repo
 if files.count = 0, prompt
+apply feed to other side?
 sketch new ui ideas
 
 
@@ -37,6 +32,7 @@ only owner can add a collaborator: add option
 have a diff below each of the commits, before sending msg
 scrape head, body of html document for testing
 closing / linking to actual github issues
+deleting / renaming files with github
 implementing a folder structure
 create branching for testing
 purge prod database
@@ -131,6 +127,8 @@ deleting and renaming button (NOW DOES) work
 make a new task also adds an item to feed
 test/fix get repo production errors
 chat: only show initials for briefness?
+iframes custom javascript logger output
+## guo meeting - time for MS visits? 11am
 make message box look nicer
 choose target from list of on github
 sort owned and all other editable repos
@@ -158,5 +156,6 @@ github integration
 option to pick roles
 basic roles management
 refactor on repoName
+file specific syntax highlighting
 show project id
 -->
