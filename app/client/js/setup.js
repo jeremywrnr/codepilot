@@ -5,13 +5,14 @@ Session.setDefault('renaming', false);
 Session.setDefault('committing', false);
 Session.setDefault('editorType', 'ace');
 
-Tracker.autorun(function(){
+Tracker.autorun(function() {
   if (Meteor.user()) {
     Meteor.subscribe('repos', Meteor.userId());
     if (Meteor.user().profile.repo) {
       var repoId = Meteor.user().profile.repo;
       Meteor.subscribe('files', repoId);
       Meteor.subscribe('tasks', repoId);
+      Meteor.subscribe('issues', repoId);
       Meteor.subscribe('commits', repoId);
       Meteor.subscribe('messages', repoId);
     }
@@ -20,11 +21,11 @@ Tracker.autorun(function(){
 
 // global client helpers/functions
 
-Template.registerHelper('isPilot', function(){
+Template.registerHelper('isPilot', function() {
   return Meteor.user().profile.role === 'pilot';
 });
 
-focusForm = function(id){
+focusForm = function(id) { // takes id of form, waits til exists, and focuses
   setInterval(function() {
     if ($(id).length) {
       $(id).focus();
@@ -33,15 +34,15 @@ focusForm = function(id){
   }, 100); // check every 100ms
 };
 
-grabTagContentsToRender = function(full, tag){
+grabTagContentsToRender = function(full, tag) { // return parsed html from tag
   var doc = $('<html></html>');
   doc.html( full.content );
   return $(tag, doc)[0].innerHTML;
 }
 
-// navbar options
+// navbar config
 
-Template.navigation.helpers({
+Template.navigation.helpers({ // uses glyphicons in template
   navItems: function(){
     return [
       { iconpath:'/', iconname:'pencil' },

@@ -1,10 +1,16 @@
 // meteor mongo data publishing
 
-Docs = new Meteor.Collection('docs'); // used inside sjs
+Docs = new Meteor.Collection('docs'); // used inside sharejs (sjs)
 
 /*  _id - unique identifier, corresponds to File._id
     data.v - latest version of file in the editor
     data.snapshot - latest content of file in the editor
+    NOTE - some fields omitted
+    */
+
+Ops = new Meteor.Collection('ops'); // used inside sjs
+
+/*  _id - unique identifier, corresponds to File._id
     NOTE - some fields omitted
     */
 
@@ -36,6 +42,14 @@ Tasks = new Mongo.Collection('tasks');
     checked - boolean whether done or not
     */
 
+Issues = new Mongo.Collection('issues');
+
+/*  _id - unique identifier of task
+    repo - unique identifier of issue ask belongs to
+    id - github assigned id issue, also unique
+    issue - response from server
+    */
+
 Commits = new Mongo.Collection('commits');
 
 /*  _id - unique identifier of commit
@@ -48,7 +62,7 @@ Repos = new Mongo.Collection('repos');
 /*  _id - unique identifier of commit
     sha - git hash code for this commit
     users - array of user ids that can push
-    branches - array of branches
+    branches - array of branches (see below)
     repo - unique identifier of repo file belongs to
     */
 

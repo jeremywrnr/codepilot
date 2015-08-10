@@ -91,39 +91,24 @@ Meteor.methods({
 
 
 
-  ///////////////////////
-  // GITHUB POST REQUESTS
-  ///////////////////////
+  ///////////////////
+  // ISSUE MANAGEMENT
+  ///////////////////
 
-  postTree: function(t){ // gives tree SHA hash id
-    Meteor.call('ghAuth');
-    return github.gitdata.createTree({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      tree: t.tree,
-      base_tree: t.base
-    }).sha;
+  loadIssues: function() { // re-populating repo issues
+    var repo = Repos.findOne( Meteor.user().profile.repo );
+    var issues = Meteor.call('getAllIssues', repo);
+    issues.map(function(i){ Meteor.call('addIssue', i) });
   },
 
-  postCommit: function(c) { // gives all commit info, with commit c
-    Meteor.call('ghAuth');
-    return github.gitdata.createCommit({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      message: c.message,
-      author: c.author,
-      parents: c.parents,
-      tree: c.tree
-    });
-  },
-
-  postRef: function(cr){ // update ref to new commit, with commit results (cr)
-    Meteor.call('ghAuth');
-    return  github.gitdata.updateReference({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      ref: 'heads/' + Meteor.user().profile.repoBranch,
-      sha: cr.sha
+  addIssue: function(i){ // adds a issue, links to repo
+    Issues.upsert({
+      repo: Meteor.user().profile.repo,
+      id: i.id // issue id (from github)
+    },{
+      repo: Meteor.user().profile.repo,
+      id: i.id, // issue id (from github)
+      issue: i
     });
   },
 
@@ -251,6 +236,7 @@ Meteor.methods({
     Tasks.remove({});
     Files.remove({});
     Docs.remove({});
+    Ops.remove({});
   },
 
 });

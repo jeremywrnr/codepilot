@@ -1,13 +1,14 @@
 TODOS
 =====
 
-better iframe: serve template on route, have that be the src
+better iframe: responsive js, document.onready
 load file from github only on click?? reduce api calls
     get current commit sha, then tree sha, then blob, then load into sharejs doc
 importing github issues
     linking to a specific issue
     displaying number of comments?
     ability to close issue from codepilot
+    ability to create issue from codepilot?
 
 
 ## UI / UX
@@ -19,7 +20,6 @@ maybe a loading bar for the commit progress
 attach links for reference to file issue
 reduce margins, make better use of space
 link to add a collaborator to the repo
-if files.count = 0, prompt
 apply feed to other side?
 sketch new ui ideas
 
@@ -29,6 +29,8 @@ sketch new ui ideas
 only add to collaborators if not on list
 standardize server method names, documents
 only owner can add a collaborator: add option
+delete ops of file after deleting the file
+don't add user to repo owner if they are already there
 have a diff below each of the commits, before sending msg
 scrape head, body of html document for testing
 closing / linking to actual github issues
@@ -152,6 +154,7 @@ checking out cloud9, project import
 clean up css duplication rules
 squash preforked git history
 make the chat list nicer
+better iframe: serve template on route, have that be the src
 github integration
 option to pick roles
 basic roles management

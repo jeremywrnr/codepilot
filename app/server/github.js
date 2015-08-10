@@ -25,6 +25,14 @@ Meteor.methods({
     });
   },
 
+  getAllIssues: function(gr) { // return all issues for repo
+    return github.issues.repoIssues({
+      user: gr.repo.owner.login,
+      repo: gr.repo.name,
+      state: 'open', // or closed, etc
+    });
+  },
+
   getAllCommits: function() { // give all commits
     return github.repos.getCommits({
       user: Meteor.user().profile.repoOwner,
@@ -45,7 +53,7 @@ Meteor.methods({
       user: gr.repo.owner.login,
       repo: gr.repo.name
     });
-    Repos.update(
+    Repos.update( // for the current repo, overwrite branches
       { id: gr.repo.id },
       { $set: {branches: brs}}
     );
@@ -87,4 +95,42 @@ Meteor.methods({
     });
   },
 
-});
+
+
+  ///////////////////////
+  // GITHUB POST REQUESTS
+  ///////////////////////
+
+  postTree: function(t){ // takes tree, gives tree SHA hash id
+    Meteor.call('ghAuth');
+    return github.gitdata.createTree({
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+      tree: t.tree,
+      base_tree: t.base
+    }).sha;
+  },
+
+  postCommit: function(c) { // takes commit c, returns gh commit respns.
+    Meteor.call('ghAuth');
+    return github.gitdata.createCommit({
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+      message: c.message,
+      author: c.author,
+      parents: c.parents,
+      tree: c.tree
+    });
+  },
+
+  postRef: function(cr){ // takes commit results (cr),  updates ref
+    Meteor.call('ghAuth');
+    return  github.gitdata.updateReference({
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+      ref: 'heads/' + Meteor.user().profile.repoBranch,
+      sha: cr.sha
+    });
+  },
+
+  });

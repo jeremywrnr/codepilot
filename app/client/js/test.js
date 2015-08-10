@@ -38,6 +38,8 @@ Template.testtasks.events({
 
 });
 
+
+
 // task item helpers and events
 
 Template.todotask.helpers({
@@ -63,7 +65,41 @@ Template.todotask.events({
 
 });
 
-// update all file contents, resfresing the tester frame
+
+
+// github issue integration
+
+Template.githubIssues.helpers({
+
+  issues: function () { // sort and return tasks for this repo
+    return Issues.find({}, {sort: {time: -1}});
+  },
+
+  incompleteCount: function () { // return amount of open issues
+    return Issues.find({}).count();
+  },
+
+});
+
+Template.githubIssues.events({
+
+  'click .reload': function () { // update the issues for this repo
+    Meteor.call('loadIssues');
+  }
+
+});
+
+
+
+// github issue event integration
+
+Template.issue.helpers({});
+
+Template.issue.events({});
+
+
+
+// update all file contents, refreshing the tester frame
 
 Template.tester.events({
 
@@ -72,4 +108,3 @@ Template.tester.events({
   },
 
 });
-

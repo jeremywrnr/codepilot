@@ -1,7 +1,8 @@
-// debugging
+// debugging tools
 
 debug = true;
 dlog = function(msg){ if (debug) console.log(msg) }
+asrt = function(a,b){ if (debug && a !== b) throw('Error: ' + a + ' != ' + b) }
 
 
 
@@ -22,10 +23,13 @@ Meteor.publish('messages', function(repoId) { // only serve repo msgs
 Meteor.publish('tasks', function(repoId) { // only serve repo tasks
   return Tasks.find({repo: repoId});
 });
+Meteor.publish('issues', function(repoId) { // only serve repo issues
+  return Issues.find({repo: repoId});
+});
 
 
 
-// github auth/config
+// github auth & config
 
 var inDevelopment = function(){return process.env.NODE_ENV === 'development'}
 
@@ -41,7 +45,7 @@ Meteor.startup(function () { // get correct github auth key
   github = new GitHub({
     version: '3.0.0',
     timeout: 5000,
-    debug: true,
+    debug: debug, // boolean variable declared above
     protocol: 'https',
     headers: { 'User-Agent': 'code pilot' }
   });
