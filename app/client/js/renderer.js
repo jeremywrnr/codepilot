@@ -6,10 +6,6 @@ Template.renderPanel.events({
     Meteor.call('testShareJS');
   },
 
-  'click .issue': function () {
-    // something creative here
-  },
-
 });
 
 // iframe helper - load content from editor
@@ -28,12 +24,12 @@ Template.renderer.helpers({
 
   getCSS: function () {
     var css = Files.findOne({ title: /.*css/i});
-    if (css) return css.content
+    if (css) return css.content;
   },
 
   getJS: function () {
     var js = Files.findOne({ title: /.*js/i});
-    if (js) return js.content
+    if (js) return js.content;
   },
 
 

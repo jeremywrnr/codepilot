@@ -4,6 +4,7 @@ TODOS
 seperate renderer bar - reload and file issue
     screencapture to png
     make a new issue, attach png to it
+    attach issue to the png
     ask them to describe new issue
 importing github issues
     linking to a specific issue

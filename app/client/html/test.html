@@ -62,8 +62,10 @@
 
 <template name='issue'>
   <li class='list-group-item'>
-    <a target="_blank" href='{{ this.issue.html_url }}'> {{ issue.title }} </a>
+    platform: {{ browser.platform }}
+    <a target="_blank" href='{{ this.issue.html_url }}'> {{ issue.title }} {{ note }}</a>
     <button class='pull-right label btn del'>close</button>
+    <img style='width: 100%;' src="{{ img }}" />
   </li>
 
 

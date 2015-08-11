@@ -2,7 +2,8 @@
 
 debug = true;
 dlog = function(msg){ if (debug) console.log(msg) }
-asrt = function(a,b){ if (debug && a !== b) throw('Error: ' + a + ' != ' + b) }
+asrt = function(a,b){ if (debug && a !== b)
+  throw('Error: ' + a + ' != ' + b) }
 
 
 
@@ -24,7 +25,8 @@ Meteor.publish('tasks', function(repoId) { // only serve repo tasks
   return Tasks.find({repo: repoId});
 });
 Meteor.publish('issues', function(repoId) { // only serve repo issues
-  return Issues.find({repo: repoId});
+  //return Issues.find({repo: repoId});
+  return Issues.find({});
 });
 
 

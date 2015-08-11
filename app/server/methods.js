@@ -212,7 +212,7 @@ Meteor.methods({
     dlog( repoFiles.fetch() );
   },
 
-  addCommit: function(c){ // adds a commit, links to repo
+  addCommit: function(c) { // adds a commit, links to repo
     Commits.upsert({
       repo: Meteor.user().profile.repo,
       sha: c.sha
@@ -229,7 +229,11 @@ Meteor.methods({
   // helper & testing methods
   ///////////////////////////
 
-  resetAllData: function(){ // detroy everything
+  getEnv: function(){ // get runtime environment
+    return env; // process.env.NODE_ENV;
+  },
+
+  resetAllData: function() { // detroy everything
     Messages.remove({});
     Commits.remove({});
     Repos.remove({});
