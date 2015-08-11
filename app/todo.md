@@ -1,7 +1,10 @@
 TODOS
 =====
 
-better iframe: responsive js, document.onready
+seperate renderer bar - reload and file issue
+    screencapture to png
+    make a new issue, attach png to it
+    ask them to describe new issue
 load file from github only on click?? reduce api calls
     get current commit sha, then tree sha, then blob, then load into sharejs doc
 importing github issues
@@ -152,6 +155,7 @@ when make a newfile, autofocus rename
 autofocus namefield on rename
 checking out cloud9, project import
 clean up css duplication rules
+better iframe: responsive js, document.onready
 squash preforked git history
 make the chat list nicer
 better iframe: serve template on route, have that be the src
