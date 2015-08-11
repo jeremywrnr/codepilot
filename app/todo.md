@@ -1,6 +1,11 @@
 TODOS
 =====
 
+SMASH ALL TASKS INTO ONE PANE
+
+posting github issues
+closing github issues
+
 seperate renderer bar - reload and file issue
     screencapture to png
     make a new issue, attach png to it

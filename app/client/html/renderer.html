@@ -1,3 +1,30 @@
+<!-- code tester frame -->
+
+<template name='tester'>
+  <div class='panel panel-primary'>
+    <div class='panel-heading'>
+      <div class='btn-group btn-group-justified' role='group'>
+        <div class='btn-group' role='group'>
+          <a href='/renderer' target='_blank'>
+            <button type='button' class='btn btn-default btn-lg grn'>view in new tab</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    {{> iframe}}
+  </div>
+</template>
+
+<template name='iframe'>
+  <div  class='panel-body' style='margin:0px;padding:0px;'>
+    <iframe src='/renderer' style='min-height:400px;height:100%;width:100%'
+       frameborder='0' height='100%' width='100%'>
+    </iframe>
+  </div>
+</template>
+
+
+
 <!-- templates for rendering iframe locally  -->
 
 <template name='null'>
@@ -38,14 +65,16 @@
     </style>
     <link rel="stylesheet" href="/feedback.min.css"/>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="/feedback.min.js"></script>
+    <script src="/feedback.js"></script>
 
     <script type="text/javascript"> // used in testing with feedback.js
       $.feedback({
         ajaxURL: "/feedback/",
         html2canvasURL: "html2canvas.min.js",
         feedbackButton: ".issue",
+        initButtonText: "report issue",
         onClose: function() { window.location.reload(); },
+        repo: "{{ getRepo }}"
       });
     </script>
 
@@ -73,7 +102,7 @@
       <div> console output: <pre id="log"></pre> </div>
 
     </body>'
-                                 style='min-height:500px;height:100%;width:100%'
+                                 style='height:100%;width:100%'
                                  frameborder='0' height='100%' width='100%'>
   </iframe>
 </template>

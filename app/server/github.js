@@ -18,9 +18,11 @@ Meteor.methods({
     Meteor.call('ghAuth');
     var repos = github.repos.getAll({ user: Meteor.user().profile.login });
     repos.map(function attachUser(gr){ // attach user to git repo (gr)
-      if (Repos.find({ id: gr.id }).count() > 0) // repo already exists
-      Repos.update({ id: gr.id }, {$push: {users: Meteor.userId() }});
-      else
+      var dbHasRepo = Repos.findOne({ id: gr.id });
+      var userAttached = Repos.find({ $and: [{ id: gr.id },{users: Meteor.userId() }]});
+      if (! userAttached && dbHasRepo) { // repo already exists, not attached
+        Repos.update({ id: gr.id }, {$push: {users: Meteor.userId() }});
+      } else // brand new repo
         Repos.insert({ id: gr.id, users: [ Meteor.userId() ], repo: gr });
     });
   },
@@ -53,10 +55,8 @@ Meteor.methods({
       user: gr.repo.owner.login,
       repo: gr.repo.name
     });
-    Repos.update( // for the current repo, overwrite branches
-      { id: gr.repo.id },
-      { $set: {branches: brs}}
-    );
+    // for the current repo, overwrite branches
+    Repos.update({ id: gr.repo.id },{ $set: {branches: brs }});
     Meteor.call('setBranch', gr.repo.default_branch) // set default br
   },
 
@@ -101,6 +101,16 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
+  postIssue: function(title, body){ // takes title and body, creates GH issue
+    Meteor.call('ghAuth');
+    return github.issues.create({
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+      title: title,
+      body: body
+    });
+  },
+
   postTree: function(t){ // takes tree, gives tree SHA hash id
     Meteor.call('ghAuth');
     return github.gitdata.createTree({
@@ -133,4 +143,4 @@ Meteor.methods({
     });
   },
 
-  });
+});

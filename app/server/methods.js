@@ -101,18 +101,24 @@ Meteor.methods({
     issues.map(function(i){ Meteor.call('addIssue', i) });
   },
 
-  addIssue: function(i){ // adds a issue, links to repo
+  addIssue: function(issue){ // adds a issue, links to repo
     Issues.upsert({
       repo: Meteor.user().profile.repo,
-      id: i.id // issue id (from github)
+      id: issue.id // issue id (from github)
     },{
       repo: Meteor.user().profile.repo,
-      id: i.id, // issue id (from github)
-      issue: i
+      id: issue.id, // issue id (from github)
+      issue: issue
     });
   },
 
-
+  addFeedbackIssue: function(issue){ // adds a feedback issue to repo
+    Issues.insert({
+      repo: issue.repo, // specific repos unique id
+      type: 'feedback issue', // specific type of issue
+      issue: issue // issue from feedback.js
+    });
+  },
 
   ////////////////////////////////////////////////////////
   // top level function, grab files and commit to github
@@ -236,6 +242,7 @@ Meteor.methods({
   resetAllData: function() { // detroy everything
     Messages.remove({});
     Commits.remove({});
+    Issues.remove({});
     Repos.remove({});
     Tasks.remove({});
     Files.remove({});

@@ -18,7 +18,7 @@ Router.route('feedback', {
   where: 'server',
   action: function addIssue() {
     var issue = JSON.parse( this.request.body.feedback );
-    Issues.insert(issue);
+    Meteor.call('addFeedbackIssue', issue);
   }
 });
 

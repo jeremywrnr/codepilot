@@ -1,6 +1,6 @@
 // testing page management
 
-Template.testtasks.helpers({
+Template.tasks.helpers({
 
   tasks: function () { // sort and return tasks for this repo
     if (Session.get('hideCompleted')) {
@@ -14,13 +14,21 @@ Template.testtasks.helpers({
     return Session.get('hideCompleted');
   },
 
-  incompleteCount: function () { // return amount of incomplete tasks
+  taskCount: function () { // return amount of incomplete tasks
     return Tasks.find({checked: {$ne: true}}).count();
-  }
+  },
+
+  githubIssues: function () { // sort and return tasks for this repo
+    return Issues.find({}, {sort: {time: -1}});
+  },
+
+  githubCount: function () { // return amount of open issues
+    return Issues.find({}).count();
+  },
 
 });
 
-Template.testtasks.events({
+Template.tasks.events({
 
   'submit .new-task': function(e) { // create a new task
     e.preventDefault();
@@ -34,6 +42,10 @@ Template.testtasks.events({
 
   'change .hide-completed': function (e) { // toggle for showing completed
     Session.set('hideCompleted', e.target.checked);
+  },
+
+  'click .reload': function () { // update the issues for this repo
+    Meteor.call('loadIssues');
   }
 
 });
@@ -66,33 +78,10 @@ Template.todotask.events({
 });
 
 
-
-// github issue integration
-
-Template.githubIssues.helpers({
-
-  issues: function () { // sort and return tasks for this repo
-    return Issues.find({}, {sort: {time: -1}});
-  },
-
-  incompleteCount: function () { // return amount of open issues
-    return Issues.find({}).count();
-  },
-
-});
-
-Template.githubIssues.events({
-
-  'click .reload': function () { // update the issues for this repo
-    Meteor.call('loadIssues');
-  }
-
-});
-
-
-
 // github issue event integration
+Template.githubIssue.helpers({});
+Template.githubIssue.events({});
 
-Template.issue.helpers({});
-
-Template.issue.events({});
+// feedback issue event integration
+Template.feedbackIssue.helpers({});
+Template.feedbackIssue.events({});

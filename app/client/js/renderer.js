@@ -12,6 +12,10 @@ Template.renderPanel.events({
 
 Template.renderer.helpers({
 
+  getRepo: function () { // return id of project repo
+    if (Meteor.user()) return Meteor.user().profile.repo;
+  },
+
   getHead: function () { // parse head of html file
     var full = Files.findOne({title: /.*html/i});
     if (full) return grabTagContentsToRender(full, 'head');
