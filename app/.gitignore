@@ -3,4 +3,3 @@
 packages/*
 private/*.json
 .tern-project
-lenny.js
