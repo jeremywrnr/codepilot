@@ -5,13 +5,13 @@ seperate renderer bar - reload and file issue
     screencapture to png
     make a new issue, attach png to it
     ask them to describe new issue
-load file from github only on click?? reduce api calls
-    get current commit sha, then tree sha, then blob, then load into sharejs doc
 importing github issues
     linking to a specific issue
     displaying number of comments?
     ability to close issue from codepilot
     ability to create issue from codepilot?
+load file from github only on click?? reduce api calls
+    get current commit sha, then tree sha, then blob, then load into sharejs doc
 
 
 ## UI / UX

@@ -96,15 +96,3 @@ Template.githubIssues.events({
 Template.issue.helpers({});
 
 Template.issue.events({});
-
-
-
-// update all file contents, refreshing the tester frame
-
-Template.tester.events({
-
-  'click .reload': function () {
-    Meteor.call('testShareJS');
-  },
-
-});

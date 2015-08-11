@@ -1,3 +1,17 @@
+// update all file contents, refreshing the tester frame
+
+Template.renderPanel.events({
+
+  'click .reload': function () {
+    Meteor.call('testShareJS');
+  },
+
+  'click .issue': function () {
+    // something creative here
+  },
+
+});
+
 // iframe helper - load content from editor
 
 Template.renderer.helpers({

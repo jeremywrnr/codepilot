@@ -77,10 +77,13 @@
 <template name='tester'>
   <div class='panel panel-primary'>
     <div class='panel-heading'>
-      <button type='button' class='btn btn-default reload btn-lg grn'>reload tester</button>
-      <a href='/renderer' target='_blank'>
-        <button type='button' class='btn btn-default btn-lg grn'>view in tab</button>
-      </a>
+      <div class='btn-group btn-group-justified' role='group'>
+        <div class='btn-group' role='group'>
+          <a href='/renderer' target='_blank'>
+            <button type='button' class='btn btn-default btn-lg grn'>view page in new tab</button>
+          </a>
+        </div>
+      </div>
     </div>
     {{> iframe}}
   </div>
@@ -89,8 +92,8 @@
 
 <template name='iframe'>
   <div  class='panel-body' style='margin:0px;padding:0px;'>
-    <iframe src='/renderer' style='min-height:300px;height:100%;width:100%'
-      frameborder='0' height='100%' width='100%'>
+    <iframe src='/renderer' style='min-height:600px;height:100%;width:100%'
+       frameborder='0' height='100%' width='100%'>
     </iframe>
   </div>
 </template>
