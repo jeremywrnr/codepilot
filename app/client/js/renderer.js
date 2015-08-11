@@ -12,23 +12,15 @@ Template.renderer.helpers({
     if (full) return grabTagContentsToRender(full, 'body');
   },
 
-
-});
-
-Template.cssSource.helpers({
-
   getCSS: function () {
     var css = Files.findOne({ title: /.*css/i});
     if (css) return css.content
   },
 
-});
-
-Template.logger.helpers({
-
   getJS: function () {
     var js = Files.findOne({ title: /.*js/i});
     if (js) return js.content
   },
+
 
 });

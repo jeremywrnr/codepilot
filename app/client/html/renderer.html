@@ -4,59 +4,32 @@
   {{> yield }}
 </template>
 
-
-
 <!-- actual content -->
 
 <template name='renderer'>
-  <head>
-    {{{ getHead }}}
-    {{> cssSource }}
-  </head>
-  {{{ getBody }}}
-  <div>
-    console output: <pre id='log'></pre>
-  </div>
-  {{> logger }}
+  <iframe srcdoc='
+    <head>
+    {{ getHead }}
+    <style> {{ getCSS}} </style>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () { // waiting until the page loads
+    // overwrite console.log for iframe to append to output div
+    console.log = function (msg) {
+    if (typeof msg === "object")
+    $("#log")[0].innerHTML +=
+    (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
+    else
+    $("#log")[0].innerHTML += msg + "\n";
+    }
+    {{ getJS }} // insert the users javascript
+    });
+    </script>
+    </head>
+    <body> {{ getBody }}
+      <div> console output: <pre id="log"></pre> </div>
+    </body>'
+                                 style='min-height:300px;height:100%;width:100%'
+                                 frameborder='0' height='100%' width='100%'>
+  </iframe>
 </template>
-
-
-
-<template name='cssSource'><style type='text/css'>
-/* css resetting code from http://meyerweb.com/eric/tools/css/reset/ */
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
-blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img,
-ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i,
-center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption,
-tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section,
-summary, time, mark, audio, video { margin: 0; padding: 0; border: 0;
-font-size: 100%; font: inherit; vertical-align: baseline; } article, aside,
-details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-display: block; } body {line-height: 1; } ol, ul { list-style: none; }
-blockquote, q { quotes: none; } blockquote:before, blockquote:after, table
-{ border-collapse: collapse; border-spacing: 0; } q:before, q:after {
-content: ''; content: none; }
-
-/* css for the logger div/pre */
-
-{{ getCSS }}
-
-</style></template>
-
-
-
-<template name='logger'><script type='text/javascript'>
-console.log = function (msg) { // overwrite console.log for iframe
-  if (typeof msg === 'object')
-    $('#log')[0].innerHTML +=
-      (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + '/n';
-  else
-    $('#log')[0].innerHTML += msg + '\n';
-}
-while( $('#log').length === 0 ){} // hacky doc.ready
-console.log('test message'); // this works
-
-{{ getJS }} // this doesn't for some reason
-
-</script></template>
