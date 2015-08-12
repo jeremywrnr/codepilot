@@ -18,14 +18,6 @@ Template.tasks.helpers({
     return Tasks.find({checked: {$ne: true}}).count();
   },
 
-  issues: function () { // sort and return tasks for this repo
-    return Issues.find({}, {sort: {time: -1}});
-  },
-
-  issueCount: function () { // return amount of open issues
-    return Issues.find({}).count();
-  },
-
 });
 
 Template.tasks.events({
@@ -43,10 +35,6 @@ Template.tasks.events({
   'change .hide-completed': function (e) { // toggle for showing completed
     Session.set('hideCompleted', e.target.checked);
   },
-
-  'click .reload': function () { // update the issues for this repo
-    Meteor.call('loadIssues');
-  }
 
 });
 
@@ -80,6 +68,26 @@ Template.task.events({
 
 
 // github issue event integration
+
+Template.issues.helpers({
+
+  issues: function () { // sort and return tasks for this repo
+    return Issues.find({}, {sort: {time: -1}});
+  },
+
+  issueCount: function () { // return amount of open issues
+    return Issues.find({}).count();
+  },
+
+});
+
+Template.issues.events({
+
+  'click .reload': function () { // update the issues for this repo
+    Meteor.call('loadIssues');
+  }
+
+});
 
 Template.issue.helpers({
 
