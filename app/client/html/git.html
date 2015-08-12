@@ -56,7 +56,8 @@
 
 <template name='commit'>
   {{#if current}}
-  <button class='list-group-item commit' id='{{#if current}}active-commit{{/if}}' href='#'>
+
+  <button class='list-group-item commit' id='active-commit' href='#'>
     {{ commit.commit.message }}
     <span class='pull-right label {{#if mine}}label-primary{{else}}label-info{{/if}}'>
       {{ commit.author.login }}
@@ -66,12 +67,15 @@
     <a class='btn grn' target="_blank" href='{{ this.commit.html_url }}'> view commit </a>
     <button class='btn edit loadcommit'>load commit</button>
   </button>
+
   {{else}}
+
   <button class='list-group-item commit' href='#'>
     {{ commit.commit.message }}
     <span class='pull-right label {{#if mine}}label-primary{{else}}label-info{{/if}}'>
       {{ commit.author.login }}
     </span>
   </button>
+
   {{/if}}
 </template>

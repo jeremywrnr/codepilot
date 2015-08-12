@@ -2,7 +2,6 @@ TODOS
 =====
 
 SMASH ALL TASKS INTO ONE PANE
-
 posting github issues
 closing github issues
 
@@ -18,6 +17,9 @@ importing github issues
     ability to create issue from codepilot?
 load file from github only on click?? reduce api calls
     get current commit sha, then tree sha, then blob, then load into sharejs doc
+github api syncing
+    why does it need to two calls to populate sjs docs?
+    perhaps you can use a load on click operation to fix.
 
 
 ## UI / UX

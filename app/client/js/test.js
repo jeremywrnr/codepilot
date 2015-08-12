@@ -2,6 +2,10 @@
 
 Template.tasks.helpers({
 
+  hideCompleted: function () { // return whether to hide completed tasks
+    return Session.get('hideCompleted');
+  },
+
   tasks: function () { // sort and return tasks for this repo
     if (Session.get('hideCompleted')) {
       return Tasks.find({checked: {$ne: true}}, {sort: {time: -1}});
@@ -10,19 +14,15 @@ Template.tasks.helpers({
     }
   },
 
-  hideCompleted: function () { // return whether to hide completed tasks
-    return Session.get('hideCompleted');
-  },
-
   taskCount: function () { // return amount of incomplete tasks
     return Tasks.find({checked: {$ne: true}}).count();
   },
 
-  githubIssues: function () { // sort and return tasks for this repo
+  issues: function () { // sort and return tasks for this repo
     return Issues.find({}, {sort: {time: -1}});
   },
 
-  githubCount: function () { // return amount of open issues
+  issueCount: function () { // return amount of open issues
     return Issues.find({}).count();
   },
 
@@ -54,7 +54,7 @@ Template.tasks.events({
 
 // task item helpers and events
 
-Template.todotask.helpers({
+Template.task.helpers({
 
   mine: function() { // return true for tasks this user created, used to style
     return (Meteor.user().profile.login === this.username)
@@ -62,7 +62,7 @@ Template.todotask.helpers({
 
 });
 
-Template.todotask.events({
+Template.task.events({
 
   'click .toggle-checked': function () { // check or uncheck a task
     var action = (this.checked ? 'checked' : 'unchecked');
@@ -78,10 +78,28 @@ Template.todotask.events({
 });
 
 
-// github issue event integration
-Template.githubIssue.helpers({});
-Template.githubIssue.events({});
 
-// feedback issue event integration
-Template.feedbackIssue.helpers({});
-Template.feedbackIssue.events({});
+// github issue event integration
+
+Template.issue.helpers({
+
+  current: function() {
+    return Session.equals('issue', this._id);
+  },
+
+});
+
+Template.issue.events({
+
+  'click .issue': function(e) { // click to focus issue, again to reset
+    if ( Session.equals('issue', this._id) ) {
+      Session.set('issue', null);
+    } else {
+      Session.set('issue', this._id);
+    }
+  },
+
+  'click .closeissue': function(e) { // click to close a given issue
+  },
+
+});

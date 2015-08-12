@@ -3,21 +3,19 @@
 <template name='test'>
   <div class='col-xs-8 full-height'>
     <h2> testing </h2>
-    {{> tester}}
     {{> tasks }}
+    {{> tester}}
   </div>
 </template>
 
 <template name='tasks'>
   <div class='panel panel-primary'>
     <div class='panel-heading'>
-      <h3 class='panel-title'> tasks ({{incompleteCount}})
-        <label class='label pull-right'> hide complete
+      <h3 class='panel-title'> tasks ({{taskCount}}) issues ({{issueCount}})
+        <button class='btn btn-xs grn btn-default pull-right reload'>reload issues</button>
+        <label class='label pull-right'> hide done
           <input type='checkbox' checked='{{hideCompleted}}' class='hide-completed'/>
         </label>
-        <h3 class='panel-title'> github issues ({{incompleteCount}})
-          <button class='btn btn-xs grn btn-default pull-right reload'>reload github issues</button>
-        </h3>
       </h3>
     </div>
     <div class='panel-body'>
@@ -26,21 +24,22 @@
       </form>
       <ul class='list-group'><!--incorporate all tasks into one list-->
         {{#each tasks}}
-        {{> todotask}}
+        {{> task}}
         {{/each}}
-        {{#each feedbackIssues }}
-        {{> feedbackIssue }}
-        {{/each}}
-        {{#each githubIssues}}
-        {{> githubIssue }}
+        {{#each issues }}
+        {{> issue }}
         {{/each}}
       </ul>
     </div>
   </div>
 </template>
 
-<template name='todotask'>
-  <li class='list-group-item toggle-checked {{#if checked}}checked disabled{{/if}}'>
+
+
+<!-- todo task integration -->
+
+<template name='task'>
+  <li class='list-group-item task toggle-checked {{#if checked}}checked disabled{{/if}}'>
     <input type='checkbox' class='toggle-checked' checked='{{checked}}'> {{text}}
     <button class='pull-right label btn del'>&times;</button>
     <label class='pull-right btn label {{#if mine}}label-primary{{else}}label-info{{/if}}'>{{username}}</label>
@@ -51,23 +50,37 @@
 
 <!-- github issue integration -->
 
-<template name='githubIssue'>
-  <li class='list-group-item'>
-    platform: {{ browser.platform }}
-    <a target="_blank" href='{{ this.issue.html_url }}'> {{ issue.title }} {{ note }}</a>
-    <button class='pull-right label btn del'>close</button>
-    <img style='width: 100%;' src="{{ img }}" />
-  </li>
-</template>
+<template name='issue'>
+  {{#if current }}
 
+  <button class='list-group-item issue' id='active-issue'> {{ issue.note }}
+    <span class='pull-right label-primary label'> issue </span>
+    <!--{{ issue.browser.platform }} this seems to be inaccurate-->
+    <!-- insert special feedback js github stuff here? -->
+    <!--{{#if feedback }} {{/if}}-->
+  </button>
+  <button class='list-group-item' href='#'>
+    <div class='btn-group btn-group-justified'>
 
+    <a role='button' class='btn btn-default grn' href='{{ issue.html_url }}'> view </a>
+    <a role='button' class='btn btn-default del closeissue' href='#'> close </a>
 
-<!-- feedback issue integration -->
-
-<template name='feedbackIssue'>
-  <li class='list-group-item'>
-    {{ this.issue.note }} on {{ issue.browser.platform }}
-    <button class='pull-right label btn del'>close</button>
+      <!--<div class='btn-group'>-->
+        <!--<div class='btn-group btn-group-justified closeissue' role='toolbar'> close </div>-->
+        <!--<div class='btn-group btn-group-justified'>-->
+          <!--<a target="_blank" href='{{ issue.html_url }}'> view </a>-->
+        <!--</div>-->
+      <!--</div>-->
+    </div>
     <img style='width: 100%;' src="{{ issue.img }}" />
-  </li>
+  </button>
+
+  {{else}}
+
+  <button class='list-group-item issue' href='#'> {{ issue.note }}
+    <span class='pull-right label-primary label'> issue </span>
+    <!--<span class='pull-right label-primary label'> insert dynamic label </span>-->
+  </button>
+
+  {{/if}}
 </template>
