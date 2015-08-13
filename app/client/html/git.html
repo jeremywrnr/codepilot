@@ -3,8 +3,12 @@
 <template name='git'>
   <div class='col-xs-8 full-height'>
     <h2> version control </h2>
+    {{#if isPilot}}
+    {{> history }}
+    {{else}}
     {{> commitPanel }}
     {{> history }}
+    {{/if}}
   </div>
 </template>
 

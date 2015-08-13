@@ -3,9 +3,14 @@
 <template name='test'>
   <div class='col-xs-8 full-height'>
     <h2> testing </h2>
+    {{#if isPilot}}
     {{> tasks }}
     {{> issues}}
+    {{else}}
     {{> tester}}
+    {{> issues}}
+    {{> tasks }}
+    {{/if}}
   </div>
 </template>
 
