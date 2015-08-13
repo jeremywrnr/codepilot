@@ -1,10 +1,14 @@
 TODOS
 =====
 
-SMASH ALL TASKS INTO ONE PANE
+pilot sees tasks and issues, can close issues.
+doesnt see the testing frame tho, git vsc
+
+copilot sees tasks issues, can't close tho
+manages version control from the site
+
 posting github issues
 closing github issues
-
 seperate renderer bar - reload and file issue
     screencapture to png
     make a new issue, attach png to it
@@ -144,6 +148,7 @@ iframes custom javascript logger output
 ## guo meeting - time for MS visits? 11am
 make message box look nicer
 choose target from list of on github
+SMASH ALL TASKS INTO ONE PANE
 sort owned and all other editable repos
 commit reset buttons actually do something
 remove autopublish, p/s specific datasets
