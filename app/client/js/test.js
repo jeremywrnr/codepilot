@@ -84,7 +84,7 @@ Template.issues.helpers({
 Template.issues.events({
 
   'click .reload': function () { // update the issues for this repo
-    Meteor.call('loadIssues');
+    Meteor.call('initIssues');
   }
 
 });

@@ -1,8 +1,6 @@
 TODOS
 =====
 
-posting github issues
-
 closing github issues
 
 
@@ -169,6 +167,7 @@ clean up css duplication rules
 better iframe: responsive js, document.onready
 squash preforked git history
 make the chat list nicer
+posting github issues
 better iframe: serve template on route, have that be the src
 github integration
 option to pick roles

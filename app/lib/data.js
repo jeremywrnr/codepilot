@@ -8,12 +8,6 @@ Docs = new Meteor.Collection('docs'); // used inside sharejs (sjs)
     NOTE - some fields omitted
     */
 
-Ops = new Meteor.Collection('ops'); // used inside sjs
-
-/*  _id - unique identifier, corresponds to File._id
-    NOTE - some fields omitted
-    */
-
 Files = new Mongo.Collection('files'); // used with github
 
 /*  _id - unique identifier, same as Doc._id
@@ -48,6 +42,7 @@ Issues = new Mongo.Collection('issues');
     repo - unique identifier of issue ask belongs to
     id - github assigned id issue, also unique
     issue - response from server
+    screen - id of the screenshot
     */
 
 Screens = new Mongo.Collection('screens');
@@ -63,7 +58,7 @@ Commits = new Mongo.Collection('commits');
     commit - blob from git// TODO: TRIM THIS DOCUMENT!!!
     */
 
-Repos = new Mongo.Collection('repos');
+Repos = new Mongo.Collection('repos'); // PROJECT ID
 
 /*  _id - unique identifier of commit
     sha - git hash code for this commit

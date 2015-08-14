@@ -102,20 +102,18 @@ Meteor.methods({
   ///////////////////////
 
   postIssue: function(issue){ // takes title and body, creates GH issue
-    var dev = function(){return process.env.NODE_ENV === 'development'}
-    var host = ( dev() ? 'localhost:3000/' : 'codepilot.meteor.com/' );
-    var imgId = Screens.findOne(issue.imglink)._id;
-    var imglink = host + 'screenshot/' + imgId;
-
     var user = Meteor.users.findOne(issue.user);
     var token = user.services.github.accessToken;
     github.authenticate({ type: 'token', token: token }); // custom login
+    // get a link to the screenshot that was just taken
+    var image = Screens.findOne(issue.imglink)._id;
+    var link = 'http://codepilot.meteor.com/screenshot/' + image;
     return github.issues.create({
       user: user.profile.repoOwner,
       repo: user.profile.repoName,
       title: issue.note,
-      body: '![screenshot](' + imglink + ')',
-      label: 'bug' // enhancement, etc
+      body: '[issue screenshot](' + link + ')',
+      labels: ['bug'] // enhancement, etc
     });
   },
 

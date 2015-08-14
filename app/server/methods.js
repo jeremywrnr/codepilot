@@ -34,7 +34,7 @@ Meteor.methods({
     Docs.remove(id);
   },
 
-  resetFiles: function() { // reset db and hard code the file structure
+  resetFiles: function() { // reset db and hard code simple website structure
     Files.find({}).map(function delFile(f){ Meteor.call('deleteFile', f._id)});
     var base = [{'title':'site.html'},{'title':'site.css'},{'title':'site.js'}];
     base.map(function(f){ Meteor.call('createFile', f.title) });
@@ -95,30 +95,30 @@ Meteor.methods({
   // ISSUE MANAGEMENT
   ///////////////////
 
-  addIssue: function(issue){ // adds/updates an issue, links to repo
-    Issues.upsert({
-      repo: Meteor.user().profile.repo,
-      id: issue.id // issue id (from github)
-    },{
-      repo: Meteor.user().profile.repo,
-      id: issue.id, // issue id (from github)
-      issue: issue
-    });
-  },
-
-  addFeedbackIssue: function(issue){ // adds a feedback issue to github
-    var img = Async.runSync(function(done) { // save screenshot, return id
+  addIssue: function(issue){ // adds a feedback issue to github
+    issue.imglink = Async.runSync(function(done) { // save screenshot, return id
       Screens.insert({img: issue.img}, function(err, id){ done(err, id); });
-    });
-    issue.imglink = img.result; // attach screenshot to issue
-    Meteor.call('postIssue', issue);
-    //Meteor.call('loadIssues', issue.user);
+    }).result; // attach screenshot to issue
+    var ghIssue = Meteor.call('postIssue', issue);
+    ghIssue.repo = issue.repo; // attach forming data
+    ghIssue.feedback = issue; // attach forming data
+    Issues.insert( ghIssue ); // insert the new issue
   },
 
-  loadIssues: function(user) { // re-populating git repo issues
-    var repo = Repos.findOne( Meteor.user().profile.repo );
+  initIssues: function() { // re-populating git repo issues
+    var user = Meteor.user() || Meteor.users.findOne(issue.user);
+    var repo = Repos.findOne( user.profile.repo );
     var issues = Meteor.call('getAllIssues', repo);
-    issues.map(function(i){ Meteor.call('addIssue', i) });
+    issues.map(function(issue){
+      Issues.update({
+        repo: Meteor.user().profile.repo,
+        "issue.id": issue.id // (from github)
+      },{
+        $set: {issue: issue},
+      },{
+        upsert: true
+      });
+    });
   },
 
 
@@ -133,7 +133,6 @@ Meteor.methods({
     var files = Files.find({repo: Meteor.user().profile.repo}).map(
       function getFile(f){
         var shareJSDoc = Meteor.call('getShareJSDoc', f);
-        dlog( shareJSDoc );
         return {
           path: f.title,
           content: shareJSDoc.snapshot
@@ -204,6 +203,7 @@ Meteor.methods({
   },
 
   loadHead: function(bname) { // load head of branch, from sha
+    // check if branch name is a valid branchname of this repo
     var sha =  Meteor.call('getBranch', bname).commit.sha;
     Meteor.call('loadCommit', sha);
   },

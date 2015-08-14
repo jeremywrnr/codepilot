@@ -19,7 +19,7 @@ Router.route('feedback', {
   where: 'server',
   action: function addIssue() {
     var issue = JSON.parse( this.request.body.feedback );
-    Meteor.call('addFeedbackIssue', issue);
+    Meteor.call('addIssue', issue);
   }
 });
 
@@ -38,21 +38,19 @@ Router.route('/screenshot/:_id', {
 if (Meteor.isClient) {
 
   /*
-
      Router.onBeforeAction(function preLogin() {
      if (! Meteor.userId() || Meteor.loggingIn()){
      this.render('login');
-//Router.go('code');
-} else
-this.next();
-});
+     } else
+     this.next();
+     });
 
-// redirect user to code after login
+   * // redirect user to code after login
 
-Router.onBeforeAction(function postLogin() {
-if (Meteor.userId())
-this.render('code');
-}, {only: ['login']});
+   Router.onBeforeAction(function postLogin() {
+   if (Meteor.userId())
+   this.render('code');
+   }, {only: ['login']});
 
 */
 
