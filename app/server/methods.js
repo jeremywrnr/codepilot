@@ -234,10 +234,6 @@ Meteor.methods({
   // helper & testing methods
   ///////////////////////////
 
-  getEnv: function(){ // get runtime environment
-    return env; // process.env.NODE_ENV;
-  },
-
   resetAllData: function() { // detroy everything
     Messages.remove({});
     Commits.remove({});
