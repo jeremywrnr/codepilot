@@ -11,7 +11,8 @@ Router.map(function () {
   this.route('renderer', {layoutTemplate: 'null' });
 });
 
-//curl --data "lat=12&lon=14" http://127.0.0.1:3000/feedback
+// accepting screenshots at the feedback url
+// curl --data "lat=12&lon=14" http://127.0.0.1:3000/feedback
 
 Router.route('feedback', {
   path: '/feedback/',
@@ -22,23 +23,36 @@ Router.route('feedback', {
   }
 });
 
+// serving feedback images, from id
+
+Router.route('/screenshot/:_id', function () {
+  this.layout('null');
+  this.render('screenshot', {
+    data: function () {
+      return Issues.findOne({_id: this.params._id});
+    },
+  });
+});
+
 // ask user to login before coding, only on client
 
 if (Meteor.isClient) {
-
-  Router.onBeforeAction(function preLogin() {
-    if (! Meteor.userId() || Meteor.loggingIn()){
-      this.render('login');
-      Router.go('code');
-    } else
-      this.next();
-  }, {except: ['renderer']});
-
-  // redirect user to code after login
-
-  Router.onBeforeAction(function postLogin() {
-    if (Meteor.userId())
-      this.render('code');
-  }, {only: ['login']});
-
+  /*
+   *
+   *  Router.onBeforeAction(function preLogin() {
+   *    if (! Meteor.userId() || Meteor.loggingIn()){
+   *      this.render('login');
+   *      Router.go('code');
+   *    } else
+   *      this.next();
+   *  }, {except: ['renderer','feedback','screenshot']});
+   *
+   *  // redirect user to code after login
+   *
+   *  Router.onBeforeAction(function postLogin() {
+   *    if (Meteor.userId())
+   *      this.render('code');
+   *  }, {only: ['login']});
+   *
+   */
 }

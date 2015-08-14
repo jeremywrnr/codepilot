@@ -109,7 +109,7 @@ Meteor.methods({
       user: user.profile.repoOwner,
       repo: user.profile.repoName,
       title: issue.note,
-      body: issue.html,
+      body: "screenshot: <img alt='screenshot' src='" + issue.img + "'>",
       label: 'bug' // enhancement, etc
     });
   },

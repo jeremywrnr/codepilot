@@ -72,22 +72,11 @@
 
   <button class='list-group-item issue' id='active-issue'> {{ issue.note }}
     <span class='pull-right label-primary label'> issue </span>
-    <!--{{ issue.browser.platform }} this seems to be inaccurate-->
-    <!-- insert special feedback js github stuff here? -->
-    <!--{{#if feedback }} {{/if}}-->
   </button>
   <button class='list-group-item' href='#'>
     <div class='btn-group btn-group-justified'>
-
       <a role='button' class='btn btn-default grn' href='{{ issue.html_url }}'> view </a>
       <a role='button' class='btn btn-default del closeissue' href='#'> close </a>
-
-      <!--<div class='btn-group'>-->
-      <!--<div class='btn-group btn-group-justified closeissue' role='toolbar'> close </div>-->
-      <!--<div class='btn-group btn-group-justified'>-->
-      <!--<a target="_blank" href='{{ issue.html_url }}'> view </a>-->
-      <!--</div>-->
-      <!--</div>-->
     </div>
     <img style='width: 100%;' src="{{ issue.img }}" />
   </button>
