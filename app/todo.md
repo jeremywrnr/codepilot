@@ -13,6 +13,7 @@ maybe a loading bar for the commit progress
 attach links for reference to file issue
 reduce margins, make better use of space
 link to add a collaborator to the repo
+add option for dynamic labeling
 apply feed to other side?
 sketch new ui ideas
 

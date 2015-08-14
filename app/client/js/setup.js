@@ -23,6 +23,7 @@ Tracker.autorun(function() {
 // global client helpers/functions
 
 Template.registerHelper('isPilot', function() { // check if currentUser is pilot
+  if (! Meteor.user() ) return false; // still logging in or page loading
   return Meteor.user().profile.role === 'pilot';
 });
 

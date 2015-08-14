@@ -106,6 +106,17 @@ Meteor.methods({
     Issues.insert( ghIssue ); // insert the new issue
   },
 
+  closeIssue: function(issue){ // close an issue on github by number
+    Issues.remove(issue._id); // remove from the local database
+    Meteor.call('ghAuth');
+    return github.issues.edit({
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+      number: issue.issue.number,
+      state: 'closed'
+    });
+  },
+
   initIssues: function() { // re-populating git repo issues
     var repo = Repos.findOne( Meteor.user().profile.repo );
     var issues = Meteor.call('getAllIssues', repo);

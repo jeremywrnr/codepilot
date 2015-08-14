@@ -68,25 +68,27 @@
 </template>
 
 <template name='issue'>
-  {{#if current }}
 
-  <button class='list-group-item issue' id='active-issue'> {{ issue.note }}
-    <span class='pull-right label-primary label'> issue </span>
+  <button class='list-group-item issue'
+    id='{{#if current }}active-issue{{/if}}'>
+    {{ issue.title }}
+    {{#each labels }}
+    {{> issueLabel }}
+    {{/each}}
   </button>
+
+  {{#if current}}
   <button class='list-group-item' href='#'>
     <div class='btn-group btn-group-justified'>
-      <a role='button' class='btn btn-default grn' href='{{ issue.html_url }}'> view </a>
+      <a role='button' target='_blank' class='btn btn-default grn' href='{{ issue.html_url }}'> view </a>
       <a role='button' class='btn btn-default del closeissue' href='#'> close </a>
     </div>
-    <img style='width: 100%;' src="{{ issue.img }}" />
+    <img style='width: 100%;' src="{{ feedback.img }}" />
   </button>
-
-  {{else}}
-
-  <button class='list-group-item issue' href='#'> {{ issue.note }}
-    <span class='pull-right label-primary label'> issue </span>
-    <!--<span class='pull-right label-primary label'> insert dynamic label </span>-->
-  </button>
-
   {{/if}}
+
+</template>
+
+<template name='issueLabel'><!-- perhaps do dynamic coloring... -->
+  <span class='pull-right label-warning label'> {{ this }} </span>
 </template>

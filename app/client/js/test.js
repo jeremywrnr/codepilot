@@ -95,6 +95,10 @@ Template.issue.helpers({
     return Session.equals('issue', this._id);
   },
 
+  labels: function () {
+    return this.issue.labels;
+  }
+
 });
 
 Template.issue.events({
@@ -108,6 +112,7 @@ Template.issue.events({
   },
 
   'click .closeissue': function(e) { // click to close a given issue
+    Meteor.call('closeIssue', this);
   },
 
 });
