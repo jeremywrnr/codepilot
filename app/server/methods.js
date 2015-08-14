@@ -99,7 +99,7 @@ Meteor.methods({
     issue.imglink = Async.runSync(function(done) { // save screenshot, return id
       Screens.insert({img: issue.img}, function(err, id){ done(err, id); });
     }).result; // attach screenshot to issue
-    var ghIssue = Meteor.call('postIssue', issue);
+    var ghIssue = {issue: Meteor.call('postIssue', issue)};
     ghIssue.feedback = issue; // attach feedback issue data
     ghIssue.repo = issue.repo; // attach repo forming data
     ghIssue.ghid = ghIssue.id; // attach github issue id

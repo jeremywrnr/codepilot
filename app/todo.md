@@ -2,6 +2,7 @@ TODOS
 =====
 
 closing github issues
+exact parsing needs cleaning on add issue
 
 
 ## UI / UX

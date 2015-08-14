@@ -71,7 +71,7 @@
 
   <button class='list-group-item issue'
     id='{{#if current }}active-issue{{/if}}'>
-    {{ issue.title }}
+    {{ title }}
     {{#each labels }}
     {{> issueLabel }}
     {{/each}}
@@ -90,5 +90,5 @@
 </template>
 
 <template name='issueLabel'><!-- perhaps do dynamic coloring... -->
-  <span class='pull-right label-warning label'> {{ this }} </span>
+  <span class='pull-right label label-default' style='background: #{{color}};'> {{ name }} </span>
 </template>
