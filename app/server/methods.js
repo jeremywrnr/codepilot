@@ -100,8 +100,9 @@ Meteor.methods({
       Screens.insert({img: issue.img}, function(err, id){ done(err, id); });
     }).result; // attach screenshot to issue
     var ghIssue = Meteor.call('postIssue', issue);
-    ghIssue.repo = issue.repo; // attach forming data
-    ghIssue.feedback = issue; // attach forming data
+    ghIssue.feedback = issue; // attach feedback issue data
+    ghIssue.repo = issue.repo; // attach repo forming data
+    ghIssue.ghid = ghIssue.id; // attach github issue id
     Issues.insert( ghIssue ); // insert the new issue
   },
 
@@ -111,7 +112,7 @@ Meteor.methods({
     issues.map(function(issue){
       Issues.update({
         repo: repo._id,
-        "issue.id": issue.id // (from github)
+        ghid: issue.id // (from github)
       },{
         $set: {issue: issue},
       },{

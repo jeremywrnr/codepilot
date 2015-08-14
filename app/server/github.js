@@ -114,7 +114,7 @@ Meteor.methods({
     // get a link to the screenshot that was just taken
     var image = Screens.findOne(issue.imglink)._id;
     var link = 'http://codepilot.meteor.com/screenshot/' + image;
-    return github.issues.create({
+    return github.issues.create({ // return githubs issue response
       user: user.profile.repoOwner,
       repo: user.profile.repoName,
       title: issue.note,
