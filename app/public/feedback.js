@@ -512,6 +512,7 @@
 
             post.img = img;
             post.repo = options.repo;
+            post.user = options.user;
             post.note = $('#feedback-note').val();
                         var data = {feedback: JSON.stringify(post)};
             $.ajax({

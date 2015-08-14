@@ -1,29 +1,8 @@
 TODOS
 =====
 
-pilot sees tasks and issues, can close issues.
-doesnt see the testing frame tho, git vsc
-
-copilot sees tasks issues, can't close tho
-manages version control from the site
-
 posting github issues
 closing github issues
-seperate renderer bar - reload and file issue
-    screencapture to png
-    make a new issue, attach png to it
-    attach issue to the png
-    ask them to describe new issue
-importing github issues
-    linking to a specific issue
-    displaying number of comments?
-    ability to close issue from codepilot
-    ability to create issue from codepilot?
-load file from github only on click?? reduce api calls
-    get current commit sha, then tree sha, then blob, then load into sharejs doc
-github api syncing
-    why does it need to two calls to populate sjs docs?
-    perhaps you can use a load on click operation to fix.
 
 
 ## UI / UX
@@ -41,6 +20,11 @@ sketch new ui ideas
 
 ## SERVER
 
+github api syncing
+    why does it need to two calls to populate sjs docs?
+    perhaps you can use a load on click operation to fix.
+load file from github only on click?? reduce api calls
+    get current commit sha, then tree sha, then blob, then load into sharejs doc
 only add to collaborators if not on list
 standardize server method names, documents
 only owner can add a collaborator: add option
@@ -148,7 +132,20 @@ iframes custom javascript logger output
 ## guo meeting - time for MS visits? 11am
 make message box look nicer
 choose target from list of on github
+pilot sees tasks and issues, can close issues.
+doesnt see the testing frame tho, git vsc
+copilot sees tasks issues, can't close tho
+manages version control from the site
 SMASH ALL TASKS INTO ONE PANE
+importing github issues
+linking to a specific issue
+ability to close issue from codepilot
+ability to create issue from codepilot?
+seperate renderer bar - reload and file issue
+screencapture to png
+make a new issue, attach png to it
+attach issue to the png
+ask them to describe new issue
 sort owned and all other editable repos
 commit reset buttons actually do something
 remove autopublish, p/s specific datasets

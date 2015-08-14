@@ -101,13 +101,16 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
-  postIssue: function(title, body){ // takes title and body, creates GH issue
-    Meteor.call('ghAuth');
+  postIssue: function(issue){ // takes title and body, creates GH issue
+    var user = Meteor.users.findOne(issue.user);
+    var token = user.services.github.accessToken;
+    github.authenticate({ type: 'token', token: token }); // custom login
     return github.issues.create({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      title: title,
-      body: body
+      user: user.profile.repoOwner,
+      repo: user.profile.repoName,
+      title: issue.note,
+      body: issue.html,
+      label: 'bug' // enhancement, etc
     });
   },
 

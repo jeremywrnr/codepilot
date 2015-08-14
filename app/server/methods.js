@@ -95,13 +95,7 @@ Meteor.methods({
   // ISSUE MANAGEMENT
   ///////////////////
 
-  loadIssues: function() { // re-populating repo issues
-    var repo = Repos.findOne( Meteor.user().profile.repo );
-    var issues = Meteor.call('getAllIssues', repo);
-    issues.map(function(i){ Meteor.call('addIssue', i) });
-  },
-
-  addIssue: function(issue){ // adds a issue, links to repo
+  addIssue: function(issue){ // adds/updates an issue, links to repo
     Issues.upsert({
       repo: Meteor.user().profile.repo,
       id: issue.id // issue id (from github)
@@ -113,12 +107,17 @@ Meteor.methods({
   },
 
   addFeedbackIssue: function(issue){ // adds a feedback issue to repo
-    Issues.insert({
-      repo: issue.repo, // specific repos unique id
-      type: 'feedback issue', // specific type of issue
-      issue: issue // issue from feedback.js
-    });
+    Meteor.call('postIssue', issue);
+    //Meteor.call('loadIssues');
   },
+
+  loadIssues: function() { // re-populating git repo issues
+    var repo = Repos.findOne( Meteor.user().profile.repo );
+    var issues = Meteor.call('getAllIssues', repo);
+    issues.map(function(i){ Meteor.call('addIssue', i) });
+  },
+
+
 
   ////////////////////////////////////////////////////////
   // top level function, grab files and commit to github

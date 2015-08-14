@@ -12,6 +12,10 @@ Template.renderPanel.events({
 
 Template.renderer.helpers({
 
+  getUser: function () { // return id of project repo
+    if (Meteor.user()) return Meteor.user()._id;
+  },
+
   getRepo: function () { // return id of project repo
     if (Meteor.user()) return Meteor.user().profile.repo;
   },

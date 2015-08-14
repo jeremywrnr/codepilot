@@ -11,7 +11,7 @@ Router.map(function () {
   this.route('renderer', {layoutTemplate: 'null' });
 });
 
-//curl --data "lat=12&lon=14" http://127.0.0.1:3000/receive
+//curl --data "lat=12&lon=14" http://127.0.0.1:3000/feedback
 
 Router.route('feedback', {
   path: '/feedback/',
