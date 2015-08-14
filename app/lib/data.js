@@ -50,6 +50,12 @@ Issues = new Mongo.Collection('issues');
     issue - response from server
     */
 
+Screens = new Mongo.Collection('screens');
+
+/*  _id - unique identifier of commit
+    img - img data of screen, base64 encoded
+    */
+
 Commits = new Mongo.Collection('commits');
 
 /*  _id - unique identifier of commit

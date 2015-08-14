@@ -1,3 +1,9 @@
+<!-- templates for rendering iframe locally  -->
+
+<template name='null'>
+  {{> yield }}
+</template>
+
 <!-- code tester frame -->
 
 <template name='tester'>
@@ -6,7 +12,8 @@
       <div class='btn-group btn-group-justified' role='group'>
         <div class='btn-group' role='group'>
           <a href='/renderer' target='_blank'>
-            <button type='button' class='btn btn-default btn-lg grn'>view in new tab</button>
+            <button type='button' class='btn btn-default btn-lg grn'>
+              view in new tab</button>
           </a>
         </div>
       </div>
@@ -24,16 +31,10 @@
 </template>
 
 <template name='screenshot'>
-  <img src="{{ issue.img }}" />
+  <img src='{{ this.img }}' />
 </template>
 
 
-
-<!-- templates for rendering iframe locally  -->
-
-<template name='null'>
-  {{> yield }}
-</template>
 
 <!-- actual content -->
 

@@ -106,12 +106,16 @@ Meteor.methods({
     });
   },
 
-  addFeedbackIssue: function(issue){ // adds a feedback issue to repo
+  addFeedbackIssue: function(issue){ // adds a feedback issue to github
+    var img = Async.runSync(function(done) { // save screenshot, return id
+      Screens.insert({img: issue.img}, function(err, id){ done(err, id); });
+    });
+    issue.imglink = img.result; // attach screenshot to issue
     Meteor.call('postIssue', issue);
-    //Meteor.call('loadIssues');
+    //Meteor.call('loadIssues', issue.user);
   },
 
-  loadIssues: function() { // re-populating git repo issues
+  loadIssues: function(user) { // re-populating git repo issues
     var repo = Repos.findOne( Meteor.user().profile.repo );
     var issues = Meteor.call('getAllIssues', repo);
     issues.map(function(i){ Meteor.call('addIssue', i) });
@@ -237,6 +241,7 @@ Meteor.methods({
   resetAllData: function() { // detroy everything
     Messages.remove({});
     Commits.remove({});
+    Screens.remove({});
     Issues.remove({});
     Repos.remove({});
     Tasks.remove({});

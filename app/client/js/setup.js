@@ -13,6 +13,7 @@ Tracker.autorun(function() {
       Meteor.subscribe('files', repoId);
       Meteor.subscribe('tasks', repoId);
       Meteor.subscribe('issues', repoId);
+      Meteor.subscribe('screens');
       Meteor.subscribe('commits', repoId);
       Meteor.subscribe('messages', repoId);
     }
@@ -21,7 +22,7 @@ Tracker.autorun(function() {
 
 // global client helpers/functions
 
-Template.registerHelper('isPilot', function() {
+Template.registerHelper('isPilot', function() { // check if currentUser is pilot
   return Meteor.user().profile.role === 'pilot';
 });
 

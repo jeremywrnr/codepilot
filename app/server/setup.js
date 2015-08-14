@@ -27,6 +27,9 @@ Meteor.publish('tasks', function(repoId) { // only serve repo tasks
 Meteor.publish('issues', function(repoId) { // only serve repo issues
   return Issues.find({repo: repoId});
 });
+Meteor.publish('screens', function() { // serve all issue screenshots
+  return Screens.find({});
+});
 
 
 

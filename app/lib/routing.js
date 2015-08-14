@@ -25,34 +25,35 @@ Router.route('feedback', {
 
 // serving feedback images, from id
 
-Router.route('/screenshot/:_id', function () {
-  this.layout('null');
-  this.render('screenshot', {
-    data: function () {
-      return Issues.findOne({_id: this.params._id});
-    },
-  });
+Router.route('/screenshot/:_id', {
+  template: 'screenshot',
+  layoutTemplate: 'null',
+  data: function () {
+    return Screens.findOne(this.params._id);
+  }
 });
 
 // ask user to login before coding, only on client
 
 if (Meteor.isClient) {
+
   /*
-   *
-   *  Router.onBeforeAction(function preLogin() {
-   *    if (! Meteor.userId() || Meteor.loggingIn()){
-   *      this.render('login');
-   *      Router.go('code');
-   *    } else
-   *      this.next();
-   *  }, {except: ['renderer','feedback','screenshot']});
-   *
-   *  // redirect user to code after login
-   *
-   *  Router.onBeforeAction(function postLogin() {
-   *    if (Meteor.userId())
-   *      this.render('code');
-   *  }, {only: ['login']});
-   *
-   */
+
+     Router.onBeforeAction(function preLogin() {
+     if (! Meteor.userId() || Meteor.loggingIn()){
+     this.render('login');
+//Router.go('code');
+} else
+this.next();
+});
+
+// redirect user to code after login
+
+Router.onBeforeAction(function postLogin() {
+if (Meteor.userId())
+this.render('code');
+}, {only: ['login']});
+
+*/
+
 }

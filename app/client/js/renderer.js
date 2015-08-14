@@ -40,5 +40,4 @@ Template.renderer.helpers({
     if (js) return js.content;
   },
 
-
 });
