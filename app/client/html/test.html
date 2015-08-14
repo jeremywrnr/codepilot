@@ -71,7 +71,7 @@
 
   <button class='list-group-item issue'
     id='{{#if current }}active-issue{{/if}}'>
-    {{ title }}
+    {{ issue.title }}
     {{#each labels }}
     {{> issueLabel }}
     {{/each}}

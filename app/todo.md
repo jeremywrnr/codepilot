@@ -1,8 +1,8 @@
 TODOS
 =====
 
-closing github issues
-exact parsing needs cleaning on add issue
+add github issue commenting
+link addition in tasks
 
 
 ## UI / UX
@@ -170,6 +170,7 @@ better iframe: responsive js, document.onready
 squash preforked git history
 make the chat list nicer
 posting github issues
+exact parsing needs cleaning on add issue
 better iframe: serve template on route, have that be the src
 github integration
 option to pick roles
@@ -177,4 +178,6 @@ basic roles management
 refactor on repoName
 file specific syntax highlighting
 show project id
+default repo string is suggestions.
+closing github issues
 -->
