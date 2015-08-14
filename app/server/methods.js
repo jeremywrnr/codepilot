@@ -106,12 +106,11 @@ Meteor.methods({
   },
 
   initIssues: function() { // re-populating git repo issues
-    var user = Meteor.user() || Meteor.users.findOne(issue.user);
-    var repo = Repos.findOne( user.profile.repo );
+    var repo = Repos.findOne( Meteor.user().profile.repo );
     var issues = Meteor.call('getAllIssues', repo);
     issues.map(function(issue){
       Issues.update({
-        repo: Meteor.user().profile.repo,
+        repo: repo._id,
         "issue.id": issue.id // (from github)
       },{
         $set: {issue: issue},
@@ -247,7 +246,6 @@ Meteor.methods({
     Tasks.remove({});
     Files.remove({});
     Docs.remove({});
-    Ops.remove({});
   },
 
 });
