@@ -19,6 +19,13 @@ Template.editor.helpers({
       editor.setTheme('ace/theme/monokai');
       editor.setShowPrintMargin(false);
       editor.getSession().setUseWrapMode(true);
+      var beautify = ace.require('ace/ext/beautify');
+      editor.commands.addCommands(beautify.commands);
+      editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true,
+        enableSnippets: true
+      });
     };
   },
 
