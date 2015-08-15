@@ -2,6 +2,7 @@ TODOS
 =====
 
 fix loggedout homepage
+feed notifys on issues
 
 
 ## UI / UX
