@@ -19,7 +19,8 @@ Router.route('feedback', {
   where: 'server',
   action: function addIssue() {
     var issue = JSON.parse( this.request.body.feedback );
-    Meteor.call('addIssue', issue);
+    if(Meteor.users.findOne(issue.user)) // dont take junk
+      Meteor.call('addIssue', issue);
   }
 });
 
