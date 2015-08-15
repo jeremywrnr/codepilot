@@ -13,57 +13,56 @@
               {{currentUser.profile.name}}</h4>
           </div>
           <ul class='list-group'>
+
             <li class='list-group-item'>
               project id: {{ currentUser.profile.repo }}
             </li>
-            <li class='list-group-item'> github:
+
+            <li class='list-group-item'>
+              <button class='loadGHData grn btn btn-xs pull-right'>refresh</button>
+              github:
               <a href='{{currentUser.profile.html_url}}' target='_blank'>
                 {{ currentUser.profile.login }}</a>
             </li>
-            <li class='list-group-item'> repo:
+
+            <li class='list-group-item'>
+              <button class='btn btn-xs grn pull-right repoSelect'> choose </button>
+              repo:
               <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
                 target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
             </li>
-            <li class='list-group-item'> branch:
+
+            {{#if repoSelecting}}
+            {{#each repos}}
+            {{> repo}}
+            {{/each}}
+            {{/if}}
+
+            <li class='list-group-item'>
+              <button class='btn btn-xs grn pull-right branchSelect'> choose </button>
+              branch:
               <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/{{ currentUser.profile.repoBranch }}'
                 target='_blank'>{{ currentUser.profile.repoBranch }}</a>
             </li>
-            <li class='list-group-item'>role: {{currentUser.profile.role}}</li>
+
+            {{#if branchSelecting}}
+            {{#each branches}}
+            {{> branch}}
+            {{/each}}
+            {{/if}}
+
+            <li class='list-group-item'>
+              <div class='btn-group pull-right'>
+                <button class='makePilot btn-xs grn btn'>pilot</button>
+                <button class='makeCopilot btn-xs grn btn'>co-pilot</button>
+              </div>
+              role: {{currentUser.profile.role}}
+            </li>
+
           </ul>
         </div>
 
-        <h5>github config</h5>
-        <div class='btn-group'>
-          <button class='loadGHData grn btn'>refresh</button>
-          <div class='btn-group'>
-            <button class='btn grn dropdown-toggle' data-toggle='dropdown'>
-              repo <span class='caret'></span>
-            </button>
-            <ul class='dropdown-menu'>
-              <li class='dropdown-header'>repos</li>
-              {{#each repos}}
-              {{> repo}}
-              {{/each}}
-            </ul>
-          </div>
-          <div class='btn-group'>
-            <button class='btn grn dropdown-toggle' data-toggle='dropdown'>
-              branch <span class='caret'></span>
-            </button>
-            <ul class='dropdown-menu'>
-              <li class='dropdown-header'>branches</li>
-              {{#each branches}}
-              {{> branch}}
-              {{/each}}
-            </ul>
-          </div>
-        </div>
-
-        <h5>role</h5>
-        <div class='btn-group'>
-          <button class='makePilot grn btn'>pilot</button>
-          <button class='makeCopilot grn btn'>co-pilot</button>
-        </div>
+        <h5> role </h5>
 
         {{#if isPilot}}
         <p>This view is only seen by pilots. The pilot should focus on entering
@@ -74,13 +73,18 @@
         <img class='img-rounded' style='height: 150px' src='http://www.cinemablend.com/images/news_img/32554/Top_Gun_2_32554.jpg'>
         {{else}}
         <p>This view is only seen by copilots. The copilot should focus on
-        testing the work that the pilot performs, but using the testing panel,
+        testing the work that the pilot performs by using the testing panel,
         and filing any bugs found. They also are in control of the github
         integration, so they decide when it is time to make a commit.</p>
         <img class='img-rounded' style='height: 150px' src='https://s-media-cache-ak0.pinimg.com/236x/55/50/32/5550323e05e7a5f719de5263d7f160d2.jpg'>
         {{/if}}
 
-        <button class='btn del resetfiles'>reset files to basic website</button>
+        <h5> debugging </h5>
+
+        <div class="alert alert-danger" role="alert">
+          <button style='width:100%;' class='btn del resetfiles'>
+            reset current project to basic website</button>
+        </div>
 
       </div>
     </div>
@@ -88,9 +92,9 @@
 </template>
 
 <template name='repo'>
-  <li class='repo'><a href='#'>{{ repo.full_name }}</a></li>
+  <button class='list-group-item repo'> {{ repo.full_name }} </button>
 </template>
 
 <template name='branch'>
-  <li class='branch'><a href='#'>{{ name }}</a></li>
+  <button class='list-group-item branch'> {{ name }} </button>
 </template>
