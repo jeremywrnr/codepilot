@@ -1,12 +1,11 @@
 TODOS
 =====
 
-fix loggedout homepage
-feed notifys on issues
 
 
 ## UI / UX
 
+feed notifys on issues
 stop panel-body from hiding iframe contents (clearfix?)
 add more labels on right side of task input (gh issues)
 gutter indicators: link to resources from task
@@ -181,6 +180,7 @@ refactor on repoName
 file specific syntax highlighting
 show project id
 default repo string is suggestions.
+fix loggedout homepage
 closing github issues
 link addition in tasks
 -->
