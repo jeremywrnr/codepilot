@@ -1,43 +1,32 @@
 TODOS
 =====
 
+refactor iframes, better in pane nav.
 
 
 ## UI / UX
 
-feed notifys on issues
-stop panel-body from hiding iframe contents (clearfix?)
-add more labels on right side of task input (gh issues)
-gutter indicators: link to resources from task
+ace gutter indicators: link to resources from task
 maybe a loading bar for the commit progress
-attach links for reference to file issue
 reduce margins, make better use of space
-link to add a collaborator to the repo
-add option for dynamic labeling
-apply feed to other side?
-sketch new ui ideas
+sketch out new ui ideas
 
 
 ## SERVER
 
+feed notifys on issues
 github api syncing
     why does it need to two calls to populate sjs docs?
     perhaps you can use a load on click operation to fix.
 load file from github only on click?? reduce api calls
     get current commit sha, then tree sha, then blob, then load into sharejs doc
-only add to collaborators if not on list
+have a diff below each of the commits, before sending msg
 standardize server method names, documents
 only owner can add a collaborator: add option
-delete ops of file after deleting the file
 autoload repos after creating an account
-don't add user to repo owner if they are already there
-have a diff below each of the commits, before sending msg
-scrape head, body of html document for testing
-closing / linking to actual github issues
 deleting / renaming files with github
 implementing a folder structure
 create branching for testing
-purge prod database
 
 
 ## NOTES / ERRORS
@@ -94,6 +83,7 @@ deliver resources based on active repo
 push new commit to local db after github
 writing to the contents of a sharejs document
 integrate feed hooks into commits
+scrape head, body of html document for testing
 loading content from a repo into files, then docs
 make show / hide (hide completed) button
 bug - clicking on box doesnt disable it??
@@ -102,10 +92,12 @@ testing out pushing to an existing repo
 difference between author and committer in git?
 ACTUALLY design what the fields should be plz
 only give user the user things related to their repo
+only add to collaborators if not on list
 generating shared session links - done with unique repo ids
 loading a repos content, commit history
 reconfigure public only repos
 autoset default branch
+don't add user to repo owner if they are already there
 having sessions or groups - scaling app
 change template based on roles
 making the task items more usable
@@ -114,6 +106,7 @@ committing folders works, but can't load them - recursive trees
 make a fake github account, collab with me
 probably something to do with using autopublish
 fixing the load commit / docs
+add more labels on right side of task input (gh issues)
 add null msg for feed and commit
 listiing a users repos / 'collabable'
 load a specific commit instead of the latest
@@ -131,6 +124,7 @@ test/fix get repo production errors
 chat: only show initials for briefness?
 iframes custom javascript logger output
 ## guo meeting - time for MS visits? 11am
+attach links for reference to file issue
 make message box look nicer
 choose target from list of on github
 pilot sees tasks and issues, can close issues.
@@ -172,6 +166,8 @@ make the chat list nicer
 posting github issues
 exact parsing needs cleaning on add issue
 better iframe: serve template on route, have that be the src
+closing / linking to actual github issues
+purge prod database
 add github issue commenting
 github integration
 option to pick roles
