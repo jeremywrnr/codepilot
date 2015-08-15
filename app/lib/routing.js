@@ -37,14 +37,14 @@ Router.route('/screenshot/:_id', {
 
 if (Meteor.isClient) {
 
-  /*
-     Router.onBeforeAction(function preLogin() {
-     if (! Meteor.userId() || Meteor.loggingIn()){
-     this.render('login');
-     } else
-     this.next();
-     });
+  Router.onBeforeAction(function preLogin() {
+    if (! Meteor.userId() || Meteor.loggingIn()){
+      this.render('login');
+    } else
+      this.next();
+  });
 
+  /*
    * // redirect user to code after login
 
    Router.onBeforeAction(function postLogin() {

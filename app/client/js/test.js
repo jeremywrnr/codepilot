@@ -6,11 +6,19 @@ Template.tasks.helpers({
     return Session.get('hideCompleted');
   },
 
-  tasks: function () { // sort and return tasks for this repo
+  tasks: function () { // sort, linkify and return tasks for this repo
     if (Session.get('hideCompleted')) {
-      return Tasks.find({checked: {$ne: true}}, {sort: {time: -1}});
+      var chkd = Tasks.find({checked: {$ne: true}}, {sort: {time: -1}});
+      return chkd.map(function(task){
+        task.linkd = linkifyStr(task.text);
+        return task;
+      });
     } else {
-      return Tasks.find({}, {sort: {checked: 1, time: -1}});
+      var unchkd = Tasks.find({}, {sort: {checked: 1, time: -1}});
+      return unchkd.map(function(task){
+        task.linkd = linkifyStr(task.text);
+        return task;
+      });
     }
   },
 
@@ -46,16 +54,30 @@ Template.task.helpers({
 
   mine: function() { // return true for tasks this user created, used to style
     return (Meteor.user().profile.login === this.username)
-  }
+  },
+
+  current: function() {
+    return Session.equals('task', this._id);
+  },
+
 
 });
 
 Template.task.events({
 
+  'click .task': function(e) { // click to focus issue, again to reset
+    if ( Session.equals('task', this._id) ) {
+      Session.set('task', null);
+    } else {
+      Session.set('task', this._id);
+    }
+  },
+
   'click .toggle-checked': function () { // check or uncheck a task
-    var action = (this.checked ? 'checked' : 'unchecked');
+    var action = (this.checked ? 'revived' : 'completed');
     Meteor.call('setChecked', this._id, ! this.checked);
     Meteor.call('addMessage', action + ' task \'' + this.text + '\'');
+    Session.set('task', null);
   },
 
   'click .del': function () { // delete a task from this repo
@@ -88,6 +110,8 @@ Template.issues.events({
   }
 
 });
+
+// individual event helpers
 
 Template.issue.helpers({
 

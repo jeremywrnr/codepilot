@@ -1,8 +1,7 @@
 TODOS
 =====
 
-add github issue commenting
-link addition in tasks
+fix loggedout homepage
 
 
 ## UI / UX
@@ -30,6 +29,7 @@ only add to collaborators if not on list
 standardize server method names, documents
 only owner can add a collaborator: add option
 delete ops of file after deleting the file
+autoload repos after creating an account
 don't add user to repo owner if they are already there
 have a diff below each of the commits, before sending msg
 scrape head, body of html document for testing
@@ -172,6 +172,7 @@ make the chat list nicer
 posting github issues
 exact parsing needs cleaning on add issue
 better iframe: serve template on route, have that be the src
+add github issue commenting
 github integration
 option to pick roles
 basic roles management
@@ -180,4 +181,5 @@ file specific syntax highlighting
 show project id
 default repo string is suggestions.
 closing github issues
+link addition in tasks
 -->

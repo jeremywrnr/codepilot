@@ -2,9 +2,13 @@
 
 Template.commitPanel.helpers({
 
+  branch: function() {
+    return Meteor.user().profile.repoBranch;
+  },
+
   committing: function() {
     return Session.get('committing');
-  }
+  },
 
 });
 

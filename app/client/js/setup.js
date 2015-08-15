@@ -1,5 +1,8 @@
 // data + startup
 
+Session.setDefault('task', null);
+Session.setDefault('issue', null);
+Session.setDefault('commit', null);
 Session.setDefault('document', null);
 Session.setDefault('renaming', false);
 Session.setDefault('committing', false);
@@ -20,27 +23,12 @@ Tracker.autorun(function() {
   }
 });
 
-// global client helpers/functions
+// global client helper(s)
 
 Template.registerHelper('isPilot', function() { // check if currentUser is pilot
   if (! Meteor.user() ) return false; // still logging in or page loading
   return Meteor.user().profile.role === 'pilot';
 });
-
-focusForm = function(id) { // takes id of form, waits til exists, and focuses
-  setInterval(function() {
-    if ($(id).length) {
-      $(id).focus();
-      clearInterval(this);
-    } //wait til element exists, focus
-  }, 100); // check every 100ms
-};
-
-grabTagContentsToRender = function(full, tag) { // return parsed html from tag
-  var doc = $('<html></html>');
-  doc.html( full.content );
-  return $(tag, doc)[0].innerHTML;
-}
 
 // navbar config
 

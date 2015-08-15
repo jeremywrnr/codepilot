@@ -36,10 +36,17 @@
       </a>
 
       {{else}}
-      <button class='btn grn newcommit'>new commit</button>
-      <button class='btn grn refresh'>refresh</button>
-      <button class='btn edit loadhead'>load HEAD</button>
-      <button class='btn del resetfiles'>reset files</button>
+      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+          <button class='btn grn newcommit'>new commit</button>
+        </div>
+        <div class="btn-group" role="group">
+          <button class='btn edit refresh'>refresh</button>
+        </div>
+        <div class="btn-group" role="group">
+          <button class='btn del loadhead'>load HEAD</button>
+        </div>
+      </div>
       {{/if}}
     </div>
   </div>
@@ -67,10 +74,12 @@
       {{ commit.author.login }}
     </span>
   </button>
-  <button class='list-group-item' href='#'>
-    <a class='btn grn' target="_blank" href='{{ this.commit.html_url }}'> view commit </a>
-    <button class='btn edit loadcommit'>load commit</button>
-  </button>
+  <li class='list-group-item' href='#'>
+    <div class="btn-group btn-group-justified">
+      <a class='btn btn-group grn' target="_blank" href='{{ this.commit.html_url }}'> view commit </a>
+      <button class='btn btn-group edit loadcommit'>load commit</button>
+    </div>
+  </li>
 
   {{else}}
 

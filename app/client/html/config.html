@@ -22,11 +22,11 @@
             </li>
             <li class='list-group-item'> repo:
               <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
-                 target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+                target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
             </li>
             <li class='list-group-item'> branch:
               <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/{{ currentUser.profile.repoBranch }}'
-                 target='_blank'>{{ currentUser.profile.repoBranch }}</a>
+                target='_blank'>{{ currentUser.profile.repoBranch }}</a>
             </li>
             <li class='list-group-item'>role: {{currentUser.profile.role}}</li>
           </ul>
@@ -79,6 +79,8 @@
         integration, so they decide when it is time to make a commit.</p>
         <img class='img-rounded' style='height: 150px' src='https://s-media-cache-ak0.pinimg.com/236x/55/50/32/5550323e05e7a5f719de5263d7f160d2.jpg'>
         {{/if}}
+
+        <button class='btn del resetfiles'>reset files to basic website</button>
 
       </div>
     </div>

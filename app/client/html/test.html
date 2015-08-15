@@ -3,10 +3,10 @@
 <template name='test'>
   <div class='col-xs-8 full-height'>
     <h2> testing </h2>
-    {{#if isPilot}}
+    {{#if isPilot}}<!-- pilot layout -->
     {{> tasks }}
     {{> issues}}
-    {{else}}
+    {{else}}      <!-- copilot layout -->
     {{> tester}}
     {{> issues}}
     {{> tasks }}
@@ -39,11 +39,28 @@
 <!-- todo task integration -->
 
 <template name='task'>
-  <li class='list-group-item task toggle-checked {{#if checked}}checked disabled{{/if}}'>
-    <input type='checkbox' class='toggle-checked' checked='{{checked}}'> {{text}}
-    <button class='pull-right label btn del'>&times;</button>
+  <li id='{{#if current }}active-task{{/if}}' class='list-group-item task {{#if checked}}checked disabled{{/if}}'>
     <label class='pull-right btn label {{#if mine}}label-primary{{else}}label-info{{/if}}'>{{username}}</label>
+    {{{linkd}}}
   </li>
+
+  {{#if current}}
+  <li class='list-group-item'>
+    <div class='btn-group btn-group-justified'>
+      <div class="btn-group" role="group">
+        <button class='btn grn toggle-checked'>
+          {{#if checked}} bring task back
+          {{else}} mark complete
+          {{/if}}
+        </button>
+      </div>
+      <div class="btn-group" role="group">
+        <button class='btn del'>delete</button>
+      </div>
+    </div>
+  </li>
+  {{/if}}
+
 </template>
 
 
@@ -69,8 +86,7 @@
 
 <template name='issue'>
 
-  <button class='list-group-item issue'
-    id='{{#if current }}active-issue{{/if}}'>
+  <button class='list-group-item issue' id='{{#if current }}active-issue{{/if}}'>
     {{ issue.title }}
     {{#each labels }}
     {{> issueLabel }}
@@ -80,10 +96,14 @@
   {{#if current}}
   <button class='list-group-item' href='#'>
     <div class='btn-group btn-group-justified'>
-      <a role='button' target='_blank' class='btn btn-default grn' href='{{ issue.html_url }}'> view </a>
-      <a role='button' class='btn btn-default del closeissue' href='#'> close </a>
+      <a role='button' target='_blank' class='btn btn-default grn' href='{{ issue.html_url }}'>
+        view on github </a>
+      <a role='button' class='btn btn-default del closeissue' href='#'>
+        close issue </a>
     </div>
-    <img style='width: 100%;' src="{{ feedback.img }}" />
+    <a target='_blank' href='/screenshot/{{ feedback.imglink }}'>
+      <img style='width: 100%;' src="{{ feedback.img }}" />
+    </a>
   </button>
   {{/if}}
 
