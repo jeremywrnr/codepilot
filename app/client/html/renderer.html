@@ -67,6 +67,14 @@
       background: red;
       color: white;
       }
+    #logbody {
+      left: 0;
+      width: 100%;
+      margin: 0px;
+      position: fixed;
+      max-height: 300px;
+      background: lightgrey;
+      }
     </style>
     <link rel="stylesheet" href="/feedback.min.css"/>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -90,10 +98,12 @@
 
     // overwrite console.log for iframe to append to output div
     console.log = function (msg) {
+    var timestamp = "["+new Date().toLocaleTimeString()+"] ";
     if (typeof msg === "object") $("#log")[0].innerHTML +=
-    (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
-    else $("#log")[0].innerHTML += msg + "\n"; }
+    timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
+    else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
 
+    console.log("beginning console output...");
     {{ getJS }} // insert the users javascript
     });
     </script>
@@ -105,7 +115,7 @@
 
       {{ getBody }}
 
-      <div> console output: <pre id="log"></pre> </div>
+      <div id="logbody"> <pre id="log"></pre> </div>
 
     </body>'
                                  style='height:100%;width:100%'
