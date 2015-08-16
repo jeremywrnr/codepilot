@@ -107,7 +107,7 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
-  postIssue: function(issue){ // takes title and body, creates GH issue
+  postIssue: function(issue){ // takes feedback issue, creates GH issue
     var user = Meteor.users.findOne(issue.user);
     var token = user.services.github.accessToken;
     github.authenticate({ type: 'token', token: token }); // custom login
@@ -118,7 +118,7 @@ Meteor.methods({
       user: user.profile.repoOwner,
       repo: user.profile.repoName,
       title: issue.note,
-      body: '[issue screenshot](' + link + ')',
+      body: '[issue screenshot](' + link + ')' + '\nhtml:\n```html\n' + issue.html + '\n```',
       labels: ['bug'] // enhancement, etc
     });
   },
