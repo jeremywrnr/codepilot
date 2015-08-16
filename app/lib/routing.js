@@ -43,7 +43,7 @@ if (Meteor.isClient) {
       this.render('login');
     } else
       this.next();
-  });
+  }, {except: ['screenshot']}); // allow anybody to check issue imgs
 
   /*
    * // redirect user to code after login
