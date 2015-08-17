@@ -9,6 +9,7 @@ Router.map(function () {
   this.route('git');
   this.route('config');
   this.route('renderer', {layoutTemplate: 'null' });
+  this.route('raw', {layoutTemplate: 'null' });
 });
 
 // accepting screenshots at the feedback url

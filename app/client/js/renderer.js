@@ -1,5 +1,12 @@
 // update all file contents, refreshing the tester frame
 
+Template.tester.events({
+
+  'click .reload': function () {
+    Meteor.call('testShareJS'); // in server-methods
+  },
+
+});
 Template.renderPanel.events({
 
   'click .reload': function () {
@@ -10,7 +17,7 @@ Template.renderPanel.events({
 
 // iframe helper - load content from editor
 
-Template.renderer.helpers({
+Template.raw.helpers({
 
   getUser: function () { // return id of project repo
     if (Meteor.user()) return Meteor.user()._id;

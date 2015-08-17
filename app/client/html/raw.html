@@ -1,0 +1,75 @@
+<template name='raw'>
+  <iframe srcdoc='
+    <head>
+
+    {{ getHead }}
+    <style> {{ getCSS}} </style>
+    <style>
+    .issue {
+      font-family: Arial, sans-serif; font-size: 14px;
+      box-shadow: none; border-radius: 5px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      border: 0;
+      height: 50px;
+      z-index: 100;
+    }
+    .issue:hover {
+      background: red;
+      color: white;
+      }
+    #logbody {
+      left: 0;
+      width: 100%;
+      margin: 0px;
+      border-style: solid;
+      border-color: black;
+      background: #F5F5F5;
+      border-width: 4px 0px 4px 0px;
+      }
+    </style>
+    <link rel="stylesheet" href="/feedback.min.css"/>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/feedback.js"></script>
+
+    <script type="text/javascript"> // used in testing with feedback.js
+      $.feedback({
+        ajaxURL: "/feedback/",
+        html2canvasURL: "html2canvas.min.js",
+        feedbackButton: ".issue",
+        initButtonText: "report issue",
+        onClose: function() { window.location.reload(); },
+        repo: "{{ getRepo }}",
+        user: "{{ getUser }}"
+      });
+    </script>
+
+    <script type="text/javascript">
+    // waiting until the page loads
+    $(document).ready(function () {
+
+    // overwrite console.log for iframe to append to output div
+    console.log = function (msg) {
+    var timestamp = "["+new Date().toLocaleTimeString()+"] ";
+    if (typeof msg === "object") $("#log")[0].innerHTML +=
+    timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
+    else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
+
+    console.log("beginning console output...");
+    {{ getJS }} // insert the users javascript
+    });
+    </script>
+
+    </head>
+    <body>
+
+      <button class="issue">report issue</button>
+
+      {{ getBody }}
+
+      <div id="logbody"> <pre id="log"></pre> </div>
+
+    </body>' style='height:100%;width:100%' frameborder='0' height='100%' width='100%'>
+  </iframe>
+</template>

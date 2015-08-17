@@ -1,4 +1,4 @@
-  <!-- templates for rendering iframe locally  -->
+<!-- templates for rendering iframe locally  -->
 
 <template name='null'>
   {{> yield }}
@@ -11,8 +11,14 @@
     <div class='panel-heading'>
       <div class='btn-group btn-group-justified' role='group'>
         <div class='btn-group' role='group'>
+          <a href='#'>
+            <button type='button' class='btn btn-default btn-lg grn reload'>
+              reload tester </button>
+          </a>
+        </div>
+        <div class='btn-group' role='group'>
           <a href='/renderer' target='_blank'>
-            <button type='button' class='btn btn-default btn-lg grn'>
+            <button type='button' class='btn btn-default btn-lg edit'>
               view in new tab</button>
           </a>
         </div>
@@ -23,15 +29,15 @@
 </template>
 
 <template name='iframe'>
-  <div  class='panel-body' style='margin:0px;padding:0px;'>
-    <iframe src='/renderer' style='min-height:400px;height:100%;width:100%'
-       frameborder='0' height='100%' width='100%'>
+  <div class='panel-body' style='margin:0px;padding:0px;'>
+    <iframe src='/raw' style='min-height:400px;height:100%;width:100%'
+      frameborder='0' height='100%' width='100%'>
     </iframe>
   </div>
 </template>
 
 <template name='screenshot'>
-  <img alt='codepilot-screenshot' src='{{ this.img }}' />
+  <img alt='codepilot-screenshot' src='{{ this.img }}'/>
 </template>
 
 
@@ -39,88 +45,25 @@
 <!-- actual content -->
 
 <template name='renderPanel'>
-  <button class='reload btn btn-default grn'
-    style="display: block; width: 100%; height: 50px;">
-    reload tester</button>
+  <div class='btn-group btn-group-justified' role='group'>
+    <div class='btn-group' role='group'>
+      <a href='#'>
+        <button type='button' class='btn btn-default btn-lg grn reload'>
+          reload tester </button>
+      </a>
+    </div>
+    <div class='btn-group' role='group'>
+      <a href='/test'>
+        <button type='button' class='btn btn-default btn-lg edit'>
+          return to test pane </button>
+      </a>
+    </div>
+  </div>
 </template>
 
-<!--feedbackButton: ".issue",-->
+<!--feedbackButton: '.issue',-->
 
 <template name='renderer'>
   {{> renderPanel }}
-  <iframe srcdoc='
-    <head>
-
-    {{ getHead }}
-    <style> {{ getCSS}} </style>
-    <style>
-    .issue {
-      font-family: Arial, sans-serif; font-size: 14px;
-      box-shadow: none; border-radius: 5px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      border: 0;
-      height: 50px;
-      z-index: 100;
-    }
-    .issue:hover {
-      background: red;
-      color: white;
-      }
-    #logbody {
-      left: 0;
-      width: 100%;
-      margin: 0px;
-      border-style: solid;
-      border-color: black;
-      background: #F5F5F5;
-      border-width: 4px 0px 4px 0px;
-      }
-    </style>
-    <link rel="stylesheet" href="/feedback.min.css"/>
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="/feedback.js"></script>
-
-    <script type="text/javascript"> // used in testing with feedback.js
-      $.feedback({
-        ajaxURL: "/feedback/",
-        html2canvasURL: "html2canvas.min.js",
-        feedbackButton: ".issue",
-        initButtonText: "report issue",
-        onClose: function() { window.location.reload(); },
-        repo: "{{ getRepo }}",
-        user: "{{ getUser }}"
-      });
-    </script>
-
-    <script type="text/javascript">
-    // waiting until the page loads
-    $(document).ready(function () {
-
-    // overwrite console.log for iframe to append to output div
-    console.log = function (msg) {
-    var timestamp = "["+new Date().toLocaleTimeString()+"] ";
-    if (typeof msg === "object") $("#log")[0].innerHTML +=
-    timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
-    else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
-
-    console.log("beginning console output...");
-    {{ getJS }} // insert the users javascript
-    });
-    </script>
-
-    </head>
-    <body>
-
-      <button class="issue">report issue</button>
-
-      {{ getBody }}
-
-      <div id="logbody"> <pre id="log"></pre> </div>
-
-    </body>'
-                                 style='height:100%;width:100%'
-                                 frameborder='0' height='100%' width='100%'>
-  </iframe>
+  {{> raw }}
 </template>
