@@ -1,5 +1,6 @@
 <head>
   <title>code pilot</title>
+  <link rel="icon" sizes="16x16 32x32" href="/favicon.ico?v=2">
   <script src='/codepilot.js'></script>
   <script src='/linkify.min.js'></script><!-- library to linkify tasks -->
   <script src='/linkify-jquery.min.js'></script>
@@ -11,11 +12,13 @@
 
 <template name='main'>
 
-  <nav class='navbar navbar-default navbar-fixed-top'>
+  <nav class='navbar navbar-inverse navbar-fixed-top'>
     <div class='container-fluid'>
 
       <div class='navbar-header'>
-        <a class='navbar-brand' style='color: #337ab7;' href='/'> code pilot </a>
+        <a class='navbar-brand' href='/'>
+        <span class='glyphicon glyphicon-pencil'></span>
+          code pilot </a>
       </div>
 
       {{> navigation }}
@@ -59,27 +62,29 @@
   {{#if loggingIn }}
   <li><a href='#'>logging in...</a></li>
   {{else}}
-  <li class='active logout'>
+  <li class='del logout'>
     <a href='#'> {{ currentUser.profile.login }} | logout </a>
   </li>
   {{/if}}
 </template>
 
 <template name='userLoggedout'>
-  <li class='active login'> <a href='#'> login with GitHub </a> </li>
+  <li class='grn login'> <a href='#'> login with GitHub </a> </li>
 </template>
+
+
 
 <!-- navigation icons from http://glyphicons.com/ -->
 
 <template name='navigation'> <!-- adding the active class would be good -->
   {{#if currentUser }}
-  <ul class='nav navbar-nav'>
+  <ul class='nav navbar-nav navbar-just'>
 
     {{#each navItems}}
-    <li>
+    <li class='navitem'>
       <a href='{{ iconpath }}'>
-        <span class='glyphicon glyphicon-{{iconname}}' aria-label='{{iconname}}'></span>
-      </a>
+        <span class='glyphicon glyphicon-{{iconname}}'></span>
+        {{ name }} </a>
     </li>
     {{/each}}
 

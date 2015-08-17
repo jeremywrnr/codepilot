@@ -36,10 +36,9 @@ Template.registerHelper('isPilot', function() { // check if currentUser is pilot
 Template.navigation.helpers({ // uses glyphicons in template
   navItems: function(){
     return [
-      { iconpath:'/', iconname:'pencil' },
-      { iconpath:'/test', iconname:'play' },
-      { iconpath:'/git', iconname:'list-alt' },
-      { iconpath:'/config', iconname:'cog' }
+      { iconpath:'/test', iconname:'play', name:'test'  },
+      { iconpath:'/git', iconname:'list-alt', name:'git'  },
+      { iconpath:'/config', iconname:'cog', name:'config'  }
     ];
   }
 });

@@ -14,6 +14,7 @@ refactor upserts with $set
 top item in repo select is fork a repo
 top item in branch select is make new branch
 ace gutter indicators: link to resources from task
+make a nice lil favicon y doncha
 maybe a loading bar for the commit progress
 reduce margins, make better use of space
 sketch out new ui ideas
