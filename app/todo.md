@@ -5,7 +5,7 @@ TODOS
 ## UI / UX
 
 linkify feed items
-better change branch handling
+better change branch handling - not loading commits
 refactor iframes, better in pane nav.
 tester is reloading really slowly...
 tuneup feedback renderer panes

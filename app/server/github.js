@@ -41,10 +41,11 @@ Meteor.methods({
     });
   },
 
-  getAllCommits: function() { // give all commits
+  getAllCommits: function() { // give all commits for branch
     return github.repos.getCommits({
       user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName
+      repo: Meteor.user().profile.repoName,
+      sha: Meteor.user().profile.repoBranch
     });
   },
 
