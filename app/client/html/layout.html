@@ -12,12 +12,32 @@
 
 <template name='main'>
 
+  {{> topnav }}
+
+  <div class='mainbody container full-height'>
+    <div class='col-xs-4 full-height'>
+      <div class='sidebar'>
+        {{#if currentUser }}
+        {{> filelist }}
+        {{> chat }}
+        {{/if}}
+      </div>
+    </div>
+
+    {{> yield}}
+
+  </div>
+</template>
+
+<!--top navbar-->
+
+<template name='topnav'>
   <nav class='navbar navbar-inverse navbar-fixed-top'>
     <div class='container-fluid'>
 
       <div class='navbar-header'>
         <a class='navbar-brand' href='/'>
-        <span class='glyphicon glyphicon-pencil'></span>
+          <span class='glyphicon glyphicon-pencil'></span>
           code pilot </a>
       </div>
 
@@ -30,22 +50,6 @@
 
     </div><!-- /.container-fluid -->
   </nav>
-
-  <div class='container full-height'>
-    <div class='col-xs-4 full-height'>
-      <div class='sidebar'>
-
-
-        {{#if currentUser }}
-        {{> filelist }}
-        {{> chat }}
-        {{/if}}
-      </div>
-    </div>
-
-    {{> yield}}
-
-  </div>
 </template>
 
 <!--login templates-->

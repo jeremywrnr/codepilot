@@ -2,10 +2,10 @@
 
 <template name='test'>
   <div class='col-xs-8 full-height'>
-    <h2> testing </h2>
     {{#if isPilot}}<!-- pilot layout -->
     {{> tasks }}
     {{> issues}}
+    {{> tester}}
     {{else}}      <!-- copilot layout -->
     {{> tester}}
     {{> issues}}

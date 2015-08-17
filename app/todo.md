@@ -4,6 +4,7 @@ TODOS
 
 ## UI / UX
 
+linkify feed items
 better change branch handling
 refactor iframes, better in pane nav.
 tester is reloading really slowly...
@@ -22,6 +23,7 @@ sketch out new ui ideas
 
 ## SERVER
 
+increase commit history to 100 (per page, in github.js)
 choose ANY public repo on github, fork it for user, then start editing that repo.
 github api syncing
     why does it need to two calls to populate sjs docs?

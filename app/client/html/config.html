@@ -2,7 +2,6 @@
 
 <template name='config'>
   <div class='col-xs-8 full-height'>
-    <h2> settings </h2>
     <div class='panel panel-primary'>
       <div class='panel-heading'> <h2 class='panel-title'> account </h2> </div>
       <div class='panel-body'>
@@ -41,7 +40,7 @@
             <li class='list-group-item'>
               <button class='btn btn-xs grn pull-right branchSelect'> choose </button>
               branch:
-              <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/{{ currentUser.profile.repoBranch }}'
+              <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
                 target='_blank'>{{ currentUser.profile.repoBranch }}</a>
             </li>
 
