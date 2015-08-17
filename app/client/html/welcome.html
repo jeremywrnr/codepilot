@@ -2,15 +2,13 @@
 
 <template name='login'>
   <div class='col-xs-4 full-height'>
+    <img style='width: 100%' src='https://octodex.github.com/images/topguntocat.png'/>
+    <ul class='nav nav-pills nav-justified'> {{> userLoggedout }} </ul>
     <h2> welcome to code pilot!</h2>
-    {{> about }}
+    <p> This is a tool meant to help people collaborate on code more seamlessly.
+    The model is based on that of a pilot and a co-pilot, where the pilot does
+    most of the actual programming, and the co-pilot performs background coding
+    tasks. This can include version control management, system testing, online
+    reference lookup, and commenting/documenting source code.</p>
   </div>
-</template>
-
-<template name='about'>
-  <p> This is a tool meant to help people collaborate on code more seamlessly.
-  The model is based on that of a pilot and a co-pilot, where the pilot does
-  most of the actual programming, and the co-pilot performs background coding
-  tasks. This can include version control management, system testing, online
-  reference lookup, and commenting/documenting source code.</p>
 </template>

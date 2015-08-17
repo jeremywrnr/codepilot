@@ -1,12 +1,16 @@
 TODOS
 =====
 
-refactor iframes, better in pane nav.
-tester is reloading really slowly...
-tuneup feedback renderer panes
 
 ## UI / UX
 
+better change branch handling
+refactor iframes, better in pane nav.
+tester is reloading really slowly...
+tuneup feedback renderer panes
+if choosing repo, cant choose branch
+if choosing branch, cant choose repo
+refactor upserts with $set
 top item in repo select is fork a repo
 top item in branch select is make new branch
 ace gutter indicators: link to resources from task
