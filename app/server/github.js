@@ -93,7 +93,7 @@ Meteor.methods({
           sha: b.sha
         });
         // $set component instead of creating a new object
-        Files.upsert(
+        Files.upsert( //TODO - handle renaming things?
           { repo: Meteor.user().profile.repo, title: b.path},
           { $set: {content: oldcontent}}
         );
@@ -108,9 +108,10 @@ Meteor.methods({
   ///////////////////////
 
   postIssue: function(issue){ // takes feedback issue, creates GH issue
+    // custom login - iframe not given Meteor.user() scope
     var user = Meteor.users.findOne(issue.user);
     var token = user.services.github.accessToken;
-    github.authenticate({ type: 'token', token: token }); // custom login
+    github.authenticate({ type: 'token', token: token });
     // get a link to the screenshot that was just taken
     var image = Screens.findOne(issue.imglink)._id;
     var link = 'http://codepilot.meteor.com/screenshot/' + image;

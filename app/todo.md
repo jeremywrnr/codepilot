@@ -5,11 +5,10 @@ refactor iframes, better in pane nav.
 tester is reloading really slowly...
 tuneup feedback renderer panes
 
-top item in repo select is fork a repo
-top item in branch select is make new branch
-
 ## UI / UX
 
+top item in repo select is fork a repo
+top item in branch select is make new branch
 ace gutter indicators: link to resources from task
 maybe a loading bar for the commit progress
 reduce margins, make better use of space

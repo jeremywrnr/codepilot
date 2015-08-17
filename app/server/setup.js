@@ -12,8 +12,8 @@ asrt = function(a,b){ if (debug && a !== b)
 Meteor.publish('repos', function(userId) { // only serve writable repos
   return Repos.find({users: userId});
 });
-Meteor.publish('commits', function(repoId) { // only serve repo commits
-  return Commits.find({repo: repoId});
+Meteor.publish('commits', function(repoId, branchName) { // serve b+r commits
+  return Commits.find({repo: repoId, branch: branchName});
 });
 Meteor.publish('files', function(repoId) { // only serve repo files
   return Files.find({repo: repoId});

@@ -54,7 +54,8 @@
 
 <template name='history'>
   <div class='panel panel-primary'>
-    <div class='panel-heading'><h3 class='panel-title'> commit history </h3></div>
+    <div class='panel-heading'><h3 class='panel-title'>
+        commit history ({{ commitCount }}) </h3></div>
     <div class='panel-body'>
       <div class='list-group'>
         {{#each commits}}

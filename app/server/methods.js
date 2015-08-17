@@ -237,14 +237,13 @@ Meteor.methods({
     dlog( repoFiles.fetch() );
   },
 
-  addCommit: function(c) { // adds a commit, links to repo
+  addCommit: function(c) { // adds a commit, links to repo + branch
     Commits.upsert({
       repo: Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
       sha: c.sha
     },{
-      repo: Meteor.user().profile.repo,
-      sha: c.sha,
-      commit: c
+      $set: { commit: c }
     });
   },
 

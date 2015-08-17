@@ -49,9 +49,15 @@ Template.commitPanel.events = {
 };
 
 Template.history.helpers({ // sort the commits by time
+
   commits: function() {
     return Commits.find({}, {sort: {'commit.commit.committer.date': -1}} );
-  }
+  },
+
+  commitCount: function() {
+    return Commits.find({}).count();
+  },
+
 });
 
 Template.commit.helpers({
