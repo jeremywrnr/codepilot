@@ -2,7 +2,11 @@ TODOS
 =====
 
 refactor iframes, better in pane nav.
+tester is reloading really slowly...
+tuneup feedback renderer panes
 
+top item in repo select is fork a repo
+top item in branch select is make new branch
 
 ## UI / UX
 
@@ -14,7 +18,7 @@ sketch out new ui ideas
 
 ## SERVER
 
-feed notifys on issues
+choose ANY public repo on github, fork it for user, then start editing that repo.
 github api syncing
     why does it need to two calls to populate sjs docs?
     perhaps you can use a load on click operation to fix.
@@ -51,9 +55,8 @@ study from Mythical Man Month of surgeon + multiple assistants model of
 programming. - look into using the promise library ql. the sharejs template
 creates a new doc for it when you press the new button, but you can do this
 automatically, with the model.create from sharejs. - a distributed task - 1
-pilot, 4 copilots - idea: choose ANY public repo on github, fork it for user,
-then start editing that repo. this prevents the issue of having permission to
-push to the branch, and maybe also include option to make a PR or be a
+pilot, 4 copilots - idea:
+maybe also include option to make a PR or be a
 collaborator - \_pick your data as to not bloat the database - future: create a
 new repo with the api - creating an issue on this repo, could be helpful to
 PROF - in the future, you could create pull requests instead of linking to the
@@ -91,6 +94,7 @@ EDITING GITHUB PERMISSION REQUESTS:
 testing out pushing to an existing repo
 difference between author and committer in git?
 ACTUALLY design what the fields should be plz
+feed notifys on issues
 only give user the user things related to their repo
 only add to collaborators if not on list
 generating shared session links - done with unique repo ids

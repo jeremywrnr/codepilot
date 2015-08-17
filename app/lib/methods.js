@@ -19,7 +19,24 @@ Meteor.methods({
         time: Date.now()
       });
     } else
-      throw new Meteor.Error('null-message');
+      throw new Meteor.Error('null-message'); // passed in empty message
+  },
+
+  addUserMessage: function (usr, msg) { // add message, with userId() (issues)
+    var poster = Meteor.users.findOne(usr);
+    if (msg.value !== '') {
+      if (poster) {
+        Messages.insert({
+          owner: poster._id,
+          repo: poster.profile.repo,
+          name: poster.profile.login,
+          message: msg,
+          time: Date.now()
+        });
+      } else
+        throw new Meteor.Error('null-poster'); // user account is not in mongo
+    } else
+      throw new Meteor.Error('null-message'); // they passed in empty message
   },
 
 

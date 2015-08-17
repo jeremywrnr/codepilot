@@ -13,7 +13,7 @@ Meteor.methods({
   },
 
   createFile: function(ft) { // make new file with filetitle (ft), return id
-    Meteor.call('addMessage', ' created file: ' + ft);
+    Meteor.call('addMessage', ' created file - ' + ft);
     Files.insert(
       {
         title: ft,
@@ -95,20 +95,22 @@ Meteor.methods({
   // ISSUE MANAGEMENT
   ///////////////////
 
-  addIssue: function(issue){ // adds a feedback issue to github
-    issue.imglink = Async.runSync(function(done) { // save screenshot, return id
-      Screens.insert({img: issue.img}, function(err, id){ done(err, id); });
+  addIssue: function(feedback){ // adds a feedback issue to github
+    feedback.imglink = Async.runSync(function(done) { // save screenshot, return id
+      Screens.insert({img: feedback.img}, function(err, id){ done(err, id); });
     }).result; // attach screenshot to issue
-    var ghIssue = {issue: Meteor.call('postIssue', issue)};
-    ghIssue.feedback = issue; // attach feedback issue data
-    ghIssue.repo = issue.repo; // attach repo forming data
+    var ghIssue = {issue: Meteor.call('postIssue', feedback)};
+    ghIssue.feedback = feedback; // attach feedback issue data
+    ghIssue.repo = feedback.repo; // attach repo forming data
     ghIssue.ghid = ghIssue.id; // attach github issue id
     Issues.insert( ghIssue ); // insert the new issue
+    Meteor.call('addUserMessage', feedback.user, 'opened issue - ' + feedback.note);
   },
 
   closeIssue: function(issue){ // close an issue on github by number
     Issues.remove(issue._id); // remove from the local database
     Meteor.call('ghAuth');
+    Meteor.call('addMessage', 'closed issue - ' + issue.feedback.note);
     return github.issues.edit({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
