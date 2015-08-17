@@ -80,13 +80,16 @@ Meteor.methods({
   },
 
   testShareJS: function() { // update contents from sjs
-    Files.find({}).map(function readSJS(f){
-      Files.update(
-        {'_id': f._id},
-        {$set:
-          { content: Meteor.call('getShareJSDoc',f).snapshot }
-        });
-    });
+    var repoId = Meteor.user().profile.repo;
+    Files.find({repo: repoId}).map(
+      function renderSJS(f){ // render the project's sharejs buffers
+        var updated = Meteor.call('getShareJSDoc',f).snapshot;
+        Files.update(
+          {'_id': f._id},
+          {$set: { content: updated} }
+        );
+      }
+    );
   },
 
 
@@ -200,7 +203,7 @@ Meteor.methods({
     Meteor.call('addCommit', lastCommit);
 
     // update the feed with new commit
-    Meteor.call('addMessage', 'commited ' + msg);
+    Meteor.call('addMessage', 'commited - ' + msg);
 
   },
 

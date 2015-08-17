@@ -1,4 +1,4 @@
-// testing page management
+// testing page task management
 
 Template.tasks.helpers({
 
@@ -13,7 +13,7 @@ Template.tasks.helpers({
         task.linkd = linkifyStr(task.text);
         return task;
       });
-    } else {
+    } else { // dont hide completed - return all repo task items
       var unchkd = Tasks.find({}, {sort: {checked: 1, time: -1}});
       return unchkd.map(function(task){
         task.linkd = linkifyStr(task.text);
@@ -35,9 +35,8 @@ Template.tasks.events({
     $(e.target).blur();
     var task = $('#task-name')[0].value;
     if (task == null || task == '') return false;
-    Meteor.call('addTask', task);
-    Meteor.call('addMessage', 'created task \'' + task + '\'');
     $('#task-name')[0].value = ''; // reset form text
+    Meteor.call('addTask', task);
   },
 
   'change .hide-completed': function (e) { // toggle for showing completed
@@ -48,12 +47,12 @@ Template.tasks.events({
 
 
 
-// task item helpers and events
+// individual task item helpers and events
 
 Template.task.helpers({
 
   mine: function() { // return true for tasks this user created, used to style
-    return (Meteor.user().profile.login === this.username)
+    return (Meteor.user().profile.login === this.username);
   },
 
   current: function() {
@@ -65,24 +64,20 @@ Template.task.helpers({
 
 Template.task.events({
 
-  'click .task': function(e) { // click to focus issue, again to reset
-    if ( Session.equals('task', this._id) ) {
+  'click .task': function() { // click to focus issue, again to reset
+    if ( Session.equals('task', this._id) )
       Session.set('task', null);
-    } else {
+    else
       Session.set('task', this._id);
-    }
   },
 
   'click .toggle-checked': function () { // check or uncheck a task
-    var action = (this.checked ? 'revived' : 'completed');
-    Meteor.call('setChecked', this._id, ! this.checked);
-    Meteor.call('addMessage', action + ' task \'' + this.text + '\'');
-    Session.set('task', null);
+    Meteor.call('setChecked', this); // server will deal with task updates
+    Session.set('task', null); // reset the currently selected task
   },
 
   'click .del': function () { // delete a task from this repo
-    Meteor.call('deleteTask', this._id);
-    Meteor.call('addMessage', 'deleted task \'' + this.text + '\'');
+    Meteor.call('deleteTask', this);
   }
 
 });
@@ -128,11 +123,10 @@ Template.issue.helpers({
 Template.issue.events({
 
   'click .issue': function(e) { // click to focus issue, again to reset
-    if ( Session.equals('issue', this._id) ) {
+    if ( Session.equals('issue', this._id) )
       Session.set('issue', null);
-    } else {
+    else
       Session.set('issue', this._id);
-    }
   },
 
   'click .closeissue': function(e) { // click to close a given issue

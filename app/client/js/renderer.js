@@ -3,7 +3,7 @@
 Template.renderPanel.events({
 
   'click .reload': function () {
-    Meteor.call('testShareJS');
+    Meteor.call('testShareJS'); // in server-methods
   },
 
 });

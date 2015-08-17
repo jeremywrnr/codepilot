@@ -53,16 +53,18 @@ Meteor.methods({
       repo: Meteor.user().profile.repo,
       username: Meteor.user().profile.login
     });
+    Meteor.call('addMessage', 'created task - ' + text); // post to the feed
   },
 
-  setChecked: function (taskId, setChecked) { // check task on completion
-    var task = Tasks.findOne(taskId);
-    Tasks.update(taskId, { $set: { checked: setChecked} });
+  setChecked: function (task) { // on task check/uncheck, notify
+    Tasks.update(task._id, { $set: { checked: ! task.checked } });
+    var act = (task.checked ? 'revived' : 'completed');
+    Meteor.call('addMessage', act + ' task  - ' + task.text);
   },
 
-  deleteTask: function (taskId) { // delete a task from the current repo
-    var task = Tasks.findOne(taskId);
-    Tasks.remove(taskId);
+  deleteTask: function (task) { // delete a task from the current repo
+    Tasks.remove(task._id); // actually remove it
+    Meteor.call('addMessage', 'deleted task - ' + task.text);
   },
 
 
