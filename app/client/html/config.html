@@ -93,6 +93,44 @@
   </div>
 </template>
 
+
+
+<template name='forkRepo'>
+  {{#if forking}}
+
+  <button class='list-group-item'>
+    <div class='alert alert-success nomargin'>
+      <div class='input-group'>
+        <form class='forker'>
+          <input placeholder='enter a repo to fork (eg: jeremywrnr/codepilot) ...'
+          id='repoForker' class='form-control' type='text' name='title' value=''>
+        </form>
+        <span class='input-group-btn'>
+          <button type='button' class='btn btn-default del cancelFork'>cancel</button>
+        </span>
+      </div>
+    </div>
+  </button>
+
+  {{else}}
+
+  <button class='list-group-item forkrepo'>
+    <div class='wider grn btn btn-lg forkrepo'> fork a repo from github </div>
+  </button>
+
+  {{/if}}
+</template>
+
+<template name='repo'>
+  <button class='list-group-item repo'> {{ repo.full_name }} </button>
+</template>
+
+<template name='branch'>
+  <button class='list-group-item branch'> {{ name }} </button>
+</template>
+
+
+
 <template name='extras'>
   <div class='panel panel-default'>
     <div class='panel-heading'> <h2 class='panel-title'> extras </h2> </div>
@@ -113,23 +151,11 @@
 
       <h5> debugging </h5>
 
-      <div class="alert alert-danger nomargin" role="alert">
+      <div class='alert alert-danger nomargin' role='alert'>
         <button style='width:100%;' class='btn del resetfiles'>
-          reset current project to basic website</button>
+          reset current project to basic html/css/js website</button>
       </div>
 
     </div>
   </div>
-</template>
-
-<template name='forkRepo'>
-  <button class='list-group-item grn'> fork a repo from github </button>
-</template>
-
-<template name='repo'>
-  <button class='list-group-item repo'> {{ repo.full_name }} </button>
-</template>
-
-<template name='branch'>
-  <button class='list-group-item branch'> {{ name }} </button>
 </template>

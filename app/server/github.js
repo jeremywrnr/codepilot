@@ -49,6 +49,13 @@ Meteor.methods({
     });
   },
 
+  getRepo: function(owner, repo) { // give github repo res
+    return github.repos.getCommit({
+      user: owner,
+      repo: repo
+    });
+  },
+
   getCommit: function(commitSHA) { // give commit res
     return github.repos.getCommit({
       user: Meteor.user().profile.repoOwner,
@@ -148,6 +155,16 @@ Meteor.methods({
   },
 
   postRef: function(cr){ // takes commit results (cr),  updates ref
+    Meteor.call('ghAuth');
+    return  github.gitdata.updateReference({
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+      ref: 'heads/' + Meteor.user().profile.repoBranch,
+      sha: cr.sha
+    });
+  },
+
+  postRepo: function(cr){ // done to fork a repo for a new user
     Meteor.call('ghAuth');
     return  github.gitdata.updateReference({
       user: Meteor.user().profile.repoOwner,

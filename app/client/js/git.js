@@ -1,4 +1,4 @@
-// git things
+// git things - version control, importing code
 
 Template.commitPanel.helpers({
 
@@ -14,7 +14,12 @@ Template.commitPanel.helpers({
 
 Template.commitPanel.events = {
 
-  // rename the current file
+  'click .newcommit': function(e) {
+    e.preventDefault();
+    Session.set('committing', true);
+    focusForm('#commitMsg');
+  },
+
   'submit .committer': function(e) {
     e.preventDefault();
     $(e.target).blur();
@@ -24,27 +29,17 @@ Template.commitPanel.events = {
     Meteor.call('makeCommit', msg);
   },
 
-  'click .refresh': function(e) {
+  'click .cancelCommit': function(e) {
+    Session.set('committing', false);
+  },
+
+  'click .refresh': function(e) { // pull in latest commits from gh
     Meteor.call('initCommits');
   },
 
-  'click .loadhead': function(e) {
+  'click .loadhead': function(e) { // load head of branch into SJS
     Meteor.call('loadHead', Meteor.user().profile.repoBranch);
   },
-
-  'click .resetfiles': function(e) {
-    Meteor.call('resetFiles');
-  },
-
-  'click .newcommit': function(e) {
-    e.preventDefault();
-    Session.set('committing', true);
-    focusForm('#commitMsg');
-  },
-
-  'click .cancelCommit': function(e) {
-    Session.set('committing', false);
-  }
 
 };
 

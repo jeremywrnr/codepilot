@@ -209,9 +209,16 @@ Meteor.methods({
 
 
 
-  /////////////////////////////////////////////////
-  // top level function, pull files and load editor
-  /////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
+  // other helper functions - TODO: better docs for deezzzzzzz
+  /////////////////////////////////////////////////////////////
+
+  initBranches: function(gr) { // get all branches for this repo
+    // for the current repo, just overwrite branches with new
+    var brs = Meteor.call('getBranches', gr); // res from github
+    Repos.update({ id: gr.repo.id },{ $set: {branches: brs }});
+    Meteor.call('setBranch', gr.repo.default_branch) // set default br
+  },
 
   initCommits: function() { // re-populating the commit log
     var gc = Meteor.call('getAllCommits');

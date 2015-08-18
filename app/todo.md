@@ -2,8 +2,10 @@ TODOS
 =====
 
 top item in repo select is fork a repo
-
 choose ANY public repo on github, fork it for user, then start editing that repo
+canceling repo select cancels branch fork
+can't fork a repo you already own
+can't fork a repo that doesn't exist
 
 
 ## UI / UX
@@ -22,6 +24,7 @@ sketch out new ui ideas
 
 ## SERVER
 
+refactor github.js-getblobs() plz
 github api syncing
     why does it need to two calls to populate sjs docs?
     perhaps you can use a load on click operation to fix.

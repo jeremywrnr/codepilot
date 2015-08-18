@@ -67,11 +67,42 @@ Template.config.events({
 
 });
 
+Template.forkRepo.helpers({
+
+  forking: function() {
+    return Session.get('forking');
+  },
+
+});
+Template.forkRepo.events({
+
+  'click .forkrepo': function(e) {
+    e.preventDefault();
+    Session.set('forking', true);
+    focusForm('#repoForker');
+  },
+
+  'submit .forker': function(e) {
+    e.preventDefault();
+    $(e.target).blur();
+    var repo = $('#repoForker')[0].value;
+    if (repo == null || repo == '') return false;
+    Session.set('forking', false);
+    //Meteor.call('forkRepo', repo);
+  },
+
+  'click .cancelFork': function(e) {
+    Session.set('forking', false);
+  },
+
+
+});
+
 Template.repo.events({
 
   'click .repo': function(e) {
     Meteor.call('setRepo', this); // set the active project / repo
-    Meteor.call('getBranches', this); // get all the possible branches
+    Meteor.call('initBranches', this); // get all the possible branches
     Meteor.call('initCommits'); // pull commit history for this repo
     Meteor.call('loadHead'); // load the head of this branch into CP
     Session.set('repoSelecting', false); // hide the available repos
@@ -85,5 +116,13 @@ Template.branch.events({
     Meteor.call('setBranch', this.name);
     Session.set('branchSelecting', false); // hide the available branches
   }
+
+});
+
+Template.extras.events({
+
+  'click .resetfiles': function(e) { // reset to most basic website...
+    Meteor.call('resetFiles');
+  },
 
 });
