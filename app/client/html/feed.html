@@ -18,7 +18,7 @@
 
 <template name='messages'>
   <div class='well well-sm nomargin'>
-    <ul class='nav sidelist'>
+    <ul id='feed' class='nav sidelist'>
       {{#each messages}}
       <li> <strong>{{name}}:</strong> {{{linkd}}} </li>
       {{/each}}

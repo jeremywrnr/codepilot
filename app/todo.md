@@ -1,7 +1,6 @@
 TODOS
 =====
 
-
 issues link to rendered view
     add params to field
     better issue contents
@@ -10,10 +9,6 @@ branching functionality
     creating + selecting new branch
     having multiple versions of files
 
-add link to rendered html in issues
-attach a codepilot label to issue
-sort chat by positive time
-confirm on load codepilot
 browse at this time
 render art this time
 view source of old commit
@@ -165,6 +160,7 @@ iframes custom javascript logger output
 ## guo meeting - time for MS visits? 11am
 attach links for reference to file issue
 make message box look nicer
+confirm on load codepilot
 choose target from list of on github
 pilot sees tasks and issues, can close issues.
 doesnt see the testing frame tho, git vsc
@@ -195,6 +191,8 @@ top item in repo select is fork a repo
 can't fork a repo you already own
 can't fork a repo that doesn't exist
 choose ANY public repo on github, fork it for user, then start editing that repo
+add link to rendered html in issues
+sort chat by positive time
 tabbed user interface - elseif in meteor?
 or rather how to do some routing in meteor
 clicking on a file should go to edit tab
@@ -209,6 +207,7 @@ squash preforked git history
 make the chat list nicer
 posting github issues
 exact parsing needs cleaning on add issue
+attach a codepilot label to issue
 better iframe: serve template on route, have that be the src
 closing / linking to actual github issues
 purge prod database
