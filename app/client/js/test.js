@@ -88,8 +88,8 @@ Template.task.events({
 
 Template.issues.helpers({
 
-  issues: function () { // sort and return tasks for this repo
-    return Issues.find({}, {sort: {time: -1}});
+  issues: function () { // sort and return issues for this repo
+    return Issues.find({}, {sort: {'issue.updated_at': -1}});
   },
 
   issueCount: function () { // return amount of open issues
