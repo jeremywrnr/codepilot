@@ -89,9 +89,13 @@ Template.forkRepo.events({
   'submit .forker': function(e) { // fork and load a repo into code pilot
     e.preventDefault();
     $(e.target).blur(); // parse string arg for user, repo
-    var [user, repo] = $('#repoForker')[0].value.split('/');
+    //const [user, repo] = $('#repoForker')[0].value.split('/'); // ES6 not working???
+    //https://babeljs.io/docs/learn-es2015/#destructuring - sadness :(((((((((
+    var split = $('#repoForker')[0].value.split('/');
+    var user = split[0];
+    var repo = split[1];
     var selfFork = (Meteor.user().profile.login === user); // cant fork self
-    if (!user || !repo || selfFork) return false;
+    if (split.length !== 2 || !user || !repo || selfFork) return false;
     Meteor.call('forkRepo', user, repo);
     Session.set('forking', false);
   },

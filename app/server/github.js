@@ -50,7 +50,7 @@ Meteor.methods({
   },
 
   getRepo: function(owner, repo) { // give github repo res
-    return github.repos.getCommit({
+    return github.repos.get({
       user: owner,
       repo: repo
     });
@@ -164,8 +164,8 @@ Meteor.methods({
   postRepo: function(owner, repo){ // done to fork a repo for a new user
     Meteor.call('ghAuth');
     return  github.repos.fork({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName
+      user: owner,
+      repo: repo
     });
   },
 

@@ -1,12 +1,6 @@
 TODOS
 =====
 
-top item in repo select is fork a repo
-choose ANY public repo on github, fork it for user, then start editing that repo
-canceling repo select cancels branch fork
-can't fork a repo you already own
-can't fork a repo that doesn't exist
-
 
 ## UI / UX
 
@@ -14,6 +8,7 @@ tester is reloading really slowly...
 if choosing repo, cant choose branch
 if choosing branch, cant choose repo
 refactor upserts with $set
+canceling repo select cancels branch fork
 top item in branch select is make new branch
 ace gutter indicators: link to resources from task
 make a nice lil favicon y doncha
@@ -165,6 +160,10 @@ if no files yet, say clicknew in list
 hard to get collab or contributor repos.
 insert a better glyph for the current file
 make settings panel info boex success?
+top item in repo select is fork a repo
+can't fork a repo you already own
+can't fork a repo that doesn't exist
+choose ANY public repo on github, fork it for user, then start editing that repo
 tabbed user interface - elseif in meteor?
 or rather how to do some routing in meteor
 clicking on a file should go to edit tab

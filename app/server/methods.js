@@ -226,9 +226,14 @@ Meteor.methods({
   },
 
   forkRepo: function(user, repo) { // create a fork of a repo for user
-    console.log(user)
-    console.log(repo)
-    return
+    try { // that is, if the repo exists/isForkable
+      Meteor.call('getRepo', user, repo);
+      Meteor.call('postRepo', user, repo);
+      Meteor.call('getAllRepos');
+    } catch (err) {
+      throw new Meteor.Error('null-repo'); // this repo no fork :O
+      dlog(err);
+    }
   },
 
   loadHead: function(bname) { // load head of branch, from sha
