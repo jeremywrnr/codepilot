@@ -3,19 +3,16 @@ TODOS
 
 
 choose ANY public repo on github, fork it for user, then start editing that repo
+top item in repo select is fork a repo
+color hide complete - not a label anymore?
 
 
 ## UI / UX
 
-linkify feed items
-better change branch handling - not loading commits
-refactor iframes, better in pane nav.
 tester is reloading really slowly...
-tuneup feedback renderer panes
 if choosing repo, cant choose branch
 if choosing branch, cant choose repo
 refactor upserts with $set
-top item in repo select is fork a repo
 top item in branch select is make new branch
 ace gutter indicators: link to resources from task
 make a nice lil favicon y doncha
@@ -63,8 +60,7 @@ study from Mythical Man Month of surgeon + multiple assistants model of
 programming. - look into using the promise library ql. the sharejs template
 creates a new doc for it when you press the new button, but you can do this
 automatically, with the model.create from sharejs. - a distributed task - 1
-pilot, 4 copilots - idea:
-maybe also include option to make a PR or be a
+pilot, 4 copilots - idea: maybe also include option to make a PR or be a
 collaborator - \_pick your data as to not bloat the database - future: create a
 new repo with the api - creating an issue on this repo, could be helpful to
 PROF - in the future, you could create pull requests instead of linking to the
@@ -101,6 +97,7 @@ bug - clicking on box doesnt disable it??
 EDITING GITHUB PERMISSION REQUESTS:
 testing out pushing to an existing repo
 difference between author and committer in git?
+refactor iframes, better in pane nav.
 ACTUALLY design what the fields should be plz
 feed notifys on issues
 only give user the user things related to their repo
@@ -108,9 +105,11 @@ only add to collaborators if not on list
 generating shared session links - done with unique repo ids
 loading a repos content, commit history
 reconfigure public only repos
+better change branch handling - not loading commits
 autoset default branch
 don't add user to repo owner if they are already there
 having sessions or groups - scaling app
+linkify feed items
 change template based on roles
 making the task items more usable
 conflict with sharejs and docs??? renaming to files
@@ -130,6 +129,7 @@ refactor authentication code - methods
 looking at roles, changing editing profiles
 on selecting a repo, load branches
 make login info pop to the left | align it right
+tuneup feedback renderer panes
 deleting and renaming button (NOW DOES) work
 make a new task also adds an item to feed
 test/fix get repo production errors

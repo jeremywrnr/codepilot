@@ -17,15 +17,12 @@
 </template>
 
 <template name='messages'>
-  <div class='well well-sm'>
+  <div class='well well-sm nomargin'>
     <ul class='nav sidelist'>
-      {{#if messages.count}}
       {{#each messages}}
-      <li> <strong>{{name}}:</strong> {{message}} </li>
+      <li> <strong>{{name}}:</strong> {{{linkd}}} </li>
       {{/each}}
-      {{else}}
-      <li> quiet so far. </li>
-      {{/if}}
+      <!--{{#if messages.count}} {{else}} <li> quiet so far. </li> {{/if}}-->
     </ul>
   </div>
 </template>
