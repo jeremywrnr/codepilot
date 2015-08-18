@@ -124,8 +124,9 @@ Meteor.methods({
       user: user.profile.repoOwner,
       repo: user.profile.repoName,
       title: issue.note,
-      body: '[issue screenshot](' + link + ')' + '\nhtml:\n```html\n' + issue.html + '\n```',
-      labels: ['bug'] // enhancement, etc
+      body: '[issue screenshot](' + link + ')' + '\nhtml:\n```html\n' + issue.html + '\n```'
+      + '[live code](' + 'link to live rendered html here' + ')',
+      labels: ['bug', 'codepilot'] // enhancement, etc
     });
   },
 
@@ -137,6 +138,14 @@ Meteor.methods({
       tree: t.tree,
       base_tree: t.base
     }).sha;
+  },
+
+  postBranch: function(){ // make a new branch of the current repo
+    Meteor.call('ghAuth');
+    return github.fork({
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+    });
   },
 
   postCommit: function(c) { // takes commit c, returns gh commit respns.
@@ -153,7 +162,7 @@ Meteor.methods({
 
   postRef: function(cr){ // takes commit results (cr),  updates ref
     Meteor.call('ghAuth');
-    return  github.gitdata.updateReference({
+    return github.gitdata.updateReference({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
       ref: 'heads/' + Meteor.user().profile.repoBranch,

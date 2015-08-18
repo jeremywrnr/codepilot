@@ -7,6 +7,7 @@ Template.tester.events({
   },
 
 });
+
 Template.renderPanel.events({
 
   'click .reload': function () {

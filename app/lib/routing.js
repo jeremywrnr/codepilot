@@ -27,15 +27,25 @@ Router.route('feedback', {
   }
 });
 
-// serving feedback images, from id
+// serving feedback images and rendered pages, from id
 
-Router.route('screenshot/:_id', {
+Router.route('screenshot/:_id', { // serve feedback images
   name: 'screenshot',
   layoutTemplate: 'null',
   onBeforeAction: null,
   action: function viewScreen() {
     var img = Screens.findOne(this.params._id);
     this.render('screenshot', {data: img});
+  }
+});
+
+Router.route('render/:_id', { // serve live version of site
+  name: 'render',
+  layoutTemplate: 'null',
+  onBeforeAction: null,
+  action: function viewIssue() {
+    var issue = Issues.findOne(this.params._id);
+    this.render('render', {data: issue});
   }
 });
 
@@ -50,5 +60,7 @@ if(Meteor.isClient){
       this.render('login');
     }else
       this.next();
-  }, {except: ['login', 'screenshot']}); // but allow anybody to check issue imgs
+  }, { // but allow anybody to check issue imgs
+    except: ['login', 'screenshot', 'rendered']
+  });
 }

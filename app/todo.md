@@ -2,23 +2,22 @@ TODOS
 =====
 
 
-- issues link to rendered view
-- commit links to rendered view
-- branching functionality
+issues link to rendered view
+    add params to field
+    better issue contents
+    link to live view
+branching functionality
     creating + selecting new branch
     having multiple versions of files
 
-implement system testing?
 add link to rendered html in issues
 attach a codepilot label to issue
 sort chat by positive time
-confirming close issue with confirm
 confirm on load codepilot
 browse at this time
 render art this time
 view source of old commit
 look into meteor clicklogs
-screenshots not pub
 
 
 ## paper considerations
@@ -30,6 +29,7 @@ copilot nosiness - editing code, passivity?
 ## UI / UX
 
 tester is reloading really slowly...
+if label == codepilot, color black
 if choosing repo, cant choose branch
 if choosing branch, cant choose repo
 setting a global loading template
@@ -44,6 +44,8 @@ sketch out new ui ideas
 
 ## SERVER
 
+checking upsert issues correctly
+implement system testing? velocity
 refactor github.js-getblobs() plz
 github api syncing
     why does it need to two calls to populate sjs docs?
@@ -57,6 +59,8 @@ only owner can add a collaborator: add option
 autoload repos after creating an account
 deleting / renaming files with github
 implementing a folder structure
+commit links to rendered view
+    possible to store versions of each file??
 create branching for testing
 
 
@@ -149,6 +153,7 @@ removing login with email (just github)
 have a link to rename or edit the project files...
 refactor authentication code - methods
 looking at roles, changing editing profiles
+screenshots not pub
 on selecting a repo, load branches
 make login info pop to the left | align it right
 tuneup feedback renderer panes
@@ -174,6 +179,7 @@ seperate renderer bar - reload and file issue
 screencapture to png
 make a new issue, attach png to it
 attach issue to the png
+confirming close issue with confirm
 ask them to describe new issue
 sort owned and all other editable repos
 commit reset buttons actually do something

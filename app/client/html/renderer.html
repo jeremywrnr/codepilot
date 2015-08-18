@@ -9,28 +9,43 @@
 <template name='tester'>
   <div class='panel panel-primary'>
     <div class='panel-heading'>
-      <div class='btn-group btn-group-justified' role='group'>
-        <div class='btn-group' role='group'>
+      <div class='btn-group btn-group-justified'>
+        <div class='btn-group'>
           <a href='#'>
             <button type='button' class='btn btn-default btn-lg grn reload'>
               reload tester </button>
           </a>
         </div>
-        <div class='btn-group' role='group'>
-          <a href='/renderer' target='_blank'>
+        <div class='btn-group'>
+          <a href='/renderer'>
             <button type='button' class='btn btn-default btn-lg edit'>
-              view in new tab</button>
+              view full size </button>
           </a>
         </div>
       </div>
     </div>
-    {{> iframe}}
+    {{> iframe }}
   </div>
 </template>
 
 <template name='iframe'>
   <div class='panel-body' style='margin:0px;padding:0px;'>
     <iframe src='/raw' style='min-height:400px;height:100%;width:100%'
+      frameborder='0' height='100%' width='100%'>
+    </iframe>
+  </div>
+</template>
+
+<template name='render'>
+  <div class='btn-group btn-group-justified' role='group'>
+    <div class='btn-group' role='group'>
+      <a href='/test'>
+        <button type='button' class='btn btn-default btn-lg edit'> return to test pane </button>
+      </a>
+    </div>
+  </div>
+  <div class='panel-body' style='margin:0px;padding:0px;'>
+    <iframe srcdoc='{{ feedback.html }}' style='min-height:400px;height:100%;width:100%'
       frameborder='0' height='100%' width='100%'>
     </iframe>
   </div>
