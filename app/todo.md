@@ -9,9 +9,7 @@ branching functionality
     top item in branch select is make new branch
     creating + selecting new branch
     having multiple versions of files
-browse at this time
 render art this time
-view source of old commit
 look into meteor clicklogs
 
 
@@ -88,6 +86,8 @@ collaborators page.
 hardcode three files
 set up iframe html
 on logout, route to '/'
+browse at this time
+view source of old commit
 adding branch options to config panel
 integrate feed hooks into tasks
 make a test button, load buffer
