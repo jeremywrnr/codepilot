@@ -40,7 +40,8 @@ Once this is setup, do the following to start running it locally:
     cd ../
     meteor update && meteor
 
-Then, you can check out localhost:3000, and play around with things.
+Then, you can check out [localhost:3000](http://localhost:3000), and play
+around with things.
 
 This commit was made with code pilot #meta
 
