@@ -30,8 +30,8 @@
       </div>
 
       <!--<a target='_blank' href='https://octodex.github.com/'>-->
-        <!--<img class='center wide' src='https://octodex.github.com/images/nyantocat.gif'/>-->
-        <!--[><img class='center' style='width:40%;' src='http://random-octocat.herokuapp.com'/><]-->
+      <!--<img class='center wide' src='https://octodex.github.com/images/nyantocat.gif'/>-->
+      <!--[><img class='center' style='width:40%;' src='http://random-octocat.herokuapp.com'/><]-->
       <!--</a>-->
 
       {{else}}
@@ -77,8 +77,11 @@
   <li class='list-group-item' href='#'>
     <div class="btn-group btn-group-justified">
       <div class="btn-group" role="group">
-        <a class='btn btn-group grn' target="_blank" href='{{
-        this.commit.html_url }}'> view on github </a>
+        <a class='btn btn-group grn' target="_blank" href='{{ commit.html_url }}'> view diff </a>
+      </div>
+      <div class="btn-group" role="group">
+        <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ sha }}'
+                             class='btn btn-group edit' target="_blank" > browse code </a>
       </div>
       <div class="btn-group" role="group">
         <button class='btn btn-group del loadcommit'>

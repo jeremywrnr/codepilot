@@ -4,21 +4,15 @@ TODOS
 issues link to rendered view
     add params to field
     better issue contents
-    link to live view
+    commit links to rendered view
 branching functionality
+    top item in branch select is make new branch
     creating + selecting new branch
     having multiple versions of files
-
 browse at this time
 render art this time
 view source of old commit
 look into meteor clicklogs
-
-
-## paper considerations
-
-user study measurements
-copilot nosiness - editing code, passivity?
 
 
 ## UI / UX
@@ -27,19 +21,16 @@ tester is reloading really slowly...
 if label == codepilot, color black
 if choosing repo, cant choose branch
 if choosing branch, cant choose repo
-setting a global loading template
 canceling repo select cancels branch fork
-maybe a loading bar for the commit progress
-reduce margins, make better use of space
-top item in branch select is make new branch
-make a nice lil favicon y doncha
+diff the commits, before sending msg
+a loading bar for the commit progress
+viewing all commits link???
 refactor upserts with $set
-sketch out new ui ideas
 
 
 ## SERVER
 
-checking upsert issues correctly
+checking upsert issues correctly?
 implement system testing? velocity
 refactor github.js-getblobs() plz
 github api syncing
@@ -48,15 +39,18 @@ github api syncing
 load file from github only on click?? reduce api calls
     get current commit sha, then tree sha, then blob, then load into sharejs doc
 increase commit history to 100 (per page, in github.js)
-have a diff below each of the commits, before sending msg
-standardize server method names, documents
 only owner can add a collaborator: add option
+standardize server method names, documents
 autoload repos after creating an account
 deleting / renaming files with github
 implementing a folder structure
-commit links to rendered view
-    possible to store versions of each file??
-create branching for testing
+possible to store versions of each file??
+
+
+## PAPER
+
+user study measurements
+copilot nosiness - editing code, passivity?
 
 
 ## NOTES / ERRORS
@@ -108,6 +102,7 @@ sorting files alphabetically
 show which commit owner
 make welcome template seperate, less wide
 deliver resources based on active repo
+reduce margins, make better use of space
 push new commit to local db after github
 writing to the contents of a sharejs document
 integrate feed hooks into commits
@@ -169,6 +164,7 @@ manages version control from the site
 SMASH ALL TASKS INTO ONE PANE
 importing github issues
 linking to a specific issue
+make a nice lil favicon y doncha
 ability to close issue from codepilot
 ability to create issue from codepilot?
 seperate renderer bar - reload and file issue
