@@ -225,6 +225,12 @@ Meteor.methods({
     gc.map(function(c){ Meteor.call('addCommit', c) });
   },
 
+  forkRepo: function(user, repo) { // create a fork of a repo for user
+    console.log(user)
+    console.log(repo)
+    return
+  },
+
   loadHead: function(bname) { // load head of branch, from sha
     // check if branch name is a valid branchname of this repo
     var sha =  Meteor.call('getBranch', bname).commit.sha;

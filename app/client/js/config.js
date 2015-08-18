@@ -25,7 +25,6 @@ Template.config.helpers({
     return Session.get('branchSelecting');
   },
 
-
 });
 
 Template.config.events({
@@ -67,6 +66,10 @@ Template.config.events({
 
 });
 
+
+
+// repo forking may improve life
+
 Template.forkRepo.helpers({
 
   forking: function() {
@@ -74,29 +77,34 @@ Template.forkRepo.helpers({
   },
 
 });
+
 Template.forkRepo.events({
 
-  'click .forkrepo': function(e) {
+  'click .forkrepo': function(e) { // display the forking code box
     e.preventDefault();
     Session.set('forking', true);
     focusForm('#repoForker');
   },
 
-  'submit .forker': function(e) {
+  'submit .forker': function(e) { // fork and load a repo into code pilot
     e.preventDefault();
-    $(e.target).blur();
-    var repo = $('#repoForker')[0].value;
-    if (repo == null || repo == '') return false;
+    $(e.target).blur(); // parse string arg for user, repo
+    var [user, repo] = $('#repoForker')[0].value.split('/');
+    var selfFork = (Meteor.user().profile.login === user); // cant fork self
+    if (!user || !repo || selfFork) return false;
+    Meteor.call('forkRepo', user, repo);
     Session.set('forking', false);
-    //Meteor.call('forkRepo', repo);
   },
 
   'click .cancelFork': function(e) {
     Session.set('forking', false);
   },
 
-
 });
+
+
+
+// existing git repo and branch handling
 
 Template.repo.events({
 

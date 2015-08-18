@@ -65,13 +65,10 @@ Meteor.methods({
   },
 
   getBranches: function(gr) { // update all branches for repo
-    var brs = github.repos.getBranches({
+     return github.repos.getBranches({
       user: gr.repo.owner.login,
       repo: gr.repo.name
     });
-    // for the current repo, overwrite branches
-    Repos.update({ id: gr.repo.id },{ $set: {branches: brs }});
-    Meteor.call('setBranch', gr.repo.default_branch) // set default br
   },
 
   getBranch: function(branchName) { // give branch res
@@ -164,13 +161,11 @@ Meteor.methods({
     });
   },
 
-  postRepo: function(cr){ // done to fork a repo for a new user
+  postRepo: function(owner, repo){ // done to fork a repo for a new user
     Meteor.call('ghAuth');
-    return  github.gitdata.updateReference({
+    return  github.repos.fork({
       user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      ref: 'heads/' + Meteor.user().profile.repoBranch,
-      sha: cr.sha
+      repo: Meteor.user().profile.repoName
     });
   },
 
