@@ -1,3 +1,9 @@
+app/.idea
+app/.meteor/.*
+app/packages/*
+app/private/*.json
+app/.tern-project
+
 .versions
 
 lib-cov

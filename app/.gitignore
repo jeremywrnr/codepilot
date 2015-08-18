@@ -1,5 +1,0 @@
-.idea
-.meteor/.*
-packages/*
-private/*.json
-.tern-project
