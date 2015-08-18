@@ -2,18 +2,43 @@ TODOS
 =====
 
 
+- issues link to rendered view
+- commit links to rendered view
+- branching functionality
+    creating + selecting new branch
+    having multiple versions of files
+
+implement system testing?
+add link to rendered html in issues
+attach a codepilot label to issue
+sort chat by positive time
+confirming close issue with confirm
+confirm on load codepilot
+browse at this time
+render art this time
+view source of old commit
+look into meteor clicklogs
+screenshots not pub
+
+
+## paper considerations
+
+user study measurements
+copilot nosiness - editing code, passivity?
+
+
 ## UI / UX
 
 tester is reloading really slowly...
 if choosing repo, cant choose branch
 if choosing branch, cant choose repo
-refactor upserts with $set
+setting a global loading template
 canceling repo select cancels branch fork
-top item in branch select is make new branch
-ace gutter indicators: link to resources from task
-make a nice lil favicon y doncha
 maybe a loading bar for the commit progress
 reduce margins, make better use of space
+top item in branch select is make new branch
+make a nice lil favicon y doncha
+refactor upserts with $set
 sketch out new ui ideas
 
 
