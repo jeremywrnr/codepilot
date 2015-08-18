@@ -2,6 +2,9 @@ TODOS
 =====
 
 
+choose ANY public repo on github, fork it for user, then start editing that repo
+
+
 ## UI / UX
 
 linkify feed items
@@ -23,13 +26,12 @@ sketch out new ui ideas
 
 ## SERVER
 
-increase commit history to 100 (per page, in github.js)
-choose ANY public repo on github, fork it for user, then start editing that repo.
 github api syncing
     why does it need to two calls to populate sjs docs?
     perhaps you can use a load on click operation to fix.
 load file from github only on click?? reduce api calls
     get current commit sha, then tree sha, then blob, then load into sharejs doc
+increase commit history to 100 (per page, in github.js)
 have a diff below each of the commits, before sending msg
 standardize server method names, documents
 only owner can add a collaborator: add option
