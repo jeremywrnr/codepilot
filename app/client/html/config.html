@@ -25,20 +25,29 @@
             </li>
 
             <li class='list-group-item'>
+              {{#if repoSelecting}}
+              <button class='btn btn-xs del pull-right repoCancel'> cancel </button>
+              {{else}}
               <button class='btn btn-xs grn pull-right repoSelect'> choose </button>
+              {{/if}}
               repo:
               <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
                 target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
             </li>
 
             {{#if repoSelecting}}
+            {{> forkRepo }}
             {{#each repos}}
             {{> repo}}
             {{/each}}
             {{/if}}
 
             <li class='list-group-item'>
+              {{#if branchSelecting}}
+              <button class='btn btn-xs del pull-right branchCancel'> cancel </button>
+              {{else}}
               <button class='btn btn-xs grn pull-right branchSelect'> choose </button>
+              {{/if}}
               branch:
               <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
                 target='_blank'>{{ currentUser.profile.repoBranch }}</a>
@@ -78,25 +87,43 @@
         <img class='img-rounded' style='height: 150px' src='https://s-media-cache-ak0.pinimg.com/236x/55/50/32/5550323e05e7a5f719de5263d7f160d2.jpg'>
         {{/if}}
 
-        <h5> debugging </h5>
-
-        <div class="alert alert-danger" role="alert">
-          <button style='width:100%;' class='btn del resetfiles'>
-            reset current project to basic website</button>
-        </div>
-
-        <h5> disclaimer </h5>
-
-        I do not own the octocat or any image similar to it. I use it to link
-        back to the source of this project, which is hosted on github - the
-        creator and owner of the octocat. This project is maintained by <a
-        href='https://github.com/jeremywrnr'>@jeremywrnr</a> - please get in
-        touch with me if you have feedback on the tool, or if you find a bug
-        feel free to open up an issue.
-
       </div>
     </div>
+    {{> extras }}
   </div>
+</template>
+
+<template name='extras'>
+  <div class='panel panel-default'>
+    <div class='panel-heading'> <h2 class='panel-title'> extras </h2> </div>
+    <div class='panel-body'>
+
+      <h5> about </h5>
+
+      {{> about }} <!--from welcome.html-->
+
+      <h5> disclaimer </h5>
+
+      I do not own the octocat or any image similar to it. I use it to link
+      back to the source of this project, which is hosted on github - the
+      creator and owner of the octocat. This project is maintained by
+      <a href='https://github.com/jeremywrnr'>@jeremywrnr</a> - please get in
+      touch with me if you have feedback on the tool, or if you find a bug feel
+      free to open up an issue.
+
+      <h5> debugging </h5>
+
+      <div class="alert alert-danger nomargin" role="alert">
+        <button style='width:100%;' class='btn del resetfiles'>
+          reset current project to basic website</button>
+      </div>
+
+    </div>
+  </div>
+</template>
+
+<template name='forkRepo'>
+  <button class='list-group-item grn'> fork a repo from github </button>
 </template>
 
 <template name='repo'>

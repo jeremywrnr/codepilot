@@ -30,14 +30,24 @@ Template.config.helpers({
 
 Template.config.events({
 
-  'click .repoSelect': function(e) {
+  'click .repoSelect': function(e) { // show the available repos
     e.preventDefault();
     Session.set('repoSelecting', true);
   },
 
-  'click .branchSelect': function(e) {
+  'click .repoCancel': function(e) { // hide the available repos
+    e.preventDefault();
+    Session.set('repoSelecting', false);
+  },
+
+  'click .branchSelect': function(e) { // show the available branches
     e.preventDefault();
     Session.set('branchSelecting', true);
+  },
+
+  'click .branchCancel': function(e) { // hide the available branches
+    e.preventDefault();
+    Session.set('branchSelecting', false);
   },
 
   'click .makePilot': function(e) {

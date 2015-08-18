@@ -1,10 +1,9 @@
 TODOS
 =====
 
+top item in repo select is fork a repo
 
 choose ANY public repo on github, fork it for user, then start editing that repo
-top item in repo select is fork a repo
-color hide complete - not a label anymore?
 
 
 ## UI / UX
@@ -184,6 +183,7 @@ add github issue commenting
 github integration
 option to pick roles
 basic roles management
+color hide complete - not a label anymore?
 refactor on repoName
 file specific syntax highlighting
 show project id
