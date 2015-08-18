@@ -43,10 +43,12 @@ Router.route('screenshot/:_id', {
 
 // ask user to login before coding, only on client
 
-Router.onBeforeAction(function preLogin() {
-  if (! Meteor.userId() || Meteor.loggingIn()){
-    this.layout('login');
-    this.render('login');
-  }else
-    this.next();
-}, {except: ['login', 'screenshot']}); // but allow anybody to check issue imgs
+if(Meteor.isClient){
+  Router.onBeforeAction(function preLogin() {
+    if (! Meteor.userId() || Meteor.loggingIn()){
+      this.layout('login');
+      this.render('login');
+    }else
+      this.next();
+  }, {except: ['login', 'screenshot']}); // but allow anybody to check issue imgs
+}
