@@ -3,11 +3,11 @@ TODOS
 
 issues link to rendered view
     better issue contents
-    commit links to rendered view
 branching functionality
     top item in branch select is make new branch
     creating + selecting new branch
     having multiple versions of files
+commit links to rendered view
 
 
 ## UI / UX
@@ -17,6 +17,7 @@ tester is reloading really slowly...
 if label == codepilot, color black
 if choosing repo, cant choose branch
 if choosing branch, cant choose repo
+global methods - detoggle set afterclick
 canceling repo select cancels branch fork
 diff the commits, before sending msg
 a loading bar for the commit progress
@@ -30,6 +31,7 @@ refactor issue posting as well
 checking upsert issues correctly?
 implement system testing? velocity
 refactor github.js-getblobs() plz
+remove the img field from feedback
 github api syncing
     why does it need to two calls to populate sjs docs?
     perhaps you can use a load on click operation to fix.

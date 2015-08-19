@@ -56,7 +56,6 @@ Router.route('render/:_id', { // serve live version of site
 if(Meteor.isClient){
   Router.onBeforeAction(function preLogin() {
     if (! Meteor.userId() || Meteor.loggingIn()){
-      this.layout('login');
       this.render('login');
     }else
       this.next();

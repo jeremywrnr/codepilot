@@ -115,7 +115,7 @@ Template.issue.helpers({
   },
 
   labels: function () {
-    return this.issue.labels;
+    if (this.issue) return this.issue.labels;
   }
 
 });

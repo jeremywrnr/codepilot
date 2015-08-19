@@ -99,15 +99,39 @@ Meteor.methods({
   ///////////////////
 
   addIssue: function(feedback){ // adds a feedback issue to github
-    feedback.imglink = Async.runSync(function(done) { // save screenshot, return id
-      Screens.insert({img: feedback.img}, function(err, id){ done(err, id); });
-    }).result; // attach screenshot to issue
-    var ghIssue = {issue: Meteor.call('postIssue', feedback)};
+
+    feedback.imglink = Async.runSync(function(done){ // save screenshot, give id
+      Screens.insert({img: feedback.img}, function(err, id){
+        done(err, id);
+      });
+    }).result; // attach screenshot to this issue
+    delete feedback.img; // delete redundant png
+
+    // insert a dummy issue to get id, use later in GH issue body txt
+    var issueId = Async.runSync(function(done){
+      Issues.insert({issue: null}, function(err, id){
+        done(err, id);
+      });
+    }).result; // get the id of the newly inserted issue
+
+    // construct and append the text of the github issue, including links to screenshot and demo
+    var imglink = '[issue screenshot](http://codepilot.meteor.com/screenshot/' + feedback.imglink + ')\n';
+    var livelink = '[live code here](http://codepilot.meteor.com/render/' + issueId + ')\n';
+    var htmllink = 'html:\n```html\n' + feedback.html + '\n```\n';
+    var csslink = 'css:\n```css\n' + feedback.css + '\n```\n';
+    var jslink = 'js:\n```js\n' + feedback.js + '\n```\n';
+    feedback.body = imglink + livelink + htmllink + csslink + jslink;
+
+
+    var ghIssue = {_idissue: Meteor.call('postIssue', feedback)};
     ghIssue.feedback = feedback; // attach feedback issue data
     ghIssue.repo = feedback.repo; // attach repo forming data
     ghIssue.ghid = ghIssue.id; // attach github issue id
-    Issues.insert( ghIssue ); // insert the new issue
-    Meteor.call('addUserMessage', feedback.user, 'opened issue - ' + feedback.note);
+
+    // insert complete issue, and add it to the feed
+    Issues.update(issueId, ghIssue);
+    Meteor.call('addUserMessage', feedback.user,
+                'opened issue - ' + feedback.note);
   },
 
   closeIssue: function(issue){ // close an issue on github by number
