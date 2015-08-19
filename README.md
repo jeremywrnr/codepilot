@@ -1,13 +1,11 @@
-code pilot
-==========
+[code pilot](http://codepilot.meteor.com)
+=========================================
 
 This is a tool meant to help people collaborate on code more seamlessly. The
 model is based on that of a pilot and a co-pilot, where the pilot does most of
 the actual programming, and the co-pilot performs background coding tasks. This
 can include version control management, system testing, online reference
 lookup, and commenting/documenting source code.
-
-Check it out [here](http://codepilot.meteor.com).
 
 
 
