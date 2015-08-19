@@ -117,6 +117,7 @@ Template.repo.events({
     Meteor.call('initBranches', this); // get all the possible branches
     Meteor.call('initCommits'); // pull commit history for this repo
     Meteor.call('loadHead'); // load the head of this branch into CP
+    Meteor.call('postLabel'); // register codepilot label for new repo
     Session.set('repoSelecting', false); // hide the available repos
   }
 

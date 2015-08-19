@@ -112,6 +112,16 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
+  postLabel: function(){ // used in repo initing - create codepilot issue label
+    Meteor.call('ghAuth');
+    return github.issues.createLabel({
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+      name: 'codepilot',
+      color: '000000' // set the codepilot label color black for this repo
+    });
+  },
+
   postIssue: function(issue){ // takes feedback issue, creates GH issue
     // custom login - iframe not given Meteor.user() scope
     var user = Meteor.users.findOne(issue.user);
@@ -137,7 +147,7 @@ Meteor.methods({
       repo: Meteor.user().profile.repoName,
       tree: t.tree,
       base_tree: t.base
-    }).sha;
+    }).sha; // beware!! - returns sha, not the entire post response
   },
 
   postBranch: function(){ // make a new branch of the current repo

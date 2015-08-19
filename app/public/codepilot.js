@@ -14,3 +14,7 @@ grabTagContentsToRender = function(full, tag) { // return parsed html from tag
   doc.html( full.content );
   return $(tag, doc)[0].innerHTML;
 }
+
+sanitizeStringQuotes = function(str) { // 'hi' -> \'hi\' - avoid breaking srcdoc
+  return str.replace(/"/g, '\\"').replace(/'/g, '\\\'');
+}

@@ -28,6 +28,8 @@ Template.raw.helpers({
     if (Meteor.user()) return Meteor.user().profile.repo;
   },
 
+
+
   getHead: function () { // parse head of html file
     var full = Files.findOne({title: /.*html/i});
     if (full) return grabTagContentsToRender(full, 'head');
@@ -46,6 +48,23 @@ Template.raw.helpers({
   getJS: function () {
     var js = Files.findOne({ title: /.*js/i});
     if (js) return js.content;
+  },
+
+
+
+  getHTMLString: function () { // for attaching relevant content to issue
+    var full = Files.findOne({title: /.*html/i});
+    if (full) return sanitizeStringQuotes(full.content)
+  },
+
+  getCSSString: function () {
+    var css = Files.findOne({title: /.*css/i});
+    if (css) return sanitizeStringQuotes(css.content)
+  },
+
+  getJSString: function () {
+    var js = Files.findOne({title: /.*js/i});
+    if (js) return sanitizeStringQuotes(js.content)
   },
 
 });

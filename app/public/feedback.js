@@ -517,8 +517,13 @@
             $('#feedback-overview').hide();
 
             post.img = img;
+
+            // attach addition all post arguments from options
             post.repo = options.repo;
             post.user = options.user;
+            post.html = options.html; // overwriting!! defined earlier
+            post.css = options.css;
+            post.js = options.js;
             post.note = $('#feedback-note').val();
                         var data = {feedback: JSON.stringify(post)};
             $.ajax({

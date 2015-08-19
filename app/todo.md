@@ -2,19 +2,17 @@ TODOS
 =====
 
 issues link to rendered view
-    add params to field
     better issue contents
     commit links to rendered view
 branching functionality
     top item in branch select is make new branch
     creating + selecting new branch
     having multiple versions of files
-render art this time
-look into meteor clicklogs
 
 
 ## UI / UX
 
+hide feedback system after submitting
 tester is reloading really slowly...
 if label == codepilot, color black
 if choosing repo, cant choose branch
@@ -28,6 +26,7 @@ refactor upserts with $set
 
 ## SERVER
 
+refactor issue posting as well
 checking upsert issues correctly?
 implement system testing? velocity
 refactor github.js-getblobs() plz
@@ -155,6 +154,7 @@ iframes custom javascript logger output
 ## guo meeting - time for MS visits? 11am
 attach links for reference to file issue
 make message box look nicer
+add params to field
 confirm on load codepilot
 choose target from list of on github
 pilot sees tasks and issues, can close issues.
