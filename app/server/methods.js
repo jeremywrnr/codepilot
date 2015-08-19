@@ -47,13 +47,8 @@ Meteor.methods({
   /////////////////////
 
   newShareJSDoc: function(id) { // create sharejs document with same id
-    return Async.runSync(function(done) {
       var time = Math.round( new Date() / 1000 );
-      ShareJS.model.create(
-        id, 'text', { mtime: time, ctime: time },
-        function(error, doc){ done(error, doc); }
-      );
-    });
+      ShareJS.model.create( id, 'text', { mtime: time, ctime: time });
   },
 
   getShareJSDoc: function(file) { // give live editor copy, v and snapshot

@@ -52,19 +52,19 @@ Template.raw.helpers({
 
 
 
-  getHTMLString: function () { // for attaching relevant content to issue
+  htmlString: function () { // for attaching relevant content to issue
     var full = Files.findOne({title: /.*html/i});
-    if (full) return sanitizeStringQuotes(full.content)
+    if (full) return sanitizeStringQuotes(full.content);
   },
 
-  getCSSString: function () {
+  cssString: function () {
     var css = Files.findOne({title: /.*css/i});
-    if (css) return sanitizeStringQuotes(css.content)
+    if (css) return sanitizeStringQuotes(css.content);
   },
 
-  getJSString: function () {
+  jsString: function () {
     var js = Files.findOne({title: /.*js/i});
-    if (js) return sanitizeStringQuotes(js.content)
+    if (js) return sanitizeStringQuotes(js.content);
   },
 
 });

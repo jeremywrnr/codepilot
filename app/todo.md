@@ -34,6 +34,7 @@ refactor github.js-getblobs() plz
 remove the img field from feedback
 github api syncing
     why does it need to two calls to populate sjs docs?
+    adding a content field on create new doc? perhaps
     perhaps you can use a load on click operation to fix.
 load file from github only on click?? reduce api calls
     get current commit sha, then tree sha, then blob, then load into sharejs doc
