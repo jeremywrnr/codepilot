@@ -47,8 +47,8 @@ Meteor.methods({
   /////////////////////
 
   newShareJSDoc: function(id) { // create sharejs document with same id
-      var time = Math.round( new Date() / 1000 );
-      ShareJS.model.create( id, 'text', { mtime: time, ctime: time });
+    var time = Math.round( new Date() / 1000 );
+    ShareJS.model.create( id, 'text', { mtime: time, ctime: time });
   },
 
   getShareJSDoc: function(file) { // give live editor copy, v and snapshot
@@ -117,11 +117,12 @@ Meteor.methods({
     var jslink = 'js:\n```js\n' + feedback.js + '\n```\n';
     feedback.body = imglink + livelink + htmllink + csslink + jslink;
 
-
-    var ghIssue = {_idissue: Meteor.call('postIssue', feedback)};
-    ghIssue.feedback = feedback; // attach feedback issue data
-    ghIssue.repo = feedback.repo; // attach repo forming data
-    ghIssue.ghid = ghIssue.id; // attach github issue id
+    var ghIssue = { // the entire issue object
+      _id: issueId,
+      repo: feedback.repo, // attach repo forming data
+      feedback: feedback, // attach feedback issue data
+      issue: Meteor.call('postIssue', feedback) //github
+    };
 
     // insert complete issue, and add it to the feed
     Issues.update(issueId, ghIssue);
@@ -256,7 +257,7 @@ Meteor.methods({
   },
 
   loadHead: function(bname) { // load head of branch, from sha
-    // check if branch name is a valid branchname of this repo
+    // TODO: check if branch name is a valid branchname of this repo
     var sha =  Meteor.call('getBranch', bname).commit.sha;
     Meteor.call('loadCommit', sha);
   },

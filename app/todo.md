@@ -1,13 +1,10 @@
 TODOS
 =====
 
-issues link to rendered view
-    better issue contents
 branching functionality
     top item in branch select is make new branch
     creating + selecting new branch
     having multiple versions of files
-commit links to rendered view
 
 
 ## UI / UX
@@ -27,11 +24,13 @@ refactor upserts with $set
 
 ## SERVER
 
+commit links to rendered view
 refactor issue posting as well
 checking upsert issues correctly?
 implement system testing? velocity
 refactor github.js-getblobs() plz
-remove the img field from feedback
+closing an issue on github should close on codepilot
+maybe including the log data in the rendered issue view
 github api syncing
     why does it need to two calls to populate sjs docs?
     adding a content field on create new doc? perhaps
@@ -208,6 +207,8 @@ posting github issues
 exact parsing needs cleaning on add issue
 attach a codepilot label to issue
 better iframe: serve template on route, have that be the src
+remove the img field from feedback
+issues link to rendered view, better issue contents
 closing / linking to actual github issues
 purge prod database
 add github issue commenting
