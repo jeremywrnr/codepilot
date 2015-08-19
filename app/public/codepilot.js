@@ -15,6 +15,11 @@ grabTagContentsToRender = function(full, tag) { // return parsed html from tag
   return $(tag, doc)[0].innerHTML;
 }
 
-sanitizeStringQuotes = function(str) { // 'hi' -> \'hi\' - avoid breaking srcdoc
-  return str.replace(/"/g, '\\"').replace(/'/g, '\\\'');
+sanitizeStringQuotes = function(str) { // try to avoid breaking srcdoc
+  //return str.replace(/"/g, '&quot;').replace(/'/g, '&quot;');
+  return (str
+          .replace(/'/g, '"')
+          .replace(/"/g, '\"')
+          .replace(/\n/g, '\\n');
+         );
 }

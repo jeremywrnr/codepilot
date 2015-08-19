@@ -1,4 +1,4 @@
-<template name='raw'>
+<template name='raw'> <!-- this is for rendering from sjs -->
   <iframe srcdoc='
     <head>
 
@@ -74,5 +74,57 @@
       <div id="logbody"> <pre id="log"></pre> </div>
 
     </body>' style='height:100%;width:100%' frameborder='0' height='100%' width='100%'>
+  </iframe>
+</template>
+
+
+
+<!-- this is for rendering from an issue, no reporting -->
+
+<template name='rawIssue'>
+  <iframe srcdoc='
+    <head>
+
+    {{ getHead }}
+    <style> {{ getCSS}} </style>
+    <style>
+    #logbody {
+      left: 0;
+      width: 100%;
+      margin: 0px;
+      border-style: solid;
+      border-color: black;
+      background: #F5F5F5;
+      border-width: 4px 0px 4px 0px;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script type="text/javascript">
+    // waiting until the page loads
+    $(document).ready(function () {
+
+    // overwrite console.log for iframe to append to output div
+    console.log = function (msg) {
+    var timestamp = "["+new Date().toLocaleTimeString()+"] ";
+    if (typeof msg === "object") $("#log")[0].innerHTML +=
+    timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
+    else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
+
+    console.log("beginning console output...");
+    {{ getJS }} // insert the users javascript
+    });
+    </script>
+
+    </head>
+    <body>
+
+      {{ getBody }}
+
+      <div id="logbody"> <pre id="log"></pre> </div>
+
+    </body>'
+    style='height:100%;width:100%'
+    frameborder='0' height='100%' width='100%'>
   </iframe>
 </template>

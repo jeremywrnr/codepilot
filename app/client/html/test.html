@@ -14,6 +14,10 @@
   </div>
 </template>
 
+
+
+<!-- todo task integration -->
+
 <template name='tasks'>
   <div class='panel panel-default'>
     <div class='panel-heading'>
@@ -35,8 +39,6 @@
     </div>
   </div>
 </template>
-
-<!-- todo task integration -->
 
 <template name='task'>
   <li id='{{#if current }}active-task{{/if}}' class='list-group-item task {{#if checked}}checked disabled{{/if}}'>
@@ -111,6 +113,6 @@
 
 </template>
 
-<template name='issueLabel'><!-- perhaps do dynamic coloring... -->
+<template name='issueLabel'>
   <span class='pull-right label label-default' style='background: #{{color}};'> {{ name }} </span>
 </template>

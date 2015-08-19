@@ -10,6 +10,8 @@
   <script src='/packages/mizzao_sharejs-ace/ace-builds/src/ext-language_tools.js'></script>
 </head>
 
+
+
 <template name='main'>
 
   {{> topnav }}
@@ -28,6 +30,14 @@
 
   </div>
 </template>
+
+<!-- if not main, dump contents to null -->
+
+<template name='null'>
+  {{> yield }}
+</template>
+
+
 
 <!--top navbar-->
 
@@ -51,6 +61,8 @@
     </div>
   </nav>
 </template>
+
+
 
 <!--login templates-->
 

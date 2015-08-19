@@ -1,8 +1,10 @@
 <!-- templates for rendering iframe locally  -->
 
-<template name='null'>
-  {{> yield }}
+<template name='screenshot'>
+  <img alt='codepilot-screenshot' src='{{ this.img }}'/>
 </template>
+
+
 
 <!-- code tester frame -->
 
@@ -24,40 +26,22 @@
         </div>
       </div>
     </div>
-    {{> iframe }}
-  </div>
-</template>
-
-<template name='iframe'>
-  <div class='panel-body' style='margin:0px;padding:0px;'>
-    <iframe src='/raw' style='min-height:400px;height:100%;width:100%'
-      frameborder='0' height='100%' width='100%'>
-    </iframe>
-  </div>
-</template>
-
-<template name='render'>
-  <div class='btn-group btn-group-justified' role='group'>
-    <div class='btn-group' role='group'>
-      <a href='/test'>
-        <button type='button' class='btn btn-default btn-lg edit'> return to test pane </button>
-      </a>
+    <div class='panel-body' style='margin:0px;padding:0px;'>
+      <iframe src='/raw' style='min-height:400px;height:100%;width:100%'
+        frameborder='0' height='100%' width='100%'>
+      </iframe>
     </div>
   </div>
-  <div class='panel-body' style='margin:0px;padding:0px;'>
-    <iframe srcdoc='{{ feedback.html }}' style='min-height:400px;height:100%;width:100%'
-      frameborder='0' height='100%' width='100%'>
-    </iframe>
-  </div>
-</template>
-
-<template name='screenshot'>
-  <img alt='codepilot-screenshot' src='{{ this.img }}'/>
 </template>
 
 
 
-<!-- actual content -->
+<!-- sharejs rendered content -->
+
+<template name='renderer'>
+  {{> renderPanel }}
+  {{> raw }} <!-- look in raw.html -->
+</template>
 
 <template name='renderPanel'>
   <div class='btn-group btn-group-justified' role='group'>
@@ -76,9 +60,19 @@
   </div>
 </template>
 
-<!--feedbackButton: '.issue',-->
 
-<template name='renderer'>
-  {{> renderPanel }}
-  {{> raw }}
+
+<!-- issue rendered content -->
+
+<template name='render'>
+  <div class='btn-group btn-group-justified' role='group'>
+    <div class='btn-group' role='group'>
+      <a href='/test'>
+        <button type='button' class='btn btn-default btn-lg edit'> return to test pane </button>
+      </a>
+    </div>
+  </div>
+  <div class='panel-body' style='margin:0px;padding:0px;'>
+    {{> rawIssue }}
+  </div>
 </template>
