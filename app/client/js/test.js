@@ -114,9 +114,14 @@ Template.issue.helpers({
     return Session.equals('issue', this._id);
   },
 
+  screen: function() {
+    var screen = Screens.findOne(this.feedback.imglink);
+    if (screen) return screen.img;
+  },
+
   labels: function () {
     if (this.issue) return this.issue.labels;
-  }
+  },
 
 });
 

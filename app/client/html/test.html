@@ -97,7 +97,7 @@
 
   {{#if current}}
   <button class='list-group-item' href='#'>
-    <div class='btn-group btn-group-justified'>
+    <div class='btn-group btn-group-justified nomargin'>
       <a role='button' class='btn btn-default grn' href='render/{{ _id }}'>
         view rendered </a>
       <a role='button' target='_blank' class='btn btn-default edit' href='{{ issue.html_url }}'>
@@ -106,7 +106,7 @@
         close issue </a>
     </div>
     <a target='_blank' href='/screenshot/{{ feedback.imglink }}'>
-      <img style='width: 100%;' src="{{ feedback.img }}" />
+      <img style='width: 100%;' src="{{ screen }}" />
     </a>
   </button>
   {{/if}}
