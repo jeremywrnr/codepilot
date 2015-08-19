@@ -19,7 +19,7 @@ sanitizeStringQuotes = function(str) { // try to avoid breaking srcdoc
   //return str.replace(/"/g, '&quot;').replace(/'/g, '&quot;');
   return (str
           .replace(/'/g, '"')
-          .replace(/"/g, '\"')
-          .replace(/\n/g, '\\n');
+          .replace(/"/g, '\\"')
+          .replace(/\n/g, '\\n')
          );
 }
