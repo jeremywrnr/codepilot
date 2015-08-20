@@ -6,6 +6,7 @@ branching functionality
     having multiple versions of files
     not loading for some reason?
     feeditems for current branch
+    load files on branch select
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
@@ -64,6 +65,8 @@ copilot nosiness - editing code, passivity?
 
 
 ## NOTES / ERRORS
+
+an untitled file sometimes gets generated when switching repos/branches
 
 video or talk embedding - collab github education?
 snapshot code: save to github, notes section

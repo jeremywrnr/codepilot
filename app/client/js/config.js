@@ -195,6 +195,8 @@ Template.branch.events({
 
   'click .branch': function(e) {
     Meteor.call('setBranch', this.name);
+    Meteor.call('initCommits'); // pull commit history for this repo
+    Meteor.call('loadHead', this.name); // load the head of this branch into CP
     Session.set('focusPane', null); // hide the available branches
   }
 

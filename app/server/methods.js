@@ -94,6 +94,21 @@ Meteor.methods({
   // ISSUE MANAGEMENT
   ///////////////////
 
+  initIssues: function() { // re-populating git repo issues
+    var repo = Repos.findOne( Meteor.user().profile.repo );
+    var issues = Meteor.call('getAllIssues', repo);
+    issues.map(function(issue){
+      Issues.update({
+        repo: repo._id,
+        ghid: issue.id // (from github)
+      },{
+        $set: {issue: issue},
+      },{
+        upsert: true
+      });
+    });
+  },
+
   addIssue: function(feedback){ // adds a feedback issue to github
 
     feedback.imglink = Async.runSync(function(done) { // save screens, give id
@@ -140,21 +155,6 @@ Meteor.methods({
       repo: Meteor.user().profile.repoName,
       number: issue.issue.number,
       state: 'closed'
-    });
-  },
-
-  initIssues: function() { // re-populating git repo issues
-    var repo = Repos.findOne( Meteor.user().profile.repo );
-    var issues = Meteor.call('getAllIssues', repo);
-    issues.map(function(issue){
-      Issues.update({
-        repo: repo._id,
-        ghid: issue.id // (from github)
-      },{
-        $set: {issue: issue},
-      },{
-        upsert: true
-      });
     });
   },
 
@@ -275,7 +275,22 @@ Meteor.methods({
     var commitResults = Meteor.call('getCommit', sha);
     var treeSHA = commitResults.commit.tree.sha;
     var treeResults = Meteor.call('getTree', treeSHA);
-    var br = Meteor.call('getBlobs', treeResults);
+    treeResults.tree.forEach(function updateBlob(blob) {
+
+      if (blob.type === 'blob') { // only load files, not folders/trees
+        var oldcontent = Meteor.call('getBlob', blob);
+
+        //TODO - handle renaming things?
+
+        Files.upsert({ // update all files contents
+          repo: Meteor.user().profile.repo,
+          branch: Meteor.user().profile.repoBranch,
+          title: blob.path
+        },{ $set: {content: oldcontent }});
+      };
+
+    });
+
     dlog( treeResults );
 
     // move files old contents into sharejsdoc

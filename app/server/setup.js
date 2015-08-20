@@ -15,7 +15,7 @@ Meteor.publish('repos', function(userId) { // only serve writable repos
 Meteor.publish('commits', function(repoId, branch) { // serve b+r commits
   return Commits.find({repo: repoId, branch: branch});
 });
-Meteor.publish('files', function(repoId) { // only serve b+r files
+Meteor.publish('files', function(repoId, branch) { // only serve b+r files
   return Files.find({repo: repoId, branch: branch});
 });
 Meteor.publish('messages', function(repoId) { // only serve repo msgs

@@ -1,4 +1,4 @@
-// wrapper github api methods
+// wrappers for github api methods
 // dlog is debugger log, see server/setup.js
 
 Meteor.methods({
@@ -89,23 +89,18 @@ Meteor.methods({
     });
   },
 
-  getBlobs: function(tr) { // update files with tree results (tr)
-    tr.tree.forEach(function updateBlob(b) {
-      if (b.type === 'blob') { // only load files, not folders/trees
-        var oldcontent = github.gitdata.getBlob({
-          headers: {'Accept':'application/vnd.github.VERSION.raw'},
-          user: Meteor.user().profile.repoOwner,
-          repo: Meteor.user().profile.repoName,
-          sha: b.sha
-        });
-        // $set component instead of creating a new object
-        Files.upsert( //TODO - handle renaming things?
-                     { repo: Meteor.user().profile.repo, title: b.path},
-                     { $set: {content: oldcontent}}
-                    );
-      };
+  getBlob: function(blob) { // give a blobs file contents
+    return github.gitdata.getBlob({
+      headers: {'Accept':'application/vnd.github.VERSION.raw'},
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+      sha: blob.sha
     });
   },
+
+
+
+
 
 
 
