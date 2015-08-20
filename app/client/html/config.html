@@ -28,7 +28,7 @@
               {{#if repoSelecting}}
               <button class='btn btn-xs del pull-right repoCancel'> cancel </button>
               {{else}}
-              <button class='btn btn-xs grn pull-right repoSelect'> choose </button>
+              <button class='btn btn-xs grn pull-right loadGHData repoSelect'> choose </button>
               {{/if}}
               repo:
               <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
@@ -120,6 +120,8 @@
 
   {{/if}}
 </template>
+
+
 
 <template name='repo'>
   <button class='list-group-item repo'> {{ repo.full_name }} </button>

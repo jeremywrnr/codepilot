@@ -41,13 +41,13 @@
 </template>
 
 <template name='task'>
-  <li id='{{#if current }}active-task{{/if}}' class='list-group-item task {{#if checked}}checked disabled{{/if}}'>
+  <button id='{{#if current }}active-task{{/if}}' class='list-group-item task {{#if checked}}checked disabled{{/if}}'>
     <label class='pull-right btn label {{#if mine}}label-primary{{else}}label-info{{/if}}'>{{username}}</label>
     {{{linkd}}}
-  </li>
+  </button>
 
   {{#if current}}
-  <li class='list-group-item'>
+  <button class='list-group-item'>
     <div class='btn-group btn-group-justified'>
       <div class="btn-group" role="group">
         <button class='btn grn toggle-checked'>
@@ -60,7 +60,7 @@
         <button class='btn del'>delete</button>
       </div>
     </div>
-  </li>
+  </button>
   {{/if}}
 
 </template>

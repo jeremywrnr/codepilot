@@ -12,7 +12,10 @@ branching functionality
 
 ## UI / UX
 
+null feed marker
+null issuer marker
 hide feedback system after submitting
+project id- show collaborators button
 tester is reloading really slowly...
 if label == codepilot, color black
 if choosing repo, cant choose branch
@@ -46,6 +49,7 @@ autoload repos after creating an account
 deleting / renaming files with github
 implementing a folder structure
 possible to store versions of each file??
+repo not loading for jon curtis
 
 
 ## PAPER
@@ -56,30 +60,44 @@ copilot nosiness - editing code, passivity?
 
 ## NOTES / ERRORS
 
-video or talk embedding - collab github education? - snapshot code: save to
-github, notes section - load ESPECIALLY AS AN EDUCATIONAL TOOL!!!! -
-teacher/pilot vs student/copilot specific files for a specific group id??? -
+video or talk embedding - collab github education?
+snapshot code: save to github, notes section
+load ESPECIALLY AS AN EDUCATIONAL TOOL!!!!
+
+teacher/pilot vs student/copilot specific files for a specific group id???
 look into how to write meteor tests, starting doing so please if try to edit
-file contents while renaming, many errors - go back to not renaming on the
+file contents while renaming, many errors
+go back to not renaming on the
+
 rename form losing focus. a teacher can have lecture code stored in the repo,
 and then walk through bit by bit (eg commits), even if not runnable in the
+
 browser/cloud form controls must share editor template, or will break sometimes
 after longtime of unwatching: Uncaught SyntaxError: Unexpected token Y start
-syntax highlighting structure of repo - make one for each user, have user
-request to collaborate on another users repo, make a - Let the pair switch off
+syntax highlighting structure of repo
+make one for each user, have user
+request to collaborate on another users repo, make a
+Let the pair switch off
 whenever they want if one person is getting tired or stuck or wants a chill
 break to be hanging out more passively in the background maybe include and
 automated metric on how 'in flow' the person is, and hardcode three files
-suggest a change if it drops below a certain point - testing / checkin / issues
-madeye.io meteor // testing manual velocity // testing solution - also case
+suggest a change if it drops below a certain point
+testing / checkin / issues
+madeye.io meteor // testing manual velocity // testing solution
+also case
 study from Mythical Man Month of surgeon + multiple assistants model of
-programming. - look into using the promise library ql. the sharejs template
+programming.
+look into using the promise library ql. the sharejs template
 creates a new doc for it when you press the new button, but you can do this
-automatically, with the model.create from sharejs. - a distributed task - 1
-pilot, 4 copilots - idea: maybe also include option to make a PR or be a
-collaborator - \_pick your data as to not bloat the database - future: create a
-new repo with the api - creating an issue on this repo, could be helpful to
-PROF - in the future, you could create pull requests instead of linking to the
+automatically, with the model.create from sharejs.
+a distributed task 1 pilot, 4 copilots
+idea: maybe also include option to make a PR or be a
+collaborator
+\_pick your data as to not bloat the database
+future: create a new repo with the api
+creating an issue on this repo, could be helpful to
+PROF
+in the future, you could create pull requests instead of linking to the
 collaborators page.
 
 
@@ -163,6 +181,7 @@ add params to field
 confirm on load codepilot
 choose target from list of on github
 pilot sees tasks and issues, can close issues.
+make tasks more clickable (hover)
 doesnt see the testing frame tho, git vsc
 copilot sees tasks issues, can't close tho
 manages version control from the site
