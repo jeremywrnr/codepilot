@@ -12,11 +12,11 @@ asrt = function(a,b){ if (debug && a !== b)
 Meteor.publish('repos', function(userId) { // only serve writable repos
   return Repos.find({users: userId});
 });
-Meteor.publish('commits', function(repoId, branchName) { // serve b+r commits
-  return Commits.find({repo: repoId, branch: branchName});
+Meteor.publish('commits', function(repoId, branch) { // serve b+r commits
+  return Commits.find({repo: repoId, branch: branch});
 });
-Meteor.publish('files', function(repoId) { // only serve repo files
-  return Files.find({repo: repoId});
+Meteor.publish('files', function(repoId) { // only serve b+r files
+  return Files.find({repo: repoId, branch: branch});
 });
 Meteor.publish('messages', function(repoId) { // only serve repo msgs
   return Messages.find({repo: repoId});

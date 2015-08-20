@@ -5,10 +5,13 @@ TODOS
 branching functionality
     having multiple versions of files
     not loading for some reason?
+    feeditems for current branch
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
-only owner can add a collaborator: add option
+users pane:
+    only owner can add a collaborator: add option
+    also show what branch the collabs are working on
 
 
 ## UI / UX

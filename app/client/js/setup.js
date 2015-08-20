@@ -14,12 +14,13 @@ Tracker.autorun(function() {
     Meteor.subscribe('repos', Meteor.userId());
     if (Meteor.user().profile.repo) {
       var repoId = Meteor.user().profile.repo;
-      var branch = Meteor.user().profile.repoBranch;
-      Meteor.subscribe('files', repoId);
       Meteor.subscribe('tasks', repoId);
       Meteor.subscribe('issues', repoId);
-      Meteor.subscribe('commits', repoId, branch);
       Meteor.subscribe('messages', repoId);
+
+      var branch = Meteor.user().profile.repoBranch;
+      Meteor.subscribe('files', repoId, branch);
+      Meteor.subscribe('commits', repoId, branch);
     }
   }
 });

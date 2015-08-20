@@ -12,6 +12,7 @@ Files = new Mongo.Collection('files'); // used with github
 
 /*  _id - unique identifier, same as Doc._id
     repo - unique identifier of repo file belongs to
+    branch - name of the branch it is from
     title - name of the file
     content - content of the file
     */

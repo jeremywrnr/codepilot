@@ -17,7 +17,8 @@ Meteor.methods({
     Files.insert(
       {
         title: ft,
-        repo: Meteor.user().profile.repo
+        repo: Meteor.user().profile.repo,
+        branch: Meteor.user().profile.repoBranch
       },
       function(err, id) { // create sharejs document with same id
         if(!err)
