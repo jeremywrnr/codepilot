@@ -16,15 +16,16 @@ Meteor.methods({
 
   getAllRepos: function() { // put them in db, serve to user (not return)
     Meteor.call('ghAuth'); // auth for getting all pushable repos
+    var uid = Meteor.userId(); // userID, used below
     var repos = github.repos.getAll({ user: Meteor.user().profile.login });
     repos.map(function attachUser(gr){ // attach user to git repo (gr)
 
       var repo = Repos.findOne({ id: gr.id });
       if (repo) { // repo already exists
 
-        var attached = Repos.find(repo._id, { users: Meteor.userId() });
+        var attached = (repo.users.indexOf() > -1);
         if (! attached)// not attached, push user to collaborators
-          Repos.update(repoId, {$push: {users: Meteor.userId() }});
+          Repos.update(repo._id, {$push: {users: uid }});
 
       } else { // brand new repo, just insert.
         Repos.insert({ id: gr.id, users: [ Meteor.userId() ], repo: gr });
