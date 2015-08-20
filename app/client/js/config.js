@@ -3,16 +3,7 @@
 Template.config.helpers({
 
   users: function() { // give all CP project collaborators
-    var repo = Repos.findOne(Meteor.user().profile.repo);
-    if (repo) { // a repo has been selected so far
-      return repo.users.map(function(uid){ // user id
-        var user = Meteor.users.findOne(uid);
-        if (user)
-          return user.profile;
-        else
-          return {login: uid}; // hacky - way to access collabs?
-      });
-    }
+      return Session.get('collabs');
   },
 
   repos: function() {
@@ -49,6 +40,11 @@ Template.config.events({
   'click .showUsers': function(e) { // show the repos registered users
     e.preventDefault();
     Session.set('focusPane', 'users');
+    var uids = Repos.findOne( Meteor.user().profile.repo ).users;
+    if (uids)
+      Meteor.call('getCollabs', uids, function setCollabs(err, dat) {
+        Session.set('collabs', dat);
+      });
   },
 
   'click .repoSelect': function(e) { // show the available repos

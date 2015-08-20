@@ -309,6 +309,15 @@ Meteor.methods({
     });
   },
 
+  getCollabs: function(uids) { // get a users profile based on their id
+    //http://stackoverflow.com/questions/10677491/how-to-get-meteor-call-to-return-value-for-template
+    return uids.map(function(uid){
+      var user = Meteor.users.findOne(uid);
+      if (user) return user.profile;
+    });
+  },
+
+
 
 
   ///////////////////////////
