@@ -10,7 +10,7 @@ Meteor.methods({
   //////////////////
 
   addMessage: function (msg) { // add a generic message to the activity feed
-    if (msg.value !== '') {
+    if (msg.length) {
       Messages.insert({
         owner: Meteor.userId(),
         repo: Meteor.user().profile.repo,

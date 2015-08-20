@@ -1,6 +1,9 @@
 TODOS
 =====
 
+closing an issue on github should close on codepilot
+    get all issues, hide closed button
+    move reload to individual item
 branching functionality
     top item in branch select is make new branch
     creating + selecting new branch
@@ -29,7 +32,6 @@ refactor issue posting as well
 checking upsert issues correctly?
 implement system testing? velocity
 refactor github.js-getblobs() plz
-closing an issue on github should close on codepilot
 maybe including the log data in the rendered issue view
 github api syncing
     why does it need to two calls to populate sjs docs?
@@ -120,6 +122,7 @@ feed notifys on issues
 only give user the user things related to their repo
 only add to collaborators if not on list
 generating shared session links - done with unique repo ids
+dont allow a feed message that is just whitespace
 loading a repos content, commit history
 reconfigure public only repos
 better change branch handling - not loading commits

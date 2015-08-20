@@ -5,9 +5,9 @@ Template.chatter.events = {
   'keydown input#message': function(e) {
     if (e.which === 13) { // 'enter' keycode recieved
       var msg = $('input#message')[0];
-      Meteor.call('addMessage', msg.value);
+      Meteor.call('addMessage', jQuery.trim(msg.value));
       msg.value = ''; // purge the old message
-      // scroll to the bottom of the feed - my beloved JQ.
+      // scroll to the bottom of the feed
       $('#feed').stop().animate({ scrollTop: $("#feed")[0].scrollHeight }, 500);
     }
   }
