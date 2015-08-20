@@ -2,6 +2,16 @@
 
 Template.config.helpers({
 
+  users: function() { // give all CP project collaborators
+    var repo = Repos.findOne(Meteor.user().profile.repo);
+    if (repo) { // a repo has been selected so far
+      return repo.users.map(function(uid){ // user id
+        var user = Meteor.users.findOne(uid);
+        if (user) return user.profile;
+      });
+    }
+  },
+
   repos: function() {
     return Repos.find({}, {sort: {'repo.owner': -1, 'repo.name': 1}} );
   },
@@ -17,36 +27,42 @@ Template.config.helpers({
       return [];
   },
 
+  userShowing: function() {
+    return Session.equals('focusPane', 'users');
+  },
+
   repoSelecting: function() {
-    return Session.get('repoSelecting');
+    return Session.equals('focusPane', 'repo');
   },
 
   branchSelecting: function() {
-    return Session.get('branchSelecting');
+    return Session.equals('focusPane', 'branch');
   },
 
 });
 
 Template.config.events({
 
-  'click .repoSelect': function(e) { // show the available repos
+  'click .showUsers': function(e) { // show the repos registered users
     e.preventDefault();
-    Session.set('repoSelecting', true);
+    Session.set('focusPane', 'users');
   },
 
-  'click .repoCancel': function(e) { // hide the available repos
+  'click .repoSelect': function(e) { // show the available repos
     e.preventDefault();
-    Session.set('repoSelecting', false);
+    Session.set('focusPane', 'repo');
   },
 
   'click .branchSelect': function(e) { // show the available branches
     e.preventDefault();
-    Session.set('branchSelecting', true);
+    Session.set('focusPane', 'branch');
   },
 
-  'click .branchCancel': function(e) { // hide the available branches
+  'click .unfocus': function(e) { // hide the available repos
     e.preventDefault();
-    Session.set('branchSelecting', false);
+    Session.set('focusPane', null);
+    Session.set('branching', false);
+    Session.set('forking', false);
   },
 
   'click .makePilot': function(e) {
@@ -59,7 +75,7 @@ Template.config.events({
     Meteor.call('setCopilot');
   },
 
-  'click .loadGHData': function(e) {
+  'click .loadGHData': function(e) { // load in repos from github
     e.preventDefault();
     Meteor.call('getAllRepos');
   }
@@ -108,6 +124,46 @@ Template.forkRepo.events({
 
 
 
+// make branch forking work as well
+
+Template.newBranch.helpers({
+
+  branching: function() {
+    return Session.get('branching');
+  },
+
+  currentBranch: function() {
+    return Meteor.user().profile.repoBranch;
+  },
+
+});
+
+Template.newBranch.events({
+
+  'click .newBranch': function(e) { // display the branching code box
+    e.preventDefault();
+    Session.set('branching', true);
+    focusForm('#brancher');
+  },
+
+  'submit .brancher': function(e) { // fork and load a repo into code pilot
+    e.preventDefault();
+    $(e.target).blur(); // parse string arg for user, repo
+    var branchName = JQuery.trim( $('#brancher')[0].value );
+    // TODO: check if existing branch, deny
+    if (branchName.length == 0) return false;
+    //Meteor.call('newBranch', branchName);
+    Session.set('branching', false);
+  },
+
+  'click .cancelBranch': function(e) {
+    Session.set('branching', false);
+  },
+
+});
+
+
+
 // existing git repo and branch handling
 
 Template.repo.events({
@@ -127,7 +183,7 @@ Template.branch.events({
 
   'click .branch': function(e) {
     Meteor.call('setBranch', this.name);
-    Session.set('branchSelecting', false); // hide the available branches
+    Session.set('focusPane', null); // hide the available branches
   }
 
 });

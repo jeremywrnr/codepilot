@@ -14,8 +14,19 @@
           <ul class='list-group nomargin'>
 
             <li class='list-group-item'>
+              {{#if userShowing}}
+              <button class='btn btn-xs del pull-right unfocus'> hide </button>
+              {{else}}
+              <button class='btn btn-xs grn pull-right showUsers'> users</button>
+              {{/if}}
               project id: {{ currentUser.profile.repo }}
             </li>
+
+            {{#if userShowing}}
+            {{#each users}}
+            {{> user}}
+            {{/each}}
+            {{/if}}
 
             <li class='list-group-item'>
               <button class='loadGHData grn btn btn-xs pull-right'>refresh</button>
@@ -26,7 +37,7 @@
 
             <li class='list-group-item'>
               {{#if repoSelecting}}
-              <button class='btn btn-xs del pull-right repoCancel'> cancel </button>
+              <button class='btn btn-xs del pull-right unfocus'> cancel </button>
               {{else}}
               <button class='btn btn-xs grn pull-right loadGHData repoSelect'> choose </button>
               {{/if}}
@@ -44,7 +55,7 @@
 
             <li class='list-group-item'>
               {{#if branchSelecting}}
-              <button class='btn btn-xs del pull-right branchCancel'> cancel </button>
+              <button class='btn btn-xs del pull-right unfocus'> cancel </button>
               {{else}}
               <button class='btn btn-xs grn pull-right branchSelect'> choose </button>
               {{/if}}
@@ -54,6 +65,7 @@
             </li>
 
             {{#if branchSelecting}}
+            {{> newBranch }}
             {{#each branches}}
             {{> branch}}
             {{/each}}
@@ -121,7 +133,39 @@
   {{/if}}
 </template>
 
+<template name='newBranch'>
+  {{#if branching}}
 
+  <button class='list-group-item'>
+    <div class='alert alert-success nomargin'>
+      <div class='input-group'>
+        <form class='brancher'>
+          <input placeholder='enter the new branch name...' id='brancher'
+          class='form-control' type='text' name='title' value=''>
+        </form>
+        <span class='input-group-btn'>
+          <button type='button' class='btn btn-default del cancelBranch'>cancel</button>
+        </span>
+      </div>
+    </div>
+  </button>
+
+  {{else}}
+
+  <button class='list-group-item newBranch'>
+    <div class='wider grn btn btn-lg newBranch'> make new branch from {{ currentBranch }}</div>
+  </button>
+
+  {{/if}}
+</template>
+
+
+
+<template name='user'>
+  <button class='list-group-item repo'> {{ login }}
+    <div class='pull-right'> {{ role }} </div>
+  </button>
+</template>
 
 <template name='repo'>
   <button class='list-group-item repo'> {{ repo.full_name }} </button>

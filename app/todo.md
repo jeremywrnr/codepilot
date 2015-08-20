@@ -1,6 +1,7 @@
 TODOS
 =====
 
+
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
@@ -8,12 +9,14 @@ branching functionality
     top item in branch select is make new branch
     creating + selecting new branch
     having multiple versions of files
+only owner can add a collaborator: add option
 
 
 ## UI / UX
 
 null feed marker
 null issuer marker
+on test: set session.focused var, cant have more than one open
 hide feedback system after submitting
 project id- show collaborators button
 tester is reloading really slowly...
@@ -30,6 +33,7 @@ refactor upserts with $set
 
 ## SERVER
 
+less aggresively reset branch to master
 commit links to rendered view
 refactor issue posting as well
 checking upsert issues correctly?
@@ -43,7 +47,6 @@ github api syncing
 load file from github only on click?? reduce api calls
     get current commit sha, then tree sha, then blob, then load into sharejs doc
 increase commit history to 100 (per page, in github.js)
-only owner can add a collaborator: add option
 standardize server method names, documents
 autoload repos after creating an account
 deleting / renaming files with github
