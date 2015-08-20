@@ -23,8 +23,8 @@ Meteor.methods({
       var repo = Repos.findOne({ id: gr.id });
       if (repo) { // repo already exists
 
-        var attached = (repo.users.indexOf() > -1);
-        if (! attached)// not attached, push user to collaborators
+        var attached = (repo.users.indexOf( uid ) > -1);
+        if (! attached) // not attached, push user to collaborators
           Repos.update(repo._id, {$push: {users: uid }});
 
       } else { // brand new repo, just insert.
@@ -66,7 +66,7 @@ Meteor.methods({
   },
 
   getBranches: function(gr) { // update all branches for repo
-     return github.repos.getBranches({
+    return github.repos.getBranches({
       user: gr.repo.owner.login,
       repo: gr.repo.name
     });
@@ -100,9 +100,9 @@ Meteor.methods({
         });
         // $set component instead of creating a new object
         Files.upsert( //TODO - handle renaming things?
-          { repo: Meteor.user().profile.repo, title: b.path},
-          { $set: {content: oldcontent}}
-        );
+                     { repo: Meteor.user().profile.repo, title: b.path},
+                     { $set: {content: oldcontent}}
+                    );
       };
     });
   },
@@ -115,12 +115,14 @@ Meteor.methods({
 
   postLabel: function(){ // used in repo initing - create codepilot issue label
     Meteor.call('ghAuth');
-    return github.issues.createLabel({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      name: 'codepilot',
-      color: '000000' // set the codepilot label color black for this repo
-    });
+    try {
+      return github.issues.createLabel({
+        user: Meteor.user().profile.repoOwner,
+        repo: Meteor.user().profile.repoName,
+        name: 'codepilot',
+        color: '000000' // set the codepilot label color black for this repo
+      });
+    } catch (e) { /* label already exists - that is fine */ }
   },
 
   postIssue: function(issue){ // takes feedback issue, creates GH issue
@@ -152,7 +154,7 @@ Meteor.methods({
     return github.gitdata.createReference({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      ref: 'heads/' + branch, // new branch name
+      ref: 'refs/heads/' + branch, // new branch name
       sha: parent, // sha hash of parent
     });
   },

@@ -58,6 +58,8 @@ Template.config.events({
 
   'click .branchSelect': function(e) { // show the available branches
     e.preventDefault();
+    var repo = Repos.findOne(Meteor.user().profile.repo);
+    if (repo) Meteor.call('initBranches', repo); // get all possible branches
     Session.set('focusPane', 'branch');
   },
 
@@ -159,6 +161,7 @@ Template.newBranch.events({
     if (branchName.length == 0) return false;
     Meteor.call('newBranch', branchName);
     Session.set('branching', false);
+    Session.set('focusPane', null);
   },
 
   'click .cancelBranch': function(e) {
@@ -177,12 +180,13 @@ Template.repo.events({
     Meteor.call('setRepo', this); // set the active project / repo
     Meteor.call('initBranches', this); // get all the possible branches
     Meteor.call('initCommits'); // pull commit history for this repo
-    var branch = Meteor.user().profile.repoBranch || this.repo.default_branch;
+    var branch = this.repo.default_branch;
     Meteor.call('loadHead', branch); // load the head of this branch into CP
     Meteor.call('postLabel'); // register codepilot label for new repo
     var branch = Meteor.user().profile.repoBranch || this.repo.default_branch;
     Meteor.call('loadHead', branch); // TRY AGAIN!!! Y U NO WORK :(
     Session.set('focusPane', null); // hide the available repos
+    Meteor.call('setBranch', this.repo.default_branch);
   }
 
 });

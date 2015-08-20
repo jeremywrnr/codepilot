@@ -95,7 +95,7 @@ Meteor.methods({
 
   addIssue: function(feedback){ // adds a feedback issue to github
 
-    feedback.imglink = Async.runSync(function(done){ // save screenshot, give id
+    feedback.imglink = Async.runSync(function(done) { // save screens, give id
       Screens.insert({img: feedback.img}, function(err, id){
         done(err, id);
       });
@@ -233,18 +233,19 @@ Meteor.methods({
   // other helper functions - TODO: better docs for deezzzzzzz
   /////////////////////////////////////////////////////////////
 
-  newBranch: function(bn) { // create a new branch for this repo from branchname (bn)
-    var parent = Meteor.call('getBranch', bn).commit.sha;
+  newBranch: function(bn) { // create a new branch from branchname (bn)
+    var repo = Repos.findOne(Meteor.user().profile.repo);
+    var branch = Meteor.user().profile.repoBranch;
+    var parent = Meteor.call('getBranch', branch).commit.sha;
     var newBranch = Meteor.call('postBranch', bn, parent);
-    if (newBranch) Meteor.call('setBranch', bn);
+    Meteor.call('initBranches', repo);
+    Meteor.call('setBranch', bn);
   },
 
   initBranches: function(gr) { // get all branches for this repo
     // for the current repo, just overwrite branches with new
     var brs = Meteor.call('getBranches', gr); // res from github
-    Repos.update({ id: gr.repo.id },{ $set: {branches: brs }});
-    if (!Meteor.user().profile.repoBranch) // set default br
-      Meteor.call('setBranch', gr.repo.default_branch);
+    Repos.update(gr._id, { $set: {branches: brs }});
   },
 
   initCommits: function() { // re-populating the commit log

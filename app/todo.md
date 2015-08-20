@@ -3,8 +3,8 @@ TODOS
 
 
 branching functionality
-    creating + selecting new branch
     having multiple versions of files
+    not loading for some reason?
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
@@ -181,6 +181,7 @@ iframes custom javascript logger output
 attach links for reference to file issue
 make message box look nicer
 add params to field
+creating + selecting new branch
 confirm on load codepilot
 choose target from list of on github
 pilot sees tasks and issues, can close issues.
