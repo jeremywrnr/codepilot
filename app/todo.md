@@ -3,10 +3,8 @@ TODOS
 
 
 branching functionality
-    having multiple versions of files
-    not loading for some reason?
-    feeditems for current branch
     load files on branch select
+    feed items for switching branches
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
@@ -17,8 +15,6 @@ users pane:
 
 ## UI / UX
 
-null feed marker
-null issuer marker
 on test: set session.focused var, cant have more than one open
 hide feedback system after submitting
 project id- show collaborators button
@@ -181,6 +177,7 @@ tuneup feedback renderer panes
 deleting and renaming button (NOW DOES) work
 make a new task also adds an item to feed
 test/fix get repo production errors
+null feed marker
 chat: only show initials for briefness?
 iframes custom javascript logger output
 ## guo meeting - time for MS visits? 11am
@@ -235,6 +232,8 @@ clean up css duplication rules
 better iframe: responsive js, document.onready
 squash preforked git history
 make the chat list nicer
+having multiple versions of files
+not loading for some reason?
 posting github issues
 exact parsing needs cleaning on add issue
 attach a codepilot label to issue
@@ -254,5 +253,6 @@ show project id
 default repo string is suggestions.
 fix loggedout homepage
 closing github issues
+null issuer marker
 link addition in tasks
 -->

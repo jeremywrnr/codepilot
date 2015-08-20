@@ -19,10 +19,13 @@
 <template name='messages'>
   <div class='well well-sm nomargin'>
     <ul id='feed' class='nav sidelist'>
+      {{#if messageCount}}
       {{#each messages}}
       <li> <strong>{{name}}:</strong> {{{linkd}}} </li>
       {{/each}}
-      <!--{{#if messages.count}} {{else}} <li> quiet so far. </li> {{/if}}-->
+      {{else}}
+      <li> quiet so far. </li>
+      {{/if}}
     </ul>
   </div>
 </template>

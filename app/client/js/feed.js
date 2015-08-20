@@ -16,12 +16,16 @@ Template.chatter.events = {
 
 Template.messages.helpers({
 
+  messageCount: function() { // linkify and return feed items
+    return Messages.find({}).count();
+  },
+
   messages: function() { // linkify and return feed items
     var feed = Messages.find({}, {sort: {time: 1}});
     return feed.map(function(msg){
       msg.linkd = linkifyStr(msg.message);
       return msg;
     });
-  }
+  },
 
 });

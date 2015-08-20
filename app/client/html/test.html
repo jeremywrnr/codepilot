@@ -32,9 +32,13 @@
         <input id='task-name' type='text' class='form-control' placeholder='add a task...' />
       </form>
       <ul class='list-group nomargin'>
+        {{#if taskCount}}
         {{#each tasks}}
         {{> task}}
         {{/each}}
+        {{else}}
+        <button class='list-group-item'> no tasks yet. </button>
+        {{/if}}
       </ul>
     </div>
   </div>
@@ -78,9 +82,13 @@
     </div>
     <div class='panel-body'>
       <ul class='list-group nomargin'>
+        {{#if issueCount}}
         {{#each issues }}
         {{> issue }}
         {{/each}}
+        {{else}}
+        <button class='list-group-item issue'> no issues yet. </button>
+        {{/if}}
       </ul>
     </div>
   </div>
