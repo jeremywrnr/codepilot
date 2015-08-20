@@ -11,11 +11,13 @@ closing an issue on github should close on codepilot
 users pane:
     only owner can add a collaborator: add option
     also show what branch the collabs are working on
+doing a diff match path before commit, locally
 
 
 ## UI / UX
 
 on test: set session.focused var, cant have more than one open
+check if a user was last collaborating before showing them
 hide feedback system after submitting
 project id- show collaborators button
 tester is reloading really slowly...

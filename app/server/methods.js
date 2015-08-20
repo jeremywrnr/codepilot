@@ -309,11 +309,13 @@ Meteor.methods({
     });
   },
 
-  getCollabs: function(uids) { // get a users profile based on their id
-    //http://stackoverflow.com/questions/10677491/how-to-get-meteor-call-to-return-value-for-template
+  //http://stackoverflow.com/questions/10677491/how-to-get-meteor-call-to-return-value-for-template
+  getCollabs: function(repoId, uids) { // get a users profile based on their id
     return uids.map(function(uid){
       var user = Meteor.users.findOne(uid);
-      if (user) return user.profile;
+      if (user.profile.repo === repoId) { // only return users currently working on project
+        return user.profile;
+      }
     });
   },
 

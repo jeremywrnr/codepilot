@@ -3,7 +3,7 @@
 Template.config.helpers({
 
   users: function() { // give all CP project collaborators
-      return Session.get('collabs');
+    return Session.get('collabs');
   },
 
   repos: function() {
@@ -41,10 +41,11 @@ Template.config.events({
     e.preventDefault();
     Session.set('focusPane', 'users');
     var uids = Repos.findOne( Meteor.user().profile.repo ).users;
-    if (uids)
+    if (uids){
       Meteor.call('getCollabs', uids, function setCollabs(err, dat) {
         Session.set('collabs', dat);
       });
+    }
   },
 
   'click .repoSelect': function(e) { // show the available repos
@@ -173,16 +174,31 @@ Template.newBranch.events({
 Template.repo.events({
 
   'click .repo': function(e) {
-    Meteor.call('setRepo', this); // set the active project / repo
-    Meteor.call('initBranches', this); // get all the possible branches
-    Meteor.call('initCommits'); // pull commit history for this repo
-    var branch = this.repo.default_branch;
-    Meteor.call('loadHead', branch); // load the head of this branch into CP
-    Meteor.call('postLabel'); // register codepilot label for new repo
-    var branch = Meteor.user().profile.repoBranch || this.repo.default_branch;
-    Meteor.call('loadHead', branch); // TRY AGAIN!!! Y U NO WORK :(
-    Session.set('focusPane', null); // hide the available repos
-    Meteor.call('setBranch', this.repo.default_branch);
+    // check if they clicked on a new repo
+    var oldOwner = Meteor.user().profile.repoOwner;
+    var oldName = Meteor.user().profile.repoName;
+    var oldFull = oldOwner + '/' + oldName;
+    if(oldOwner === this.repo.owner.login && oldName === this.repo.name){
+      // they clicked on a repo they were already working on
+      var branch = Meteor.user().profile.repoBranch || this.repo.default_branch;
+      Meteor.call('loadHead', branch); // TRY AGAIN!!! Y U NO WORK :(
+      Session.set('focusPane', null); // hide the available repos
+
+    } else { // they clicked on a new repo - load it
+      Meteor.call('addMessage', 'stopped working on repo - ' + oldFull);
+      Meteor.call('setRepo', this); // set the active project / repo
+      Meteor.call('initBranches', this); // get all the possible branches
+      Meteor.call('initCommits'); // pull commit history for this repo
+      var branch = this.repo.default_branch;
+      Meteor.call('loadHead', branch); // load the head of this branch into CP
+      Meteor.call('postLabel'); // register codepilot label for new repo
+      var branch = Meteor.user().profile.repoBranch || this.repo.default_branch;
+      Meteor.call('loadHead', branch); // TRY AGAIN!!! Y U NO WORK :(
+      Session.set('focusPane', null); // hide the available repos
+      Meteor.call('setBranch', this.repo.default_branch);
+      var newFull = this.repo.owner.login + '/' + this.repo.name;
+      Meteor.call('addMessage', 'started working on repo - ' + newFull);
+    }
   }
 
 });
