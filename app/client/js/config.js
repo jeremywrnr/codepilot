@@ -42,8 +42,8 @@ Template.config.events({
     Session.set('focusPane', 'users');
     var uids = Repos.findOne( Meteor.user().profile.repo ).users;
     if (uids){
-      Meteor.call('getCollabs', uids, function setCollabs(err, dat) {
-        Session.set('collabs', dat);
+      Meteor.call('getCollabs', uids, function setCollabs(err, users) {
+        Session.set('collabs', users); // show off your collaborators
       });
     }
   },
@@ -173,43 +173,21 @@ Template.newBranch.events({
 
 Template.repo.events({
 
-  'click .repo': function(e) {
-    // check if they clicked on a new repo
-    var oldOwner = Meteor.user().profile.repoOwner;
-    var oldName = Meteor.user().profile.repoName;
-    var oldFull = oldOwner + '/' + oldName;
-    if(oldOwner === this.repo.owner.login && oldName === this.repo.name){
-      // they clicked on a repo they were already working on
-      var branch = Meteor.user().profile.repoBranch || this.repo.default_branch;
-      Meteor.call('loadHead', branch); // TRY AGAIN!!! Y U NO WORK :(
-      Session.set('focusPane', null); // hide the available repos
-
-    } else { // they clicked on a new repo - load it
-      Meteor.call('addMessage', 'stopped working on repo - ' + oldFull);
-      Meteor.call('setRepo', this); // set the active project / repo
-      Meteor.call('initBranches', this); // get all the possible branches
-      Meteor.call('initCommits'); // pull commit history for this repo
-      var branch = this.repo.default_branch;
-      Meteor.call('loadHead', branch); // load the head of this branch into CP
-      Meteor.call('postLabel'); // register codepilot label for new repo
-      var branch = Meteor.user().profile.repoBranch || this.repo.default_branch;
-      Meteor.call('loadHead', branch); // TRY AGAIN!!! Y U NO WORK :(
-      Session.set('focusPane', null); // hide the available repos
-      Meteor.call('setBranch', this.repo.default_branch);
-      var newFull = this.repo.owner.login + '/' + this.repo.name;
-      Meteor.call('addMessage', 'started working on repo - ' + newFull);
-    }
+  'click .repo': function(e) { // load a different repo into codepilot
+    if (Meteor.user().profile.repo !== this._id)
+      Meteor.call('loadRepo', this);
+    Session.set('focusPane', null);
   }
 
 });
 
 Template.branch.events({
 
-  'click .branch': function(e) {
-    Meteor.call('setBranch', this.name);
-    Meteor.call('initCommits'); // pull commit history for this repo
-    Meteor.call('loadHead', this.name); // load the head of this branch into CP
-    Session.set('focusPane', null); // hide the available branches
+  'click .branch': function(e) { // load a different branch into codepilot
+    if (Meteor.user().profile.repoBranch !== this.name) {
+      Meteor.call('loadBranch', this.name);
+      Session.set('focusPane', null);
+    }
   }
 
 });

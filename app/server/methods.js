@@ -131,7 +131,8 @@ Meteor.methods({
     var jslink = 'js:\n```js\n' + feedback.js + '\n```\n';
     feedback.body = imglink + livelink + htmllink + csslink + jslink;
 
-    var issue = Meteor.call('postIssue', feedback); //github
+    // post the issue to github, and get the GH generated content
+    var issue = Meteor.call('postIssue', feedback);
     var ghIssue = { // the entire issue object
       _id: issueId,
       ghid: issue.id // (from github)
@@ -140,10 +141,13 @@ Meteor.methods({
       issue: issue // returned from github call
     };
 
-      // insert complete issue, and add it to the feed
-      Issues.update(issueId, ghIssue);
-      Meteor.call('addUserMessage', feedback.user,
-                  'opened issue - ' + feedback.note);
+    // insert complete issue, and add it to the feed
+    Issues.update(issueId, ghIssue);
+    Meteor.call(
+      'addUserMessage',
+      feedback.user,
+      'opened issue - ' + feedback.note
+    );
   },
 
   closeIssue: function(issue){ // close an issue on github by number
