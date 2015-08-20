@@ -184,10 +184,9 @@ Template.repo.events({
 Template.branch.events({
 
   'click .branch': function(e) { // load a different branch into codepilot
-    if (Meteor.user().profile.repoBranch !== this.name) {
+    if (Meteor.user().profile.repoBranch !== this.name)
       Meteor.call('loadBranch', this.name);
-      Session.set('focusPane', null);
-    }
+    Session.set('focusPane', null);
   }
 
 });

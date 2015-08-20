@@ -135,7 +135,7 @@ Meteor.methods({
     var issue = Meteor.call('postIssue', feedback);
     var ghIssue = { // the entire issue object
       _id: issueId,
-      ghid: issue.id // (from github)
+      ghid: issue.id, // (from github)
       repo: feedback.repo, // attach repo forming data
       feedback: feedback, // attach feedback issue data
       issue: issue // returned from github call

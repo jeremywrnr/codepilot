@@ -96,14 +96,14 @@ Meteor.methods({
   loadRepo: function(gr) { // load a repo into code pilot
     Meteor.call('setRepo', gr); // set the active project / repo
     Meteor.call('initBranches', gr); // get all the possible branches
-    Meteor.call('initCommits'); // pull commit history for gr repo
     var branch = gr.repo.default_branch;
+    Meteor.call('setBranch', branch); // set branch
+    Meteor.call('initCommits'); // pull commit history for gr repo
     Meteor.call('loadHead', branch); // load the head of gr branch into CP
     Meteor.call('postLabel'); // register codepilot label for new repo
-    Meteor.call('loadHead', branch); // TRY AGAIN!!! Y U NO WORK :(
-    Meteor.call('setBranch', gr.repo.default_branch);
-    var newFull = gr.repo.owner.login + '/' + gr.repo.name;
-    Meteor.call('addMessage', 'started working on repo - ' + newFull);
+    Meteor.call('loadHead', branch); // TODO: why is double loading needed?
+    var full = gr.repo.owner.login + '/' + gr.repo.name;
+    Meteor.call('addMessage', 'started working on repo - ' + full);
   },
 
   setRepo: function(gr) { // set git repo & default branch
@@ -121,6 +121,7 @@ Meteor.methods({
     Meteor.call('setBranch', bn); // set branch for current user
     Meteor.call('initCommits'); // pull commit history for this repo
     Meteor.call('loadHead', bn); // load the head of this branch into CP
+    Meteor.call('addMessage', 'started working on branch - ' + bn);
   },
 
   setBranch: function(bn) { // set branch name
