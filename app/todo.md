@@ -2,13 +2,12 @@ TODOS
 =====
 
 
+branching functionality
+    creating + selecting new branch
+    having multiple versions of files
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
-branching functionality
-    top item in branch select is make new branch
-    creating + selecting new branch
-    having multiple versions of files
 only owner can add a collaborator: add option
 
 
@@ -125,6 +124,7 @@ handle null filename better
 sorting files alphabetically
 show which commit owner
 make welcome template seperate, less wide
+top item in branch select is make new branch
 deliver resources based on active repo
 reduce margins, make better use of space
 push new commit to local db after github

@@ -7,7 +7,10 @@ Template.config.helpers({
     if (repo) { // a repo has been selected so far
       return repo.users.map(function(uid){ // user id
         var user = Meteor.users.findOne(uid);
-        if (user) return user.profile;
+        if (user)
+          return user.profile;
+        else
+          return {login: uid}; // hacky - way to access collabs?
       });
     }
   },
