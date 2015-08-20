@@ -149,10 +149,13 @@ Template.newBranch.events({
   'submit .brancher': function(e) { // fork and load a repo into code pilot
     e.preventDefault();
     $(e.target).blur(); // parse string arg for user, repo
-    var branchName = JQuery.trim( $('#brancher')[0].value );
+    var branchName = $.trim( $('#branchNamer')[0].value );
     // TODO: check if existing branch, deny
+    // TODO: check for illegal branchnames
+    // http://stackoverflow.com/questions/3651860/which-characters-are-illegal-within-a-branch-name
     if (branchName.length == 0) return false;
     //Meteor.call('newBranch', branchName);
+    console.log(branchName);
     Session.set('branching', false);
   },
 

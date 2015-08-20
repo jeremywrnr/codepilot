@@ -26,7 +26,7 @@ Template.commitPanel.events = {
     var msg = $('#commitMsg')[0].value;
     if (msg == null || msg == '') return false;
     Session.set('committing', false);
-    Meteor.call('makeCommit', msg);
+    Meteor.call('newCommit', msg);
   },
 
   'click .cancelCommit': function(e) {

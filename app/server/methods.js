@@ -163,7 +163,7 @@ Meteor.methods({
   // top level function, grab files and commit to github
   ////////////////////////////////////////////////////////
 
-  makeCommit: function(msg) { // grab sjs contents, commit to github
+  newCommit: function(msg) { // grab sjs contents, commit to github
 
     // getting file ids, names, and content
     var files = Files.find({repo: Meteor.user().profile.repo}).map(
