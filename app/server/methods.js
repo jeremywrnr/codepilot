@@ -233,6 +233,10 @@ Meteor.methods({
   // other helper functions - TODO: better docs for deezzzzzzz
   /////////////////////////////////////////////////////////////
 
+  newBranch: function(bn) { // create a new branch for this repo from branchname (bn)
+    console.log(bn);
+  },
+
   initBranches: function(gr) { // get all branches for this repo
     // for the current repo, just overwrite branches with new
     var brs = Meteor.call('getBranches', gr); // res from github

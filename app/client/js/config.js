@@ -154,8 +154,7 @@ Template.newBranch.events({
     // TODO: check for illegal branchnames
     // http://stackoverflow.com/questions/3651860/which-characters-are-illegal-within-a-branch-name
     if (branchName.length == 0) return false;
-    //Meteor.call('newBranch', branchName);
-    console.log(branchName);
+    Meteor.call('newBranch', branchName);
     Session.set('branching', false);
   },
 
