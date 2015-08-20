@@ -98,13 +98,11 @@ Meteor.methods({
     var repo = Repos.findOne( Meteor.user().profile.repo );
     var issues = Meteor.call('getAllIssues', repo);
     issues.map(function(issue){
-      Issues.update({
+      Issues.upsert({
         repo: repo._id,
         ghid: issue.id // (from github)
       },{
         $set: {issue: issue},
-      },{
-        upsert: true
       });
     });
   },
@@ -133,17 +131,19 @@ Meteor.methods({
     var jslink = 'js:\n```js\n' + feedback.js + '\n```\n';
     feedback.body = imglink + livelink + htmllink + csslink + jslink;
 
+    var issue = Meteor.call('postIssue', feedback); //github
     var ghIssue = { // the entire issue object
       _id: issueId,
+      ghid: issue.id // (from github)
       repo: feedback.repo, // attach repo forming data
       feedback: feedback, // attach feedback issue data
-      issue: Meteor.call('postIssue', feedback) //github
+      issue: issue // returned from github call
     };
 
-    // insert complete issue, and add it to the feed
-    Issues.update(issueId, ghIssue);
-    Meteor.call('addUserMessage', feedback.user,
-                'opened issue - ' + feedback.note);
+      // insert complete issue, and add it to the feed
+      Issues.update(issueId, ghIssue);
+      Meteor.call('addUserMessage', feedback.user,
+                  'opened issue - ' + feedback.note);
   },
 
   closeIssue: function(issue){ // close an issue on github by number

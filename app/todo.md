@@ -4,13 +4,10 @@ TODOS
 
 branching functionality
     load files on branch select
-    feed items for switching branches
+    or not do this?? overwrites last
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
-users pane:
-    only owner can add a collaborator: add option
-    also show what branch the collabs are working on
 doing a diff match path before commit, locally
 
 
@@ -232,6 +229,7 @@ autofocus namefield on rename
 checking out cloud9, project import
 clean up css duplication rules
 better iframe: responsive js, document.onready
+feed items for switching branches
 squash preforked git history
 make the chat list nicer
 having multiple versions of files
@@ -257,4 +255,7 @@ fix loggedout homepage
 closing github issues
 null issuer marker
 link addition in tasks
+users pane:
+only owner can add a collaborator: add option
+also show what branch the collabs are working on
 -->
