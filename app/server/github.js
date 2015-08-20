@@ -146,11 +146,13 @@ Meteor.methods({
     }).sha; // beware!! - returns sha, not the entire post response
   },
 
-  postBranch: function(){ // make a new branch of the current repo
+  postBranch: function(branch, parent){ // make a new branch of the current repo
     Meteor.call('ghAuth');
-    return github.fork({
+    return github.gitdata.createReference({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
+      ref: 'heads/' + branch, // new branch name
+      sha: parent, // sha hash of parent
     });
   },
 

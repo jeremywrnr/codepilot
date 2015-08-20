@@ -174,9 +174,12 @@ Template.repo.events({
     Meteor.call('setRepo', this); // set the active project / repo
     Meteor.call('initBranches', this); // get all the possible branches
     Meteor.call('initCommits'); // pull commit history for this repo
-    Meteor.call('loadHead'); // load the head of this branch into CP
+    var branch = Meteor.user().profile.repoBranch || this.repo.default_branch;
+    Meteor.call('loadHead', branch); // load the head of this branch into CP
     Meteor.call('postLabel'); // register codepilot label for new repo
-    Session.set('repoSelecting', false); // hide the available repos
+    var branch = Meteor.user().profile.repoBranch || this.repo.default_branch;
+    Meteor.call('loadHead', branch); // TRY AGAIN!!! Y U NO WORK :(
+    Session.set('focusPane', null); // hide the available repos
   }
 
 });

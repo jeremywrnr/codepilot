@@ -234,14 +234,17 @@ Meteor.methods({
   /////////////////////////////////////////////////////////////
 
   newBranch: function(bn) { // create a new branch for this repo from branchname (bn)
-    console.log(bn);
+    var parent = Meteor.call('getBranch', bn).commit.sha;
+    var newBranch = Meteor.call('postBranch', bn, parent);
+    if (newBranch) Meteor.call('setBranch', bn);
   },
 
   initBranches: function(gr) { // get all branches for this repo
     // for the current repo, just overwrite branches with new
     var brs = Meteor.call('getBranches', gr); // res from github
     Repos.update({ id: gr.repo.id },{ $set: {branches: brs }});
-    Meteor.call('setBranch', gr.repo.default_branch) // set default br
+    if (!Meteor.user().profile.repoBranch) // set default br
+      Meteor.call('setBranch', gr.repo.default_branch);
   },
 
   initCommits: function() { // re-populating the commit log
