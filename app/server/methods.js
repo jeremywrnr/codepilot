@@ -226,10 +226,11 @@ Meteor.methods({
 
     // getting file ids, names, and content
     var files = Files.find({repo: Meteor.user().profile.repo}).map(
-      function getFile(f){
-        var shareJSDoc = Meteor.call('getShareJSDoc', f);
+      function getFile(file){ // also update the cached version
+        var shareJSDoc = Meteor.call('getShareJSDoc', file);
+        Files.update(file._id, {$set: {cache: file.content}});
         return {
-          path: f.title,
+          path: file.title,
           content: shareJSDoc.snapshot
         }
       }

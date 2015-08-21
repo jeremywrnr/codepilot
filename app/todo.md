@@ -5,12 +5,14 @@ TODOS
 ## UI / UX
 
 add a footer in for spacing in main template
+have a reset button next to file - remove unwanted changes
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
 test: set session.focused var, cant have more than one open
 hide feedback system after submitting
 a loading bar for the commit progress
+add a commit updates cached version
 
 
 ## SERVER
