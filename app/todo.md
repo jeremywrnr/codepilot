@@ -3,16 +3,20 @@ TODOS
 
 
 REFACTOR server/methods
+doing a diff match path before commit, locally
+    cache content for diff
+    install stringDiff lib
+    add a presentation format
+    view while writing commit msg
+collapse menu nav on shorten wideness
 
 
 ## UI / UX
 
-doing a diff match path before commit, locally
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
-on test: set session.focused var, cant have more than one open
-scrolling doesn't update for other's messages
+test: set session.focused var, cant have more than one open
 hide feedback system after submitting
 a loading bar for the commit progress
 
@@ -38,7 +42,8 @@ increase commit history to 100 (per page, in github.js)
 autoload repos after creating an account
 deleting / renaming files with github
 possible to store versions of each file??
-implementing a folder structure
+implementing a collapseable folder structure
+sort /public by media types and rereference
 
 
 ## PAPER
@@ -134,6 +139,7 @@ scrape head, body of html document for testing
 loading content from a repo into files, then docs
 make show / hide (hide completed) button
 bug - clicking on box doesnt disable it??
+scrolling doesn't update for other's messages
 EDITING GITHUB PERMISSION REQUESTS:
 testing out pushing to an existing repo
 difference between author and committer in git?
