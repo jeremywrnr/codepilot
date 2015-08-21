@@ -61,9 +61,11 @@ Template.navigation.helpers({ // uses glyphicons in template
 Template.userLoggedout.events({
   'click .login': function(e, tmpl) {
     Meteor.loginWithGithub({
-      requestPermissions: ['user', 'public_repo']
+      requestPermissions: ['user', 'public_repo'],
+      loginStyle: 'redirect',
     }, function(err) {
-      if (err) Session.set('errorMessage', err.reason);
+      if (err)
+        Session.set('errorMessage', err.reason);
     });
   }
 });
@@ -71,7 +73,8 @@ Template.userLoggedout.events({
 Template.userLoggedin.events({
   'click .logout': function(e, tmpl) {
     Meteor.logout(function(err) {
-      if (err) Session.set('errorMessage', err.reason);
+      if (err)
+        Session.set('errorMessage', err.reason);
     });
   }
 });
