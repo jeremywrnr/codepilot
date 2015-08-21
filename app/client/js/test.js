@@ -36,7 +36,7 @@ Template.tasks.events({
   'submit .new-task': function(e) { // create a new task
     e.preventDefault();
     $(e.target).blur();
-    var task = $('#task-name')[0].value;
+    var task = $('#task-name')[0].value; //check value
     if (task == null || task == '') return false;
     $('#task-name')[0].value = ''; // reset form text
     Meteor.call('addTask', task);

@@ -168,6 +168,53 @@ Meteor.methods({
   // COMMIT MANAGEMENT
   /////////////////////
 
+  initCommits: function() { // re-populating the commit log
+    var gc = Meteor.call('getAllCommits');
+    gc.map(function(c){ Meteor.call('addCommit', c) });
+  },
+
+  addCommit: function(c) { // adds a commit, links to repo + branch
+    Commits.upsert({
+      repo: Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+      sha: c.sha
+    },{
+      $set: { commit: c }
+    });
+  },
+
+  loadHead: function(bname) { // load head of branch, from sha
+    // TODO: check if branch name is a valid branchname of this repo
+    var sha =  Meteor.call('getBranch', bname).commit.sha;
+    Meteor.call('loadCommit', sha);
+  },
+
+  loadCommit: function(sha) { // takes commit sha, loads into sjs
+    var commitResults = Meteor.call('getCommit', sha);
+    var treeSHA = commitResults.commit.tree.sha;
+    var treeResults = Meteor.call('getTree', treeSHA);
+    treeResults.tree.forEach(function updateBlob(blob) {
+      if (blob.type === 'blob') { // only load files, not folders/trees
+        var oldcontent = Meteor.call('getBlob', blob);
+
+        //TODO - handle renaming things?
+
+        Files.upsert({ // update all files contents
+          repo: Meteor.user().profile.repo,
+          branch: Meteor.user().profile.repoBranch,
+          title: blob.path
+        },{ $set: {content: oldcontent }});
+      };
+    });
+
+    // move files old contents into sharejsdoc
+    var repoFiles = Files.find({ repo: Meteor.user().profile.repo });
+    repoFiles.map(function loadSJS(f){ Meteor.call('postShareJSDoc', f) });
+    dlog( repoFiles.fetch() );
+  },
+
+
+
   ////////////////////////////////////////////////////////
   // top level function, grab files and commit to github
   ////////////////////////////////////////////////////////
@@ -235,62 +282,6 @@ Meteor.methods({
     Meteor.call('addMessage', 'commited - ' + msg);
 
   },
-
-
-
-  /////////////////////////////////////////////////////////////
-  // other helper functions - TODO: better docs for deezzzzzzz
-  /////////////////////////////////////////////////////////////
-
-  initCommits: function() { // re-populating the commit log
-    var gc = Meteor.call('getAllCommits');
-    gc.map(function(c){ Meteor.call('addCommit', c) });
-  },
-
-  addCommit: function(c) { // adds a commit, links to repo + branch
-    Commits.upsert({
-      repo: Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-      sha: c.sha
-    },{
-      $set: { commit: c }
-    });
-  },
-
-  loadHead: function(bname) { // load head of branch, from sha
-    // TODO: check if branch name is a valid branchname of this repo
-    var sha =  Meteor.call('getBranch', bname).commit.sha;
-    Meteor.call('loadCommit', sha);
-  },
-
-  loadCommit: function(sha) { // takes commit sha, loads into sjs
-    var commitResults = Meteor.call('getCommit', sha);
-    var treeSHA = commitResults.commit.tree.sha;
-    var treeResults = Meteor.call('getTree', treeSHA);
-    treeResults.tree.forEach(function updateBlob(blob) {
-
-      if (blob.type === 'blob') { // only load files, not folders/trees
-        var oldcontent = Meteor.call('getBlob', blob);
-
-        //TODO - handle renaming things?
-
-        Files.upsert({ // update all files contents
-          repo: Meteor.user().profile.repo,
-          branch: Meteor.user().profile.repoBranch,
-          title: blob.path
-        },{ $set: {content: oldcontent }});
-      };
-
-    });
-
-    dlog( treeResults );
-
-    // move files old contents into sharejsdoc
-    var repoFiles = Files.find({ repo: Meteor.user().profile.repo });
-    repoFiles.map(function loadSJS(f){ Meteor.call('postShareJSDoc', f) });
-    dlog( repoFiles.fetch() );
-  },
-
 
 
 

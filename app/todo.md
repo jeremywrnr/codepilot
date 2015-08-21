@@ -2,7 +2,6 @@ TODOS
 =====
 
 
-REFACTOR server/methods
 doing a diff match path before commit, locally
     cache content for diff
     add a presentation format
@@ -284,5 +283,6 @@ make new branch, from current, write name
 creates new fileIds for current branch
 different commit history
 activity is in logger
+REFACTOR server/methods
 make different rendered views for each
 -->
