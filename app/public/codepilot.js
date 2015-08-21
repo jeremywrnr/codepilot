@@ -23,3 +23,15 @@ sanitizeStringQuotes = function(str) { // try to avoid breaking srcdoc
           .replace(/\n/g, '\\n')
          );
 }
+
+labelLineNumbers = function(text) {
+  var doc = $('<pre></pre>');
+  var full = '<span class="line-number"></span>' + text + '<span class="cl"></span>';
+  doc.html( full );
+  var num = text.split(/\n/).length;
+  for (var i = 0; i < num; i++) { // for all lines in the file
+    var line_num = $('span', doc)[0];
+    line_num.innerHTML += '<span>' + (i + 1) + '</span>';
+  }
+  return doc[0].innerHTML;
+}

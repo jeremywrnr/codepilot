@@ -18,11 +18,11 @@ Template.commitPanel.helpers({
       if(file.content !== file.cache)
         return { // return a named diff
           title: file.title,
-          diff: diffString(file.cache, file.content),
-          //.replace(/  /g,' ')
-          //.replace(/\n /g, '\n')
+          diff: labelLineNumbers(
+            diffString(file.cache, file.content)
+          ).replace(/  /g, ' ')
         };
-    }).filter(function removeNull(diff){
+    }).filter(function removeNull(diff){ // remove any unchanged files
       return diff != undefined;
     });
   },
@@ -75,12 +75,15 @@ Template.history.helpers({ // sort the commits by time
 });
 
 Template.commit.helpers({
+
   current: function() {
     return Session.equals('commit', this._id);
   },
+
   mine: function() {
     return (Meteor.user().profile.login === this.commit.author.login)
-  }
+  },
+
 });
 
 Template.commit.events = {
