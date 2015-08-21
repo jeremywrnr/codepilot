@@ -47,17 +47,18 @@
     <div class='containter-fluid'>
 
       <div class='navbar-header'>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapser">
+          <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+        </button>
         <a class='navbar-brand' href='/'>
           <span class='glyphicon glyphicon-pencil'></span> code pilot
         </a>
       </div>
 
-      {{> navigation }}
-
-      <!-- navbar right section -->
-      <ul class='nav navbar-nav navbar-right nomargin'>
+      <div class="collapse navbar-collapse" id="collapser">
+        {{> navigation }}
         {{> loginGithub }}
-      </ul>
+      </div>
 
     </div>
   </nav>
@@ -68,27 +69,31 @@
 <!--login templates-->
 
 <template name='loginGithub'>
-  {{#if currentUser }}
-  {{> userLoggedin }}
-  {{else}}
-  {{> userLoggedout }}
-  {{/if}}
+  <ul class='nav navbar-nav navbar-right nomargin'>
+    {{#if currentUser }}
+    {{> userLoggedin }}
+    {{else}}
+    {{> userLoggedout }}
+    {{/if}}
+  </ul>
 </template>
 
 <template name='userLoggedin'>
   {{#if loggingIn }}
   <li><a href='#'>logging in...</a></li>
   {{else}}
-  <li class='del logout'>
+  <li class='del logout text-center'>
     <a href='#'> {{ currentUser.profile.login }} | logout </a>
   </li>
   {{/if}}
 </template>
 
 <template name='userLoggedout'>
-  <li class='grn login'><a href='#'> login with
-      <img style='height: 20px;' alt='github' src='/github.png'>
-    </a></li>
+  <li class='grn login text-center'>
+    <a href='#'>
+      login with <img style='height: 20px;' alt='github' src='/github.png'>
+    </a>
+  </li>
 </template>
 
 
@@ -97,10 +102,10 @@
 
 <template name='navigation'> <!-- adding the active class would be good -->
   {{#if currentUser }}
-  <ul class='nav navbar-nav navbar-just'>
+  <ul class='nav navbar-nav'>
 
     {{#each navItems}}
-    <li class='navitem'>
+    <li class='navitem text-center'>
       <a href='{{ iconpath }}'>
         <span class='glyphicon glyphicon-{{iconname}}'></span>
         {{ name }} </a>

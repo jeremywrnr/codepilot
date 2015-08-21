@@ -2,11 +2,11 @@ TODOS
 =====
 
 
+collapse menu nav on shorten wideness
 doing a diff match path before commit, locally
     cache content for diff
     add a presentation format
     view while writing commit msg
-collapse menu nav on shorten wideness
 
 
 ## UI / UX
