@@ -40,9 +40,9 @@ Template.config.events({
   'click .showUsers': function(e) { // show the repos registered users
     e.preventDefault();
     Session.set('focusPane', 'users');
-    var uids = Repos.findOne( Meteor.user().profile.repo ).users;
-    if (uids){
-      Meteor.call('getCollabs', uids, function setCollabs(err, users) {
+    var repo = Repos.findOne( Meteor.user().profile.repo );
+    if (repo) {
+      Meteor.call('getCollabs', repo, function setCollabs(err, users) {
         Session.set('collabs', users); // show off your collaborators
       });
     }

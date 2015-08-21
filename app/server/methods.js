@@ -315,10 +315,10 @@ Meteor.methods({
   },
 
   //http://stackoverflow.com/questions/10677491/how-to-get-meteor-call-to-return-value-for-template
-  getCollabs: function(repoId, uids) { // get a users profile based on their id
-    return uids.map(function(uid){
+  getCollabs: function(repo) { // get a users profile based on their id
+    return repo.users.map(function(uid){
       var user = Meteor.users.findOne(uid);
-      if (user.profile.repo === repoId) { // only return users currently working on project
+      if (user.profile.repo === repo._id) { // only return users currently working on project
         return user.profile;
       }
     });

@@ -272,4 +272,11 @@ link addition in tasks
 users pane:
 only owner can add a collaborator: add option
 also show what branch the collabs are working on
+guo updates
+branching works
+make new branch, from current, write name
+creates new fileIds for current branch
+different commit history
+activity is in logger
+make different rendered views for each
 -->
