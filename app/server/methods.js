@@ -245,6 +245,7 @@ Meteor.methods({
     var newBranch = Meteor.call('postBranch', bn, parent);
     Meteor.call('initBranches', repo);
     Meteor.call('setBranch', bn);
+    Meteor.call('addMessage', 'created branch - ' + bn);
   },
 
   initBranches: function(gr) { // get all branches for this repo

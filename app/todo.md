@@ -5,6 +5,8 @@ TODOS
 branching functionality
     load files on branch select
     or not do this?? overwrites last
+    rendering a branch screenshot
+rendering an arbitrary commit
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
