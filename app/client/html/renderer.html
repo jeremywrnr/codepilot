@@ -65,12 +65,14 @@
 <!-- issue rendered content -->
 
 <template name='render'>
-  <div class='btn-group btn-group-justified' role='group'>
-    <div class='btn-group' role='group'>
-      <a href='/test'>
-        <button type='button' class='btn btn-default btn-lg edit'> return to test pane </button>
-      </a>
+  <nav class='navbar navbar-fixed-top'>
+    <div class='btn-group btn-group-justified' role='group'>
+      <div class='btn-group' role='group'>
+        <a href='/test'>
+          <button type='button' class='btn btn-default btn-lg edit'> return to test pane </button>
+        </a>
+      </div>
     </div>
-  </div>
+  </nav>
   {{> rawIssue }}
 </template>

@@ -2,14 +2,9 @@ TODOS
 =====
 
 
-doing a diff match path before commit, locally
-    add a presentation format
-    view while writing commit msg
-confirm resetting the project
-
-
 ## UI / UX
 
+add a footer in for spacing in main template
 closing an issue on github should close on codepilot
     get all issues, hide closed button
     move reload to individual item
@@ -155,6 +150,9 @@ canceling repo select cancels branch fork
 loading a repos content, commit history
 reconfigure public only repos
 better change branch handling - not loading commits
+doing a diff match path before commit, locally
+add a presentation format
+view while writing commit msg
 autoset default branch
 don't add user to repo owner if they are already there
 check if a user was last collaborating before showing them
@@ -185,6 +183,7 @@ screenshots not pub
 on selecting a repo, load branches
 make login info pop to the left | align it right
 tuneup feedback renderer panes
+confirm resetting the project
 deleting and renaming button (NOW DOES) work
 make a new task also adds an item to feed
 test/fix get repo production errors

@@ -194,7 +194,8 @@ Template.branch.events({
 Template.extras.events({
 
   'click .resetfiles': function(e) { // reset to most basic website...
-    Meteor.call('resetFiles');
+    var trulyReset = confirm("This will overwrite any uncommited changes. Proceed?");
+    if (trulyReset) Meteor.call('resetFiles');
   },
 
 });
