@@ -164,6 +164,10 @@ Meteor.methods({
 
 
 
+  /////////////////////
+  // COMMIT MANAGEMENT
+  /////////////////////
+
   ////////////////////////////////////////////////////////
   // top level function, grab files and commit to github
   ////////////////////////////////////////////////////////
@@ -238,6 +242,12 @@ Meteor.methods({
   // other helper functions - TODO: better docs for deezzzzzzz
   /////////////////////////////////////////////////////////////
 
+  initBranches: function(gr) { // get all branches for this repo
+    // for the current repo, just overwrite branches with new
+    var brs = Meteor.call('getBranches', gr); // res from github
+    Repos.update(gr._id, { $set: {branches: brs }});
+  },
+
   newBranch: function(bn) { // create a new branch from branchname (bn)
     var repo = Repos.findOne(Meteor.user().profile.repo);
     var branch = Meteor.user().profile.repoBranch;
@@ -248,26 +258,9 @@ Meteor.methods({
     Meteor.call('addMessage', 'created branch - ' + bn);
   },
 
-  initBranches: function(gr) { // get all branches for this repo
-    // for the current repo, just overwrite branches with new
-    var brs = Meteor.call('getBranches', gr); // res from github
-    Repos.update(gr._id, { $set: {branches: brs }});
-  },
-
   initCommits: function() { // re-populating the commit log
     var gc = Meteor.call('getAllCommits');
     gc.map(function(c){ Meteor.call('addCommit', c) });
-  },
-
-  forkRepo: function(user, repo) { // create a fork of a repo for user
-    try { // that is, if the repo exists/isForkable
-      Meteor.call('getRepo', user, repo);
-      Meteor.call('postRepo', user, repo);
-      Meteor.call('getAllRepos');
-    } catch (err) {
-      throw new Meteor.Error('null-repo'); // this repo no fork :O
-      dlog(err);
-    }
   },
 
   loadHead: function(bname) { // load head of branch, from sha

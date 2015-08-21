@@ -120,6 +120,24 @@ Meteor.methods({
       }});
   },
 
+  forkRepo: function(user, repo) { // create a fork of a repo for user
+    try { // that is, if the repo exists/isForkable
+      Meteor.call('getRepo', user, repo);
+      Meteor.call('postRepo', user, repo);
+      Meteor.call('getAllRepos');
+    } catch (err) {
+      throw new Meteor.Error('null-repo'); // this repo no fork :O
+      dlog(err);
+    }
+  },
+
+
+
+  ////////////////////
+  // BRANCH MANAGEMENT
+  ////////////////////
+  //////////////////
+
   loadBranch: function(bn) { // load a repo into code pilot
     Meteor.call('setBranch', bn); // set branch for current user
     Meteor.call('initCommits'); // pull commit history for this repo
