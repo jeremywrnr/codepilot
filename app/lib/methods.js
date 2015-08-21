@@ -158,6 +158,7 @@ Meteor.methods({
     Meteor.call('initCommits'); // pull commit history for this repo
     Meteor.call('loadHead', bn); // load the head of this branch into CP
     Meteor.call('addMessage', 'started working on branch - ' + bn);
+    Meteor.call('loadHead', bn); // BUG - requires to be called twice
   },
 
   setBranch: function(bn) { // set branch name

@@ -10,12 +10,30 @@ Template.commitPanel.helpers({
     return Session.get('committing');
   },
 
+  diffs: function() { // using jsdiff, return a diff on each file
+    return Files.find({
+      repo: Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+    }).map(function checkDiff(file){ // compare contents and the cached v.
+      if(file.content !== file.cache)
+        return { // return a named diff
+          title: file.title,
+          diff: diffString(file.cache, file.content),
+          //.replace(/  /g,' ')
+          //.replace(/\n /g, '\n')
+        };
+    }).filter(function removeNull(diff){
+      return diff != undefined;
+    });
+  },
+
 });
 
 Template.commitPanel.events = {
 
   'click .newcommit': function(e) {
     e.preventDefault();
+    Meteor.call('testShareJS');
     Session.set('committing', true);
     focusForm('#commitMsg');
   },

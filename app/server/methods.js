@@ -76,16 +76,16 @@ Meteor.methods({
   },
 
   testShareJS: function() { // update contents from sjs
-    var repoId = Meteor.user().profile.repo;
-    Files.find({repo: repoId}).map(
-      function renderSJS(f){ // render the project's sharejs buffers
-        var updated = Meteor.call('getShareJSDoc',f).snapshot;
-        Files.update(
-          {'_id': f._id},
-          {$set: { content: updated} }
-        );
-      }
-    );
+    Files.find({
+      repo:  Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+    }).map(function readSJS(file){ // read SJS buffers into .content
+      Files.update(
+        {'_id': file._id},
+        {$set: {
+          content: Meteor.call('getShareJSDoc', file).snapshot
+        }});
+    });
   },
 
 

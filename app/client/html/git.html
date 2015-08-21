@@ -17,7 +17,7 @@
     <div class='panel-body'>
       {{#if committing}}
 
-      <div class='alert alert-success nomargin'>
+      <div class='alert alert-success'>
         <div class='input-group'>
           <form class='committer'>
             <input placeholder='enter a commit message...'
@@ -28,6 +28,10 @@
           </span>
         </div>
       </div>
+
+      {{#each diffs}}
+      {{> diff }}
+      {{/each}}
 
       <!--<a target='_blank' href='https://octodex.github.com/'>-->
       <!--<img class='center wide' src='https://octodex.github.com/images/nyantocat.gif'/>-->
@@ -100,4 +104,23 @@
   </button>
 
   {{/if}}
+</template>
+
+<template name='diff'>
+  <h3> {{title}} </h3>
+  <div id="{{title}}" style="height: 300px; width: 100%;">
+    {{{ diff }}}
+  </div>
+  <!--<pre class='diff'> {{{ diff}}} </pre>-->
+  <script>
+    var editor = ace.edit("{{title}}");
+    editor.setReadOnly(true);
+      editor.setTheme('ace/theme/monokai');
+      editor.setShowPrintMargin(false);
+      editor.getSession().setUseWrapMode(true);
+      var beautify = ace.require('ace/ext/beautify');
+      var modelist = ace.require('ace/ext/modelist');
+      var filemode = modelist.getModeForPath('{{title}}').mode;
+      editor.getSession().setMode( filemode );
+  </script>
 </template>

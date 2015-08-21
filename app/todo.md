@@ -3,9 +3,9 @@ TODOS
 
 
 doing a diff match path before commit, locally
-    cache content for diff
     add a presentation format
     view while writing commit msg
+confirm resetting the project
 
 
 ## UI / UX
@@ -213,6 +213,7 @@ seperate renderer bar - reload and file issue
 less aggresively reset branch to master
 checking upsert issues correctly?
 screencapture to png
+cache content for diff
 make a new issue, attach png to it
 attach issue to the png
 confirming close issue with confirm
