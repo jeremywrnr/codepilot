@@ -103,8 +103,8 @@ Meteor.methods({
     Meteor.call('setBranch', branch); // set branch
     Meteor.call('initCommits'); // pull commit history for gr repo
     Meteor.call('loadHead', branch); // load the head of gr branch into CP
-    Meteor.call('postLabel'); // register codepilot label for new repo
-    Meteor.call('loadHead', branch); // TODO: why is double loading needed?
+    //Meteor.call('postLabel'); // register codepilot label for new repo
+    //Meteor.call('loadHead', branch); // TODO: why is double loading needed?
     var full = gr.repo.owner.login + '/' + gr.repo.name;
     Meteor.call('addMessage', 'started working on repo - ' + full);
   },
@@ -158,7 +158,7 @@ Meteor.methods({
     Meteor.call('initCommits'); // pull commit history for this repo
     Meteor.call('loadHead', bn); // load the head of this branch into CP
     Meteor.call('addMessage', 'started working on branch - ' + bn);
-    Meteor.call('loadHead', bn); // BUG - requires to be called twice
+    //Meteor.call('loadHead', bn); // BUG - requires to be called twice
   },
 
   setBranch: function(bn) { // set branch name
