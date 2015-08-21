@@ -202,8 +202,11 @@ Meteor.methods({
         Files.upsert({ // update all files contents
           repo: Meteor.user().profile.repo,
           branch: Meteor.user().profile.repoBranch,
-          title: blob.path
-        },{ $set: {content: oldcontent }});
+          title: blob.path,
+        },{ $set: {
+          content: oldcontent,
+          cache: oldcontent,
+        }});
       };
     });
 

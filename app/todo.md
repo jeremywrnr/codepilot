@@ -2,7 +2,6 @@ TODOS
 =====
 
 
-collapse menu nav on shorten wideness
 doing a diff match path before commit, locally
     cache content for diff
     add a presentation format
@@ -124,6 +123,7 @@ use repo id as project id, lots of refactoring
 actual testing interface
 handle null filename better
 install stringDiff lib
+collapse menu nav on shorten wideness
 sorting files alphabetically
 show which commit owner
 make welcome template seperate, less wide

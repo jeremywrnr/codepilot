@@ -14,7 +14,8 @@ Files = new Mongo.Collection('files'); // used with github
     repo - unique identifier of repo file belongs to
     branch - name of the branch it is from
     title - name of the file
-    content - content of the file
+    cache - latest version of commit, for diff
+    content - live content of the file
     */
 
 Messages = new Mongo.Collection('messages'); // client side feed
