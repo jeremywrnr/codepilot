@@ -67,6 +67,8 @@ Template.raw.helpers({
 
 
 
+
+
 // iframe helper - load content from an issue
 
 Template.rawIssue.helpers({

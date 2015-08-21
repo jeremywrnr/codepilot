@@ -2,63 +2,50 @@ TODOS
 =====
 
 
-branching functionality
-    load files on branch select
-    or not do this?? overwrites last
-    rendering a branch screenshot
-rendering an arbitrary commit
-closing an issue on github should close on codepilot
-    get all issues, hide closed button
-    move reload to individual item
-doing a diff match path before commit, locally
+REFACTOR server/methods
 
 
 ## UI / UX
 
+doing a diff match path before commit, locally
+closing an issue on github should close on codepilot
+    get all issues, hide closed button
+    move reload to individual item
 on test: set session.focused var, cant have more than one open
 scrolling doesn't update for other's messages
 hide feedback system after submitting
-project id- show collaborators button
-tester is reloading really slowly...
-if label == codepilot, color black
-if choosing repo, cant choose branch
-if choosing branch, cant choose repo
-global methods - detoggle set afterclick
-canceling repo select cancels branch fork
-diff the commits, before sending msg
 a loading bar for the commit progress
-viewing all commits link???
-refactor upserts with $set
 
 
 ## SERVER
 
-less aggresively reset branch to master
+refactor upserts with $set
 commit links to rendered view
+rendering an arbitrary commit
 refactor issue posting as well
-checking upsert issues correctly?
 implement system testing? velocity
-refactor github.js-getblobs() plz
-maybe including the log data in the rendered issue view
+including the log data in the issue
 github api syncing
     why does it need to two calls to populate sjs docs?
     adding a content field on create new doc? perhaps
     perhaps you can use a load on click operation to fix.
 load file from github only on click?? reduce api calls
-    get current commit sha, then tree sha, then blob, then load into sharejs doc
+    get current commit sha
+    then tree sha
+    then blob
+    then load into sharejs doc
 increase commit history to 100 (per page, in github.js)
-standardize server method names, documents
 autoload repos after creating an account
 deleting / renaming files with github
-implementing a folder structure
 possible to store versions of each file??
-repo not loading for jon curtis
+implementing a folder structure
 
 
 ## PAPER
 
 user study measurements
 copilot nosiness - editing code, passivity?
+case study from Mythical Man Month of surgeon + multiple assistants
 
 
 ## NOTES / ERRORS
@@ -76,34 +63,43 @@ go back to not renaming on the
 
 rename form losing focus. a teacher can have lecture code stored in the repo,
 and then walk through bit by bit (eg commits), even if not runnable in the
-
 browser/cloud form controls must share editor template, or will break sometimes
+
 after longtime of unwatching: Uncaught SyntaxError: Unexpected token Y start
+
 syntax highlighting structure of repo
+
 make one for each user, have user
+
 request to collaborate on another users repo, make a
+
 Let the pair switch off
+
 whenever they want if one person is getting tired or stuck or wants a chill
+
 break to be hanging out more passively in the background maybe include and
+
 automated metric on how 'in flow' the person is, and hardcode three files
+
 suggest a change if it drops below a certain point
+
 testing / checkin / issues
+
 madeye.io meteor // testing manual velocity // testing solution
-also case
-study from Mythical Man Month of surgeon + multiple assistants model of
-programming.
-look into using the promise library ql. the sharejs template
+
 creates a new doc for it when you press the new button, but you can do this
+
 automatically, with the model.create from sharejs.
+
 a distributed task 1 pilot, 4 copilots
-idea: maybe also include option to make a PR or be a
-collaborator
+
+idea: maybe also include option to make a PR or be a collaborator
+
 \_pick your data as to not bloat the database
-future: create a new repo with the api
-creating an issue on this repo, could be helpful to
-PROF
-in the future, you could create pull requests instead of linking to the
-collaborators page.
+
+creating an issue on this repo, could be helpful to PROF
+
+create pull requests instead of linking to the collaborators page
 
 
 ### done
@@ -128,6 +124,7 @@ sorting files alphabetically
 show which commit owner
 make welcome template seperate, less wide
 top item in branch select is make new branch
+tester is reloading really slowly...
 deliver resources based on active repo
 reduce margins, make better use of space
 push new commit to local db after github
@@ -145,8 +142,11 @@ ACTUALLY design what the fields should be plz
 feed notifys on issues
 only give user the user things related to their repo
 only add to collaborators if not on list
+future: create a new repo with the api
 generating shared session links - done with unique repo ids
 dont allow a feed message that is just whitespace
+global methods - detoggle set afterclick
+canceling repo select cancels branch fork
 loading a repos content, commit history
 reconfigure public only repos
 better change branch handling - not loading commits
@@ -157,8 +157,12 @@ having sessions or groups - scaling app
 linkify feed items
 change template based on roles
 making the task items more usable
+project id - show collaborators button
 conflict with sharejs and docs??? renaming to files
 committing folders works, but can't load them - recursive trees
+if label == codepilot, color black
+if choosing repo, cant choose branch
+if choosing branch, cant choose repo
 make a fake github account, collab with me
 probably something to do with using autopublish
 fixing the load commit / docs
@@ -201,6 +205,8 @@ make a nice lil favicon y doncha
 ability to close issue from codepilot
 ability to create issue from codepilot?
 seperate renderer bar - reload and file issue
+less aggresively reset branch to master
+checking upsert issues correctly?
 screencapture to png
 make a new issue, attach png to it
 attach issue to the png
@@ -218,12 +224,17 @@ insert a better glyph for the current file
 make settings panel info boex success?
 top item in repo select is fork a repo
 can't fork a repo you already own
+refactor github.js-getblobs() plz
 can't fork a repo that doesn't exist
 choose ANY public repo on github, fork it for user, then start editing that repo
 add link to rendered html in issues
 sort chat by positive time
 tabbed user interface - elseif in meteor?
 or rather how to do some routing in meteor
+branching functionality
+load files on branch select
+or not do this?? overwrites last
+rendering a branch screenshot
 clicking on a file should go to edit tab
 making a message with the commit
 just make rename field focus a function
