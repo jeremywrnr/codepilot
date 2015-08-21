@@ -5,7 +5,6 @@ TODOS
 REFACTOR server/methods
 doing a diff match path before commit, locally
     cache content for diff
-    install stringDiff lib
     add a presentation format
     view while writing commit msg
 collapse menu nav on shorten wideness
@@ -125,6 +124,7 @@ add git options to each commit item
 use repo id as project id, lots of refactoring
 actual testing interface
 handle null filename better
+install stringDiff lib
 sorting files alphabetically
 show which commit owner
 make welcome template seperate, less wide

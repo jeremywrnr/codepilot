@@ -23,7 +23,10 @@ Template.tasks.helpers({
   },
 
   taskCount: function () { // return amount of incomplete tasks
-    return Tasks.find({checked: {$ne: true}}).count();
+    if (Session.get('hideCompleted'))
+      return Tasks.find({checked: {$ne: true}}).count();
+    else
+      return Tasks.find({}).count();
   },
 
 });

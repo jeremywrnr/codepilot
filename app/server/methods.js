@@ -242,25 +242,19 @@ Meteor.methods({
   // other helper functions - TODO: better docs for deezzzzzzz
   /////////////////////////////////////////////////////////////
 
-  initBranches: function(gr) { // get all branches for this repo
-    // for the current repo, just overwrite branches with new
-    var brs = Meteor.call('getBranches', gr); // res from github
-    Repos.update(gr._id, { $set: {branches: brs }});
-  },
-
-  newBranch: function(bn) { // create a new branch from branchname (bn)
-    var repo = Repos.findOne(Meteor.user().profile.repo);
-    var branch = Meteor.user().profile.repoBranch;
-    var parent = Meteor.call('getBranch', branch).commit.sha;
-    var newBranch = Meteor.call('postBranch', bn, parent);
-    Meteor.call('initBranches', repo);
-    Meteor.call('setBranch', bn);
-    Meteor.call('addMessage', 'created branch - ' + bn);
-  },
-
   initCommits: function() { // re-populating the commit log
     var gc = Meteor.call('getAllCommits');
     gc.map(function(c){ Meteor.call('addCommit', c) });
+  },
+
+  addCommit: function(c) { // adds a commit, links to repo + branch
+    Commits.upsert({
+      repo: Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+      sha: c.sha
+    },{
+      $set: { commit: c }
+    });
   },
 
   loadHead: function(bname) { // load head of branch, from sha
@@ -297,15 +291,12 @@ Meteor.methods({
     dlog( repoFiles.fetch() );
   },
 
-  addCommit: function(c) { // adds a commit, links to repo + branch
-    Commits.upsert({
-      repo: Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-      sha: c.sha
-    },{
-      $set: { commit: c }
-    });
-  },
+
+
+
+  ///////////////////////////
+  // helper & testing methods
+  ///////////////////////////
 
   //http://stackoverflow.com/questions/10677491/how-to-get-meteor-call-to-return-value-for-template
   getCollabs: function(repo) { // get a users profile based on their id
@@ -316,13 +307,6 @@ Meteor.methods({
       }
     });
   },
-
-
-
-
-  ///////////////////////////
-  // helper & testing methods
-  ///////////////////////////
 
   resetAllData: function() { // detroy everything
     Messages.remove({});

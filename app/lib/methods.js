@@ -136,7 +136,22 @@ Meteor.methods({
   ////////////////////
   // BRANCH MANAGEMENT
   ////////////////////
-  //////////////////
+
+  // for the current repo, just overwrite branches with new
+  initBranches: function(gr) { // get all branches for this repo
+    var brs = Meteor.call('getBranches', gr); // res from github
+    Repos.update(gr._id, { $set: {branches: brs }});
+  },
+
+  addBranch: function(bn) { // create a new branch from branchname (bn)
+    var repo = Repos.findOne(Meteor.user().profile.repo);
+    var branch = Meteor.user().profile.repoBranch;
+    var parent = Meteor.call('getBranch', branch).commit.sha;
+    var newBranch = Meteor.call('postBranch', bn, parent);
+    Meteor.call('initBranches', repo);
+    Meteor.call('setBranch', bn);
+    Meteor.call('addMessage', 'created branch - ' + bn);
+  },
 
   loadBranch: function(bn) { // load a repo into code pilot
     Meteor.call('setBranch', bn); // set branch for current user
