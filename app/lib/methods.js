@@ -18,6 +18,9 @@ Meteor.methods({
         message: msg,
         time: Date.now()
       });
+      // scroll to the bottom of the feed
+      if(Meteor.isClient)
+        $('#feed').stop().animate({ scrollTop: $("#feed")[0].scrollHeight }, 500);
     } else
       throw new Meteor.Error('null-message'); // passed in empty message
   },

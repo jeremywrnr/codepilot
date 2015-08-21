@@ -16,7 +16,7 @@ doing a diff match path before commit, locally
 ## UI / UX
 
 on test: set session.focused var, cant have more than one open
-check if a user was last collaborating before showing them
+scrolling doesn't update for other's messages
 hide feedback system after submitting
 project id- show collaborators button
 tester is reloading really slowly...
@@ -152,6 +152,7 @@ reconfigure public only repos
 better change branch handling - not loading commits
 autoset default branch
 don't add user to repo owner if they are already there
+check if a user was last collaborating before showing them
 having sessions or groups - scaling app
 linkify feed items
 change template based on roles
