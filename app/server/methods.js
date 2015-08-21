@@ -54,8 +54,8 @@ Meteor.methods({
 
   getShareJSDoc: function(file) { // give live editor copy, v and snapshot
     if(! file._id ) return null;
-    var sjs = Docs.find( file._id );
-    if (sjs.count())
+    var sjs = Docs.findOne( file._id );
+    if (sjs)
       return sjs.fetch()[0].data;
     else
       Meteor.call('newShareJSDoc', file._id);
@@ -225,29 +225,27 @@ Meteor.methods({
   newCommit: function(msg) { // grab sjs contents, commit to github
 
     // getting file ids, names, and content
-    var files = Files.find({repo: Meteor.user().profile.repo}).map(
-      function getFile(file){ // also update the cached version
-        var shareJSDoc = Meteor.call('getShareJSDoc', file);
-        Files.update(file._id, {$set: {cache: file.content}});
-        return {
-          path: file.title,
-          content: shareJSDoc.snapshot
-        }
-      }
-    );
+    var blobs = Files.find({
+      repo: Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch
+    }).map(function getFile(file){ // also update the cached version
+      Files.update(file._id, {$set: {cache: file.content}});
+      var shareJSDoc = Meteor.call('getShareJSDoc', file);
+      return {
+        path: file.title,
+        content: shareJSDoc.snapshot
+      };
+    }).map(function getBlob(file){ // construct commit tree content
+      return {
+        path: file.path,
+        mode: '100644',
+        type: 'blob',
+        content: file.content
+      };
+    });
 
     // a diff would be done here, remove unchanged files from list
     // or add new files, that were not in the previous commit
-
-    // construct commit tree content
-    var blobs = files.map(function(f){
-      return {
-        path: f.path,
-        mode: '100644',
-        type: 'blob',
-        content: f.content
-      }
-    });
 
     dlog( blobs );
 

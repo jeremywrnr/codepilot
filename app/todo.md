@@ -13,6 +13,7 @@ test: set session.focused var, cant have more than one open
 hide feedback system after submitting
 a loading bar for the commit progress
 add a commit updates cached version
+diffing hmtl does not work
 
 
 ## SERVER
