@@ -56,7 +56,7 @@ Meteor.methods({
     if(! file._id ) return null;
     var sjs = Docs.findOne( file._id );
     if (sjs)
-      return sjs.fetch()[0].data;
+      return sjs.data;
     else
       Meteor.call('newShareJSDoc', file._id);
     return Meteor.call('getShareJSDoc', file._id);
@@ -75,7 +75,7 @@ Meteor.methods({
     });
   },
 
-  testShareJS: function() { // update contents from sjs
+  testShareJS: function() { // update file.content from sjs
     Files.find({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
@@ -211,9 +211,13 @@ Meteor.methods({
     });
 
     // move files old contents into sharejsdoc
-    var repoFiles = Files.find({ repo: Meteor.user().profile.repo });
-    repoFiles.map(function loadSJS(f){ Meteor.call('postShareJSDoc', f) });
-    dlog( repoFiles.fetch() );
+    Files.find({
+      repo: Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+    }).map(function setSJS(file){
+      Meteor.call('postShareJSDoc', file)
+      dlog( file );
+    });
   },
 
 
