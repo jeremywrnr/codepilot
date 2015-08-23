@@ -1,6 +1,6 @@
 // messages and events feed
 
-Template.chatter.events = {
+Template.chatter.events({
 
   'keydown input#message': function(e) {
     if (e.which === 13) { // 'enter' keycode recieved
@@ -10,7 +10,7 @@ Template.chatter.events = {
     }
   }
 
-};
+});
 
 Template.messages.helpers({
 
@@ -29,9 +29,11 @@ Template.messages.helpers({
 
 });
 
+
+
 Template.ghang.helpers({
 
-  reponame: function() { // return emails of all collabs
+  reponame: function() { // set topic of the google hangout
     var user = Meteor.user();
     if (user)
       return user.profile.repoOwner + user.profile.repoName;
@@ -50,7 +52,7 @@ Template.ghang.helpers({
     // aggregate and return the collaborator user emails
     var collabs = Session.get('collabs');
     if(collabs)
-    return collabs.map(function inviteHangout(user){ // profile
+      return collabs.map(function inviteHangout(user){ // profile
         return { id : user.email, invite_type : 'EMAIL' };
       }).filter(function removeSelf(user){ // don't invite self
         return user.id != Meteor.user().profile.email;
@@ -58,3 +60,5 @@ Template.ghang.helpers({
   }
 
 });
+
+//Template.ghang.events({ 'click #g-hanger': function(e) { console.log('clicked!'); }, });
