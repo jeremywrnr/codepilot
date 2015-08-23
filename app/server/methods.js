@@ -36,10 +36,9 @@ Meteor.methods({
   },
 
   resetFile: function(id) { // reset file back to cached version
-    var cache = Files.findOne(id).cache;
-    Files.update(
-      id, {$set: {content: cache}} // overwrite contents
-    );
+    var file = Files.findOne(id); // overwrite content
+    Files.update( id, {$set: {content: file.cache}});
+    Meteor.call('postShareJS', file); // load back into sharejs
   },
 
   resetFiles: function() { // reset db and hard code simple website structure
