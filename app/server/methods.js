@@ -37,8 +37,10 @@ Meteor.methods({
 
   resetFile: function(id) { // reset file back to cached version
     var file = Files.findOne(id); // overwrite content
-    Files.update( id, {$set: {content: file.cache}});
-    Meteor.call('postShareJS', file); // load back into sharejs
+    if (file) {
+      Files.update(id, {$set: {content: file.cache}});
+      Meteor.call('postShareJS', file); // load back into sharejs
+    }
   },
 
   resetFiles: function() { // reset db and hard code simple website structure
@@ -68,7 +70,7 @@ Meteor.methods({
     return Meteor.call('getShareJSDoc', file._id);
   },
 
-  postShareJSDoc: function(file) { // update files with their ids
+  postShareJS: function(file) { // update files with their ids
     var sjs = Meteor.call('getShareJSDoc', file) // get doc and version
     if( !sjs ) return null; // if file id broke, don't propagate error
     ShareJS.model.applyOp( file._id, {
@@ -221,7 +223,7 @@ Meteor.methods({
       repo: Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
     }).map(function setSJS(file){
-      Meteor.call('postShareJSDoc', file)
+      Meteor.call('postShareJS', file)
       dlog( file );
     });
   },

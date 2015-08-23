@@ -2,33 +2,25 @@ TODOS
 =====
 
 
+test: set session.focused var, cant have more than one open
+add a commit updates cached version
+
+
 ## UI / UX
 
-have a reset button next to file - remove unwanted changes
-closing an issue on github should close on codepilot
-    get all issues, hide closed button
-    move reload to individual item
-test: set session.focused var, cant have more than one open
-add a footer in for spacing in main template
+make the reset file button work
 hide feedback system after submitting
+add a footer in for spacing in main
 a loading bar for the commit progress
-add a commit updates cached version
-diffing hmtl does not work
-normalize event style
+diffing hmtl does not work, renders
+get all issues, hide closed button
 
 
 ## SERVER
 
-refactor upserts with $set
-commit links to rendered view
-rendering an arbitrary commit
-refactor issue posting as well
-implement system testing? velocity
 including the log data in the issue
-github api syncing
-    why does it need to two calls to populate sjs docs?
-    adding a content field on create new doc? perhaps
-    perhaps you can use a load on click operation to fix.
+rendering an arbitrary commit
+implement system testing? velocity
 load file from github only on click?? reduce api calls
     get current commit sha
     then tree sha
@@ -39,7 +31,6 @@ autoload repos after creating an account
 deleting / renaming files with github
 possible to store versions of each file??
 implementing a collapseable folder structure
-sort /public by media types and rereference
 
 
 ## PAPER
@@ -159,6 +150,7 @@ add a presentation format
 view while writing commit msg
 autoset default branch
 don't add user to repo owner if they are already there
+closing an issue on github should close on codepilot
 check if a user was last collaborating before showing them
 having sessions or groups - scaling app
 linkify feed items
@@ -186,6 +178,7 @@ looking at roles, changing editing profiles
 screenshots not pub
 on selecting a repo, load branches
 make login info pop to the left | align it right
+have a reset button next to file - remove unwanted changes
 tuneup feedback renderer panes
 confirm resetting the project
 deleting and renaming button (NOW DOES) work
@@ -200,6 +193,7 @@ make message box look nicer
 add params to field
 creating + selecting new branch
 confirm on load codepilot
+commit links to rendered view
 choose target from list of on github
 pilot sees tasks and issues, can close issues.
 make tasks more clickable (hover)
@@ -214,6 +208,7 @@ ability to close issue from codepilot
 ability to create issue from codepilot?
 seperate renderer bar - reload and file issue
 less aggresively reset branch to master
+refactor upserts with $set
 checking upsert issues correctly?
 screencapture to png
 cache content for diff
@@ -229,12 +224,14 @@ make prompt to open new file on close
 color rename/delete buttons on hover
 if no files yet, say clicknew in list
 hard to get collab or contributor repos.
+refactor issue posting as well
 insert a better glyph for the current file
 make settings panel info boex success?
 top item in repo select is fork a repo
 can't fork a repo you already own
 refactor github.js-getblobs() plz
 can't fork a repo that doesn't exist
+sort /public by media types and rereference
 choose ANY public repo on github, fork it for user, then start editing that repo
 add link to rendered html in issues
 sort chat by positive time
@@ -289,4 +286,8 @@ different commit history
 activity is in logger
 REFACTOR server/methods
 make different rendered views for each
+normalize event style
+github api syncing
+why does it need to two calls to populate sjs docs?
+adding a content field on create new doc? perhaps
 -->

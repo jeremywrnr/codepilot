@@ -14,7 +14,7 @@ Template.commitPanel.helpers({
     return Files.find({
       repo: Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
-    }).map(function checkDiff(file){ // compare contents and the cached v.
+    }).map(function checkDiff(file){ // compare contents and the cached v
       if(file.content !== file.cache)
         return { // return a named diff
           id: file._id,
@@ -23,7 +23,7 @@ Template.commitPanel.helpers({
             diffString(file.cache, file.content)
           ).replace(/  /g, ' ')
         };
-    }).filter(function removeNull(diff){ // remove any unchanged files
+    }).filter(function removeNull(diff){ // remove unchanged files from array
       return diff != undefined;
     });
   },
@@ -58,7 +58,8 @@ Template.commitPanel.events({
 
   'click .loadhead': function(e) { // load head of branch into SJS
     var trulyLoad = confirm("This will overwrite any uncommited changes. Proceed?");
-    if (trulyLoad) Meteor.call('loadHead', Meteor.user().profile.repoBranch);
+    if (trulyLoad)
+      Meteor.call('loadHead', Meteor.user().profile.repoBranch);
   },
 
 });
@@ -99,7 +100,8 @@ Template.commit.events({
 
   'click .loadcommit': function(e) {
     var trulyLoad = confirm("This will overwrite any uncommited changes. Proceed?");
-    if (trulyLoad) Meteor.call('loadCommit', this.commit.sha);
+    if (trulyLoad)
+      Meteor.call('loadCommit', this.commit.sha);
   },
 
 });
@@ -108,7 +110,8 @@ Template.diff.events({
 
   'click .reset': function(e) {
     var trulyReset = confirm("This will reset this file back to the last commit. Proceed?");
-    if (trulyReset) Meteor.call('resetFile', this.id);
+    if (trulyReset)
+      Meteor.call('resetFile', this.id);
   }
 
 });
