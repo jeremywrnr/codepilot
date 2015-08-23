@@ -1,4 +1,5 @@
 // iframe helper - load content from editor
+//var findFile = function(type) {} // helper for helpers
 
 Template.raw.helpers({
 

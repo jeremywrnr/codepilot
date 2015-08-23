@@ -8,21 +8,31 @@ Template.filelist.helpers({
 
 });
 
-Template.filelist.events = {
+Template.filelist.events({
+
   'click .new': function() {
     var id = Meteor.call('newFile');
     Session.set('document', id);
   }
-};
+
+});
+
+
+
+// individual files
 
 Template.fileitem.helpers({
+
   current: function() {
     return Session.equals('document', this._id);
   }
+
 });
 
-Template.fileitem.events = {
+Template.fileitem.events({
+
   'click .file': function() {
     Session.set('document', this._id);
   }
-};
+
+});

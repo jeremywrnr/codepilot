@@ -14,6 +14,7 @@ Tracker.autorun(function() { // subscribe on login
   if (Meteor.user()) {
     Meteor.subscribe('repos', Meteor.userId());
     if (Meteor.user().profile.repo) {
+
       var repoId = Meteor.user().profile.repo;
       Meteor.subscribe('tasks', repoId);
       Meteor.subscribe('issues', repoId);
@@ -22,9 +23,12 @@ Tracker.autorun(function() { // subscribe on login
       var branch = Meteor.user().profile.repoBranch;
       Meteor.subscribe('files', repoId, branch);
       Meteor.subscribe('commits', repoId, branch);
+
     }
   }
 });
+
+
 
 // global client helper(s)
 
@@ -59,7 +63,7 @@ Template.navigation.helpers({ // uses glyphicons in template
 // login setup
 
 Template.userLoggedout.events({
-  'click .login': function(e, tmpl) {
+  'click .login': function(e) {
     Meteor.loginWithGithub({
       requestPermissions: ['user', 'public_repo'],
       loginStyle: 'redirect',
@@ -71,7 +75,7 @@ Template.userLoggedout.events({
 });
 
 Template.userLoggedin.events({
-  'click .logout': function(e, tmpl) {
+  'click .logout': function(e) {
     Meteor.logout(function(err) {
       if (err)
         Session.set('errorMessage', err.reason);
