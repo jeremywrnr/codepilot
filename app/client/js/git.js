@@ -17,6 +17,7 @@ Template.commitPanel.helpers({
     }).map(function checkDiff(file){ // compare contents and the cached v.
       if(file.content !== file.cache)
         return { // return a named diff
+          id: file._id,
           title: file.title,
           diff: labelLineNumbers(
             diffString(file.cache, file.content)
@@ -29,7 +30,7 @@ Template.commitPanel.helpers({
 
 });
 
-Template.commitPanel.events = {
+Template.commitPanel.events({
 
   'click .newcommit': function(e) {
     e.preventDefault();
@@ -60,7 +61,7 @@ Template.commitPanel.events = {
     if (trulyLoad) Meteor.call('loadHead', Meteor.user().profile.repoBranch);
   },
 
-};
+});
 
 Template.history.helpers({ // sort the commits by time
 
@@ -86,7 +87,7 @@ Template.commit.helpers({
 
 });
 
-Template.commit.events = {
+Template.commit.events({
 
   'click .commit': function(e) {
     if ( Session.equals('commit', this._id) ) {
@@ -101,5 +102,13 @@ Template.commit.events = {
     if (trulyLoad) Meteor.call('loadCommit', this.commit.sha);
   },
 
-};
+});
 
+Template.diff.events({
+
+  'click .reset': function(e) {
+    var trulyReset = confirm("This will reset this file back to the last commit. Proceed?");
+    if (trulyReset) Meteor.call('resetFile', this.id);
+  }
+
+});

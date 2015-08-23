@@ -117,9 +117,12 @@ Template.issue.helpers({
     return Session.equals('issue', this._id);
   },
 
-  screen: function() {
-    var screen = Screens.findOne(this.feedback.imglink);
-    if (screen) return screen.img;
+  screen: function() { // return an issue screenshot
+    var screen;
+    if(this.feedback)
+      screen = Screens.findOne(this.feedback.imglink);
+    if (screen)
+      return screen.img;
   },
 
   labels: function () {

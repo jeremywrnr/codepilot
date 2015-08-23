@@ -109,7 +109,9 @@
 </template>
 
 <template name='diff'>
-  <li class='list-group-item list-group-item-info'> {{title}} </li>
+  <li class='list-group-item list-group-item-info'> {{title}}
+    <button class='btn btn-xs del btn-default pull-right reset'>reset</button>
+  </li>
   <li class='list-group-item'>
     <pre class='diff nomargin'><code>{{{ diff }}}</code></pre>
   </li>

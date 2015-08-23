@@ -35,6 +35,13 @@ Meteor.methods({
     Docs.remove(id);
   },
 
+  resetFile: function(id) { // reset file back to cached version
+    var cache = Files.findOne(id).cache;
+    Files.update(
+      id, {$set: {content: cache}} // overwrite contents
+    );
+  },
+
   resetFiles: function() { // reset db and hard code simple website structure
     Files.find({}).map(function delFile(f){ Meteor.call('deleteFile', f._id)});
     var base = [{'title':'site.html'},{'title':'site.css'},{'title':'site.js'}];
@@ -153,7 +160,7 @@ Meteor.methods({
   closeIssue: function(issue){ // close an issue on github by number
     Issues.remove(issue._id); // remove from the local database
     Meteor.call('ghAuth');
-    Meteor.call('addMessage', 'closed issue - ' + issue.feedback.note);
+    Meteor.call('addMessage', 'closed issue - ' + issue.title);
     return github.issues.edit({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,

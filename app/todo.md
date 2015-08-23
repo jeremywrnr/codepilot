@@ -14,6 +14,7 @@ hide feedback system after submitting
 a loading bar for the commit progress
 add a commit updates cached version
 diffing hmtl does not work
+normalize event style
 
 
 ## SERVER
