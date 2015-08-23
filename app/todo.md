@@ -4,6 +4,7 @@ TODOS
 
 test: set session.focused var, cant have more than one open
 add a commit updates cached version
+refactor issue fields.. again
 
 
 ## UI / UX

@@ -36,10 +36,11 @@ Meteor.methods({
   },
 
   resetFile: function(id) { // reset file back to cached version
-    var file = Files.findOne(id); // overwrite content
-    if (file) {
-      Files.update(id, {$set: {content: file.cache}});
-      Meteor.call('postShareJS', file); // load back into sharejs
+    var o = Files.findOne(id); // overwrite content
+    if (o) {
+      Files.update(id, {$set: {content: o.cache}});
+      var n = Files.findOne(id); // get new version
+      Meteor.call('postShareJS', n); // load into sharejs
     }
   },
 
