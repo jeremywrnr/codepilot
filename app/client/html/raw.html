@@ -31,12 +31,12 @@
     </style>
     <link rel="stylesheet" href="/feedback.min.css"/>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="/feedback.js"></script>
+    <script src="/js/feedback.js"></script>
 
     <script type="text/javascript"> // used in testing with feedback.js
       $.feedback({
         ajaxURL: "/feedback/",
-        html2canvasURL: "html2canvas.min.js",
+        html2canvasURL: "/js/html2canvas.min.js",
         feedbackButton: ".issue",
         initButtonText: "report issue",
         onClose: function() { window.location.reload(); },
