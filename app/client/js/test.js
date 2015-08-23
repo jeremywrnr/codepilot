@@ -59,7 +59,7 @@ Template.task.helpers({
   },
 
   current: function() {
-    return Session.equals('task', this._id);
+    return Session.equals('focusPane', this._id);
   },
 
 
@@ -68,15 +68,15 @@ Template.task.helpers({
 Template.task.events({
 
   'click .task': function() { // click to focus issue, again to reset
-    if ( Session.equals('task', this._id) )
-      Session.set('task', null);
+    if ( Session.equals('focusPane', this._id) )
+      Session.set('focusPane', null);
     else
-      Session.set('task', this._id);
+      Session.set('focusPane', this._id);
   },
 
   'click .toggle-checked': function () { // check or uncheck a task
     Meteor.call('setChecked', this); // server will deal with task updates
-    Session.set('task', null); // reset the currently selected task
+    Session.set('focusPane', null); // reset the currently selected task
   },
 
   'click .del': function () { // delete a task from this repo
@@ -114,7 +114,7 @@ Template.issues.events({
 Template.issue.helpers({
 
   current: function() {
-    return Session.equals('issue', this._id);
+    return Session.equals('focusPane', this._id);
   },
 
   screen: function() { // return an issue screenshot
@@ -134,10 +134,10 @@ Template.issue.helpers({
 Template.issue.events({
 
   'click .issue': function(e) { // click to focus issue, again to reset
-    if ( Session.equals('issue', this._id) )
-      Session.set('issue', null);
+    if ( Session.equals('focusPane', this._id) )
+      Session.set('focusPane', null);
     else
-      Session.set('issue', this._id);
+      Session.set('focusPane', this._id);
   },
 
   'click .closeissue': function(e) { // click to close a given issue

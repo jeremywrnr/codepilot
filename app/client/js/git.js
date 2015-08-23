@@ -7,7 +7,7 @@ Template.commitPanel.helpers({
   },
 
   committing: function() {
-    return Session.get('committing');
+    return Session.equals('focusPane', 'committing');
   },
 
   diffs: function() { // using jsdiff, return a diff on each file
@@ -19,7 +19,7 @@ Template.commitPanel.helpers({
         return { // return a named diff
           id: file._id,
           title: file.title,
-          diff: labelLineNumbers(
+          diff: labelLineNumbers( //TODO: handle long lines better + HTML
             diffString(file.cache, file.content)
           ).replace(/  /g, ' ')
         };
@@ -35,7 +35,7 @@ Template.commitPanel.events({
   'click .newcommit': function(e) {
     e.preventDefault();
     Meteor.call('testShareJS');
-    Session.set('committing', true);
+    Session.set('focusPane', 'committer');
     focusForm('#commitMsg');
   },
 
@@ -44,12 +44,12 @@ Template.commitPanel.events({
     $(e.target).blur();
     var msg = $('#commitMsg')[0].value;
     if (msg == null || msg == '') return false;
-    Session.set('committing', false);
+    Session.set('committing', null);
     Meteor.call('newCommit', msg);
   },
 
   'click .cancelCommit': function(e) {
-    Session.set('committing', false);
+    Session.set('focusPane', null);
   },
 
   'click .refresh': function(e) { // pull in latest commits from gh
@@ -79,7 +79,7 @@ Template.history.helpers({ // sort the commits by time
 Template.commit.helpers({
 
   current: function() {
-    return Session.equals('commit', this._id);
+    return Session.equals('focusPane', this._id);
   },
 
   mine: function() {
@@ -91,10 +91,10 @@ Template.commit.helpers({
 Template.commit.events({
 
   'click .commit': function(e) {
-    if ( Session.equals('commit', this._id) ) {
-      Session.set('commit', null);
+    if ( Session.equals('focusPane', this._id) ) {
+      Session.set('focusPane', null);
     } else {
-      Session.set('commit', this._id);
+      Session.set('focusPane', this._id);
     }
   },
 
