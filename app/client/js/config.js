@@ -91,7 +91,7 @@ Template.config.events({
 Template.forkRepo.helpers({
 
   forking: function() {
-    return Session.get('forking');
+    return Session.equals('forking', true);
   },
 
 });

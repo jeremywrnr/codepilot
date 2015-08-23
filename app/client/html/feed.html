@@ -3,7 +3,8 @@
 <template name='chat'>
   <div class='panel panel-default sidepanel'>
     <div class='panel-heading'>
-      <h3 class='panel-title'>feed</h3>
+      <h3 class='panel-title'>feed
+      </h3>
     </div>
     <div class='panel-body'>
       {{> chatter }}
@@ -29,3 +30,20 @@
     </ul>
   </div>
 </template>
+
+<template name='ghang'>
+  <div class='pull-right'>
+    <div id='g-hanger'></div>
+    <script>
+gapi.hangout.render('g-hanger', {
+  render: 'createhangout',
+  topic: 'codepilot',
+  initial_apps: [{'app_id' : '184219133185', 'start_data' : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }],
+  //invites: '{{# each collabs }}{{ collab}}{{/each}}',
+  widget_size: 72
+});
+    </script>
+  </div>
+</template>
+
+<template name='collab'> {{this}} </template>

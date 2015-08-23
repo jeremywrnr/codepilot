@@ -19,11 +19,42 @@ Template.messages.helpers({
   },
 
   messages: function() { // linkify and return feed items
-    var feed = Messages.find({}, {sort: {time: 1}});
-    return feed.map(function(msg){
+    return Messages.find(
+      {}, {sort: {time: 1}} // return all, time sorted
+    ).map(function linkMessage(msg) {
       msg.linkd = linkifyStr(msg.message);
-      return msg;
+      return msg; // return linked
     });
   },
+
+});
+
+Template.ghang.helpers({
+
+  reponame: function() { // return emails of all collabs
+    var user = Meteor.user();
+    if (user)
+      return user.profile.repoOwner + user.profile.repoName;
+  },
+
+  collabs: function() { // return emails of all collabs
+    var repo = Repos.findOne( Meteor.user().profile.repo );
+    if (repo) {
+      Meteor.call('getCollabs', repo, function setCollabs(err, users) {
+        if (!err)
+          Session.set('collabs', users); // get repo collaborators
+        else
+          console.error(err)
+      });
+    }
+    // aggregate and return the collaborator user emails
+    var collabs = Session.get('collabs');
+    if(collabs)
+    return collabs.map(function inviteHangout(user){ // profile
+        return { id : user.email, invite_type : 'EMAIL' };
+      }).filter(function removeSelf(user){ // don't invite self
+        return user.id != Meteor.user().profile.email;
+      });
+  }
 
 });

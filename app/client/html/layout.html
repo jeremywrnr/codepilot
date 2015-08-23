@@ -6,6 +6,7 @@
   <script src='/linkify.min.js'></script><!-- library to linkify tasks -->
   <script src='/linkify-jquery.min.js'></script>
   <script src='/linkify-string.min.js'></script>
+  <script src="https://apis.google.com/js/platform.js"></script>
   <script src='/packages/mizzao_sharejs-ace/ace-builds/src/ext-modelist.js'></script>
   <script src='/packages/mizzao_sharejs-ace/ace-builds/src/ext-beautify.js'></script>
   <script src='/packages/mizzao_sharejs-ace/ace-builds/src/ext-language_tools.js'></script>
@@ -22,6 +23,7 @@
       <div class='sidebar'>
         {{#if currentUser }}
         {{> filelist }}
+        {{> ghang }}
         {{> chat }}
         {{/if}}
       </div>
@@ -91,7 +93,7 @@
 <template name='userLoggedout'>
   <li class='grn login text-center'>
     <a href='#'>
-      login with <img style='height: 20px;' alt='github' src='/github.png'>
+      login with <img style='height: 20px;' alt='GitHub' src='/github.png'>
     </a>
   </li>
 </template>
