@@ -11,7 +11,12 @@ lookup, and commenting/documenting source code.
 
 ## features
 
-- soon it will feature things
+- supports simulatenous file editing (google docs)
+- import a any github repo into codepilot
+- edit, test, and commit back to github
+- supports live branching, testing
+- import, create, and close issues (GH)
+- includes screenshot, live code
 
 
 
