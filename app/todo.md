@@ -2,14 +2,14 @@ TODOS
 =====
 
 
-including the log data in the issue
-differentiate dropdowns on config
-working with someone in it, with someone else
-setting up different roles - junior prog
-icons may seem to do action - remove icon
 white list filetypes to load into sjs
+load JPEG, GIF and PNG bpm instead of showing
+
+including the log data in the issue
+
+icons may seem to do action - remove icon
+setting up different roles - junior prog
 describe roles differences much better
-load pngs/jpgs instead of showing
 file rename - close on lose focus
 show commit panel to all users
 console.error() on loadrepo
@@ -26,6 +26,7 @@ paginate long commit histories
 
 ## SERVER
 
+more testing with someone else
 repo has label-created field, only call once
 only refresh repos, if there are none
 handle users that do not have any repos
@@ -307,4 +308,5 @@ normalize event style
 github api syncing
 why does it need to two calls to populate sjs docs?
 adding a content field on create new doc? perhaps
+differentiate dropdowns on config
 -->

@@ -162,20 +162,22 @@
 
 
 <template name='user'>
-  <button class='list-group-item repo'> {{ login }}
-    <div class='pull-right'> {{ role }} | {{ repoBranch }}</div>
+  <button class='list-group-item repo'>
+    <!--<span class="label label-primary pull-right">user</span>-->
+    <button class='label label-primary btn btn-xs pull-right'> user </button>
+    {{ login }} | {{ role }} | {{ repoBranch }}
   </button>
 </template>
 
 <template name='repo'>
   <button class='list-group-item repo'>
-    <span class="label label-primary pull-right">repo</span>
+    <button class='label label-primary btn btn-xs pull-right'> repo </button>
     {{ repo.full_name }} </button>
 </template>
 
 <template name='branch'>
   <button class='list-group-item branch'>
-    <span class="label label-primary pull-right">branch</span>
+    <button class='label label-primary btn btn-xs pull-right'> branch </button>
     {{ name }} </button>
 </template>
 
