@@ -2,7 +2,7 @@ TODOS
 =====
 
 
-refactor issue fields.. again
+refactor issue fields.. again - issue vs issue.issue?
 only request commits after the current one
 onload, scroll to bottom
 

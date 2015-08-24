@@ -7,7 +7,7 @@ Template.commitPanel.helpers({
   },
 
   committing: function() {
-    return Session.equals('focusPane', 'committing');
+    return Session.equals('focusPane', 'committer');
   },
 
   diffs: function() { // using jsdiff, return a diff on each file
@@ -19,7 +19,8 @@ Template.commitPanel.helpers({
         return { // return a named diff
           id: file._id,
           title: file.title,
-          diff: labelLineNumbers( //TODO: handle long lines better + HTML
+          //TODO: handle long lines better + HTML
+          diff: labelLineNumbers(
             diffString(file.cache, file.content)
           ).replace(/  /g, ' ')
         };

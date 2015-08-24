@@ -13,20 +13,41 @@ Meteor.subscribe('screens');
 Tracker.autorun(function() { // subscribe on login
   if (Meteor.user()) {
     Meteor.subscribe('repos', Meteor.userId());
-    if (Meteor.user().profile.repo) {
+    if (prof().repo) {
 
-      var repoId = Meteor.user().profile.repo;
-      Meteor.subscribe('tasks', repoId);
-      Meteor.subscribe('issues', repoId);
-      Meteor.subscribe('messages', repoId);
+      var user = prof(); // get user profile
+      Meteor.subscribe('tasks', user.repo);
+      Meteor.subscribe('issues', user.repo);
+      Meteor.subscribe('messages', user.repo);
 
-      var branch = Meteor.user().profile.repoBranch;
-      Meteor.subscribe('files', repoId, branch);
-      Meteor.subscribe('commits', repoId, branch);
+      var branch = user.repoBranch; // get branch
+      Meteor.subscribe('files', user.repo, branch);
+      Meteor.subscribe('commits', user.repo, branch);
 
     }
   }
 });
+
+
+
+// global helper functions
+
+prof = function() { // return the current users profile
+  var user = Meteor.user();
+  if (user)
+    return user.profile;
+  else
+    return null;
+}
+
+files = function() { // return the current b/r files
+  var user = prof();
+  if (user)
+    return Files.find({
+      repo: user.repo,
+      branch: user.repoBranch
+    });
+}
 
 
 
@@ -41,7 +62,7 @@ Tracker.autorun(function() { // scroll down on new messages
   var feed = $("#feed")[0];
   var newFeedCount = Messages.find({}).count();
   if (! Session.equals('feedCount', newFeedCount)) {
-    if(feed) {
+    if (feed) {
       $('#feed').stop().animate({ scrollTop: feed.scrollHeight }, 500);
       Session.set('feedCount', newFeedCount);
     }
