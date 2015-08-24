@@ -2,14 +2,9 @@ TODOS
 =====
 
 
-refactor issue fields.. again - issue vs issue.issue?
-only request commits after the current one
-onload, scroll to bottom
-
-
 ## UI / UX
 
-make the reset file button work
+issues being duplicated
 hide feedback system after submitting
 add a footer in for spacing in main
 a loading bar for the commit progress
@@ -21,6 +16,7 @@ paginate long commit histories
 ## SERVER
 
 including the log data in the issue
+request commits after current
 rendering an arbitrary commit
 implement system testing? velocity
 load file from github only on click?? reduce api calls
@@ -160,6 +156,7 @@ linkify feed items
 change template based on roles
 making the task items more usable
 project id - show collaborators button
+make the reset file button work
 conflict with sharejs and docs??? renaming to files
 committing folders works, but can't load them - recursive trees
 if label == codepilot, color black
@@ -169,6 +166,7 @@ make a fake github account, collab with me
 probably something to do with using autopublish
 fixing the load commit / docs
 add more labels on right side of task input (gh issues)
+refactor issue fields.. again - issue vs issue.issue?
 add null msg for feed and commit
 listiing a users repos / 'collabable'
 load a specific commit instead of the latest

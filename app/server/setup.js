@@ -1,3 +1,18 @@
+// global helper functions
+
+prof = function() { // return the current users profile
+  var user = Meteor.user();
+  if (user) return user.profile;
+}
+
+files = function() { // return the current b/r files
+  var user = prof();
+  if (user) return Files.find({
+    repo: user.repo,
+    branch: user.repoBranch
+  });
+}
+
 // debugging tools
 
 debug = true;
@@ -49,7 +64,7 @@ Meteor.startup(function () { // get correct github auth key
   github = new GitHub({
     version: '3.0.0',
     timeout: 5000,
-    debug: debug, // boolean variable declared above
+    debug: debug, // boolean declared above
     protocol: 'https',
     headers: { 'User-Agent': 'code pilot' }
   });

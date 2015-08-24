@@ -1,5 +1,5 @@
 // server (priveleged) methods, can run sync.
-// so: files, shareks, and top-level functions
+// so: files, shareJS, and top-level functions
 // dlog is debugger log, see server/setup.js
 
 Meteor.methods({
@@ -160,15 +160,15 @@ Meteor.methods({
   },
 
   closeIssue: function(issue){ // close an issue on github by number
-    Issues.remove(issue._id); // remove from the local database
     Meteor.call('ghAuth');
-    Meteor.call('addMessage', 'closed issue - ' + issue.title);
-    return github.issues.edit({
+    Meteor.call('addMessage', 'closed issue - ' + issue.issue.title);
+    github.issues.edit({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
       number: issue.issue.number,
       state: 'closed'
     });
+    Issues.remove(issue._id); // remove from the local database
   },
 
 

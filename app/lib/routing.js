@@ -24,6 +24,9 @@ Router.route('feedback', {
     var issue = JSON.parse( this.request.body.feedback );
     if(Meteor.users.findOne(issue.user)) // dont take junk
       Meteor.call('addIssue', issue);
+    //this.response.statusCode = 201;
+    //this.response.setHeader("Content-Type", "application/json");
+    //this.response.end('{status: "added"');
   }
 });
 

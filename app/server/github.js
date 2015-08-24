@@ -7,7 +7,7 @@ Meteor.methods({
   // GITHUB GET REQUESTS
   //////////////////////
 
-  ghAuth: function(){ // authenticate for secure api calls
+  ghAuth: function() { // authenticate for secure api calls
     github.authenticate({
       type: 'token',
       token: Meteor.user().services.github.accessToken
@@ -111,7 +111,7 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
-  postLabel: function(){ // used in repo initing - create codepilot issue label
+  postLabel: function() { // used in repo initing - create codepilot issue label
     Meteor.call('ghAuth');
     try {
       return github.issues.createLabel({
@@ -123,7 +123,7 @@ Meteor.methods({
     } catch (e) { /* label already exists - that is fine */ }
   },
 
-  postIssue: function(issue){ // takes feedback issue, creates GH issue
+  postIssue: function(issue) { // takes feedback issue, creates GH issue
     // custom login - iframe not given Meteor.user() scope
     var user = Meteor.users.findOne(issue.user);
     var token = user.services.github.accessToken;
@@ -137,7 +137,7 @@ Meteor.methods({
     });
   },
 
-  postTree: function(t){ // takes tree, gives tree SHA hash id
+  postTree: function(t) { // takes tree, gives tree SHA hash id
     Meteor.call('ghAuth');
     return github.gitdata.createTree({
       user: Meteor.user().profile.repoOwner,
@@ -147,7 +147,7 @@ Meteor.methods({
     }).sha; // beware!! - returns sha, not the entire post response
   },
 
-  postBranch: function(branch, parent){ // make a new branch of the current repo
+  postBranch: function(branch, parent) { // make a new branch of the current repo
     Meteor.call('ghAuth');
     return github.gitdata.createReference({
       user: Meteor.user().profile.repoOwner,
@@ -169,7 +169,7 @@ Meteor.methods({
     });
   },
 
-  postRef: function(cr){ // takes commit results (cr),  updates ref
+  postRef: function(cr) { // takes commit results (cr),  updates ref
     Meteor.call('ghAuth');
     return github.gitdata.updateReference({
       user: Meteor.user().profile.repoOwner,
@@ -179,7 +179,7 @@ Meteor.methods({
     });
   },
 
-  postRepo: function(owner, repo){ // done to fork a repo for a new user
+  postRepo: function(owner, repo) { // done to fork a repo for a new user
     Meteor.call('ghAuth');
     return  github.repos.fork({
       user: owner,
