@@ -2,7 +2,6 @@ TODOS
 =====
 
 
-add a commit updates cached version
 refactor issue fields.. again
 only request commits after the current one
 onload, scroll to bottom
@@ -16,6 +15,7 @@ add a footer in for spacing in main
 a loading bar for the commit progress
 diffing hmtl does not work, renders
 get all issues, hide closed button
+paginate long commit histories
 
 
 ## SERVER
@@ -137,6 +137,7 @@ difference between author and committer in git?
 refactor iframes, better in pane nav.
 ACTUALLY design what the fields should be plz
 feed notifys on issues
+add a commit updates cached version
 only give user the user things related to their repo
 only add to collaborators if not on list
 future: create a new repo with the api

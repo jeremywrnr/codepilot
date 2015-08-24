@@ -14,11 +14,12 @@ Meteor.methods({
     });
   },
 
-  getAllRepos: function() { // put them in db, serve to user (not return)
+  getAllRepos: function() { // put them in db, serve to user (no return)
     Meteor.call('ghAuth'); // auth for getting all pushable repos
     var uid = Meteor.userId(); // userID, used below
-    var repos = github.repos.getAll({ user: Meteor.user().profile.login });
-    repos.map(function attachUser(gr){ // attach user to git repo (gr)
+    github.repos.getAll({
+      user: Meteor.user().profile.login
+    }).map(function attachUser(gr){ // attach user to git repo (gr)
 
       var repo = Repos.findOne({ id: gr.id });
       if (repo) { // repo already exists
@@ -28,7 +29,7 @@ Meteor.methods({
           Repos.update(repo._id, {$push: {users: uid }});
 
       } else { // brand new repo, just insert.
-        Repos.insert({ id: gr.id, users: [ Meteor.userId() ], repo: gr });
+        Repos.insert({ id: gr.id, users: [ uid ], repo: gr });
       }
 
     });
@@ -46,7 +47,9 @@ Meteor.methods({
     return github.repos.getCommits({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      sha: Meteor.user().profile.repoBranch
+      sha: Meteor.user().profile.repoBranch,
+      per_page: 100
+      //since: (Date Timestamp (ISO 8601)): YYYY-MM-DDTHH:MM:SSZ
     });
   },
 
