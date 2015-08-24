@@ -51,6 +51,9 @@ Template.config.events({
   'click .repoSelect': function(e) { // show the available repos
     e.preventDefault();
     Session.set('focusPane', 'repo');
+    if (Repos.find({}).count() === 0) { // if no repos, load them in
+      Meteor.call('getAllRepos');
+    }
   },
 
   'click .branchSelect': function(e) { // show the available branches

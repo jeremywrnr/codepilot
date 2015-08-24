@@ -1,24 +1,25 @@
 TODOS
 =====
 
-normalize role selection to other field selections
+
 including the log data in the issue
-only refresh repos, if there are none
+don't download image content into cp
 
 
 ## UI / UX
 
+paginate long commit histories
 diffing hmtl does not work, renders
 get all issues, hide closed button
 add a footer in for spacing in main
 a loading bar for the commit progress
-paginate long commit histories
+normalize role selection (match others)
 icons may seem to do action - remove icon
 setting up different roles - junior prog
 describe roles differences much better
 file rename - close on lose focus
 show commit panel to all users
-console.error() on loadrepo
+console.error() on loadrepo??
 
 
 ## SERVER
@@ -226,6 +227,7 @@ checking upsert issues correctly?
 screencapture to png
 cache content for diff
 make a new issue, attach png to it
+only refresh repos, if there are none
 issues being duplicated
 attach issue to the png
 confirming close issue with confirm
