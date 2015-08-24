@@ -92,6 +92,16 @@ Meteor.methods({
     });
   },
 
+  getContent: function(filename) { // get encoded content of a file
+    return github.repos.getContent({
+      //headers: {'Accept':'application/vnd.github.VERSION.raw'},
+      user: Meteor.user().profile.repoOwner,
+      repo: Meteor.user().profile.repoName,
+      path: filename,
+      ref: Meteor.user().profile.repoBranch,
+    });
+  },
+
   getBlob: function(blob) { // give a blobs file contents
     return github.gitdata.getBlob({
       headers: {'Accept':'application/vnd.github.VERSION.raw'},

@@ -107,3 +107,29 @@ Template.filename.events({
   }
 
 });
+
+Template.nullFileType.helpers({
+
+  type: function() { // return the type of unsupported file
+    var file = Files.findOne(Session.get('document'));
+    if (file)
+      return file.title.split('.').pop();
+  },
+
+  source: function() { // return the type of unsupported file
+    var file = Files.findOne(Session.get('document'));
+    if (file)
+      return file.src;
+  },
+
+});
+
+Template.renderImage.helpers({
+
+  image: function() { // return the type of unsupported file
+    var file = Files.findOne(Session.get('document'));
+    if (file)
+      return file.raw;
+  },
+
+});

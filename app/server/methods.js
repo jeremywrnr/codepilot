@@ -9,11 +9,16 @@ Meteor.methods({
   //////////////////
 
   newFile: function() { // create a new unnamed file
-    return Meteor.call('createFile', {path: 'untitled', content: ''});
+    return Meteor.call('createFile', {path: 'untitled'});
   },
 
   createFile: function(file) { // create or update a file, make sjs doc
-    file.content = file.content || '' ; // handle null content fields
+
+    // handle null fields (from inserting locally)
+    file.content.download_url = file.content.download_url || '';
+    file.content.html_url = file.content.html_url || '';
+    file.content = file.content || '';
+
     var fs = Files.upsert({
       repo: Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
@@ -21,9 +26,11 @@ Meteor.methods({
     },{ $set: {
       content: file.content,
       cache: file.content,
+      src: file.content.html_url, // linked to for unsupported filetypes
+      raw: file.content.download_url, // used for rendering images
     }});
-    // if a new file made, create sharejs
-    if (fs.insertedId) {
+
+    if (fs.insertedId) { // if a new file made, create sharejs
       Meteor.call('addMessage', ' created file - ' + file.path);
       Meteor.call('newShareJSDoc', fs.insertedId);
       return fs.insertedId;
@@ -213,19 +220,30 @@ Meteor.methods({
     var commitResults = Meteor.call('getCommit', sha);
     var treeSHA = commitResults.commit.tree.sha;
     var treeResults = Meteor.call('getTree', treeSHA);
-    treeResults.tree.map(function updateBlob(blob) {
+    treeResults.tree.forEach(function updateBlob(blob) {
 
-      //TODO: handle renaming things?
-      // only load files, not folders/trees
-      if (blob.type === 'blob') {
+      if (blob.type === 'blob') { // only load files, not folders/trees
 
-        blob.content = Async.runSync(function(done) {
-          var content = Meteor.call('getBlob', blob);
-          done(content);
-        }).error;
+        var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
+
+        if (image.test(blob.path)) { // get the encoded file content
+
+          blob.content = Async.runSync(function(done) { // wait on github response
+            var content = Meteor.call('getContent', blob.path);
+            done(content, content);
+          }).result;
+
+        } else { // get the raw file content
+
+          blob.content = Async.runSync(function(done) { // wait on github response
+            var content = Meteor.call('getBlob', blob);
+            done(content, content);
+          }).result;
+
+        }
 
         Meteor.call('createFile', blob);
-      };
+      }
 
     });
 

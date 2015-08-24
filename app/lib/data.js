@@ -16,6 +16,8 @@ Files = new Mongo.Collection('files'); // used with github
     title - name of the file
     cache - latest version of commit, for diff
     content - live content of the file
+    raw - link to raw file content (github)
+    src - link to file page on github
     */
 
 Messages = new Mongo.Collection('messages'); // client side feed

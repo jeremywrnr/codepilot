@@ -1,7 +1,6 @@
 TODOS
 =====
 
-
 normalize role selection to other field selections
 including the log data in the issue
 only refresh repos, if there are none
@@ -24,6 +23,7 @@ console.error() on loadrepo
 
 ## SERVER
 
+add encoding field to file document
 more testing with someone else
 repo has label-created field, only call once
 handle users that do not have any repos
