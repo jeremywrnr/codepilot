@@ -13,11 +13,13 @@
     {{#with docid}}
     {{> filename this}}
 
-    {{#if nullMode }}
+    {{#if isImage }}
+    {{> renderImage }}
+    {{else}} {{#if nullMode }}
     filetype currently not supported
     {{else}}
     {{> sharejsAce docid=this onRender=config onConnect=setMode id='editor'}}
-    {{/if}}
+    {{/if}}{{/if}}
 
     {{/with}}
   </div>
@@ -58,4 +60,8 @@
 
     </div>
   </div>
+</template>
+
+<template name='renderImage'>
+  image rendering here
 </template>

@@ -29,7 +29,7 @@ Template.editor.helpers({
     };
   },
 
-  nullMode: function() { // check if file list in whitelist of types
+  nullMode: function() { // check if file type is in whitelist
     var file = Files.findOne(Session.get('document'));
     var modelist = ace.require('ace/ext/modelist');
     if (file) {
@@ -42,7 +42,14 @@ Template.editor.helpers({
     }
   },
 
-  isImage: function() { // if
+  isImage: function() { // check if file extension is renderable
+    var file = Files.findOne(Session.get('document'));
+    var imgs = /jpe?g|gif|png|bmp/i;
+    if (file) {
+      var extn = file.title.split('.').pop();
+      if (imgs.test(extn))
+        return true;
+    }
   },
 
   setMode: function() { // different style on filetype

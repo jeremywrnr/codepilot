@@ -2,21 +2,9 @@ TODOS
 =====
 
 
-white list filetypes to load into sjs
-load JPEG, GIF and PNG bpm instead of showing
-
 normalize role selection to other field selections
-
 including the log data in the issue
-
 only refresh repos, if there are none
-
-icons may seem to do action - remove icon
-setting up different roles - junior prog
-describe roles differences much better
-file rename - close on lose focus
-show commit panel to all users
-console.error() on loadrepo
 
 
 ## UI / UX
@@ -26,6 +14,12 @@ get all issues, hide closed button
 add a footer in for spacing in main
 a loading bar for the commit progress
 paginate long commit histories
+icons may seem to do action - remove icon
+setting up different roles - junior prog
+describe roles differences much better
+file rename - close on lose focus
+show commit panel to all users
+console.error() on loadrepo
 
 
 ## SERVER
@@ -260,6 +254,7 @@ tabbed user interface - elseif in meteor?
 or rather how to do some routing in meteor
 branching functionality
 load files on branch select
+white list filetypes to load into sjs
 or not do this?? overwrites last
 rendering a branch screenshot
 clicking on a file should go to edit tab
