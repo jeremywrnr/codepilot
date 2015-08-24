@@ -2,28 +2,31 @@ TODOS
 =====
 
 
+move renaming to focusPane scope
+click on file closes rename option
 including the log data in the issue
-don't download image content into cp
 
 
 ## UI / UX
 
-paginate long commit histories
 diffing hmtl does not work, renders
+file rename - close on lose focus
 get all issues, hide closed button
+show commit panel to all users
+paginate long commit histories
 add a footer in for spacing in main
-a loading bar for the commit progress
-normalize role selection (match others)
+loading bar for the commit progress
 icons may seem to do action - remove icon
+normalize role selection (match others)
+rendering .md as a link in feed
 setting up different roles - junior prog
 describe roles differences much better
-file rename - close on lose focus
-show commit panel to all users
 console.error() on loadrepo??
 
 
 ## SERVER
 
+don't download image content into cp
 add encoding field to file document
 more testing with someone else
 repo has label-created field, only call once
