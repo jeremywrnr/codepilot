@@ -8,25 +8,26 @@ Meteor.methods({
   // FILE MANAGEMENT
   //////////////////
 
-  newFile: function() { // create a new file, unnamed, return id
-    return Meteor.call('createFile', 'untitled');
+  newFile: function() { // create a new unnamed file
+    return Meteor.call('createFile', {title: 'untitled', content: ''});
   },
 
-  createFile: function(ft) { // make new file with filetitle (ft), return id
-    Meteor.call('addMessage', ' created file - ' + ft);
-    Files.insert(
-      {
-        title: ft,
-        repo: Meteor.user().profile.repo,
-        branch: Meteor.user().profile.repoBranch
-      },
-      function(err, id) { // create sharejs document with same id
-        if(!err)
-          newShareJSDoc(id);
-        else
-          dlog(err);
-      }
-    );
+  createFile: function(file) { // create or update a file, make sjs doc
+    file.content = file.content || '' ; // handle null content fields
+    var fs = Files.upsert({
+      repo: Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+      title: file.path,
+    },{ $set: {
+      content: file.content,
+      cache: file.content,
+    }});
+    // if a new file made, create sharejs
+    if (fs.insertedId) {
+      Meteor.call('addMessage', ' created file - ' + file.path);
+      Meteor.call('newShareJSDoc', fs.insertedId);
+      return fs.insertedId;
+    }
   },
 
   deleteFile: function(id) { // with id, delete a file from system
@@ -47,7 +48,7 @@ Meteor.methods({
   resetFiles: function() { // reset db and hard code simple website structure
     Files.find({}).map(function delFile(f){ Meteor.call('deleteFile', f._id)});
     var base = [{'title':'site.html'},{'title':'site.css'},{'title':'site.js'}];
-    base.map(function(f){ Meteor.call('createFile', f.title) });
+    base.map(function(f){ Meteor.call('createFile', f) });
   },
 
 
@@ -58,7 +59,7 @@ Meteor.methods({
 
   newShareJSDoc: function(id) { // create sharejs document with same id
     var time = Math.round( new Date() / 1000 );
-    ShareJS.model.create( id, 'text', { mtime: time, ctime: time });
+    ShareJS.model.create(id, 'text', { mtime: time, ctime: time });
   },
 
   getShareJSDoc: function(file) { // give live editor copy, v and snapshot
@@ -73,7 +74,7 @@ Meteor.methods({
 
   postShareJS: function(file) { // update files with their ids
     var sjs = Meteor.call('getShareJSDoc', file) // get doc and version
-    if( !sjs ) return null; // if file id broke, don't propagate error
+    if (!sjs) return null; // if file id broke, don't propagate error
     ShareJS.model.applyOp( file._id, {
       op: [
         { p:0, d: sjs.snapshot }, // delete old content
@@ -84,11 +85,20 @@ Meteor.methods({
     });
   },
 
+  postAllShareJS: function(file) { // update all project sjs files
+    Files.find({
+      repo:  Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+    }).map(function setSJS(file) {
+      Meteor.call('postShareJS', file);
+    });
+  },
+
   testShareJS: function() { // update file.content from sjs
     Files.find({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
-    }).map(function readSJS(file){ // read SJS buffers into content
+    }).map(function readSJS(file) {
       Files.update(
         file._id,
         {$set: {
@@ -104,16 +114,17 @@ Meteor.methods({
   ///////////////////
 
   initIssues: function() { // re-populating git repo issues
-    var repo = Repos.findOne( Meteor.user().profile.repo );
-    var issues = Meteor.call('getAllIssues', repo);
-    issues.map(function(issue){
-      Issues.upsert({
-        repo: repo._id,
-        ghid: issue.id // (from github)
-      },{
-        $set: {issue: issue},
+    var repo = Repos.findOne(Meteor.user().profile.repo);
+    if (repo) {
+      Meteor.call('getAllIssues', repo).map(function load(issue) {
+        Issues.upsert({
+          repo: repo._id,
+          ghid: issue.id // (from github)
+        },{
+          $set: {issue: issue},
+        });
       });
-    });
+    }
   },
 
   addIssue: function(feedback){ // adds a feedback issue to github
@@ -178,8 +189,9 @@ Meteor.methods({
   /////////////////////
 
   initCommits: function() { // re-populating the commit log
-    var gc = Meteor.call('getAllCommits');
-    gc.map(function(c){ Meteor.call('addCommit', c) });
+    Meteor.call('getAllCommits').map(function(c){
+      Meteor.call('addCommit', c);
+    });
   },
 
   addCommit: function(c) { // adds a commit, links to repo + branch
@@ -193,40 +205,32 @@ Meteor.methods({
   },
 
   loadHead: function(bname) { // load head of branch, from sha
-    // TODO: check if branch name is a valid branchname of this repo
     var sha =  Meteor.call('getBranch', bname).commit.sha;
-    Meteor.call('loadCommit', sha);
+    if (sha) Meteor.call('loadCommit', sha);
   },
 
   loadCommit: function(sha) { // takes commit sha, loads into sjs
     var commitResults = Meteor.call('getCommit', sha);
     var treeSHA = commitResults.commit.tree.sha;
     var treeResults = Meteor.call('getTree', treeSHA);
-    treeResults.tree.forEach(function updateBlob(blob) {
-      if (blob.type === 'blob') { // only load files, not folders/trees
-        var oldcontent = Meteor.call('getBlob', blob);
+    treeResults.tree.map(function updateBlob(blob) {
 
-        //TODO - handle renaming things?
+      //TODO: handle renaming things?
+      // only load files, not folders/trees
+      if (blob.type === 'blob') {
 
-        Files.upsert({ // update all files contents
-          repo: Meteor.user().profile.repo,
-          branch: Meteor.user().profile.repoBranch,
-          title: blob.path,
-        },{ $set: {
-          content: oldcontent,
-          cache: oldcontent,
-        }});
+        blob.content = Async.runSync(function(done) {
+          var content = Meteor.call('getBlob', blob);
+          done(content);
+        }).error;
+
+        Meteor.call('createFile', blob);
       };
+
     });
 
-    // move files old contents into sharejsdoc
-    Files.find({
-      repo: Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-    }).map(function setSJS(file){
-      Meteor.call('postShareJS', file)
-      dlog( file );
-    });
+    Meteor.call('postAllShareJS');
+
   },
 
 
@@ -252,8 +256,6 @@ Meteor.methods({
         content: file.content
       };
     });
-
-    dlog( blobs );
 
     // get old tree and update it with new shas, post and get that sha
     var branch = Meteor.call('getBranch', bname);

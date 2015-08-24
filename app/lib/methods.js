@@ -103,10 +103,9 @@ Meteor.methods({
     Meteor.call('setBranch', branch); // set branch
     Meteor.call('initCommits'); // pull commit history for gr repo
     Meteor.call('loadHead', branch); // load the head of gr branch into CP
-    //Meteor.call('postLabel'); // register codepilot label for new repo
-    //Meteor.call('loadHead', branch); // TODO: why is double loading needed?
     var full = gr.repo.owner.login + '/' + gr.repo.name;
     Meteor.call('addMessage', 'started working on repo - ' + full);
+    //Meteor.call('postLabel', gr); // register codepilot label for new repo
   },
 
   setRepo: function(gr) { // set git repo & default branch

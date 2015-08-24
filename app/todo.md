@@ -2,33 +2,36 @@ TODOS
 =====
 
 
+including the log data in the issue
+
+
 ## UI / UX
 
-issues being duplicated
-hide feedback system after submitting
-add a footer in for spacing in main
-a loading bar for the commit progress
 diffing hmtl does not work, renders
 get all issues, hide closed button
+add a footer in for spacing in main
+a loading bar for the commit progress
 paginate long commit histories
 
 
 ## SERVER
 
-including the log data in the issue
+repo has label-created field, only call once
+only refresh repos, if there are none
+handle users that do not have any repos
+implement system testing? velocity
 request commits after current
 rendering an arbitrary commit
-implement system testing? velocity
-load file from github only on click?? reduce api calls
-    get current commit sha
-    then tree sha
-    then blob
-    then load into sharejs doc
 increase commit history to 100 (per page, in github.js)
 autoload repos after creating an account
 deleting / renaming files with github
 possible to store versions of each file??
 implementing a collapseable folder structure
+load file from github only on click?? reduce api calls
+    get current commit sha
+    then tree sha
+    then blob
+    then load into sharejs doc
 
 
 ## PAPER
@@ -142,6 +145,7 @@ dont allow a feed message that is just whitespace
 global methods - detoggle set afterclick
 canceling repo select cancels branch fork
 loading a repos content, commit history
+hide feedback system after submitting
 reconfigure public only repos
 better change branch handling - not loading commits
 doing a diff match path before commit, locally
@@ -214,6 +218,7 @@ checking upsert issues correctly?
 screencapture to png
 cache content for diff
 make a new issue, attach png to it
+issues being duplicated
 attach issue to the png
 confirming close issue with confirm
 ask them to describe new issue

@@ -111,16 +111,18 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
-  postLabel: function() { // used in repo initing - create codepilot issue label
+  postLabel: function(gr) { // used in repo initing - create codepilot issue label
     Meteor.call('ghAuth');
-    try {
+    if (! gr.labelCreated) {
       return github.issues.createLabel({
         user: Meteor.user().profile.repoOwner,
         repo: Meteor.user().profile.repoName,
         name: 'codepilot',
         color: '000000' // set the codepilot label color black for this repo
       });
-    } catch (e) { /* label already exists - that is fine */ }
+    } else { // mark label created
+      gr.labelCreated = true;
+    }
   },
 
   postIssue: function(issue) { // takes feedback issue, creates GH issue
@@ -147,7 +149,7 @@ Meteor.methods({
     }).sha; // beware!! - returns sha, not the entire post response
   },
 
-  postBranch: function(branch, parent) { // make a new branch of the current repo
+  postBranch: function(branch, parent) { // make new branch off current
     Meteor.call('ghAuth');
     return github.gitdata.createReference({
       user: Meteor.user().profile.repoOwner,
