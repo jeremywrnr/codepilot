@@ -168,11 +168,15 @@
 </template>
 
 <template name='repo'>
-  <button class='list-group-item repo'> {{ repo.full_name }} </button>
+  <button class='list-group-item repo'>
+    <span class="label label-primary pull-right">repo</span>
+    {{ repo.full_name }} </button>
 </template>
 
 <template name='branch'>
-  <button class='list-group-item branch'> {{ name }} </button>
+  <button class='list-group-item branch'>
+    <span class="label label-primary pull-right">branch</span>
+    {{ name }} </button>
 </template>
 
 
