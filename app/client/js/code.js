@@ -29,6 +29,22 @@ Template.editor.helpers({
     };
   },
 
+  nullMode: function() { // check if file list in whitelist of types
+    var file = Files.findOne(Session.get('document'));
+    var modelist = ace.require('ace/ext/modelist');
+    if (file) {
+      var mode = modelist.getModeForPath(file.title);
+      var extn = file.title.split('.').pop();
+      if (extn !== file.title) // check if file actually has extension
+        if (mode.mode === 'ace/mode/text') // text is default mode type
+          if (! mode.extRe.test(file.title)) // but doesnt match regex
+            return true;
+    }
+  },
+
+  isImage: function() { // if
+  },
+
   setMode: function() { // different style on filetype
     return function(editor) {
       var fileId = Session.get('document');
@@ -44,7 +60,7 @@ Template.editor.helpers({
 Template.filename.helpers({
 
   rename: function() {
-    return Session.equals('renaming', true);
+    return Session.equals('focusPane', 'renamer');
   },
 
   title: function() { // strange artifact.
@@ -63,14 +79,14 @@ Template.filename.events({
     var txt = $('#filetitle')[0].value;
     if (txt == null || txt == '') return false;
     var id = Session.get('document');
-    Session.set('renaming', false);
+    Session.set('focusPane', null);
     Files.update(id, {$set:{title:txt}} );
   },
 
   // enable changing of filename
   'click button.edit': function (e) {
     e.preventDefault();
-    Session.set('renaming', true);
+    Session.set('focusPane', 'renamer');
     focusForm('#filetitle');
   },
 
@@ -79,7 +95,7 @@ Template.filename.events({
     e.preventDefault();
     var id = Session.get('document');
     Meteor.call('deleteFile', id);
-    Session.set('renaming', false);
+    Session.set('focusPane', null);
     Session.set('document', null);
   }
 

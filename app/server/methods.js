@@ -9,7 +9,7 @@ Meteor.methods({
   //////////////////
 
   newFile: function() { // create a new unnamed file
-    return Meteor.call('createFile', {title: 'untitled', content: ''});
+    return Meteor.call('createFile', {path: 'untitled', content: ''});
   },
 
   createFile: function(file) { // create or update a file, make sjs doc

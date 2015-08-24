@@ -17,16 +17,13 @@ files = function() { // return the current b/r files
 
 // default session settings
 
-Session.setDefault('task', null);
-Session.setDefault('issue', null);
-Session.setDefault('commit', null);
 Session.setDefault('feedCount', 0);
 Session.setDefault('document', null);
-Session.setDefault('renaming', false);
-Session.setDefault('committing', false);
+Session.setDefault('focusPane', null);
 Session.setDefault('editorType', 'ace');
 
 // startup data subscriptions
+
 Meteor.subscribe('screens');
 Tracker.autorun(function() { // subscribe on login
   if (Meteor.user()) {

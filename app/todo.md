@@ -5,7 +5,11 @@ TODOS
 white list filetypes to load into sjs
 load JPEG, GIF and PNG bpm instead of showing
 
+normalize role selection to other field selections
+
 including the log data in the issue
+
+only refresh repos, if there are none
 
 icons may seem to do action - remove icon
 setting up different roles - junior prog
@@ -28,7 +32,6 @@ paginate long commit histories
 
 more testing with someone else
 repo has label-created field, only call once
-only refresh repos, if there are none
 handle users that do not have any repos
 implement system testing? velocity
 request commits after current
