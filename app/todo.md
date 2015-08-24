@@ -3,6 +3,16 @@ TODOS
 
 
 including the log data in the issue
+differentiate dropdowns on config
+working with someone in it, with someone else
+setting up different roles - junior prog
+icons may seem to do action - remove icon
+white list filetypes to load into sjs
+describe roles differences much better
+load pngs/jpgs instead of showing
+file rename - close on lose focus
+show commit panel to all users
+console.error() on loadrepo
 
 
 ## UI / UX
