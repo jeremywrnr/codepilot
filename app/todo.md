@@ -4,6 +4,7 @@ TODOS
 
 move renaming to focusPane scope
 click on file closes rename option
+on file rename form lose focus, stop renaming
 including the log data in the issue
 
 
@@ -26,6 +27,7 @@ console.error() on loadrepo??
 
 ## SERVER
 
+rendering local images in a view
 don't download image content into cp
 add encoding field to file document
 more testing with someone else
@@ -34,16 +36,15 @@ handle users that do not have any repos
 implement system testing? velocity
 request commits after current
 rendering an arbitrary commit
+\_pick your data as to not bloat the database
 increase commit history to 100 (per page, in github.js)
 autoload repos after creating an account
 deleting / renaming files with github
+if owner, linking to the collaborators page
 possible to store versions of each file??
 implementing a collapseable folder structure
-load file from github only on click?? reduce api calls
-    get current commit sha
-    then tree sha
-    then blob
-    then load into sharejs doc
+load file from github only on click?? this will reduce api calls
+get current commit sha then tree sha then blob then load into sharejs doc
 
 
 ## PAPER
@@ -51,63 +52,31 @@ load file from github only on click?? reduce api calls
 user study measurements
 copilot nosiness - editing code, passivity?
 case study from Mythical Man Month of surgeon + multiple assistants
+a distributed task 1 pilot, 4 copilots
+video or talk embedding - collab github education?
+creating an issue on this repo, could be helpful to PROF
+github as an education platform, codepilot as a even *more* collaborative platform?
+a teacher can have lecture code stored in the repo, and then walk through bit
+by bit (eg commits), even if not runnable in the browser/cloud form controls
+
+#### FUTURE
+
+Let the pair switch off whenever they want if one person is getting tired or
+stuck or wants a chill break to be hanging out more passively in the background
+maybe include an automated metric on how 'in flow' the person is, suggest a
+change if it drops below a certain point
 
 
 ## NOTES / ERRORS
 
 an untitled file sometimes gets generated when switching repos/branches
 
-video or talk embedding - collab github education?
-snapshot code: save to github, notes section
-load ESPECIALLY AS AN EDUCATIONAL TOOL!!!!
-
-teacher/pilot vs student/copilot specific files for a specific group id???
-look into how to write meteor tests, starting doing so please if try to edit
-file contents while renaming, many errors
-go back to not renaming on the
-
-rename form losing focus. a teacher can have lecture code stored in the repo,
-and then walk through bit by bit (eg commits), even if not runnable in the
-browser/cloud form controls must share editor template, or will break sometimes
-
 after longtime of unwatching: Uncaught SyntaxError: Unexpected token Y start
 
-syntax highlighting structure of repo
-
-make one for each user, have user
-
-request to collaborate on another users repo, make a
-
-Let the pair switch off
-
-whenever they want if one person is getting tired or stuck or wants a chill
-
-break to be hanging out more passively in the background maybe include and
-
-automated metric on how 'in flow' the person is, and hardcode three files
-
-suggest a change if it drops below a certain point
-
-testing / checkin / issues
-
-madeye.io meteor // testing manual velocity // testing solution
-
-creates a new doc for it when you press the new button, but you can do this
-
-automatically, with the model.create from sharejs.
-
-a distributed task 1 pilot, 4 copilots
-
-idea: maybe also include option to make a PR or be a collaborator
-
-\_pick your data as to not bloat the database
-
-creating an issue on this repo, could be helpful to PROF
-
-create pull requests instead of linking to the collaborators page
+file contents while renaming, many errors
 
 
-### done
+#### done
 
 <!--
 hardcode three files
@@ -123,6 +92,7 @@ form validation: chat, rename, task, commit
 add 'repo' field to user
 add git options to each commit item
 use repo id as project id, lots of refactoring
+creating an issue on this repo, could be helpful to PROF
 actual testing interface
 handle null filename better
 install stringDiff lib
@@ -258,6 +228,8 @@ sort chat by positive time
 tabbed user interface - elseif in meteor?
 or rather how to do some routing in meteor
 branching functionality
+snapshot code: save to github, notes section
+load ESPECIALLY AS AN EDUCATIONAL TOOL!!!!
 load files on branch select
 white list filetypes to load into sjs
 or not do this?? overwrites last
@@ -312,4 +284,5 @@ github api syncing
 why does it need to two calls to populate sjs docs?
 adding a content field on create new doc? perhaps
 differentiate dropdowns on config
+syntax highlighting structure of repo
 -->
