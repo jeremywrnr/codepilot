@@ -14,16 +14,16 @@ Template.chatter.events({
 
 Template.messages.helpers({
 
-  messageCount: function() { // linkify and return feed items
+  messageCount: function() { // count feed items
     return Messages.find({}).count();
   },
 
   messages: function() { // linkify and return feed items
     return Messages.find(
-      {}, {sort: {time: 1}} // return all, time sorted
-    ).map(function linkMessage(msg) {
+      {}, {sort: {time: 1}}
+    ).map(function linkMessage(msg) { // return linkd
       msg.linkd = linkifyStr(msg.message);
-      return msg; // return linked
+      return msg;
     });
   },
 
@@ -31,7 +31,7 @@ Template.messages.helpers({
 
 
 
-Template.ghang.helpers({
+Template.ghang.helpers({ // not actually used.. need to make ghangouts app
 
   reponame: function() { // set topic of the google hangout
     var user = Meteor.user();

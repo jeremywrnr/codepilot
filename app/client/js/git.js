@@ -3,7 +3,7 @@
 Template.commitPanel.helpers({
 
   branch: function() {
-    return Meteor.user().profile.repoBranch;
+    return prof().repoBranch;
   },
 
   committing: function() {
@@ -11,10 +11,7 @@ Template.commitPanel.helpers({
   },
 
   diffs: function() { // using jsdiff, return a diff on each file
-    return Files.find({
-      repo: Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-    }).map(function checkDiff(file){ // compare contents and the cached v
+    return files.map(function checkDiff(file){ // compare content + cache
       if(file.content !== file.cache)
         return { // return a named diff
           id: file._id,
@@ -60,7 +57,7 @@ Template.commitPanel.events({
   'click .loadhead': function(e) { // load head of branch into SJS
     var trulyLoad = confirm("This will overwrite any uncommited changes. Proceed?");
     if (trulyLoad)
-      Meteor.call('loadHead', Meteor.user().profile.repoBranch);
+      Meteor.call('loadHead', prof().repoBranch);
   },
 
 });
@@ -84,7 +81,7 @@ Template.commit.helpers({
   },
 
   mine: function() {
-    return (Meteor.user().profile.login === this.commit.author.login)
+    return (prof().login === this.commit.author.login)
   },
 
 });

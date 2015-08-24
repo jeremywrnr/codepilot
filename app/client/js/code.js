@@ -14,8 +14,8 @@ Template.editor.helpers({
     return Session.get('document');
   },
 
-  config: function() {
-    return function(editor) { // set default theme
+  config: function() { // set default theme and autocomplete
+    return function(editor) {
       editor.setTheme('ace/theme/monokai');
       editor.setShowPrintMargin(false);
       editor.getSession().setUseWrapMode(true);
@@ -29,8 +29,8 @@ Template.editor.helpers({
     };
   },
 
-  setMode: function() {
-    return function(editor) { // different style on filetype
+  setMode: function() { // different style on filetype
+    return function(editor) {
       var fileId = Session.get('document');
       var fileName = Files.findOne( fileId ).title;
       var modelist = ace.require('ace/ext/modelist');
@@ -47,7 +47,7 @@ Template.filename.helpers({
     return Session.equals('renaming', true);
   },
 
-  title: function() {
+  title: function() { // strange artifact.
     var ref;
     return (ref = Files.findOne(this + '')) != null ? ref.title : void 0;
   }

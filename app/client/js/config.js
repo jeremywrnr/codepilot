@@ -11,7 +11,7 @@ Template.config.helpers({
   },
 
   branches: function() { // if there are branches, return them
-    var repo = Repos.findOne( Meteor.user().profile.repo );
+    var repo = Repos.findOne( prof().repo );
     if (!repo) // user has yet to set a repo
       return [];
     var brs = repo.branches;
@@ -40,7 +40,7 @@ Template.config.events({
   'click .showUsers': function(e) { // show the repos registered users
     e.preventDefault();
     Session.set('focusPane', 'users');
-    var repo = Repos.findOne( Meteor.user().profile.repo );
+    var repo = Repos.findOne( prof().repo );
     if (repo) {
       Meteor.call('getCollabs', repo, function setCollabs(err, users) {
         Session.set('collabs', users); // show off your collaborators
@@ -55,7 +55,7 @@ Template.config.events({
 
   'click .branchSelect': function(e) { // show the available branches
     e.preventDefault();
-    var repo = Repos.findOne(Meteor.user().profile.repo);
+    var repo = Repos.findOne(prof().repo);
     if (repo) Meteor.call('initBranches', repo); // get all possible branches
     Session.set('focusPane', 'branch');
   },
@@ -112,7 +112,7 @@ Template.forkRepo.events({
     var split = $('#repoForker')[0].value.split('/');
     var user = split[0];
     var repo = split[1];
-    var selfFork = (Meteor.user().profile.login === user); // cant fork self
+    var selfFork = (prof().login === user); // cant fork self
     if (split.length !== 2 || !user || !repo || selfFork) return false;
     Meteor.call('forkRepo', user, repo);
     Session.set('forking', false);
@@ -135,7 +135,7 @@ Template.newBranch.helpers({
   },
 
   currentBranch: function() {
-    return Meteor.user().profile.repoBranch;
+    return prof().repoBranch;
   },
 
 });
@@ -174,7 +174,7 @@ Template.newBranch.events({
 Template.repo.events({
 
   'click .repo': function(e) { // load a different repo into codepilot
-    if (Meteor.user().profile.repo !== this._id)
+    if (prof().repo !== this._id)
       Meteor.call('loadRepo', this);
     Session.set('focusPane', null);
   }
@@ -184,7 +184,7 @@ Template.repo.events({
 Template.branch.events({
 
   'click .branch': function(e) { // load a different branch into codepilot
-    if (Meteor.user().profile.repoBranch !== this.name)
+    if (prof().repoBranch !== this.name)
       Meteor.call('loadBranch', this.name);
     Session.set('focusPane', null);
   }

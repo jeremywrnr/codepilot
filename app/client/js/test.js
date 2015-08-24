@@ -55,13 +55,12 @@ Template.tasks.events({
 Template.task.helpers({
 
   mine: function() { // return true for tasks this user created, used to style
-    return (Meteor.user().profile.login === this.username);
+    return (prof().login === this.username);
   },
 
   current: function() {
     return Session.equals('focusPane', this._id);
   },
-
 
 });
 
@@ -109,7 +108,9 @@ Template.issues.events({
 
 });
 
-// individual event helpers
+
+
+// individual issue helpers
 
 Template.issue.helpers({
 
@@ -119,14 +120,15 @@ Template.issue.helpers({
 
   screen: function() { // return an issue screenshot
     var screen;
-    if(this.feedback)
+    if (this.feedback)
       screen = Screens.findOne(this.feedback.imglink);
     if (screen)
       return screen.img;
   },
 
   labels: function () {
-    if (this.issue) return this.issue.labels;
+    if (this.issue)
+      return this.issue.labels;
   },
 
 });
@@ -142,7 +144,8 @@ Template.issue.events({
 
   'click .closeissue': function(e) { // click to close a given issue
     var trulyClose = confirm("Are you sure you'd like to close this issue?");
-    if (trulyClose) Meteor.call('closeIssue', this);
+    if (trulyClose)
+      Meteor.call('closeIssue', this);
   },
 
 });

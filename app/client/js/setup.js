@@ -1,4 +1,21 @@
-// data + startup
+// global helper functions
+
+prof = function() { // return the current users profile
+  var user = Meteor.user();
+  if (user) return user.profile;
+}
+
+files = function() { // return the current b/r files
+  var user = prof();
+  if (user) return Files.find({
+    repo: user.repo,
+    branch: user.repoBranch
+  });
+}
+
+
+
+// default session settings
 
 Session.setDefault('task', null);
 Session.setDefault('issue', null);
@@ -9,6 +26,7 @@ Session.setDefault('renaming', false);
 Session.setDefault('committing', false);
 Session.setDefault('editorType', 'ace');
 
+// startup data subscriptions
 Meteor.subscribe('screens');
 Tracker.autorun(function() { // subscribe on login
   if (Meteor.user()) {
@@ -30,32 +48,11 @@ Tracker.autorun(function() { // subscribe on login
 
 
 
-// global helper functions
-
-prof = function() { // return the current users profile
-  var user = Meteor.user();
-  if (user)
-    return user.profile;
-  else
-    return null;
-}
-
-files = function() { // return the current b/r files
-  var user = prof();
-  if (user)
-    return Files.find({
-      repo: user.repo,
-      branch: user.repoBranch
-    });
-}
-
-
-
 // global client helper(s)
 
 Template.registerHelper('isPilot', function() { // check if currentUser is pilot
   if (! Meteor.user()) return false; // still logging in or page loading
-  return Meteor.user().profile.role === 'pilot';
+  return prof().role === 'pilot';
 });
 
 Tracker.autorun(function() { // scroll down on new messages
