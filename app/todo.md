@@ -2,9 +2,9 @@ TODOS
 =====
 
 
-test: set session.focused var, cant have more than one open
 add a commit updates cached version
 refactor issue fields.. again
+only request commits after the current one
 onload, scroll to bottom
 
 
@@ -235,6 +235,7 @@ refactor github.js-getblobs() plz
 can't fork a repo that doesn't exist
 sort /public by media types and rereference
 choose ANY public repo on github, fork it for user, then start editing that repo
+test: set session.focused var, cant have more than one open
 add link to rendered html in issues
 sort chat by positive time
 tabbed user interface - elseif in meteor?

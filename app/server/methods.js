@@ -88,9 +88,9 @@ Meteor.methods({
     Files.find({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
-    }).map(function readSJS(file){ // read SJS buffers into .content
+    }).map(function readSJS(file){ // read SJS buffers into content
       Files.update(
-        {'_id': file._id},
+        file._id,
         {$set: {
           content: Meteor.call('getShareJSDoc', file).snapshot
         }});
@@ -237,42 +237,34 @@ Meteor.methods({
 
   newCommit: function(msg) { // grab sjs contents, commit to github
 
-    // getting file ids, names, and content
+    // getting all file ids, names, and content
+    var user = Meteor.user().profile;
+    var bname = user.repoBranch;
     var blobs = Files.find({
-      repo: Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch
-    }).map(function getFile(file){ // also update the cached version
+      repo: user.repo,
+      branch: bname,
+    }).map(function getBlob(file){ // update file cache too
       Files.update(file._id, {$set: {cache: file.content}});
-      var shareJSDoc = Meteor.call('getShareJSDoc', file);
       return {
         path: file.title,
-        content: shareJSDoc.snapshot
-      };
-    }).map(function getBlob(file){ // construct commit tree content
-      return {
-        path: file.path,
         mode: '100644',
         type: 'blob',
         content: file.content
       };
     });
 
-    // a diff would be done here, remove unchanged files from list
-    // or add new files, that were not in the previous commit
-
     dlog( blobs );
 
     // get old tree and update it with new shas, post and get that sha
-    var bname = Meteor.user().profile.repoBranch;
     var branch = Meteor.call('getBranch', bname);
     var oldTree = Meteor.call('getTree', branch.commit.commit.tree.sha);
-    var newTree = { 'base': oldTree.sha, 'tree': blobs };
+    var newTree = {base: oldTree.sha, tree: blobs};
     var treeSHA = Meteor.call('postTree', newTree);
 
     // specify author of this commit
     var commitAuthor = {
-      name: Meteor.user().profile.name,
-      email: Meteor.user().profile.email,
+      name: user.name,
+      email: user.email,
       date: new Date()
     };
 
