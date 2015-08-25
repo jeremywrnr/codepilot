@@ -11,7 +11,10 @@ Template.commitPanel.helpers({
   },
 
   diffs: function() { // using jsdiff, return a diff on each file
-    return files.map(function checkDiff(file){ // compare content + cache
+    return Files.find({
+      repo: user.repo,
+      branch: user.repoBranch
+    }).map(function checkDiff(file){ // compare content + cache
       if(file.content !== file.cache)
         return { // return a named diff
           id: file._id,
