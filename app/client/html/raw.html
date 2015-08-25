@@ -37,9 +37,6 @@
     // waiting until the page loads
     $(document).ready(function () {
 
-    // function for grabbing the contents of the output pre before submitting
-    getLog = function(){ $("#log")[0].innerHTML; }
-
     // used in testing with feedback.js
     $.feedback({
       ajaxURL: "/feedback/",
@@ -52,7 +49,6 @@
       html: "{{ htmlString }}",
       css: "{{ cssString }}",
       js: "{{ jsString }}",
-      log: getLog(),
     });
 
     // overwrite console.log for iframe to append to output div

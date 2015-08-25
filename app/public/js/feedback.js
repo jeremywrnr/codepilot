@@ -524,7 +524,7 @@
             post.html = options.html; // overwriting!! defined earlier
             post.css = options.css;
             post.js = options.js;
-            post.log = options.log;
+            post.log = $('pre#log').text(); // get log contents
             post.note = $('#feedback-note').val();
             var data = {feedback: JSON.stringify(post)};
 
