@@ -2,10 +2,12 @@ TODOS
 =====
 
 
+managing file fields better
 diffing hmtl does not work, renders
 actually rendering an issues code?
     if not found, let user know of this
     render the default view
+diff not loading auto - double it
 
 
 ## UI / UX

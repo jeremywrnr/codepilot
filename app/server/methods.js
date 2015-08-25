@@ -16,9 +16,9 @@ Meteor.methods({
 
     // handle null fields (from inserting locally)
     // (isMember ? "$2.00" : "$10.00")
-    file.content = file.content || {};
-    file.content.html_url = file.content.html_url || '';
-    file.content.download_url = file.content.download_url || '';
+    file.content = file.content || '';
+    file.src = file.raw || '';
+    file.raw = file.src || '';
 
     var fs = Files.upsert({
       repo: Meteor.user().profile.repo,
@@ -27,8 +27,8 @@ Meteor.methods({
     },{ $set: {
       content: file.content,
       cache: file.content,
-      src: file.content.html_url, // linked to for unsupported filetypes
-      raw: file.content.download_url, // used for rendering images
+      src: file.raw, // linked to for unsupported filetypes
+      raw: file.src, // used for rendering images
     }});
 
     if (fs.insertedId) { // if a new file made, create sharejs
@@ -230,10 +230,14 @@ Meteor.methods({
 
         if (image.test(blob.path)) { // get the encoded file content
 
-          blob.content = Async.runSync(function(done) { // wait on github response
+          var img = Async.runSync(function(done) { // wait on github response
             var content = Meteor.call('getContent', blob.path);
             done(content, content);
           }).result;
+
+          blob.src = image.html_url;
+          blob.raw = image.download_url;
+          blob.content = '';
 
         } else { // get the raw file content
 
