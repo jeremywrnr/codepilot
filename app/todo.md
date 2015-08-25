@@ -2,15 +2,20 @@ TODOS
 =====
 
 
+have a field for filetype
+image, file, null.
+only load files contents
+link to images and nulls
+
+
+## UI / UX
+
 marking a release on github plz
 diffing hmtl does not work, renders
 actually rendering an issues code?
     if not found, let user know of this
     render the default view
 diff not loading auto - double it
-
-
-## UI / UX
 
 get all issues, hide closed button
 show commit panel to all users
@@ -56,6 +61,10 @@ creating an issue on this repo, could be helpful to PROF
 github as an education platform, codepilot as a even *more* collaborative platform?
 a teacher can have lecture code stored in the repo, and then walk through bit
 by bit (eg commits), even if not runnable in the browser/cloud form controls
+
+by creating a gh-pages branch, you can actually host the content that you make
+from a specific readme - this is cool, because it lets you export the code from
+the renderer to an actual live webpage. some dependencies may break however.
 
 #### FUTURE
 
