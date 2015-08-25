@@ -3,11 +3,11 @@
 Template.tasks.helpers({
 
   hideCompleted: function () { // return whether to hide completed tasks
-    return Session.get('hideCompleted');
+    return Session.equals('hideDoneTasks', true);
   },
 
   tasks: function () { // sort, linkify and return tasks for this repo
-    if (Session.get('hideCompleted')) {
+    if (Session.equals('hideDoneTasks', true)) {
       var chkd = Tasks.find({checked: {$ne: true}}, {sort: {time: -1}});
       return chkd.map(function(task){
         task.linkd = linkifyStr(task.text);
@@ -23,7 +23,7 @@ Template.tasks.helpers({
   },
 
   taskCount: function () { // return amount of incomplete tasks
-    if (Session.get('hideCompleted'))
+    if (Session.equals('hideDoneTasks', true))
       return Tasks.find({checked: {$ne: true}}).count();
     else
       return Tasks.find({}).count();
@@ -43,7 +43,7 @@ Template.tasks.events({
   },
 
   'change .hide-completed': function (e) { // toggle for showing completed
-    Session.set('hideCompleted', e.target.checked);
+    Session.set('hideDoneTasks', e.target.checked);
   },
 
 });

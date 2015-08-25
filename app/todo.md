@@ -2,8 +2,10 @@ TODOS
 =====
 
 
-actually rendering an issues code?
 diffing hmtl does not work, renders
+actually rendering an issues code?
+    if not found, let user know of this
+    render the default view
 
 
 ## UI / UX
