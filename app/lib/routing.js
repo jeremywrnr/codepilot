@@ -22,7 +22,6 @@ Router.route('feedback', {
   where: 'server',
   action: function addIssue() {
     var issue = JSON.parse( this.request.body.feedback );
-    console.log(issue);
     if(Meteor.users.findOne(issue.user)) // dont take junk
       Meteor.call('addIssue', issue);
     this.response.statusCode = 201;

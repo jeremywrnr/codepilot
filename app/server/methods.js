@@ -157,7 +157,7 @@ Meteor.methods({
     var htmllink = 'html:\n```html\n' + feedback.html + '\n```\n';
     var csslink = 'css:\n```css\n' + feedback.css + '\n```\n';
     var jslink = 'js:\n```js\n' + feedback.js + '\n```\n';
-    var loglink = 'log:\n```\n' + feedback.log + '\n```\n';
+    var loglink = 'console log:\n```\n' + feedback.log + '```\n';
     feedback.body = imglink + livelink + htmllink + csslink + jslink + loglink;
 
     // post the issue to github, and get the GH generated content

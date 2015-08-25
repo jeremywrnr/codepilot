@@ -2,14 +2,12 @@ TODOS
 =====
 
 
-including the log data in the issue
 actually rendering an issues code?
+diffing hmtl does not work, renders
 
 
 ## UI / UX
 
-diffing hmtl does not work, renders
-file rename - close on lose focus
 get all issues, hide closed button
 show commit panel to all users
 paginate long commit histories
@@ -25,22 +23,22 @@ console.error() on loadrepo??
 
 ## SERVER
 
+add encoding field to file document
 rendering local images in a view
 don't download image content into cp
-add encoding field to file document
-more testing with someone else
 repo has label-created field, only call once
+more testing with someone else
 handle users that do not have any repos
 implement system testing? velocity
-request commits after current
+only request commits after current
 rendering an arbitrary commit
 \_pick your data as to not bloat the database
-increase commit history to 100 (per page, in github.js)
 autoload repos after creating an account
 deleting / renaming files with github
 if owner, linking to the collaborators page
-possible to store versions of each file??
 implementing a collapseable folder structure
+for handling larger projects without destroying github api:
+possible to store versions of each file??
 load file from github only on click?? this will reduce api calls
 get current commit sha then tree sha then blob then load into sharejs doc
 
@@ -154,6 +152,7 @@ refactor issue fields.. again - issue vs issue.issue?
 add null msg for feed and commit
 listiing a users repos / 'collabable'
 load a specific commit instead of the latest
+including the log data in the issue
 add a snapshot feature
 store commit shas locally
 removing login with email (just github)
@@ -189,6 +188,7 @@ SMASH ALL TASKS INTO ONE PANE
 importing github issues
 linking to a specific issue
 make a nice lil favicon y doncha
+file rename - close on lose focus
 ability to close issue from codepilot
 ability to create issue from codepilot?
 seperate renderer bar - reload and file issue
@@ -200,6 +200,7 @@ cache content for diff
 make a new issue, attach png to it
 only refresh repos, if there are none
 issues being duplicated
+increase commit history to 100 (per page, in github.js)
 attach issue to the png
 confirming close issue with confirm
 ask them to describe new issue
