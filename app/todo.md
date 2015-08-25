@@ -2,7 +2,7 @@ TODOS
 =====
 
 
-managing file fields better
+marking a release on github plz
 diffing hmtl does not work, renders
 actually rendering an issues code?
     if not found, let user know of this
@@ -27,9 +27,7 @@ console.error() on loadrepo??
 
 ## SERVER
 
-add encoding field to file document
 rendering local images in a view
-don't download image content into cp
 repo has label-created field, only call once
 more testing with someone else
 handle users that do not have any repos
@@ -231,6 +229,8 @@ sort chat by positive time
 tabbed user interface - elseif in meteor?
 or rather how to do some routing in meteor
 branching functionality
+managing file fields better
+don't download image content into cp
 snapshot code: save to github, notes section
 load ESPECIALLY AS AN EDUCATIONAL TOOL!!!!
 load files on branch select
