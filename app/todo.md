@@ -2,10 +2,8 @@ TODOS
 =====
 
 
-move renaming to focusPane scope
-click on file closes rename option
-on file rename form lose focus, stop renaming
 including the log data in the issue
+actually rendering an issues code?
 
 
 ## UI / UX
@@ -271,6 +269,9 @@ link addition in tasks
 users pane:
 only owner can add a collaborator: add option
 also show what branch the collabs are working on
+move renaming to focusPane scope
+click on file closes rename option
+on file rename form lose focus, stop renaming
 guo updates
 branching works
 make new branch, from current, write name

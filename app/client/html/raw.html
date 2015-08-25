@@ -1,5 +1,5 @@
 <template name='raw'> <!-- this is for rendering from sjs -->
-  <iframe srcdoc='
+  <iframe id='raw' srcdoc='
     <head>
 
     {{ getHead }}
@@ -33,24 +33,27 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/js/feedback.js"></script>
 
-    <script type="text/javascript"> // used in testing with feedback.js
-      $.feedback({
-        ajaxURL: "/feedback/",
-        html2canvasURL: "/js/html2canvas.min.js",
-        feedbackButton: ".issue",
-        initButtonText: "report issue",
-        onClose: function() { window.location.reload(); },
-        repo: "{{ getRepo }}",
-        user: "{{ getUser }}",
-        html: "{{ htmlString }}",
-        css: "{{ cssString }}",
-        js: "{{ jsString }}",
-      });
-    </script>
-
     <script type="text/javascript">
     // waiting until the page loads
     $(document).ready(function () {
+
+    // function for grabbing the contents of the output pre before submitting
+    getLog = function(){ $("#log")[0].innerHTML; }
+
+    // used in testing with feedback.js
+    $.feedback({
+      ajaxURL: "/feedback/",
+      html2canvasURL: "/js/html2canvas.min.js",
+      feedbackButton: ".issue",
+      initButtonText: "report issue",
+      onClose: function() { window.location.reload(); },
+      repo: "{{ getRepo }}",
+      user: "{{ getUser }}",
+      html: "{{ htmlString }}",
+      css: "{{ cssString }}",
+      js: "{{ jsString }}",
+      log: getLog(),
+    });
 
     // overwrite console.log for iframe to append to output div
     console.log = function (msg) {

@@ -90,6 +90,10 @@ Template.filename.events({
     Files.update(id, {$set:{title:txt}} );
   },
 
+  'blur #filetitle': function(e) {
+    Session.set('focusPane', null);
+  },
+
   // enable changing of filename
   'click button.edit': function (e) {
     e.preventDefault();

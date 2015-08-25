@@ -2,7 +2,7 @@
 
 var findFile = function(ext) { // get file from ext
   return Files.findOne({
-    title: new RegExp(".*" + ext, 'i'),
+    title: new RegExp(".*\." + ext, 'i'),
     branch: prof().repoBranch,
   });
 }

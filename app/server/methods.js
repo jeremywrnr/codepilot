@@ -15,9 +15,10 @@ Meteor.methods({
   createFile: function(file) { // create or update a file, make sjs doc
 
     // handle null fields (from inserting locally)
-    file.content.download_url = file.content.download_url || '';
+    // (isMember ? "$2.00" : "$10.00")
+    file.content = file.content || {};
     file.content.html_url = file.content.html_url || '';
-    file.content = file.content || '';
+    file.content.download_url = file.content.download_url || '';
 
     var fs = Files.upsert({
       repo: Meteor.user().profile.repo,
