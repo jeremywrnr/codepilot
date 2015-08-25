@@ -1,17 +1,21 @@
 // global helper functions
 
-prof = function() { // return the current users profile
-  var user = Meteor.user();
-  if (user) return user.profile;
-}
+Meteor.startup(function () {
 
-files = function() { // return the current b/r files
-  var user = prof();
-  if (user) return Files.find({
-    repo: user.repo,
-    branch: user.repoBranch
-  });
-}
+  prof = function() { // return the current users profile
+    var user = Meteor.user();
+    if (user) return user.profile;
+  }
+
+  files = function() { // return the current b/r files
+    var user = prof();
+    if (user) return Files.find({
+      repo: user.repo,
+      branch: user.repoBranch
+    });
+  }
+
+});
 
 
 
