@@ -37,19 +37,21 @@ Template.editor.helpers({
       var extn = file.title.split('.').pop();
       if (extn !== file.title) // check if file actually has extension
         if (mode.mode === 'ace/mode/text') // text is default mode type
-          if (! mode.extRe.test(file.title)) // but doesnt match regex
+          if (! mode.extRe.test(file.title)){ // but doesnt match regex
+            Meteor.call('setFileType', file, 'nullmode');
             return true;
+          } else {
+            Meteor.call('setFileType', file, 'file');
+            return false;
+          }
     }
   },
 
   isImage: function() { // check if file extension is renderable
     var file = Files.findOne(Session.get('document'));
-    var imgs = /jpe?g|gif|png|bmp/i;
-    if (file) {
-      var extn = file.title.split('.').pop();
-      if (imgs.test(extn))
-        return true;
-    }
+    var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
+    if (file)
+      return image.test(file.title)
   },
 
   setMode: function() { // different style on filetype

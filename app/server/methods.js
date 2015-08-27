@@ -1,4 +1,4 @@
-// server (priveleged) methods, can run sync.
+// server (priveleged); methods, can run sync.
 // so: files, shareJS, and top-level functions
 // dlog is debugger log, see server/setup.js
 
@@ -9,16 +9,20 @@ Meteor.methods({
   //////////////////
 
   newFile: function() { // create a new unnamed file
-    return Meteor.call('createFile', {path: 'untitled'});
+    return Meteor.call('createFile', {path: 'untitled'})
   },
 
   createFile: function(file) { // create or update a file, make sjs doc
 
-    // handle null fields (from inserting locally)
-    // (isMember ? "$2.00" : "$10.00")
-    file.content = file.content || '';
-    file.src = file.raw || '';
-    file.raw = file.src || '';
+    file.content = file.content || ''; // handle null contents
+
+    var filetype =  function(file) { // check if file is renderable
+      var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
+      if(image.test(file.path))
+        return 'image';
+      else
+        return 'file';
+    },
 
     var fs = Files.upsert({
       repo: Meteor.user().profile.repo,
@@ -27,21 +31,39 @@ Meteor.methods({
     },{ $set: {
       content: file.content,
       cache: file.content,
+      type: filetype(file),
       src: file.raw, // linked to for unsupported filetypes
       raw: file.src, // used for rendering images
     }});
 
     if (fs.insertedId) { // if a new file made, create sharejs
       Meteor.call('addMessage', ' created file - ' + file.path);
-      Meteor.call('newShareJSDoc', fs.insertedId);
+      Meteor.call('newShareJS', fs.insertedId);
       return fs.insertedId;
     }
+  },
+
+  getFiles: function() { // return all active b/r repo files
+    return Files.find({
+      repo:  Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+    }).filter(function typeCheck(file){
+      return file.type = 'file';
+    });
   },
 
   deleteFile: function(id) { // with id, delete a file from system
     ShareJS.model.delete(id);
     Files.remove(id);
     Docs.remove(id);
+  },
+
+  setFileType: function(file, type) { // set the type field of a file
+    Files.update(
+      file._id,
+      {$set: {
+        type: type
+      }});
   },
 
   resetFile: function(id) { // reset file back to cached version
@@ -54,7 +76,7 @@ Meteor.methods({
   },
 
   resetFiles: function() { // reset db and hard code simple website structure
-    Files.find({}).map(function delFile(f){ Meteor.call('deleteFile', f._id)});
+    Meteor.call('getFiles').map(function delFile(f){ Meteor.call('deleteFile', f._id)});
     var base = [{'title':'site.html'},{'title':'site.css'},{'title':'site.js'}];
     base.map(function(f){ Meteor.call('createFile', f) });
   },
@@ -65,23 +87,23 @@ Meteor.methods({
   // SHAREJS MANAGEMENT
   /////////////////////
 
-  newShareJSDoc: function(id) { // create sharejs document with same id
+  newShareJS: function(id) { // create sharejs document with same id
     var time = Math.round( new Date() / 1000 );
     ShareJS.model.create(id, 'text', { mtime: time, ctime: time });
   },
 
-  getShareJSDoc: function(file) { // give live editor copy, v and snapshot
+  getShareJS: function(file) { // give live editor copy, v and snapshot
     if(! file._id ) return null;
     var sjs = Docs.findOne( file._id );
     if (sjs)
       return sjs.data;
     else
-      Meteor.call('newShareJSDoc', file._id);
-    return Meteor.call('getShareJSDoc', file._id);
+      Meteor.call('newShareJS', file._id);
+    return Meteor.call('getShareJS', file._id);
   },
 
   postShareJS: function(file) { // update files with their ids
-    var sjs = Meteor.call('getShareJSDoc', file) // get doc and version
+    var sjs = Meteor.call('getShareJS', file); // get doc and version
     if (!sjs) return null; // if file id broke, don't propagate error
     ShareJS.model.applyOp( file._id, {
       op: [
@@ -94,10 +116,7 @@ Meteor.methods({
   },
 
   postAllShareJS: function(file) { // update all project sjs files
-    Files.find({
-      repo:  Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-    }).map(function setSJS(file) {
+    Meteor.call('getFiles').map(function setSJS(file) {
       Meteor.call('postShareJS', file);
     });
   },
@@ -107,10 +126,11 @@ Meteor.methods({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
     }).map(function readSJS(file) {
+      var sjs = Meteor.call('getShareJS', file);
       Files.update(
         file._id,
         {$set: {
-          content: Meteor.call('getShareJSDoc', file).snapshot
+          content: sjs.snapshot
         }});
     });
   },
@@ -235,13 +255,15 @@ Meteor.methods({
             done(content, content);
           }).result;
 
+          blob.type = 'image';
           blob.src = img.html_url;
           blob.raw = img.download_url;
           blob.content = '';
 
         } else { // get the raw file content
 
-          blob.content = Async.runSync(function(done) { // wait on github response
+          blob.type = 'file';
+          blob.content = Async.runSync(function(done) { // wait on GH response
             var content = Meteor.call('getBlob', blob);
             done(content, content);
           }).result;
@@ -268,10 +290,7 @@ Meteor.methods({
     // getting all file ids, names, and content
     var user = Meteor.user().profile;
     var bname = user.repoBranch;
-    var blobs = Files.find({
-      repo: user.repo,
-      branch: bname,
-    }).map(function getBlob(file){ // update file cache too
+    var blobs = Meteor.call('getFiles').map(function(file) { // set file cache
       Files.update(file._id, {$set: {cache: file.content}});
       return {
         path: file.title,
@@ -326,13 +345,14 @@ Meteor.methods({
   getCollabs: function(repo) { // get a users profile based on their id
     return repo.users.map(function(uid){
       var user = Meteor.users.findOne(uid);
-      if (user.profile.repo === repo._id) { // only return users currently working on project
+      if (user.profile.repo === repo._id) { // return users currently working on project
         return user.profile;
       }
     });
   },
 
   resetAllData: function() { // detroy everything
+    Files.find({}).map(function(f){ Meteor.call('deleteFile', f._id) });
     Messages.remove({});
     Commits.remove({});
     Screens.remove({});

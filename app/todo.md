@@ -3,20 +3,23 @@ TODOS
 
 
 have a field for filetype
-image, file, null.
-only load files contents
-link to images and nulls
+    image, file, null.
+    only load files contents
+    link to images and nulls
 
+detect from filename? gitub only provides encoding.
+null filetype only detected on front end
+
+avoid commiting files with null content fields, or image types, or null mode
+
+for handling null types:
+    load blob, but on load into sjs, instead erase file content, set type to null
 
 ## UI / UX
 
 marking a release on github plz
 diffing hmtl does not work, renders
-actually rendering an issues code?
-    if not found, let user know of this
-    render the default view
 diff not loading auto - double it
-
 get all issues, hide closed button
 show commit panel to all users
 paginate long commit histories
@@ -28,11 +31,16 @@ rendering .md as a link in feed
 setting up different roles - junior prog
 describe roles differences much better
 console.error() on loadrepo??
+actually rendering an issues code?
+    if not found, let user know of this
+    render the default view
+
 
 
 ## SERVER
 
-rendering local images in a view
+install loglevel meteor
+rendering local images in a view?
 repo has label-created field, only call once
 more testing with someone else
 handle users that do not have any repos
@@ -47,13 +55,14 @@ implementing a collapseable folder structure
 for handling larger projects without destroying github api:
 possible to store versions of each file??
 load file from github only on click?? this will reduce api calls
-get current commit sha then tree sha then blob then load into sharejs doc
+get current commit sha -> tree sha -> blob -> load into sharejs doc
+
 
 
 ## PAPER
 
-user study measurements
 copilot nosiness - editing code, passivity?
+user study measurements - what metrics to evaluate?
 case study from Mythical Man Month of surgeon + multiple assistants
 a distributed task 1 pilot, 4 copilots
 video or talk embedding - collab github education?
@@ -66,7 +75,7 @@ by creating a gh-pages branch, you can actually host the content that you make
 from a specific readme - this is cool, because it lets you export the code from
 the renderer to an actual live webpage. some dependencies may break however.
 
-#### FUTURE
+#### FUTURE WORK
 
 Let the pair switch off whenever they want if one person is getting tired or
 stuck or wants a chill break to be hanging out more passively in the background
@@ -74,13 +83,13 @@ maybe include an automated metric on how 'in flow' the person is, suggest a
 change if it drops below a certain point
 
 
+
 ## NOTES / ERRORS
 
-an untitled file sometimes gets generated when switching repos/branches
+- an untitled file sometimes gets generated when switching repos/branches
+- after longtime of unwatching: Uncaught SyntaxError: Unexpected token Y start
+- file contents while renaming, many errors
 
-after longtime of unwatching: Uncaught SyntaxError: Unexpected token Y start
-
-file contents while renaming, many errors
 
 
 #### done
