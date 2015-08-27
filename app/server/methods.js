@@ -16,14 +16,6 @@ Meteor.methods({
 
     file.content = file.content || ''; // handle null contents
 
-    var filetype =  function(file) { // check if file is renderable
-      var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
-      if(image.test(file.path))
-        return 'image';
-      else
-        return 'file';
-    },
-
     var fs = Files.upsert({
       repo: Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
@@ -31,7 +23,6 @@ Meteor.methods({
     },{ $set: {
       content: file.content,
       cache: file.content,
-      type: filetype(file),
       src: file.raw, // linked to for unsupported filetypes
       raw: file.src, // used for rendering images
     }});
