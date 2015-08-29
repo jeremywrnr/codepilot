@@ -50,17 +50,22 @@ Template.editor.helpers({
   isImage: function() { // check if file extension is renderable
     var file = Files.findOne(Session.get('document'));
     var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
-    if (file)
-      return image.test(file.title)
+    if (file && image.test(file.title)){
+      Meteor.call('setFileType', file, 'image');
+      return true;
+    } else {
+      Meteor.call('setFileType', file, 'file');
+      return false;
+    }
   },
 
   setMode: function() { // different style on filetype
     return function(editor) {
       var fileId = Session.get('document');
-      var fileName = Files.findOne( fileId ).title;
+      var file = Files.findOne( fileId );
       var modelist = ace.require('ace/ext/modelist');
-      var filemode = modelist.getModeForPath( fileName ).mode;
-      editor.getSession().setMode( filemode );
+      var mode = modelist.getModeForPath( file.title );
+      editor.getSession().setMode( mode );
     }
   }
 
@@ -122,7 +127,7 @@ Template.nullFileType.helpers({
       return file.title.split('.').pop();
   },
 
-  source: function() { // return the type of unsupported file
+  source: function() { // return link to file on github
     var file = Files.findOne(Session.get('document'));
     if (file)
       return file.src;
@@ -132,7 +137,7 @@ Template.nullFileType.helpers({
 
 Template.renderImage.helpers({
 
-  image: function() { // return the type of unsupported file
+  image: function() { // return link to github image
     var file = Files.findOne(Session.get('document'));
     if (file)
       return file.raw;

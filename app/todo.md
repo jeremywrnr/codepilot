@@ -2,18 +2,14 @@ TODOS
 =====
 
 
-have a field for filetype
-    image, file, null.
-    only load files contents
-    link to images and nulls
 
-detect from filename? gitub only provides encoding.
-null filetype only detected on front end
+"what makes for the most innovative pair and multi-user coding environment"
 
+add a note that you can publish to gh-pages,
+and maybe provide a link if a gh-pages branch exists
 avoid commiting files with null content fields, or image types, or null mode
 
-for handling null types:
-    load blob, but on load into sjs, instead erase file content, set type to null
+
 
 ## UI / UX
 
@@ -23,6 +19,7 @@ diff not loading auto - double it
 get all issues, hide closed button
 show commit panel to all users
 paginate long commit histories
+expose editor configuration to user
 add a footer in for spacing in main
 loading bar for the commit progress
 icons may seem to do action - remove icon
@@ -39,23 +36,23 @@ actually rendering an issues code?
 
 ## SERVER
 
+implement system testing? velocity
+\_pick your data as to not bloat the database
+autoload repos after creating an account
+only request commits after current
 install loglevel meteor
 rendering local images in a view?
 repo has label-created field, only call once
 more testing with someone else
 handle users that do not have any repos
-implement system testing? velocity
-only request commits after current
 rendering an arbitrary commit
-\_pick your data as to not bloat the database
-autoload repos after creating an account
 deleting / renaming files with github
 if owner, linking to the collaborators page
 implementing a collapseable folder structure
-for handling larger projects without destroying github api:
-possible to store versions of each file??
 load file from github only on click?? this will reduce api calls
 get current commit sha -> tree sha -> blob -> load into sharejs doc
+for handling larger projects without destroying github api:
+possible to store versions of each file??
 
 
 
@@ -193,6 +190,10 @@ chat: only show initials for briefness?
 iframes custom javascript logger output
 ## guo meeting - time for MS visits? 11am
 attach links for reference to file issue
+null filetype only detected on front end
+for handling null types:
+detect from filename? gitub only provides encoding.
+load blob, but on load into sjs, instead erase file content, set type to null
 make message box look nicer
 add params to field
 creating + selecting new branch
@@ -309,4 +310,8 @@ why does it need to two calls to populate sjs docs?
 adding a content field on create new doc? perhaps
 differentiate dropdowns on config
 syntax highlighting structure of repo
+have a field for filetype
+image, file, null.
+only load files contents
+link to images and nulls
 -->

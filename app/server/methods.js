@@ -1,4 +1,4 @@
-// server (priveleged); methods, can run sync.
+// server (privileged); methods, can run sync.
 // so: files, shareJS, and top-level functions
 // dlog is debugger log, see server/setup.js
 
@@ -38,9 +38,8 @@ Meteor.methods({
     return Files.find({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
-    }).filter(function typeCheck(file){
-      return file.type = 'file';
     });
+    //.filter(function typeCheck(file){ return file.type = 'file'; });
   },
 
   deleteFile: function(id) { // with id, delete a file from system
@@ -113,9 +112,8 @@ Meteor.methods({
   },
 
   testShareJS: function() { // update file.content from sjs
-    Files.find({
-      repo:  Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
+    Meteor.call('getFiles').filter(function typeCheck(file) {
+      return file.type = 'file';
     }).map(function readSJS(file) {
       var sjs = Meteor.call('getShareJS', file);
       Files.update(
@@ -253,7 +251,7 @@ Meteor.methods({
 
         } else { // get the raw file content
 
-          blob.type = 'file';
+          blob.type = 'file'; // set null type on front end with mode check
           blob.content = Async.runSync(function(done) { // wait on GH response
             var content = Meteor.call('getBlob', blob);
             done(content, content);
