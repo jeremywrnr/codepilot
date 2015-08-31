@@ -14,19 +14,16 @@ Template.editor.helpers({
     return Session.get('document');
   },
 
-  config: function() { // set default theme and autocomplete
-    return function(editor) {
-      editor.setTheme('ace/theme/monokai');
-      editor.setShowPrintMargin(false);
-      editor.getSession().setUseWrapMode(true);
-      var beautify = ace.require('ace/ext/beautify');
-      editor.commands.addCommands(beautify.commands);
-      editor.setOptions({
-        enableBasicAutocompletion: true,
-        enableLiveAutocompletion: true,
-        enableSnippets: true
-      });
-    };
+  isImage: function() { // check if file extension is renderable
+    var file = Files.findOne(Session.get('document'));
+    var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
+    if (file && image.test(file.title)){
+      Meteor.call('setFileType', file, 'image');
+      return true;
+    } else {
+      Meteor.call('setFileType', file, 'file');
+      return false;
+    }
   },
 
   nullMode: function() { // check if file type is in whitelist
@@ -47,25 +44,29 @@ Template.editor.helpers({
     }
   },
 
-  isImage: function() { // check if file extension is renderable
-    var file = Files.findOne(Session.get('document'));
-    var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
-    if (file && image.test(file.title)){
-      Meteor.call('setFileType', file, 'image');
-      return true;
-    } else {
-      Meteor.call('setFileType', file, 'file');
-      return false;
-    }
+  config: function() { // set default theme and autocomplete
+    return function(editor) {
+      editor.setTheme('ace/theme/monokai');
+      editor.setShowPrintMargin(false);
+      editor.getSession().setUseWrapMode(true);
+      var beautify = ace.require('ace/ext/beautify');
+      editor.commands.addCommands(beautify.commands);
+      editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true,
+        enableSnippets: true
+      });
+    };
   },
 
   setMode: function() { // different style on filetype
     return function(editor) {
-      var fileId = Session.get('document');
-      var file = Files.findOne( fileId );
+      var file = Files.findOne(Session.get('document'));
       var modelist = ace.require('ace/ext/modelist');
-      var mode = modelist.getModeForPath( file.title );
-      editor.getSession().setMode( mode );
+      if (file) {
+        var mode = modelist.getModeForPath( file.title );
+        editor.getSession().setMode( mode );
+      }
     }
   }
 

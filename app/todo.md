@@ -9,6 +9,7 @@ add a note that you can publish to gh-pages,
 and maybe provide a link if a gh-pages branch exists
 avoid commiting files with null content fields, or image types, or null mode
 
+add a repo and branch icon to filebar
 
 
 ## UI / UX
@@ -71,6 +72,12 @@ by bit (eg commits), even if not runnable in the browser/cloud form controls
 by creating a gh-pages branch, you can actually host the content that you make
 from a specific readme - this is cool, because it lets you export the code from
 the renderer to an actual live webpage. some dependencies may break however.
+
+Yep! Codepilot is very relevant nowadays since more and more people are working
+remotely as software developers. Remote and distributed development teams are
+more of a norm now, so people need better situational awareness and pair
+programming tools for this new workflow. That's a great thing to include in an
+intro for a paper and your thesis.
 
 #### FUTURE WORK
 
