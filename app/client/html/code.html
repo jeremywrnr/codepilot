@@ -55,11 +55,14 @@
         <p class='navbar-text'> ~/{{title}} </p>
       </strong>
       {{/if}}
-
-      <form class='navbar-form pull-right'>
-        <button class='edit btn btn-small'>rename</button>
-        <button class='del btn btn-small'>delete</button>
-      </form>
+<!--
+   -
+   -      <form class='navbar-form pull-right'>
+   -        <button class='edit btn btn-small'>rename</button>
+   -        <button class='del btn btn-small'>delete</button>
+   -      </form>
+   -
+   -->
 
     </div>
   </div>
@@ -79,12 +82,7 @@
 </template>
 
 <template name='renderImage'>
-  <div class='panel panel-default'>
-    <div class='panel-heading'>
-      <h3 class='panel-title'>
-        image rendering
-      </h3>
-    </div>
+  <div class='panel panel-default nomargin-image'>
     <div class='panel-body'>
       <a target='_blank' href='{{ image }}'>
         <img class='wide' src='{{ image }}'/>
