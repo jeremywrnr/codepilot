@@ -53,8 +53,8 @@ Template.editor.helpers({
       editor.commands.addCommands(beautify.commands);
       editor.setOptions({
         enableBasicAutocompletion: true,
-        enableLiveAutocompletion: true,
-        enableSnippets: true
+        //enableLiveAutocompletion: true,
+        //enableSnippets: true
       });
     };
   },
