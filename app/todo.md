@@ -2,21 +2,28 @@ TODOS
 =====
 
 
-
 "what makes for the most innovative pair and multi-user coding environment"
 
+
+avoid commiting files with null content fields, or image types, or null mode
+check if issue has feedback field (generated from codepilot), then display live
+link, will also need to update the rawjs source location for that.
+filter sharejs loading to type == file
+define prof at the top of each file it is used in
 add a note that you can publish to gh-pages,
 and maybe provide a link if a gh-pages branch exists
-avoid commiting files with null content fields, or image types, or null mode
 
-add a repo and branch icon to filebar
 
 
 ## UI / UX
 
-marking a release on github plz
+actually rendering an issues code?
+    if not found, let user know of this
+    render the default view
 diffing hmtl does not work, renders
+add a repo and branch icon to filebar
 diff not loading auto - double it
+marking a release on github plz
 get all issues, hide closed button
 show commit panel to all users
 paginate long commit histories
@@ -29,9 +36,6 @@ rendering .md as a link in feed
 setting up different roles - junior prog
 describe roles differences much better
 console.error() on loadrepo??
-actually rendering an issues code?
-    if not found, let user know of this
-    render the default view
 
 
 

@@ -9,7 +9,7 @@ Meteor.methods({
   //////////////////
 
   newFile: function() { // create a new unnamed file
-    return Meteor.call('createFile', {path: 'untitled'})
+    return Meteor.call('createFile', {path: 'untitled'});
   },
 
   createFile: function(file) { // create or update a file, make sjs doc
@@ -34,14 +34,6 @@ Meteor.methods({
     }
   },
 
-  getFiles: function() { // return all active b/r repo files
-    return Files.find({
-      repo:  Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-    });
-    //.filter(function typeCheck(file){ return file.type = 'file'; });
-  },
-
   deleteFile: function(id) { // with id, delete a file from system
     ShareJS.model.delete(id);
     Files.remove(id);
@@ -49,6 +41,8 @@ Meteor.methods({
   },
 
   setFileType: function(file, type) { // set the type field of a file
+    dlog(file)
+    dlog(type)
     Files.update(
       file._id,
       {$set: {
@@ -92,6 +86,22 @@ Meteor.methods({
     return Meteor.call('getShareJS', file._id);
   },
 
+  getAllShareJS: function() { // update file.content from sjs
+    Files.find({
+      repo:  Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+    }).fetch().filter(function typeCheck(file) { // remove imgs
+      return file.type = 'file';
+    }).map(function readSJS(file) {
+      var sjs = Meteor.call('getShareJS', file);
+      Files.update(
+        file._id,
+        {$set: {
+          content: sjs.snapshot
+        }});
+    });
+  },
+
   postShareJS: function(file) { // update files with their ids
     var sjs = Meteor.call('getShareJS', file); // get doc and version
     if (!sjs) return null; // if file id broke, don't propagate error
@@ -108,19 +118,6 @@ Meteor.methods({
   postAllShareJS: function(file) { // update all project sjs files
     Meteor.call('getFiles').map(function setSJS(file) {
       Meteor.call('postShareJS', file);
-    });
-  },
-
-  testShareJS: function() { // update file.content from sjs
-    Meteor.call('getFiles').filter(function typeCheck(file) {
-      return file.type = 'file';
-    }).map(function readSJS(file) {
-      var sjs = Meteor.call('getShareJS', file);
-      Files.update(
-        file._id,
-        {$set: {
-          content: sjs.snapshot
-        }});
     });
   },
 
@@ -279,7 +276,12 @@ Meteor.methods({
     // getting all file ids, names, and content
     var user = Meteor.user().profile;
     var bname = user.repoBranch;
-    var blobs = Meteor.call('getFiles').map(function(file) { // set file cache
+    var blobs = Files.find({
+      repo:  Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+    }).fetch().filter(function typeCheck(file) { // remove imgs
+      return file.type === 'file' && file.content != undefined;
+    }).map(function makeBlob(file) { // set file cache
       Files.update(file._id, {$set: {cache: file.content}});
       return {
         path: file.title,
@@ -288,6 +290,8 @@ Meteor.methods({
         content: file.content
       };
     });
+
+    dlog(branches)
 
     // get old tree and update it with new shas, post and get that sha
     var branch = Meteor.call('getBranch', bname);
@@ -331,7 +335,7 @@ Meteor.methods({
   ///////////////////////////
 
   //http://stackoverflow.com/questions/10677491/how-to-get-meteor-call-to-return-value-for-template
-  getCollabs: function(repo) { // get a users profile based on their id
+  getCollabs: function(repo) { // get a users profile based on their id, from project repo id
     return repo.users.map(function(uid){
       var user = Meteor.users.findOne(uid);
       if (user.profile.repo === repo._id) { // return users currently working on project

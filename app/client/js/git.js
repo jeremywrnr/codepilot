@@ -19,7 +19,6 @@ Template.commitPanel.helpers({
         return { // return a named diff
           id: file._id,
           title: file.title,
-          //TODO: handle long lines better + HTML
           diff: labelLineNumbers(
             diffString(file.cache, file.content)
           ).replace(/  /g, ' ')

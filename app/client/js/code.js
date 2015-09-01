@@ -64,8 +64,8 @@ Template.editor.helpers({
       var file = Files.findOne(Session.get('document'));
       var modelist = ace.require('ace/ext/modelist');
       if (file) {
-        var mode = modelist.getModeForPath( file.title );
-        editor.getSession().setMode( mode );
+        var mode = modelist.getModeForPath(file.title);
+        editor.getSession().setMode(mode.mode);
       }
     }
   }
