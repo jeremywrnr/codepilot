@@ -5,7 +5,6 @@ TODOS
 "what makes for the most innovative pair and multi-user coding environment"
 
 
-avoid commiting files with null content fields, or image types, or null mode
 check if issue has feedback field (generated from codepilot), then display live
 link, will also need to update the rawjs source location for that.
 filter sharejs loading to type == file
@@ -127,6 +126,7 @@ make welcome template seperate, less wide
 top item in branch select is make new branch
 tester is reloading really slowly...
 deliver resources based on active repo
+avoid commiting files with null content fields, or image types, or null mode
 reduce margins, make better use of space
 push new commit to local db after github
 writing to the contents of a sharejs document

@@ -91,7 +91,7 @@ Meteor.methods({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
     }).fetch().filter(function typeCheck(file) { // remove imgs
-      return file.type = 'file';
+      return file.type === 'file';
     }).map(function readSJS(file) {
       var sjs = Meteor.call('getShareJS', file);
       Files.update(
