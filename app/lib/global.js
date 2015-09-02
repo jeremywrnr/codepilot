@@ -2,20 +2,27 @@
 
 Meteor.g = {
 
-  prof : function() { // return the current users profile
+  prof: function() { // return the current users profile
     var user = Meteor.user();
     if (user) return user.profile;
   },
 
-  files : function() { // return the current b/r files
-    var user = this.prof();
+  userfiles: function() { // return the current b/r files
+    var user = Meteor.g.prof();
     if (user) return Files.find({
       repo: user.repo,
       branch: user.repoBranch
     });
   },
 
-  focusForm : function(id) { // takes id of form, waits til exists, and focuses
+  findFileFromExt: function(ext) {
+    return Files.findOne({
+      title: new RegExp(".*\." + ext, 'i'),
+      branch: Meteor.g.prof().repoBranch,
+    });
+  },
+
+  focusForm: function(id) { // takes id of form, waits til exists, and focuses
     setInterval(function() {
       if ($(id).length) {
         $(id).focus();
@@ -24,13 +31,13 @@ Meteor.g = {
     }, 100); // check every 100ms
   },
 
-  grabTagContentsToRender : function(full, tag) { // return parsed html from tag
+  grabTagContentsToRender: function(full, tag) { // return parsed html from tag
     var doc = $('<html></html>');
     doc.html( full.content );
     return $(tag, doc)[0].innerHTML;
   },
 
-  sanitizeStringQuotes : function(str) { // try to avoid breaking srcdoc
+  sanitizeStringQuotes: function(str) { // try to avoid breaking srcdoc
     return (str
             .replace(/'/g, '"')
             .replace(/"/g, '\\"')
@@ -38,7 +45,7 @@ Meteor.g = {
            );
   },
 
-  labelLineNumbers : function(text) {
+  labelLineNumbers: function(text) {
     var doc = $('<pre></pre>');
     var full = '<span class="line-number"></span>' + text + '<span class="cl"></span>';
     doc.html( full );

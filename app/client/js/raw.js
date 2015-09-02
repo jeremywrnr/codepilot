@@ -1,11 +1,9 @@
 // iframe helper - load content from editor
 
-var findFile = function(ext) { // get file from ext
-  return Files.findOne({
-    title: new RegExp(".*\." + ext, 'i'),
-    branch: prof().repoBranch,
-  });
-}
+var prof = Meteor.g.prof;
+var clean = Meteor.g.sanitizeStringQuotes;
+var findFile = Meteor.g.findFileFromExt;
+var getTag = Meteor.g.grabTagContentsToRender;
 
 Template.raw.helpers({
 
@@ -22,13 +20,13 @@ Template.raw.helpers({
   getHead: function () { // parse head of html file
     var full = findFile('html');
     if (full)
-      return grabTagContentsToRender(full, 'head');
+      return getTag(full, 'head');
   },
 
   getBody: function () { // parse body of file
     var full = findFile('html');
     if (full)
-      return grabTagContentsToRender(full, 'body');
+      return getTag(full, 'body');
   },
 
   getCSS: function () {
@@ -46,19 +44,19 @@ Template.raw.helpers({
   htmlString: function () { // for attaching content to issue
     var full = findFile('html');
     if (full)
-      return sanitizeStringQuotes(full.content);
+      return clean(full.content);
   },
 
   cssString: function () {
     var css = findFile('css');
     if (css)
-      return sanitizeStringQuotes(css.content);
+      return clean(css.content);
   },
 
   jsString: function () {
     var js = findFile('js');
     if (js)
-      return sanitizeStringQuotes(js.content);
+      return clean(js.content);
   },
 
 });
@@ -68,19 +66,20 @@ Template.raw.helpers({
 
 
 // iframe helper - load content from an issue
+// TODO: load code from issue.feedback instead!
 
 Template.rawIssue.helpers({
 
   getHead: function () { // parse head of html file
     var full = findFile('html');
     if (full)
-      return grabTagContentsToRender(full, 'head');
+      return getTag(full, 'head');
   },
 
   getBody: function () { // parse body of file
     var full = findFile('html');
     if (full)
-      return grabTagContentsToRender(full, 'body');
+      return getTag(full, 'body');
   },
 
   getCSS: function () {

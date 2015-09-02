@@ -35,7 +35,7 @@
       </div>
       <div class='panel-body'>
         <div class="alert alert-info" role="alert">
-           let's get started - click or create a file to start editing code!
+          let's get started - click or create a file to start editing code!
         </div>
         <div class="panel panel-default">
           <div class="panel-body">
@@ -75,14 +75,15 @@
 </template>
 
 <template name='nullFileType'>
-  <div class='panel panel-default'>
+  <div class='panel panel-default nomargin-image'>
     <div class='panel-heading'>
       <h3 class='panel-title'>
-        filetype ({{type}}) currently unsupported
+        filetype (<i>{{type}}</i>) unsupported
       </h3>
     </div>
     <div class='panel-body'>
-      view file source on github <a target='_blank' href='{{ source }}'>here</a>
+      <a class='btn grn' target='_blank' href='{{ source }}'>
+        view file on github</a>
     </div>
   </div>
 </template>

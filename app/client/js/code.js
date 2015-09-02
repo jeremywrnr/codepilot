@@ -141,7 +141,7 @@ Template.renderImage.helpers({
   image: function() { // return link to github image
     var file = Files.findOne(Session.get('document'));
     if (file)
-      return file.raw;
+      return file.src;
   },
 
 });

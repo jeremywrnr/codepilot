@@ -190,7 +190,7 @@ Template.branch.events({
 
   'click .branch': function(e) { // load a different branch into codepilot
     if (prof().repoBranch !== this.name)
-      Meteor.call('loadBranch', this.name);
+      Meteor.call('loadHead', this.name);
     Session.set('focusPane', null);
   }
 

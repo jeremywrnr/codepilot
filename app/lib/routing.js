@@ -6,7 +6,11 @@ Router.map(function () {
   this.route('login');
   this.route('code', { path: '/', });
   this.route('test');
-  this.route('git');
+  this.route('git', { onBeforeAction: function() {
+    if (Session.equals('focusForm', 'committer'))
+      Meteor.call('getAllShareJS');
+    this.next();
+  }});
   this.route('config');
   this.route('raw', {layoutTemplate: 'null' });
   this.route('renderer', {layoutTemplate: 'null' });

@@ -7,8 +7,8 @@ TODOS
 
 check if issue has feedback field (generated from codepilot), then display live
 link, will also need to update the rawjs source location for that.
+
 setting tabs better, improving look of the top tab
-clicking on newfile moves focus to new file
 filter sharejs loading to type == file
 define prof at the top of each file it is used in
 add a note that you can publish to gh-pages,
@@ -42,6 +42,7 @@ console.error() on loadrepo??
 
 ## SERVER
 
+parse folders off when getting file extension - for null
 implement system testing? velocity
 \_pick your data as to not bloat the database
 autoload repos after creating an account
@@ -327,4 +328,5 @@ have a field for filetype
 image, file, null.
 only load files contents
 link to images and nulls
+clicking on newfile moves focus to new file
 -->

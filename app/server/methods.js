@@ -242,8 +242,8 @@ Meteor.methods({
           }).result;
 
           blob.type = 'image';
-          blob.src = img.html_url;
-          blob.raw = img.download_url;
+          blob.src = img.download_url;
+          blob.raw = img.html_url;
           blob.content = '';
 
         } else { // get the raw file content

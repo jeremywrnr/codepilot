@@ -1,5 +1,10 @@
 // git things - version control, importing code
 
+var prof = Meteor.g.prof;
+var ufiles = Meteor.g.userfiles;
+var focusForm = Meteor.g.focusForm;
+var labelLineNumbers = Meteor.g.labelLineNumbers;
+
 Template.commitPanel.helpers({
 
   branch: function() {
@@ -11,10 +16,7 @@ Template.commitPanel.helpers({
   },
 
   diffs: function() { // using jsdiff, return a diff on each file
-    return Files.find({
-      repo: prof().repo,
-      branch: prof().repoBranch,
-    }).map(function checkDiff(file){ // compare content + cache
+    ufiles().map(function checkDiff(file){ // compare content + cache
       if(file.content !== file.cache)
         return { // return a named diff
           id: file._id,
@@ -34,7 +36,7 @@ Template.commitPanel.events({
 
   'click .newcommit': function(e) {
     e.preventDefault();
-    Meteor.call('testShareJS');
+    Meteor.call('getAllShareJS');
     Session.set('focusPane', 'committer');
     focusForm('#commitMsg');
   },
