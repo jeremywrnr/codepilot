@@ -1,5 +1,7 @@
 // configuration page
 
+var prof = Meteor.g.prof;
+
 Template.config.helpers({
 
   users: function() { // give all CP project collaborators

@@ -7,8 +7,8 @@ TODOS
 
 check if issue has feedback field (generated from codepilot), then display live
 link, will also need to update the rawjs source location for that.
-clicking on newfile moves focus to new file
 setting tabs better, improving look of the top tab
+clicking on newfile moves focus to new file
 filter sharejs loading to type == file
 define prof at the top of each file it is used in
 add a note that you can publish to gh-pages,
