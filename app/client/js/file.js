@@ -1,6 +1,6 @@
 // file things
 
-Template.filelist.helpers({
+Template.userfiles.helpers({
 
   files: function() {
     return Files.find({}, {sort: {'title': 1}} )
@@ -8,7 +8,7 @@ Template.filelist.helpers({
 
 });
 
-Template.filelist.events({
+Template.userfiles.events({
 
   'click .new': function() {
     var id = Meteor.call('newFile');

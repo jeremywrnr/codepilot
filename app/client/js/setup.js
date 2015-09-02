@@ -1,23 +1,6 @@
-// global helper functions
-
-Meteor.startup(function () {
-
-  prof = function() { // return the current users profile
-    var user = Meteor.user();
-    if (user) return user.profile;
-  }
-
-  files = function() { // return the current b/r files
-    var user = prof();
-    if (user) return Files.find({
-      repo: user.repo,
-      branch: user.repoBranch
-    });
-  }
-
-});
-
-
+var prof = function() { // return the current users profile
+  if (Meteor.user()) return Meteor.user().profile;
+}
 
 // default session settings
 

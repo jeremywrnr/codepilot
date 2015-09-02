@@ -34,8 +34,16 @@
         <h3 class='panel-title'>code editor - let's get started!</h3>
       </div>
       <div class='panel-body'>
-        click a file (or make a new one) to start editing your code...
-        {{> filelist }} <!--found in file.html-->
+        <div class="alert alert-info" role="alert">
+          click a file (or make a new one) to start editing your code...
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <ul class='nav nav-pills nav-stacked'>
+              {{> userfiles}} <!--found in file.html-->
+            </ul>
+          </div>
+        </div>
         <img class='wide' src='/img/start.gif'/>
       </div>
     </div>
@@ -55,14 +63,14 @@
         <p class='navbar-text'> ~/{{title}} </p>
       </strong>
       {{/if}}
-<!--
-   -
-   -      <form class='navbar-form pull-right'>
-   -        <button class='edit btn btn-small'>rename</button>
-   -        <button class='del btn btn-small'>delete</button>
-   -      </form>
-   -
-   -->
+      <!--
+        -
+        -      <form class='navbar-form pull-right'>
+        -        <button class='edit btn btn-small'>rename</button>
+        -        <button class='del btn btn-small'>delete</button>
+        -      </form>
+        -
+      -->
 
     </div>
   </div>

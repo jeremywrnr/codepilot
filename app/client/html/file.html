@@ -9,16 +9,20 @@
     </div>
     <div class='panel-body'>
       <ul class='nav nav-pills nav-stacked sidelist'>
-        {{#if files.count}}
-        {{#each files}}
-        {{> fileitem}}
-        {{/each}}
-        {{else}}
-        <li class='file new'> <a href='#'> no files yet </a> </li>
-        {{/if}}
+        {{> userfiles}}
       </ul>
     </div>
   </div>
+</template>
+
+<template name='userfiles'>
+  {{#if files.count}}
+  {{#each files}}
+  {{> fileitem}}
+  {{/each}}
+  {{else}}
+  <li class='file new'> <a href='#'> no files yet </a> </li>
+  {{/if}}
 </template>
 
 <template name='fileitem'>

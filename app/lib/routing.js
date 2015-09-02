@@ -8,8 +8,8 @@ Router.map(function () {
   this.route('test');
   this.route('git');
   this.route('config');
-  this.route('renderer', {layoutTemplate: 'null' });
   this.route('raw', {layoutTemplate: 'null' });
+  this.route('renderer', {layoutTemplate: 'null' });
 });
 
 
@@ -58,9 +58,9 @@ Router.route('render/:_id', { // serve live version of site
 
 if(Meteor.isClient){
   Router.onBeforeAction(function preLogin() {
-    if (! Meteor.userId() || Meteor.loggingIn()){
+    if (! Meteor.userId() || Meteor.loggingIn())
       this.render('login');
-    }else
+    else
       this.next();
   }, { // but allow anybody to check issue imgs
     except: ['login', 'screenshot', 'rendered']

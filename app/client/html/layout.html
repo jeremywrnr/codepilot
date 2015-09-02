@@ -1,11 +1,13 @@
 <head>
   <title>code pilot</title>
   <link rel="icon" sizes="16x16 32x32" href="/favicon.ico?v=2">
+  <!-- library to make editor spiffy -->
   <script src='/packages/mizzao_sharejs-ace/ace-builds/src/ext-modelist.js'></script>
   <script src='/packages/mizzao_sharejs-ace/ace-builds/src/ext-beautify.js'></script>
   <script src='/packages/mizzao_sharejs-ace/ace-builds/src/ext-language_tools.js'></script>
+  <!-- library to add google hangout -->
   <script src="https://apis.google.com/js/platform.js"></script>
-  <script src='/js/codepilot.js'></script>
+  <!-- library to diff strings -->
   <script src='/js/jsdiff.js'></script>
   <!-- library to linkify tasks -->
   <script src='/js/linkify.min.js'></script>
@@ -16,22 +18,22 @@
 
 
 <template name='main'>
-
   {{> topnav }}
-
   <div class='mainbody container full-height'>
-    <div class='col-xs-4 full-height'>
-      <div class='sidebar'>
-        {{#if currentUser }}
-        {{> filelist }}
-        {{> ghang }}
-        {{> chat }}
-        {{/if}}
-      </div>
-    </div>
-
+    {{> sidebar}}
     {{> yield}}
+  </div>
+</template>
 
+<template name='sidebar'>
+  <div class='col-xs-4 full-height'>
+    <div class='sidebar'>
+      {{#if currentUser }}
+      {{> filelist }}
+      {{> ghang }}
+      {{> chat }}
+      {{/if}}
+    </div>
   </div>
 </template>
 
