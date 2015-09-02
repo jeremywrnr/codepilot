@@ -31,10 +31,11 @@ Template.editor.helpers({
     var modelist = ace.require('ace/ext/modelist');
     if (file) {
       var mode = modelist.getModeForPath(file.title);
-      var extn = file.title.split('.').pop();
-      if (extn !== file.title) // check if file actually has extension
+      var name = file.title.split('/').pop();
+      var extn = name.split('.').pop();
+      if (extn !== name) // check if file actually has extension
         if (mode.mode === 'ace/mode/text') // text is default mode type
-          if (! mode.extRe.test(file.title)){ // but doesnt match regex
+          if (! mode.extRe.test(name)){ // but doesnt match regex
             Meteor.call('setFileType', file, 'nullmode');
             return true;
           } else {
