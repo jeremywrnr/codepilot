@@ -4,6 +4,7 @@ TODOS
 
 "what makes for the most innovative pair and multi-user coding environment"
 
+a new task
 
 check if issue has feedback field (generated from codepilot), then display live
 link, will also need to update the rawjs source location for that.
