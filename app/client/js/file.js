@@ -37,7 +37,11 @@ Template.fileitem.helpers({
 Template.fileitem.events({
 
   'click .file': function() {
-    Session.set('document', this._id);
+    var self = this;
+    Meteor.call('postShareJS', self, function(err, res){
+      if (! err)
+        Session.set('document', self._id);
+    });
   }
 
 });

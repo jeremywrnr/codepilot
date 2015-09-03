@@ -2,6 +2,8 @@
 // so: files, shareJS, and top-level functions
 // dlog is debugger log, see server/setup.js
 
+var ufiles = Meteor.g.userfiles;
+
 Meteor.methods({
 
   //////////////////
@@ -41,13 +43,26 @@ Meteor.methods({
   },
 
   setFileType: function(file, type) { // set the type field of a file
-    dlog(file)
-    dlog(type)
-    Files.update(
-      file._id,
-      {$set: {
-        type: type
-      }});
+    if (type === 'nullmode') {
+      var filesrc = Async.runSync(function(done) { // wait on github response
+        var content = Meteor.call('getContent', file.title);
+        done(content, content);
+      }).result;
+
+      Files.update(
+        file._id,
+        {$set: {
+          type: type,
+          html: filesrc.html_url,
+          raw: filesrc.download_url,
+        }});
+    } else {
+      Files.update(
+        file._id,
+        {$set: {
+          type: type
+        }});
+    }
   },
 
   resetFile: function(id) { // reset file back to cached version
@@ -60,7 +75,7 @@ Meteor.methods({
   },
 
   resetFiles: function() { // reset db and hard code simple website structure
-    Meteor.call('getFiles').map(function delFile(f){ Meteor.call('deleteFile', f._id)});
+    ufiles().map(function delFile(f){ Meteor.call('deleteFile', f._id)});
     var base = [{'title':'site.html'},{'title':'site.css'},{'title':'site.js'}];
     base.map(function(f){ Meteor.call('createFile', f) });
   },
@@ -116,7 +131,7 @@ Meteor.methods({
   },
 
   postAllShareJS: function(file) { // update all project sjs files
-    Meteor.call('getFiles').map(function setSJS(file) {
+    ufiles().map(function setSJS(file) {
       Meteor.call('postShareJS', file);
     });
   },
@@ -242,8 +257,8 @@ Meteor.methods({
           }).result;
 
           blob.type = 'image';
-          blob.src = img.download_url;
-          blob.raw = img.html_url;
+          blob.html = img.html_url;
+          blob.raw = img.download_url;
           blob.content = '';
 
         } else { // get the raw file content

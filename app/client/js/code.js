@@ -126,13 +126,13 @@ Template.nullFileType.helpers({
   type: function() { // return the type of unsupported file
     var file = Files.findOne(Session.get('document'));
     if (file)
-      return file.title.split('.').pop();
+      return file.title.split('/').pop().split('.').pop();
   },
 
-  source: function() { // return link to file on github
+  html: function() { // return link to file on github
     var file = Files.findOne(Session.get('document'));
     if (file)
-      return file.src;
+      return file.html;
   },
 
 });
@@ -142,7 +142,7 @@ Template.renderImage.helpers({
   image: function() { // return link to github image
     var file = Files.findOne(Session.get('document'));
     if (file)
-      return file.src;
+      return file.raw;
   },
 
 });

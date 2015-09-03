@@ -13,7 +13,7 @@ filter sharejs loading to type == file
 define prof at the top of each file it is used in
 add a note that you can publish to gh-pages,
 and maybe provide a link if a gh-pages branch exists
-
+fix naming on images
 
 
 ## UI / UX

@@ -17,8 +17,8 @@ Files = new Mongo.Collection('files'); // used with github
     cache - latest version of commit, for diff
     content - live content of the file
     type - file, nullmode, or image
+    html - link to file page on github
     raw - link to raw file content (github)
-    src - link to file page on github
     */
 
 Messages = new Mongo.Collection('messages'); // client side feed
@@ -48,6 +48,7 @@ Issues = new Mongo.Collection('issues');
     id - github assigned id issue, also unique
     issue - response from server
     screen - id of the screenshot
+    feedback - param from feedback.js
     */
 
 Screens = new Mongo.Collection('screens');
