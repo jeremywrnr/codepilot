@@ -15,6 +15,10 @@ add a note that you can publish to gh-pages,
 and maybe provide a link if a gh-pages branch exists
 fix naming on images
 
+collaboration idea: in the users tab, add ability to add a copilot by their
+username on github, as well as the ability to revoke if you are true user
+
+great BC they dont have to be github collab to edit it!!!
 
 ## UI / UX
 

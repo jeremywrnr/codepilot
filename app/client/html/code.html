@@ -16,13 +16,10 @@
     {{#if isImage }}
     {{> renderImage }}
 
-    {{else}} {{#if nullMode }}
-    {{> nullFileType }}
-
-    {{else}} <!--if file is in mode whitelist, load-->
+    {{else}}
     {{> sharejsAce docid=this onRender=config onConnect=setMode id='editor'}}
 
-    {{/if}} {{/if}}
+    {{/if}}
     {{/with}}
   </div>
 </template>
@@ -74,25 +71,11 @@
   </div>
 </template>
 
-<template name='nullFileType'>
-  <div class='panel panel-default nomargin-image'>
-    <div class='panel-heading'>
-      <h3 class='panel-title'>
-        filetype (<i>.{{type}}</i>) unsupported
-      </h3>
-    </div>
-    <div class='panel-body'>
-      <a class='btn grn' target='_blank' href='{{ filesource }}'>
-        view file on github</a>
-    </div>
-  </div>
-</template>
-
 <template name='renderImage'>
   <div class='panel panel-default nomargin-image'>
     <div class='panel-body'>
-      <a target='_blank' href='{{ image }}'>
-        <img class='wide' src='{{ image }}'/>
+      <a target='_blank' href='{{ html }}'>
+        <img class='wide' src='{{ raw }}'/>
       </a>
     </div>
   </div>

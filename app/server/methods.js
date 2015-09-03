@@ -43,26 +43,11 @@ Meteor.methods({
   },
 
   setFileType: function(file, type) { // set the type field of a file
-    if (type === 'nullmode') {
-      var filesrc = Async.runSync(function(done) { // wait on github response
-        var content = Meteor.call('getContent', file.title);
-        done(content, content);
-      }).result;
-
-      Files.update(
-        file._id,
-        {$set: {
-          type: type,
-          html: filesrc.html_url,
-          raw: filesrc.download_url,
-        }});
-    } else {
-      Files.update(
-        file._id,
-        {$set: {
-          type: type
-        }});
-    }
+    Files.update(
+      file._id,
+      {$set: {
+        type: type
+      }});
   },
 
   resetFile: function(id) { // reset file back to cached version

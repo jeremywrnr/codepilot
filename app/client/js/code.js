@@ -16,32 +16,17 @@ Template.editor.helpers({
 
   isImage: function() { // check if file extension is renderable
     var file = Files.findOne(Session.get('document'));
-    var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
-    if (file && image.test(file.title)){
-      Meteor.call('setFileType', file, 'image');
-      return true;
-    } else {
-      Meteor.call('setFileType', file, 'file');
-      return false;
-    }
-  },
-
-  nullMode: function() { // check if file type is in whitelist
-    var file = Files.findOne(Session.get('document'));
-    var modelist = ace.require('ace/ext/modelist');
     if (file) {
-      var mode = modelist.getModeForPath(file.title);
-      var name = file.title.split('/').pop();
-      var extn = name.split('.').pop();
-      if (extn !== name) // check if file actually has extension
-        if (mode.mode === 'ace/mode/text') // text is default mode type
-          if (! mode.extRe.test(name)){ // but doesnt match regex
-            Meteor.call('setFileType', file, 'nullmode');
-            return true;
-          } else {
-            Meteor.call('setFileType', file, 'file');
-            return false;
-          }
+      var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
+      if (image.test(file.title)) {
+        if (file.type !== 'image')
+          Meteor.call('setFileType', file, 'image');
+        return true;
+      } else {
+        if (file.type !== 'file')
+          Meteor.call('setFileType', file, 'file');
+        return false;
+      }
     }
   },
 
@@ -69,7 +54,7 @@ Template.editor.helpers({
         editor.getSession().setMode(mode.mode);
       }
     }
-  }
+  },
 
 });
 
@@ -99,6 +84,7 @@ Template.filename.events({
     Files.update(id, {$set:{title:txt}} );
   },
 
+  // if rename loses focus, stop
   'blur #filetitle': function(e) {
     Session.set('focusPane', null);
   },
@@ -121,13 +107,7 @@ Template.filename.events({
 
 });
 
-Template.nullFileType.helpers({
-
-  type: function() { // return the type of unsupported file
-    var file = Files.findOne(Session.get('document'));
-    if (file)
-      return file.title.split('/').pop().split('.').pop();
-  },
+Template.renderImage.helpers({
 
   html: function() { // return link to file on github
     var file = Files.findOne(Session.get('document'));
@@ -135,11 +115,7 @@ Template.nullFileType.helpers({
       return file.html;
   },
 
-});
-
-Template.renderImage.helpers({
-
-  image: function() { // return link to github image
+  raw: function() { // return link to github image
     var file = Files.findOne(Session.get('document'));
     if (file)
       return file.raw;
