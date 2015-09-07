@@ -22,7 +22,7 @@
     <ul id='feed' class='nav sidelist'>
       {{#if messageCount}}
       {{#each messages}}
-      <li> <strong>{{name}}:</strong> {{{linkd}}} </li>
+      {{> message}}
       {{/each}}
       {{else}}
       <li> quiet so far. </li>
@@ -31,16 +31,20 @@
   </div>
 </template>
 
+<template name='message'>
+  <li> <strong>{{name}}:</strong> {{{linkd}}} </li>
+</template>
+
 <template name='ghang'>
   <div class='pull-right'>
     <div id='g-hanger'></div>
     <script>
-    gapi.hangout.render('g-hanger', {
-      render: 'createhangout',
-      topic: 'codepilot',
-      initial_apps: [{'app_id' : '184219133185', 'start_data' : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }],
-      widget_size: 72
-    });
+gapi.hangout.render('g-hanger', {
+  render: 'createhangout',
+  topic: 'codepilot',
+  initial_apps: [{'app_id' : '184219133185', 'start_data' : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }],
+  widget_size: 72
+});
     </script>
   </div>
 </template>
