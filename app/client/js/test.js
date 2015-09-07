@@ -1,5 +1,7 @@
 // testing page task management
 
+var prof = Meteor.g.prof;
+
 Template.tasks.helpers({
 
   hideCompleted: function () { // return whether to hide completed tasks
