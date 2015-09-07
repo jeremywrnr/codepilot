@@ -28,3 +28,14 @@ Template.messages.helpers({
   },
 
 });
+
+Template.messages.onRendered(function () { // scroll down on new messages
+  var feed = $("#feed")[0];
+  var newFeedCount = Messages.find({}).count();
+  if (! Session.equals('feedCount', newFeedCount)) {
+    if (feed) {
+      $('#feed').stop().animate({ scrollTop: feed.scrollHeight }, 500);
+      Session.set('feedCount', newFeedCount);
+    }
+  }
+});

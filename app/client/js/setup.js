@@ -1,7 +1,3 @@
-var prof = function() { // return the current users profile
-  if (Meteor.user()) return Meteor.user().profile;
-}
-
 // default session settings
 
 Session.setDefault('feedCount', 0);
@@ -12,6 +8,8 @@ Session.setDefault('hideDoneTasks', true);
 Session.setDefault('hideClosedIssues', true);
 
 // startup data subscriptions
+
+var prof = Meteor.g.prof;
 
 Meteor.subscribe('screens');
 Tracker.autorun(function() { // subscribe on login
@@ -41,16 +39,7 @@ Template.registerHelper('isPilot', function() { // check if currentUser is pilot
   return prof().role === 'pilot';
 });
 
-Tracker.autorun(function() { // scroll down on new messages
-  var feed = $("#feed")[0];
-  var newFeedCount = Messages.find({}).count();
-  if (! Session.equals('feedCount', newFeedCount)) {
-    if (feed) {
-      $('#feed').stop().animate({ scrollTop: feed.scrollHeight }, 500);
-      Session.set('feedCount', newFeedCount);
-    }
-  }
-});
+
 
 // navbar config
 
