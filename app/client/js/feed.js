@@ -39,3 +39,4 @@ Template.messages.onRendered(function () { // scroll down on new messages
     }
   }
 });
+
