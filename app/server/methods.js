@@ -25,8 +25,8 @@ Meteor.methods({
     },{ $set: {
       content: file.content,
       cache: file.content,
-      src: file.raw, // linked to for unsupported filetypes
-      raw: file.src, // used for rendering images
+      html: file.html, // linked to for unsupported filetypes
+      raw: file.raw, // used for rendering images
     }});
 
     if (fs.insertedId) { // if a new file made, create sharejs

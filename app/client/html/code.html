@@ -14,7 +14,7 @@
     {{> filename this}}
 
     {{#if isImage }}
-    {{> renderImage }}
+    {{> renderImage this}}
 
     {{else}}
     {{> sharejsAce docid=this onRender=config onConnect=setMode id='editor'}}
