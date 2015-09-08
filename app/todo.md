@@ -16,8 +16,13 @@ fix naming on images
 
 collaboration idea: in the users tab, add ability to add a copilot by their
 username on github, as well as the ability to revoke if you are true user
-
 great BC they dont have to be github collab to edit it!!!
+
+adding revokable users to a repo - still make them sign in from github?
+things would be much easier for me, but harder for any users
+
+when loading a new repo in, display that in the files, so user knows,
+then reset session variable after successful load (or error) in cb()
 
 ## UI / UX
 
