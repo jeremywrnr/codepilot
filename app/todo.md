@@ -1,6 +1,26 @@
 TODOS
 =====
 
+guo session
+show time on message
+more direct copilot notification
+view commit diff vs view diff
+remove load into codepilot btn
+kill reset btn to latest
+branch loading code
+better linkifystr
+
+
+
+
+
+
+
+
+
+
+
+
 
 "what makes for the most innovative pair and multi-user coding environment"
 
@@ -13,6 +33,8 @@ define prof at the top of each file it is used in
 add a note that you can publish to gh-pages,
 and maybe provide a link if a gh-pages branch exists
 fix naming on images
+
+remove ability to check out any commit - too buggy, requests
 
 collaboration idea: in the users tab, add ability to add a copilot by their
 username on github, as well as the ability to revoke if you are true user
