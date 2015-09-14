@@ -19,12 +19,7 @@ Template.messages.helpers({
   },
 
   messages: function() { // linkify and return feed items
-    return Messages.find(
-      {}, {sort: {time: 1}}
-    ).map(function linkMessage(msg) { // return linkd
-      msg.linkd = linkifyStr(msg.message);
-      return msg;
-    });
+    return Messages.find({}, {sort: {time: 1}});
   },
 
 });
@@ -40,3 +35,20 @@ Template.message.onRendered(function () { // scroll down on new messages
   }
 });
 
+Template.message.helpers({
+
+  linked: function() { // return local message time
+    return linkifyStr(this.message);
+  },
+
+  timestamp: function() { // return local message time
+    var msgdate = new Date(this.time);
+    return msgdate.toLocaleTimeString();
+  },
+
+  datestamp: function() { // return local message date
+    var msgdate = new Date(this.time);
+    return msgdate.toLocaleDateString();
+  }
+
+});

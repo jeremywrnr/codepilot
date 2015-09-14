@@ -11,6 +11,20 @@ branch loading code
 better linkifystr
 
 
+for eshan - give one page highlight reel, make google spreadsheet for college links
+
+summary of what you did, and a copy of the upd to date resume
+
+codepilot study?
+    what are interesting things that people could run in an hour
+    beyond study - lickert scale study questions
+    github vs git, able to collaborate, but not
+    (within subjects takes care of it)
+    auxiliray - coding spectator to jump in
+    live webcasting of them coding, people can help
+    codepilot for strangers (pull requests vs codepilot)
+    one pilot and many coding helpers
+
 
 
 
