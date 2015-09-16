@@ -1,6 +1,7 @@
 TODOS
 =====
 
+
 guo session
 show time on message
 more direct copilot notification
@@ -12,9 +13,7 @@ better linkifystr
 
 
 for eshan - give one page highlight reel, make google spreadsheet for college links
-
 summary of what you did, and a copy of the upd to date resume
-
 codepilot study?
     what are interesting things that people could run in an hour
     beyond study - lickert scale study questions
@@ -26,39 +25,24 @@ codepilot study?
     one pilot and many coding helpers
 
 
-
-
-
-
-
-
-
-
-
-
 "what makes for the most innovative pair and multi-user coding environment"
-
 check if issue has feedback field (generated from codepilot), then display live
 link, will also need to update the rawjs source location for that.
-
 setting tabs better, improving look of the top tab
 filter sharejs loading to type == file
 define prof at the top of each file it is used in
 add a note that you can publish to gh-pages,
 and maybe provide a link if a gh-pages branch exists
 fix naming on images
-
 remove ability to check out any commit - too buggy, requests
-
 collaboration idea: in the users tab, add ability to add a copilot by their
 username on github, as well as the ability to revoke if you are true user
 great BC they dont have to be github collab to edit it!!!
-
 adding revokable users to a repo - still make them sign in from github?
 things would be much easier for me, but harder for any users
-
 when loading a new repo in, display that in the files, so user knows,
 then reset session variable after successful load (or error) in cb()
+
 
 ## UI / UX
 

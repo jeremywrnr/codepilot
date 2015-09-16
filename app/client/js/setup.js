@@ -48,7 +48,6 @@ Template.navigation.helpers({ // uses glyphicons in template
     return [
       { iconpath:'/test', iconname:'play', name:'test'  },
       { iconpath:'/git', iconname:'list-alt', name:'git'  },
-      { iconpath:'/config', iconname:'cog', name:'config'  }
     ];
   }
 });

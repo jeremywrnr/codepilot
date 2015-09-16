@@ -9,9 +9,9 @@
   <script src="https://apis.google.com/js/platform.js"></script>
   <!-- library to diff strings -->
   <!--<script src='/js/jsdiff.js'></script>-->
-	<script src='/js/diffview.js'></script>
-	<script src='/js/difflib.js'></script>
-	<link rel="stylesheet" type="text/css" href="/css/diffview.css"/>
+  <script src='/js/diffview.js'></script>
+  <script src='/js/difflib.js'></script>
+  <link rel="stylesheet" type="text/css" href="/css/diffview.css"/>
   <!-- library to linkify tasks -->
   <script src='/js/linkify.min.js'></script>
   <script src='/js/linkify-jquery.min.js'></script>
@@ -58,9 +58,13 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapser">
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
-        <a class='navbar-brand' href='/'>
-          <span class='glyphicon glyphicon-pencil'></span> code pilot
-        </a>
+        <ul class='nav navbar-nav navbar-right nomargin'>
+          <li class='navitem text-center grn'>
+            <a href='/'>
+              <span class='glyphicon glyphicon-pencil'></span> code pilot
+            </a>
+          </li>
+        </ul>
       </div>
 
       <div class="collapse navbar-collapse" id="collapser">
@@ -90,8 +94,13 @@
   {{#if loggingIn }}
   <li><a href='#'>logging in...</a></li>
   {{else}}
+  <li class='navitem text-center'>
+    <a href='/config'> {{ currentUser.profile.login }} | {{ currentUser.profile.role }}
+      <!--<span class='glyphicon glyphicon-cog'></span>-->
+    </a>
+  </li>
   <li class='del logout text-center'>
-    <a href='#'> {{ currentUser.profile.login }} | logout </a>
+    <a href='#'> logout </a>
   </li>
   {{/if}}
 </template>
@@ -112,13 +121,17 @@
   {{#if currentUser }}
   <ul class='nav navbar-nav'>
 
-    {{#each navItems}}
-    <li class='navitem text-center'>
-      <a href='{{ iconpath }}'>
-        <span class='glyphicon glyphicon-{{iconname}}'></span>
-        {{ name }} </a>
+    <li class='navitem grn text-center'>
+      <a href='/test'>
+        <span class='glyphicon glyphicon-play'></span>
+        testing </a>
     </li>
-    {{/each}}
+
+    <li class='navitem grn text-center'>
+      <a href='/git'>
+        <span class='glyphicon glyphicon-list-alt'></span>
+        github </a>
+    </li>
 
   </ul>
   {{/if}}
