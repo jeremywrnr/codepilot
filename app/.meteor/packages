@@ -17,3 +17,4 @@ accounts-base
 service-configuration
 http
 meteorhacks:async
+standard-minifiers
