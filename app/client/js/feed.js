@@ -43,7 +43,7 @@ Template.message.helpers({
 
   timestamp: function() { // return local message time
     var msgdate = new Date(this.time);
-    return msgdate.toLocaleTimeString();
+    return msgdate.toLocaleTimeString().toLowerCase();
   },
 
   datestamp: function() { // return local message date
