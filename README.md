@@ -41,12 +41,11 @@ and development.json, respectively. This is what the insides should resemble:
 Once this is setup, do the following to start running it locally:
 
     cd ../
-    meteor update && meteor
+    meteor
 
 Then, you can check out [localhost:3000](http://localhost:3000), and play
-around with things.
-
-This commit was made with code pilot #meta
+around with things. I tried running `meteor update`, and the editor started
+breaking, so Id recommend against doing that.
 
 
 
