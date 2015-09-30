@@ -4,10 +4,6 @@ TODOS
 
 guo session
 show time on message
-more direct copilot notification
-view commit diff vs view diff
-remove load into codepilot btn
-kill reset btn to latest
 branch loading code
 better linkifystr
 
@@ -174,6 +170,7 @@ refactor iframes, better in pane nav.
 ACTUALLY design what the fields should be plz
 feed notifys on issues
 add a commit updates cached version
+kill reset btn to latest
 only give user the user things related to their repo
 only add to collaborators if not on list
 future: create a new repo with the api
@@ -323,6 +320,7 @@ add github issue commenting
 github integration
 option to pick roles
 basic roles management
+remove load into codepilot btn
 color hide complete - not a label anymore?
 refactor on repoName
 file specific syntax highlighting
@@ -356,5 +354,6 @@ have a field for filetype
 image, file, null.
 only load files contents
 link to images and nulls
+more direct copilot notification
 clicking on newfile moves focus to new file
 -->

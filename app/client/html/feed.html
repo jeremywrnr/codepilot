@@ -32,12 +32,11 @@
 </template>
 
 <template name='message'>
-  <div class='panel panel-default nomargin'>
-    <div class='panel-body'>
-      <li class='center'><small>{{timestamp}} - {{datestamp}}</small></li>
-      <li><strong>{{name}}:</strong> {{{linked}}}</li>
-    </div>
-  </div>
+  <li class='msg'>
+    <strong>{{name}}</strong>
+    <small class='pull-right'>{{timestamp}} - {{datestamp}}</small>
+  </li>
+  <li class='white msg'> {{{linked}}} </li>
 </template>
 
 <template name='ghang'>
