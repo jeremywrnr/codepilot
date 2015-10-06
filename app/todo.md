@@ -7,6 +7,10 @@ show time on message
 branch loading code
 better linkifystr
 
+make screenshot of code each time you commit
+make note of andy, talking about debugging webapps, related to work that bryan
+burg did at uw while he was a student of andys. technical hci work, good to
+cite the uist work, very benficial for the apps upcoming very soon
 
 for eshan - give one page highlight reel, make google spreadsheet for college links
 summary of what you did, and a copy of the upd to date resume
