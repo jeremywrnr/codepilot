@@ -24,6 +24,12 @@ codepilot study?
     codepilot for strangers (pull requests vs codepilot)
     one pilot and many coding helpers
 
+abdullah feedback
+    maybe host on a different website to be quick
+    request a link for collaborators
+    smaller link for generation
+    use for interviewing maybe?
+    clean up config panel
 
 "what makes for the most innovative pair and multi-user coding environment"
 check if issue has feedback field (generated from codepilot), then display live
