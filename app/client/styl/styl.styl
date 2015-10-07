@@ -1,3 +1,12 @@
+// stylus mixins
+
+border-radius()
+  -webkit-border-radius arguments
+  -moz-border-radius arguments
+  border-radius arguments
+
+// main stylus
+
 html
     font-family Verdana, sans-serif
     padding 10px
@@ -36,6 +45,9 @@ h5
 .center
     display block
     margin auto
+
+.round
+    border-radius(4px)
 
 .hidden
     visibility hidden
@@ -85,7 +97,7 @@ a.btn
 
 .navbar-code
     border 1px solid rgba(0, 0, 0, 1)
-    border-radius 4px 4px 0px 0px
+    border-radius(4px 4px 0px 0px)
     background-color white
 
 .editor-container
