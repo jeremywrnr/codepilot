@@ -3,6 +3,7 @@
 var prof = Meteor.g.prof;
 var ufiles = Meteor.g.userfiles;
 var focusForm = Meteor.g.focusForm;
+var difflib = Meteor.g.difflib;
 var labelLineNumbers = Meteor.g.labelLineNumbers;
 
 // do a javascript diff
@@ -140,28 +141,28 @@ Template.diff.helpers({
     if (this.content === this.cache)
       return; // nodiff
 
-    //var byid = function (id) { return this.$('#'+id); },
-      //base = difflib.stringaslines( this.cache ),
-      //newtxt = difflib.stringaslines( this.content ),
-      //sm = new difflib.sequencematcher(base, newtxt),
-      //opcodes = sm.get_opcodes(),
-      //diffoutputdiv = byid(this.id),
-      //contextsize = 10;
+    var byid = function (id) { return this.$('#'+id); },
+      base = difflib.stringaslines( this.cache ),
+      newtxt = difflib.stringaslines( this.content ),
+      sm = new difflib.sequencematcher(base, newtxt),
+      opcodes = sm.get_opcodes(),
+      diffoutputdiv = byid(this.id),
+      contextsize = 10;
 
-    //console.log(diffoutputdiv);
-    //diffoutputdiv.innerhtml = "";
+    console.log(diffoutputdiv);
+    diffoutputdiv.innerhtml = "";
 
-    //diffoutputdiv[0].appendchild(diffview.buildview({
-      //basetextlines: base,
-      //newtextlines: newtxt,
-      //opcodes: opcodes,
-      //basetextname: "base",
-      //newtextname: "new",
-      //contextsize: contextsize,
-      //// 0 for side by side
-      //// 1 for inline diff
-      //viewtype: 0,
-    //}));
+    diffoutputdiv[0].appendchild(diffview.buildview({
+      basetextlines: base,
+      newtextlines: newtxt,
+      opcodes: opcodes,
+      basetextname: "base",
+      newtextname: "new",
+      contextsize: contextsize,
+      // 0 for side by side
+      // 1 for inline diff
+      viewtype: 0,
+    }));
   },
 
 });
