@@ -1,37 +1,11 @@
 // git things - version control, importing code
 
 var prof = Meteor.g.prof;
+var difflib = Meteor.difflib;
+var diffview = Meteor.diffview;
 var ufiles = Meteor.g.userfiles;
 var focusForm = Meteor.g.focusForm;
-var difflib = Meteor.g.difflib;
 var labelLineNumbers = Meteor.g.labelLineNumbers;
-
-// do a javascript diff
-var diffUsingJS = function(file) {
-  if (file.content === file.cache) return; // nodiff
-  var byId = function (id) { return document.getElementById(id); },
-    base = difflib.stringAsLines( file.cache ),
-    newtxt = difflib.stringAsLines( file.content ),
-    sm = new difflib.SequenceMatcher(base, newtxt),
-    opcodes = sm.get_opcodes(),
-    diffoutputdiv = byId(file._id),
-    contextSize = 10;
-
-  diffoutputdiv.innerHTML = "";
-
-  diffoutputdiv.appendChild(diffview.buildView({
-    baseTextLines: base,
-    newTextLines: newtxt,
-    opcodes: opcodes,
-    baseTextName: "base",
-    newTextName: "new",
-    contextSize: contextSize,
-    // 0 for side by side
-    // 1 for inline diff
-    viewType: 0,
-  }));
-};
-
 
 Template.commitPanel.helpers({
 
@@ -138,31 +112,34 @@ Template.commit.events({
 Template.diff.helpers({
 
   renderDiff: function() {
-    if (this.content === this.cache)
-      return; // nodiff
+    if (this.content === this.cache) return; // nodiff
 
-    var byid = function (id) { return this.$('#'+id); },
-      base = difflib.stringaslines( this.cache ),
-      newtxt = difflib.stringaslines( this.content ),
-      sm = new difflib.sequencematcher(base, newtxt),
-      opcodes = sm.get_opcodes(),
-      diffoutputdiv = byid(this.id),
-      contextsize = 10;
+    var base = difflib.stringAsLines( this.cache );
+    var newtxt = difflib.stringAsLines( this.content );
+    //var byid = function (id) { return document.getElementById('#'+id); }
+    var byid = function (id) { return this.$('#'+id); }
+    var diffoutputdiv = byid(this.id);
+    var sm = new difflib.SequenceMatcher(base, newtxt);
+    var opcodes = sm.get_opcodes();
+    var contextsize = 10;
 
+    console.log(this.id)
     console.log(diffoutputdiv);
-    diffoutputdiv.innerhtml = "";
 
-    diffoutputdiv[0].appendchild(diffview.buildview({
-      basetextlines: base,
-      newtextlines: newtxt,
+    var codeview = diffview.buildView({
+      baseTextLines: base,
+      newTextLines: newtxt,
       opcodes: opcodes,
-      basetextname: "base",
-      newtextname: "new",
-      contextsize: contextsize,
-      // 0 for side by side
-      // 1 for inline diff
-      viewtype: 0,
-    }));
+      baseTextName: "base",
+      newTextName: "new",
+      contextSize: contextsize,
+      viewType: 0, // 0 for side by side, 1 for inline diff
+    })
+
+    console.log(codeview);
+    diffoutputdiv.innerhtml = "hello there";
+    diffoutputdiv.append(codeview);
+    diffoutputdiv.innerhtml = codeview;
   },
 
 });

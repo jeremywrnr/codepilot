@@ -2,16 +2,14 @@ TODOS
 =====
 
 
-guo session
-show time on message
 branch loading code
 better linkifystr
+
 
 make screenshot of code each time you commit
 make note of andy, talking about debugging webapps, related to work that bryan
 burg did at uw while he was a student of andys. technical hci work, good to
 cite the uist work, very benficial for the apps upcoming very soon
-
 for eshan - give one page highlight reel, make google spreadsheet for college links
 summary of what you did, and a copy of the upd to date resume
 codepilot study?
@@ -23,14 +21,12 @@ codepilot study?
     live webcasting of them coding, people can help
     codepilot for strangers (pull requests vs codepilot)
     one pilot and many coding helpers
-
 abdullah feedback
     maybe host on a different website to be quick
     request a link for collaborators
     smaller link for generation
     use for interviewing maybe?
     clean up config panel
-
 "what makes for the most innovative pair and multi-user coding environment"
 check if issue has feedback field (generated from codepilot), then display live
 link, will also need to update the rawjs source location for that.
@@ -365,5 +361,6 @@ image, file, null.
 only load files contents
 link to images and nulls
 more direct copilot notification
+show time on message
 clicking on newfile moves focus to new file
 -->
