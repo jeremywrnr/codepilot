@@ -100,6 +100,7 @@ ui@1.0.8
 underscore@1.0.4
 url@1.0.5
 velocity:chokidar@1.2.0_1
+velocity:console-reporter@0.1.4
 velocity:core@0.10.7
 velocity:meteor-internals@1.1.0_7
 velocity:meteor-stubs@1.1.1

@@ -19,3 +19,4 @@ http
 meteorhacks:async
 standard-minifiers
 sanjo:jasmine
+velocity:console-reporter
