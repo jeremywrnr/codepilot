@@ -2,10 +2,7 @@ TODOS
 =====
 
 
-branch loading code
 better linkifystr
-
-
 make screenshot of code each time you commit
 make note of andy, talking about debugging webapps, related to work that bryan
 burg did at uw while he was a student of andys. technical hci work, good to
@@ -139,6 +136,7 @@ hardcode three files
 set up iframe html
 on logout, route to '/'
 browse at this time
+branch loading code
 view source of old commit
 adding branch options to config panel
 integrate feed hooks into tasks
