@@ -3,6 +3,10 @@ TODOS
 
 
 better linkifystr
+slightly smaller spacing in sidebar
+move this whole thing to be a rails app instead?
+what is the actual benefit of foing this?
+adjust the js debugger depending on the scfreen size
 make screenshot of code each time you commit
 make note of andy, talking about debugging webapps, related to work that bryan
 burg did at uw while he was a student of andys. technical hci work, good to
