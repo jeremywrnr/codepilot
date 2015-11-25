@@ -1,6 +1,7 @@
 TODOS
 =====
 
+heroku bump
 
 better linkifystr
 slightly smaller spacing in sidebar
