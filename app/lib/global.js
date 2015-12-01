@@ -57,4 +57,7 @@ Meteor.g = {
     return doc[0].innerHTML;
   },
 
+  linkify: function(str) {
+  },
+
 };
