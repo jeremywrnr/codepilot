@@ -1,12 +1,10 @@
 TODOS
 =====
 
-heroku bump
-better linkifystr
+move to hosting on heroku
 slightly smaller spacing in sidebar
-move this whole thing to be a rails app instead?
-what is the actual benefit of foing this?
-adjust the js debugger depending on the scfreen size
+adjust the js debugger depending on the screen size
+tell when nothing changes and trying to commit
 make screenshot of code each time you commit
 make note of andy, talking about debugging webapps, related to work that bryan
 burg did at uw while he was a student of andys. technical hci work, good to
@@ -20,20 +18,14 @@ abdullah feedback
     clean up config panel
 check if issue has feedback field (generated from codepilot), then display live
 link, will also need to update the rawjs source location for that.
-setting tabs better, improving look of the top tab
 filter sharejs loading to type == file
-define prof at the top of each file it is used in
-add a note that you can publish to gh-pages,
-and maybe provide a link if a gh-pages branch exists
-fix naming on images
-remove ability to check out any commit - too buggy, requests
 collaboration idea: in the users tab, add ability to add a copilot by their
 username on github, as well as the ability to revoke if you are true user
 great BC they dont have to be github collab to edit it!!!
-adding revokable users to a repo - still make them sign in from github?
-things would be much easier for me, but harder for any users
+adding revokable users to a repo
 when loading a new repo in, display that in the files, so user knows,
 then reset session variable after successful load (or error) in cb()
+
 
 
 ## UI / UX
