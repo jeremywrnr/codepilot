@@ -1,6 +1,8 @@
 // testing page task management
 
+var linkify = Meteor.g.linkify;
 var prof = Meteor.g.prof;
+
 
 Template.tasks.helpers({
 
@@ -12,13 +14,13 @@ Template.tasks.helpers({
     if (Session.equals('hideDoneTasks', true)) {
       var chkd = Tasks.find({checked: {$ne: true}}, {sort: {time: -1}});
       return chkd.map(function(task){
-        task.linkd = linkifyStr(task.text);
+        task.linkd = linkify(task.text);
         return task;
       });
     } else { // dont hide completed - return all repo task items
       var unchkd = Tasks.find({}, {sort: {checked: 1, time: -1}});
       return unchkd.map(function(task){
-        task.linkd = linkifyStr(task.text);
+        task.linkd = linkify(task.text);
         return task;
       });
     }

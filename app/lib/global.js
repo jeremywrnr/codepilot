@@ -1,5 +1,9 @@
 // global js functions, preloaded into meteor from lib
 
+var domain = /^http.*\.(io|com|web|net|org|gov|edu)(\/.*)?/g
+
+///.*(\/.*)?$/i
+
 Meteor.g = {
 
   prof: function() { // return the current users profile
@@ -45,7 +49,7 @@ Meteor.g = {
            );
   },
 
-  labelLineNumbers: function(text) {
+  labelLineNumbers: function(text) { // label a chunk of text with line numbers
     var doc = $('<pre></pre>');
     var full = '<span class="line-number"></span>' + text + '<span class="cl"></span>';
     doc.html( full );
@@ -57,7 +61,13 @@ Meteor.g = {
     return doc[0].innerHTML;
   },
 
-  linkify: function(str) {
+  linkify: function(str) { // take in string, parse and wrap any links inside
+    return str.split(' ').map(function linker(s) {
+      if (s.match(domain))
+        return '<a href="' + s + '">' + s + '</a>'
+      else
+        return s
+    }).join(' ');
   },
 
 };

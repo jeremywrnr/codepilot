@@ -1,5 +1,7 @@
 // messages and events feed
 
+var linkify = Meteor.g.linkify;
+
 Template.chatter.events({
 
   'keydown input#message': function(e) {
@@ -38,7 +40,7 @@ Template.message.onRendered(function () { // scroll down on new messages
 Template.message.helpers({
 
   linked: function() { // return local message time
-    return linkifyStr(this.message);
+    return linkify(this.message);
   },
 
   timestamp: function() { // return local message time
