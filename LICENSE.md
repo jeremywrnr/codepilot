@@ -1,4 +1,4 @@
-The MIT License (MIT)
+[The MIT License (MIT)](http://jeremywrnr.com/mit-license/)
 
 Copyright (c) 2015 Jeremy Warner
 
