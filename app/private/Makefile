@@ -17,4 +17,7 @@ encrypt: prompt
 	openssl cast5-cbc -e -in ${CONF_FILE1} -out ${CONF_FILE1}.cast5
 	openssl cast5-cbc -e -in ${CONF_FILE2} -out ${CONF_FILE2}.cast5
 
-.PHONY: prompt decrypt encrypt
+clean:
+	rm -fv *.cast5
+
+.PHONY: prompt decrypt encrypt clean
