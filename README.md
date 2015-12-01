@@ -1,6 +1,7 @@
 [code pilot](http://codepilot.meteor.com)
 =========================================
 
+[![Build Status](https://travis-ci.org/jeremywrnr/codepilot.svg?branch=dev)](https://travis-ci.org/jeremywrnr/codepilot)
 [![bitHound Score](https://www.bithound.io/github/jeremywrnr/codepilot/badges/score.svg)](https://www.bithound.io/github/jeremywrnr/codepilot)
 [![MIT](https://img.shields.io/npm/l/alt.svg?style=flat)](http://mit-license.org)
 
