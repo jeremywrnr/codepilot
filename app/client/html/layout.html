@@ -8,10 +8,9 @@
   <!-- library to add google hangout -->
   <script src="https://apis.google.com/js/platform.js"></script>
   <!-- library to diff strings -->
-  <!--<script src='/js/jsdiff.js'></script>-->
-  <!--<script src='/js/diffview.js'></script>-->
-  <!--<script src='/js/difflib.js'></script>-->
-  <link rel="stylesheet" type="text/css" href="/css/diffview.css"/>
+  <script src='/js/diffview.js'></script>
+  <script src='/js/difflib.js'></script>
+  <link rel="stylesheet" href="/css/diffview.css"/>
 </head>
 
 
@@ -78,18 +77,17 @@
 
 <template name='loginGithub'>
   <ul class='nav navbar-nav navbar-right nomargin'>
-    {{#if currentUser }}
+    {{#if loggingIn }}
+    <li><a href='#'>logging in...</a></li>
+    {{else}}{{#if currentUser }}
     {{> userLoggedin }}
     {{else}}
     {{> userLoggedout }}
-    {{/if}}
+    {{/if}}{{/if}}
   </ul>
 </template>
 
 <template name='userLoggedin'>
-  {{#if loggingIn }}
-  <li><a href='#'>logging in...</a></li>
-  {{else}}
   <li class='navitem text-center'>
     <a href='/config'> {{ currentUser.profile.login }} | {{ currentUser.profile.role }}
       <!--<span class='glyphicon glyphicon-cog'></span>-->
@@ -98,7 +96,6 @@
   <li class='del logout text-center'>
     <a href='#'> logout </a>
   </li>
-  {{/if}}
 </template>
 
 <template name='userLoggedout'>
