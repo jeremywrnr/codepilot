@@ -62,9 +62,9 @@ Meteor.g = {
   },
 
   linkify: function(str) { // take in string, parse and wrap any links inside
-    return str.split(' ').map(function linker(s) {
+    return str.split(' ').map(function linker(s) { // open in new tab, too
       if (s.match(domain))
-        return '<a href="' + s + '">' + s + '</a>'
+        return '<a target="_blank" href="' + s + '">' + s + '</a>'
       else
         return s
     }).join(' ');
