@@ -3,9 +3,9 @@
 <template name='git'>
   <div class='col-xs-8 full-height'>
     {{#if isPilot}}
+    {{> commitPanel }}
     {{> history }}
     {{else}}
-    {{> commitPanel }}
     {{> history }}
     {{/if}}
   </div>

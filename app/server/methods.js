@@ -291,8 +291,6 @@ Meteor.methods({
       };
     });
 
-    dlog(branches)
-
     // get old tree and update it with new shas, post and get that sha
     var branch = Meteor.call('getBranch', bname);
     var oldTree = Meteor.call('getTree', branch.commit.commit.tree.sha);
