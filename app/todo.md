@@ -1,6 +1,7 @@
 TODOS
 =====
 
+why is logging in so slow?
 move to hosting on heroku
 slightly smaller spacing in sidebar
 adjust the js debugger depending on the screen size

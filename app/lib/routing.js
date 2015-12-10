@@ -4,18 +4,17 @@ Router.configure({ layoutTemplate: 'main' });
 
 Router.map(function () {
   this.route('login');
-  this.route('code', { path: '/', });
   this.route('test');
+  this.route('config');
+  this.route('code', { path: '/', });
+  this.route('raw', {layoutTemplate: 'null' });
+  this.route('renderer', {layoutTemplate: 'null' });
   this.route('git', { onBeforeAction: function() {
     if (Session.equals('focusForm', 'committer'))
       Meteor.call('getAllShareJS');
     this.next();
   }});
-  this.route('config');
-  this.route('raw', {layoutTemplate: 'null' });
-  this.route('renderer', {layoutTemplate: 'null' });
 });
-
 
 
 // accepting screenshots at the feedback url
@@ -57,10 +56,9 @@ Router.route('render/:_id', { // serve live version of site
 });
 
 
-
 // ask user to login before coding, only on client
 
-if(Meteor.isClient){
+if(Meteor.isClient) {
   Router.onBeforeAction(function preLogin() {
     if (! Meteor.userId() || Meteor.loggingIn())
       this.render('login');
@@ -70,3 +68,4 @@ if(Meteor.isClient){
     except: ['login', 'screenshot', 'rendered']
   });
 }
+
