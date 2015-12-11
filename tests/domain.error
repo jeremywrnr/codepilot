@@ -1,0 +1,4 @@
+http://codepilot.herokuapp.com/_oauth/github?error=redirect_uri_mismatch&error_description=
+
+
+The+redirect_uri+MUST+match+the+registered+callback+URL+for+this+application.&error_uri=https%3A%2F%2Fdeveloper.github.com%2Fv3%2Foauth%2F%23redirect-uri-mismatch&state=eyJsb2dpblN0eWxlIjoicmVkaXJlY3QiLCJjcmVkZW50aWFsVG9rZW4iOiI4VVlpRERaWkRFRDY4Nm5Hcll3TzBvZ1VyWkt5Y2VKVXNNdko1X3VDdUxCIiwiaXNDb3Jkb3ZhIjpmYWxzZSwicmVkaXJlY3RVcmwiOiJodHRwczovL2NvZGVwaWxvdC5oZXJva3VhcHAuY29tLyJ9
