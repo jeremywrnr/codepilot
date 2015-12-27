@@ -2,17 +2,25 @@ Package.describe({
   name: "jeremywrnr:codepilot",
   summary: "Pair programming.",
   version: "1.0.0",
-  git: "https://github.com/jeremywrnr/codepilot"
+  git: "https://github.com/jeremywrnr/codepilot",
 });
+
 
 Package.onUse(function(api) {
-  api.export('MeteorCamera');
+  api.export('Codepilot');
   api.versionsFrom("METEOR@1.2");
-  api.use("isobuild:cordova@5.2.0");
 
-  api.addFiles('photo.html');
-  api.addFiles('photo.js');
-  api.addFiles("camera.less", ["web.browser"]);
-  api.addFiles('photo-browser.js', ['web.browser']);
-  api.addFiles('photo-cordova.js', ['web.cordova']);
+  api.addFiles("difflib.js");
+  api.addFiles("feedback.js");
+  api.addFiles("global.js");
+  api.addFiles("methods.js");
+  api.addFiles("html2canvas.min.js");
 });
+
+
+Package.onTest(function (api) {
+  api.use('jeremywrnr:codepilot');
+
+  api.addFiles('my-mocha-tests.js');
+});
+
