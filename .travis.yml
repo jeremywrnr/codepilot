@@ -8,5 +8,5 @@ before_install:
 - meteor --version
 - npm install -g spacejam
 
-script: cd lib && spacejam test-packages ./
+script: cd package && spacejam test-packages ./
 
