@@ -28,4 +28,5 @@ Accounts.onCreateUser(function(options, user){
   user.profile.role = 'copilot'
   return user;
 
-})
+});
+
