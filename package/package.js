@@ -1,7 +1,7 @@
 Package.describe({
   name: "jeremywrnr:codepilot",
   summary: "Pair programming.",
-  version: "0.1",
+  version: "1.0.0",
   git: "https://github.com/jeremywrnr/codepilot"
 });
 
