@@ -1,10 +1,12 @@
 language: node_js
 services: mongodb
-node_js: 4.00
+node_js: 0.10.40
 
-install:
- - curl https://install.meteor.com/ | sh
- - npm install -g spacejam
+before_install:
+- curl https://install.meteor.com | /bin/sh
+- export PATH="$HOME/.meteor:$PATH"
+- meteor --version
+- npm install -g spacejam
 
 script: cd lib && spacejam test-packages ./
 
