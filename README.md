@@ -1,7 +1,7 @@
-[code pilot](http://codepilot.meteor.com)
-=========================================
+[code pilot](http://codepilot.xyz)
+==================================
 
-[![MIT](https://img.shields.io/npm/l/alt.svg?style=flat)](http://jeremywrnr.com/mit-license)
+[![MIT License](https://img.shields.io/npm/l/alt.svg?style=flat)](http://jeremywrnr.com/mit-license)
 [![Build Status](https://travis-ci.org/jeremywrnr/codepilot.svg?branch=dev)](https://travis-ci.org/jeremywrnr/codepilot)
 [![bitHound Score](https://www.bithound.io/github/jeremywrnr/codepilot/badges/score.svg)](https://www.bithound.io/github/jeremywrnr/codepilot)
 
@@ -49,9 +49,10 @@ Once this is setup, do the following to start running it locally:
 
 Then, you can check out [localhost:3000](http://localhost:3000), and play
 around with things. I tried running `meteor update`, and the editor started
-breaking, so Id recommend against doing that.
+breaking, so I'd recommend against doing that.
 
 
 
 [devel]:https://developer.github.com/program/
 [oauth]:https://developer.github.com/v3/oauth/
+

@@ -1,29 +1,28 @@
 TODOS
 =====
 
-why is logging in so slow?
-move to hosting on heroku
-slightly smaller spacing in sidebar
-adjust the js debugger depending on the screen size
+actually rendering an issues code?
+    if not found, let user know of this
+    render the default view
+
 tell when nothing changes and trying to commit
 make screenshot of code each time you commit
-make note of andy, talking about debugging webapps, related to work that bryan
-burg did at uw while he was a student of andys. technical hci work, good to
-cite the uist work, very benficial for the apps upcoming very soon
-summary of what you did, and a copy of the upd to date resume
 abdullah feedback
     maybe host on a different website to be quick
     request a link for collaborators
     smaller link for generation
     use for interviewing maybe?
     clean up config panel
+
 check if issue has feedback field (generated from codepilot), then display live
 link, will also need to update the rawjs source location for that.
 filter sharejs loading to type == file
+
 collaboration idea: in the users tab, add ability to add a copilot by their
 username on github, as well as the ability to revoke if you are true user
 great BC they dont have to be github collab to edit it!!!
 adding revokable users to a repo
+
 when loading a new repo in, display that in the files, so user knows,
 then reset session variable after successful load (or error) in cb()
 
@@ -31,10 +30,9 @@ then reset session variable after successful load (or error) in cb()
 
 ## UI / UX
 
-actually rendering an issues code?
-    if not found, let user know of this
-    render the default view
 diffing hmtl does not work, renders
+slightly smaller spacing in sidebar
+adjust the js debugger depending on the screen size
 add a repo and branch icon to filebar
 diff not loading auto - double it
 marking a release on github plz
@@ -100,6 +98,10 @@ creating an issue on this repo, could be helpful to PROF
 github as an education platform, codepilot as a even *more* collaborative platform?
 a teacher can have lecture code stored in the repo, and then walk through bit
 by bit (eg commits), even if not runnable in the browser/cloud form controls
+make note of andy, talking about debugging webapps, related to work that bryan
+burg did at uw while he was a student of andys. technical hci work, good to
+cite the uist work, very benficial for the apps upcoming very soon
+summary of what you did, and a copy of the upd to date resume
 
 by creating a gh-pages branch, you can actually host the content that you make
 from a specific readme - this is cool, because it lets you export the code from
