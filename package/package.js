@@ -21,6 +21,6 @@ Package.onUse(function(api) {
 Package.onTest(function (api) {
   api.use('jeremywrnr:codepilot');
 
-  api.addFiles('my-mocha-tests.js');
+  api.addFiles('codepilot_spec.js');
 });
 
