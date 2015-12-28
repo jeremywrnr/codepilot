@@ -17,3 +17,4 @@ service-configuration
 http
 meteorhacks:async
 standard-minifiers
+jeremywrnr:codepilot
