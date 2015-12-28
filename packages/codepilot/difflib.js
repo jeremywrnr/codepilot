@@ -549,7 +549,9 @@ var difflib = {
   }
 };
 
+Difflib = {};
+
 // finally export difflib
-Codepilot.difflib = difflib;
-Codepilot.diffview = diffview;
+Difflib.lib = difflib;
+Difflib.diffview = diffview;
 

@@ -8,6 +8,8 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.export("Codepilot");
+  api.export("Difflib");
+
   api.versionsFrom("METEOR@1.2");
   api.addFiles(["difflib.js", "codepilot.js"]);
 });
