@@ -1,16 +1,15 @@
-/**
-  Builds and returns a visual diff view. The single parameter, `params',
-  should contain the following values: - baseTextLines: the array of strings
-  that was used as the base text input to SequenceMatcher - newTextLines: the
-  array of strings that was used as the new text input to SequenceMatcher -
-opcodes: the array of arrays returned by SequenceMatcher.get_opcodes() -
-baseTextName: the title to be displayed above the base text listing in the
-diff view; defaults 	 to "Base Text" - newTextName: the title to be
-displayed above the new text listing in the diff view; defaults 	 to
-"New Text" - contextSize: the number of lines of context to show around
-differences; by default, all lines are shown - viewType: if 0, a
-side-by-side diff view is generated * (default); if 1, an inline diff
-view is *	 generated */
+/** Builds and returns a visual diff view. The single parameter, `params',
+* should contain the following values: - baseTextLines: the array of strings
+* that was used as the base text input to SequenceMatcher - newTextLines: the
+* array of strings that was used as the new text input to SequenceMatcher -
+* opcodes: the array of arrays returned by SequenceMatcher.get_opcodes() -
+* baseTextName: the title to be displayed above the base text listing in
+* the diff view; defaults to "Base Text" - newTextName: the title to be
+* displayed above the new text listing in the diff view; defaults 	 to
+* "New Text" - contextSize: the number of lines of context to show around
+* differences; by default, all lines are shown - viewType: if 0, a
+* side-by-side diff view is generated * (default); if 1, an inline diff
+* view is generated */
 
 
 var diffview = {
@@ -551,5 +550,6 @@ var difflib = {
 };
 
 // finally export difflib
-Meteor.difflib = difflib;
-Meteor.diffview = diffview;
+Codepilot.difflib = difflib;
+Codepilot.diffview = diffview;
+

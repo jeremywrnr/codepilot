@@ -9,9 +9,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.export("Codepilot");
   api.versionsFrom("METEOR@1.2");
-  api.addFiles(["difflib.js",
-               "global.js",
-               "methods.js"]);
+  api.addFiles(["difflib.js", "codepilot.js"]);
 });
 
 
