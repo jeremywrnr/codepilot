@@ -53,7 +53,6 @@ Meteor.publish('screens', function() { // serve all issue screenshots
 var inDevelopment = function(){return process.env.NODE_ENV === 'development'}
 
 Meteor.startup(function () { // get correct github auth key
-
   ServiceConfiguration.configurations.remove({service: 'github'});
   var prodAuth = JSON.parse(Assets.getText('production.json'));
   var devAuth = JSON.parse(Assets.getText('development.json'));
@@ -75,6 +74,5 @@ Meteor.startup(function () { // get correct github auth key
     key: GHAuth.clientId,
     secret: GHAuth.secret
   });
-
 });
 

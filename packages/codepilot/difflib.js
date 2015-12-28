@@ -12,6 +12,10 @@
 * view is generated */
 
 
+// prep export
+Difflib = {};
+
+
 var diffview = {
   buildView: function (params) {
     var baseTextLines = params.baseTextLines;
@@ -549,9 +553,8 @@ var difflib = {
   }
 };
 
-Difflib = {};
 
 // finally export difflib
 Difflib.lib = difflib;
-Difflib.diffview = diffview;
+Difflib.view = diffview;
 

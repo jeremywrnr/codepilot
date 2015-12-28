@@ -1,9 +1,8 @@
 // configuration page
 
-var prof = Meteor.g.prof;
+var prof = Codepilot.prof;
 
 Template.config.helpers({
-
   users: function() { // give all CP project collaborators
     return Session.get('collabs');
   },
@@ -34,11 +33,10 @@ Template.config.helpers({
   branchSelecting: function() {
     return Session.equals('focusPane', 'branch');
   },
-
 });
 
-Template.config.events({
 
+Template.config.events({
   'click .showUsers': function(e) { // show the repos registered users
     e.preventDefault();
     Session.set('focusPane', 'users');
@@ -86,9 +84,7 @@ Template.config.events({
     e.preventDefault();
     Meteor.call('getAllRepos');
   }
-
 });
-
 
 
 // repo forking may improve life
@@ -100,6 +96,7 @@ Template.forkRepo.helpers({
   },
 
 });
+
 
 Template.forkRepo.events({
 
@@ -126,7 +123,6 @@ Template.forkRepo.events({
   'click .cancelFork': function(e) {
     Session.set('forking', false);
   },
-
 });
 
 
@@ -134,7 +130,6 @@ Template.forkRepo.events({
 // make branch forking work as well
 
 Template.newBranch.helpers({
-
   branching: function() {
     return Session.get('branching');
   },
@@ -142,11 +137,10 @@ Template.newBranch.helpers({
   currentBranch: function() {
     return prof().repoBranch;
   },
-
 });
 
-Template.newBranch.events({
 
+Template.newBranch.events({
   'click .newBranch': function(e) { // display the branching code box
     e.preventDefault();
     Session.set('branching', true);
@@ -169,7 +163,6 @@ Template.newBranch.events({
   'click .cancelBranch': function(e) {
     Session.set('branching', false);
   },
-
 });
 
 

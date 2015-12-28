@@ -8,8 +8,8 @@ Template.code.helpers({
 
 });
 
-Template.editor.helpers({
 
+Template.editor.helpers({
   docid: function() {
     return Session.get('document');
   },
@@ -55,11 +55,10 @@ Template.editor.helpers({
       }
     }
   },
-
 });
 
-Template.filename.helpers({
 
+Template.filename.helpers({
   rename: function() {
     return Session.equals('focusPane', 'renamer');
   },
@@ -68,11 +67,10 @@ Template.filename.helpers({
     var ref;
     return (ref = Files.findOne(this + '')) != null ? ref.title : void 0;
   }
-
 });
 
-Template.filename.events({
 
+Template.filename.events({
   // rename the current file
   'submit .rename': function(e) {
     e.preventDefault();
@@ -104,11 +102,10 @@ Template.filename.events({
     Session.set('focusPane', null);
     Session.set('document', null);
   }
-
 });
 
-Template.renderImage.helpers({
 
+Template.renderImage.helpers({
   html: function() { // return link to file on github
     var file = Files.findOne(Session.get('document'));
     if (file)
@@ -120,5 +117,5 @@ Template.renderImage.helpers({
     if (file)
       return file.raw;
   },
-
 });
+

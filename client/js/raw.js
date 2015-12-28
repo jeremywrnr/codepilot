@@ -1,12 +1,11 @@
 // iframe helper - load content from editor
 
-var prof = Meteor.g.prof;
-var clean = Meteor.g.sanitizeStringQuotes;
-var findFile = Meteor.g.findFileFromExt;
-var getTag = Meteor.g.grabTagContentsToRender;
+var prof = Codepilot.prof;
+var clean = Codepilot.sanitizeStringQuotes;
+var getTag = Codepilot.grabTagContentsToRender;
+var findFile = Codepilot.findFileFromExt;
 
 Template.raw.helpers({
-
   getUser: function () { // return id of current user
     if (Meteor.user())
       return Meteor.userId();
@@ -58,18 +57,13 @@ Template.raw.helpers({
     if (js)
       return clean(js.content);
   },
-
 });
-
-
-
 
 
 // iframe helper - load content from an issue
 // TODO: load code from issue.feedback instead!
 
 Template.rawIssue.helpers({
-
   getHead: function () { // parse head of html file
     var full = findFile('html');
     if (full)
@@ -93,5 +87,5 @@ Template.rawIssue.helpers({
     if (js)
       return js.content;
   },
-
 });
+

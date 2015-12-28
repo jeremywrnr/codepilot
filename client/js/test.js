@@ -1,7 +1,7 @@
 // testing page task management
 
-var linkify = Meteor.g.linkify;
-var prof = Meteor.g.prof;
+var linkify = Codepilot.linkify;
+var prof = Codepilot.prof;
 
 
 Template.tasks.helpers({

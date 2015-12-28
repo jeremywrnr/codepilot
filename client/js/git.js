@@ -1,11 +1,12 @@
 // git things - version control, importing code
 
-var prof = Meteor.g.prof;
-var difflib = Meteor.difflib;
-var diffview = Meteor.diffview;
-var ufiles = Meteor.g.userfiles;
-var focusForm = Meteor.g.focusForm;
-var labelLineNumbers = Meteor.g.labelLineNumbers;
+var difflib = Difflib.lib;
+var diffview = Difflib.view;
+
+var prof = Codepilot.prof;
+var ufiles = Codepilot.userfiles;
+var focusForm = Codepilot.focusForm;
+var labelLineNumbers = Codepilot.labelLineNumbers;
 
 Template.commitPanel.helpers({
 

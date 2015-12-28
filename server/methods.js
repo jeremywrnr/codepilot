@@ -2,14 +2,12 @@
 // so: files, shareJS, and top-level functions
 // dlog is debugger log, see server/setup.js
 
-var ufiles = Meteor.g.userfiles;
+var ufiles = Codepilot.userfiles;
 
 Meteor.methods({
-
   //////////////////
   // FILE MANAGEMENT
   //////////////////
-
   newFile: function() { // create a new unnamed file
     return Meteor.call('createFile', {path: 'untitled'});
   },
@@ -66,11 +64,9 @@ Meteor.methods({
   },
 
 
-
   /////////////////////
   // SHAREJS MANAGEMENT
   /////////////////////
-
   newShareJS: function(id) { // create sharejs document with same id
     var time = Math.round( new Date() / 1000 );
     ShareJS.model.create(id, 'text', { mtime: time, ctime: time });
@@ -122,11 +118,9 @@ Meteor.methods({
   },
 
 
-
   ///////////////////
   // ISSUE MANAGEMENT
   ///////////////////
-
   initIssues: function() { // re-populating git repo issues
     var repo = Repos.findOne(Meteor.user().profile.repo);
     if (repo) {
@@ -202,7 +196,6 @@ Meteor.methods({
   /////////////////////
   // COMMIT MANAGEMENT
   /////////////////////
-
   initCommits: function() { // re-populating the commit log
     Meteor.call('getAllCommits').map(function(c){
       Meteor.call('addCommit', c);
@@ -262,9 +255,7 @@ Meteor.methods({
     });
 
     Meteor.call('postAllShareJS');
-
   },
-
 
 
   ////////////////////////////////////////////////////////
@@ -323,9 +314,7 @@ Meteor.methods({
 
     // update the feed with new commit
     Meteor.call('addMessage', 'commited - ' + msg);
-
   },
-
 
 
   ///////////////////////////
@@ -355,6 +344,5 @@ Meteor.methods({
     Files.remove({});
     Docs.remove({});
   },
-
 });
 
