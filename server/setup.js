@@ -1,29 +1,26 @@
 // global helper functions
-
 prof = function() { // return the current users profile
   var user = Meteor.user();
   if (user) return user.profile;
 }
 
 files = function() { // return the current b/r files
-  var user = prof();
+  var user = Meteor.user();
   if (user) return Files.find({
     repo: user.repo,
     branch: user.repoBranch
   });
 }
 
-// debugging tools
 
+// debugging tools
 debug = true;
 dlog = function(msg){ if (debug) console.log(msg) }
 asrt = function(a,b){ if (debug && a !== b)
   throw('Error: ' + a + ' != ' + b) }
 
 
-
 // data publishing
-
 Meteor.publish('repos', function(userId) { // only serve writable repos
   return Repos.find({users: userId});
 });
@@ -47,10 +44,9 @@ Meteor.publish('screens', function() { // serve all issue screenshots
 });
 
 
-
 // github auth & config
 
-var inDevelopment = function(){return process.env.NODE_ENV === 'development'}
+var inDevelopment = function() { return process.env.NODE_ENV === 'development' }
 
 Meteor.startup(function () { // get correct github auth key
   ServiceConfiguration.configurations.remove({service: 'github'});

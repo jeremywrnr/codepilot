@@ -9,7 +9,7 @@ Session.setDefault('hideClosedIssues', true);
 
 // startup data subscriptions
 
-var prof = Meteor.g.prof;
+var prof = Codepilot.prof;
 
 Meteor.subscribe('screens');
 Tracker.autorun(function() { // subscribe on login

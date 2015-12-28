@@ -9,7 +9,7 @@ Codepilot = {
   },
 
   userfiles: function() { // return the current b/r files
-    var user = Meteor.g.prof();
+    var user = Codepilot.prof();
     if (user) return Files.find({
       repo: user.repo,
       branch: user.repoBranch
@@ -19,7 +19,7 @@ Codepilot = {
   findFileFromExt: function(ext) {
     return Files.findOne({
       title: new RegExp(".*\." + ext, 'i'),
-      branch: Meteor.g.prof().repoBranch,
+      branch: Codepilot.prof().repoBranch,
     });
   },
 
