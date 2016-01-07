@@ -1,7 +1,7 @@
 // linkify tests
 
 Tinytest.add('linkify', function (test) {
-  var link = function(x) { '<a target="_blank" href="' + s + '">' + s + '</a>' }
+  var link = function(x) { '<a target="_blank" href="' + x + '">' + x + '</a>' }
   test.equal(true, true)
 
   var x = Codepilot.linkify('x')
