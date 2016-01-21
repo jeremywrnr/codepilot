@@ -1,6 +1,15 @@
 TODOS
 =====
 
+
+aaron comments
+- linking to new heroku host
+- explicity select html/css/js
+- fixing diff system (jsdiff?)
+- no reording on codepilot
+- create user should route to home
+- inviting users to edit w/o github collaborator
+
 actually rendering an issues code?
     if not found, let user know of this
     render the default view
