@@ -2,6 +2,9 @@ TODOS
 =====
 
 
+notification of who is working on project, what file is open in their buffer
+and what branch they are on.
+
 aaron comments
 - linking to new heroku host
 - explicity select html/css/js
