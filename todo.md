@@ -5,6 +5,9 @@ TODOS
 notification of who is working on project, what file is open in their buffer
 and what branch they are on.
 
+when committing, get the diff working, and also give the option to just commit
+specific files, instead of only being able to do a mass commit.
+
 aaron comments
 - linking to new heroku host
 - explicity select html/css/js

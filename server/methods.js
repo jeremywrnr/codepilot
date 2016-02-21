@@ -3,6 +3,7 @@
 // dlog is debugger log, see server/setup.js
 
 var ufiles = Codepilot.userfiles;
+var hoster = 'http://codepilot.herokuapp.com'
 
 Meteor.methods({
   //////////////////
@@ -152,8 +153,8 @@ Meteor.methods({
     }).result; // get the id of the newly inserted issue
 
     // construct and append the text of the github issue, including links to screenshot and demo
-    var imglink = '[issue screenshot](http://codepilot.meteor.com/screenshot/' + feedback.imglink + ')\n';
-    var livelink = '[live code here](http://codepilot.meteor.com/render/' + issueId + ')\n';
+    var imglink = '[issue screenshot](' + hoster + '/screenshot/' + feedback.imglink + ')\n';
+    var livelink = '[live code here](' + hoster + '/render/' + issueId + ')\n';
     var htmllink = 'html:\n```html\n' + feedback.html + '\n```\n';
     var csslink = 'css:\n```css\n' + feedback.css + '\n```\n';
     var jslink = 'js:\n```js\n' + feedback.js + '\n```\n';
