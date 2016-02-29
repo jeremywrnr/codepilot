@@ -1,16 +1,19 @@
 // linkify tests
 
-Tinytest.add('linkify', function (test) {
-  var link = function(x) { '<a target="_blank" href="' + x + '">' + x + '</a>' }
+Tinytest.add("linkify", function (test) {
+  var link = function(x) { return '<a target="_blank" href="' + x + '">' + x + '</a>' }
   test.equal(true, true)
 
-  var x = Codepilot.linkify('x')
-  test.equal(x, ['x'])
+  var x = Codepilot.linkify("x")
+  test.equal(x, "x")
 
-  var y = Codepilot.linkify('y.com')
-  test.equal(y, [link('y.com')])
+  var site = "http://y.com"
+  var y = Codepilot.linkify(site)
+  test.equal(y, link(site))
 
-  var z = Codepilot.linkify('1', 'hi.net')
-  test.equal(z, ['1', link('hi.net')])
+  var site1 = "this is a big string with a link inside "
+  var site2 = "http://hi.net"
+  var z = Codepilot.linkify(site1 + site2)
+  test.equal(z, site1 + link(site2))
 });
 
