@@ -54,7 +54,7 @@ Template.navigation.helpers({ // uses glyphicons in template
 
 // bring renderer to the top of the page
 Template.renderer.onRendered(function() {
-  this.window.scrollTo(0,0);
+  window.scrollTo(0,0);
 });
 
 // login setup
