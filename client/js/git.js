@@ -49,6 +49,7 @@ Template.commitPanel.events({
     var msg = $('#commitMsg')[0].value;
     if (msg == null || msg == '') return false;
     Session.set('committing', null);
+    Session.set('focusPane', null);
     Meteor.call('newCommit', msg);
   },
 
