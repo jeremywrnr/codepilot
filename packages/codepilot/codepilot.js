@@ -35,7 +35,10 @@ Codepilot = {
   grabTagContentsToRender: function(full, tag) { // return parsed html from tag
     var doc = $('<html></html>');
     doc.html( full.content );
-    return $(tag, doc)[0].innerHTML;
+    if ($(tag, doc).length > 0)
+      return $(tag, doc)[0].innerHTML;
+    else
+      return "";
   },
 
   sanitizeStringQuotes: function(str) { // try to avoid breaking srcdoc
