@@ -58,6 +58,9 @@
     timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
     else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
 
+    // scroll to the top of the debugging console
+    window.scrollTo(0,0);
+
     console.log("beginning console output...");
     {{ getJS }} // insert the users javascript
     });
