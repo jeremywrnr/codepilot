@@ -1,0 +1,20 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+standard-app-packages
+stylus
+mizzao:sharejs-ace
+twbs:bootstrap
+bruz:github-api
+accounts-password
+alanning:roles
+accounts-github
+iron:router
+accounts-base
+service-configuration
+http
+meteorhacks:async
+standard-minifiers
+jeremywrnr:codepilot

@@ -1,10 +1,14 @@
-sudo: required
+sudo: false
+
 language: node_js
-node_js:
-  - "0.10"
+services: mongodb
+node_js: 0.10.40
+
 before_install:
-  - "curl -L https://raw.githubusercontent.com/sf-wind/meteor-velocity-travis-ci/master/configure.sh | /bin/sh"
-services:
-  - mongodb
-script:
-  - cd app && velocity test-app --ci --port 6969
+- curl https://install.meteor.com | /bin/sh
+- export PATH="$HOME/.meteor:$PATH"
+- meteor --version
+- npm install -g spacejam
+
+script: cd packages/codepilot && spacejam test-packages ./
+

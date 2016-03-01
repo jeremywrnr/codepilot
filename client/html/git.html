@@ -1,0 +1,120 @@
+<!--git controls and api stuff here-->
+
+<template name="git">
+  <div class="col-xs-8 full-height">
+    {{#if isPilot}}
+    {{> commitPanel }}
+    {{> history }}
+    {{else}}
+    {{> history }}
+    {{/if}}
+  </div>
+</template>
+
+<template name="commitPanel">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title"> github integration </h3></div>
+    <div class="panel-body">
+      {{#if committing}}
+
+      <div class="alert alert-success">
+        <div class="input-group">
+          <form class="committer">
+            <input placeholder="enter a commit message..."
+                   id="commitMsg" class="form-control" type="text" name="title" value="">
+          </form>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default del cancelCommit">cancel</button>
+          </span>
+        </div>
+      </div>
+
+      <div class="list-group nomargin">
+        {{#each diffs}}
+        {{> diff}}
+        {{/each}}
+      </div>
+
+      <!--<a target="_blank" href="https://octodex.github.com/">-->
+      <!--<img class="center wide" src="https://octodex.github.com/images/nyantocat.gif"/>-->
+      <!--[><img class="center" style="width:40%;" src="http://random-octocat.herokuapp.com"/><]-->
+      <!--</a>-->
+
+      {{else}}
+      <div class="btn-group btn-group-justified">
+        <div class="btn-group" role="group">
+          <button class="btn grn newcommit">new commit</button>
+        </div>
+        <div class="btn-group" role="group">
+          <button class="btn edit refresh">refresh</button>
+        </div>
+        <!--<div class="btn-group" role="group">-->
+        <!--<button class="btn del loadhead">load {{branch}} HEAD</button>-->
+        <!--</div>-->
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="history">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">
+        commit history ({{ commitCount }}) </h3></div>
+    <div class="panel-body">
+      <div class="list-group nomargin">
+        {{#each commits}}
+        {{> commit}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="commit">
+  {{#if current}}
+
+  <button class="list-group-item commit" id="active-commit" href="#">
+    {{ commit.commit.message }}
+    <span class="pull-right label {{#if mine}}label-primary{{else}}label-info{{/if}}">
+      {{ commit.author.login }}
+    </span>
+  </button>
+  <li class="list-group-item" href="#">
+    <div class="btn-group btn-group-justified">
+      <div class="btn-group" role="group">
+        <a class="btn btn-group grn" target="_blank" href="{{ commit.html_url }}"> view diff </a>
+      </div>
+      <div class="btn-group" role="group">
+        <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ sha }}"
+           class="btn btn-group edit" target="_blank" > browse code </a>
+      </div>
+      <!--<div class="btn-group" role="group">-->
+      <!--<button class="btn btn-group del loadcommit">-->
+      <!--load into codepilot</button>-->
+      <!--</div>-->
+    </div>
+  </li>
+
+  {{else}}
+
+  <button class="list-group-item commit" href="#">
+    {{ commit.commit.message }}
+    <span class="pull-right label {{#if mine}}label-primary{{else}}label-info{{/if}}">
+      {{ commit.author.login }}
+    </span>
+  </button>
+
+  {{/if}}
+</template>
+
+<template name="diff">
+  <li class="list-group-item list-group-item-info"> {{title}}
+    <button class="btn btn-xs del btn-default pull-right reset">reset</button>
+  </li>
+  <li class="list-group-item">
+    {{ renderDiff }}
+    <div id="{{id}}"></div>
+  </li>
+</template>
+

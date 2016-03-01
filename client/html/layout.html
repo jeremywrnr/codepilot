@@ -1,0 +1,129 @@
+<head>
+  <title>code pilot</title>
+  <link rel="icon" sizes="16x16 32x32" href="/favicon.ico?v=2">
+
+  <!-- library to make editor spiffy -->
+  <script src='/packages/mizzao_sharejs-ace/ace-builds/src/ext-modelist.js'></script>
+  <script src='/packages/mizzao_sharejs-ace/ace-builds/src/ext-beautify.js'></script>
+  <script src='/packages/mizzao_sharejs-ace/ace-builds/src/ext-language_tools.js'></script>
+
+  <!-- library to add google hangout -->
+  <script src="https://apis.google.com/js/platform.js"></script>
+</head>
+
+
+
+<template name='main'>
+  {{> topnav }}
+  <div class='mainbody container full-height'>
+    {{> sidebar}}
+    {{> yield}}
+  </div>
+</template>
+
+<template name='sidebar'>
+  <div class='col-xs-4 full-height'>
+    <div class='sidebar'>
+      {{#if currentUser }}
+      {{> filelist }}
+      {{> ghang }}
+      {{> chat }}
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<!-- if not main, dump contents to null -->
+
+<template name='null'>
+  {{> yield }}
+</template>
+
+
+
+<!--top navbar-->
+
+<template name='topnav'>
+  <nav class='navbar navbar-inverse navbar-fixed-top'>
+    <div class='containter-fluid'>
+
+      <div class='navbar-header'>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapser">
+          <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+        </button>
+        <ul class='nav navbar-nav navbar-right nomargin'>
+          <li class='navitem text-center grn'>
+            <a href='/'>
+              <span class='glyphicon glyphicon-pencil'></span> code pilot
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="collapse navbar-collapse" id="collapser">
+        {{> navigation }}
+        {{> loginGithub }}
+      </div>
+
+    </div>
+  </nav>
+</template>
+
+
+
+<!--login templates-->
+
+<template name='loginGithub'>
+  <ul class='nav navbar-nav navbar-right nomargin'>
+    {{#if loggingIn }}
+    <li><a href='#'>logging in...</a></li>
+    {{else}}{{#if currentUser }}
+    {{> userLoggedin }}
+    {{else}}
+    {{> userLoggedout }}
+    {{/if}}{{/if}}
+  </ul>
+</template>
+
+<template name='userLoggedin'>
+  <li class='navitem text-center'>
+    <a href='/config'> {{ currentUser.profile.login }} | {{ currentUser.profile.role }}
+      <!--<span class='glyphicon glyphicon-cog'></span>-->
+    </a>
+  </li>
+  <li class='del logout text-center'>
+    <a href='#'> logout </a>
+  </li>
+</template>
+
+<template name='userLoggedout'>
+  <li class='grn login text-center'>
+    <a href='#'>
+      login with <img style='height: 20px;' alt='GitHub' src='img/github.gif'>
+    </a>
+  </li>
+</template>
+
+
+
+<!-- navigation icons from http://glyphicons.com/ -->
+
+<template name='navigation'> <!-- adding the active class would be good -->
+  {{#if currentUser }}
+  <ul class='nav navbar-nav'>
+
+    <li class='navitem grn text-center'>
+      <a href='/test'>
+        <span class='glyphicon glyphicon-play'></span>
+        testing </a>
+    </li>
+
+    <li class='navitem grn text-center'>
+      <a href='/git'>
+        <span class='glyphicon glyphicon-list-alt'></span>
+        github </a>
+    </li>
+
+  </ul>
+  {{/if}}
+</template>
