@@ -25,7 +25,7 @@ Accounts.onCreateUser(function(options, user){
   user.profile.repoBranch = 'master'
   user.profile.repoName = 'select a repo from the menu below!'
   user.profile.repo = 'choose a repo to get a project id!'
-  user.profile.role = 'copilot'
+  user.profile.role = 'pilot'
   return user;
 
 });
