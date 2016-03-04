@@ -314,7 +314,7 @@ Meteor.methods({
     Meteor.call('addCommit', lastCommit);
 
     // update the feed with new commit
-    Meteor.call('addMessage', 'commited - ' + msg);
+    Meteor.call('addMessage', 'committed - ' + msg);
   },
 
 

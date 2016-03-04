@@ -1,40 +1,37 @@
 <!-- templates for rendering iframe locally  -->
 
-<template name='screenshot'>
-  <img alt='codepilot-screenshot' src='{{ this.img }}'/>
+<template name="screenshot">
+  <img alt="codepilot-screenshot" src="{{ this.img }}"/>
 </template>
 
 
 
 <!-- code tester frame -->
 
-<template name='tester'>
-  <div class='panel panel-primary'>
-    <div class='panel-heading'>
-      <div class='btn-group btn-group-justified'>
-        <div class='btn-group'>
-          <a href='/'>
-            <button type='button' class='btn btn-default btn-lg grn'>
-              code </button>
+<template name="tester">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <div class="btn-group btn-group-justified">
+        <div class="btn-group">
+          <a href="/">
+            <button type="button" class="btn btn-default btn-lg grn"> code </button>
           </a>
         </div>
-        <div class='btn-group'>
-          <a href='#'>
-            <button type='button' class='btn btn-default btn-lg grn reload'>
-              reload </button>
+        <div class="btn-group">
+          <a href="#">
+            <button type="button" class="btn btn-default btn-lg grn reload"> reload </button>
           </a>
         </div>
-        <div class='btn-group'>
-          <a href='/renderer'>
-            <button type='button' class='btn btn-default grn btn-lg'>
-              fullsize </button>
+        <div class="btn-group">
+          <a href="/renderer">
+            <button type="button" class="btn btn-default grn btn-lg"> fullsize </button>
           </a>
         </div>
       </div>
     </div>
-    <div class='panel-body' style='margin:0px;padding:0px;'>
-      <iframe src='/raw' style='min-height:400px;height:100%;width:100%'
-        frameborder='0' height='100%' width='100%'>
+    <div class="panel-body" style="margin:0px;padding:0px;">
+      <iframe src="/raw" style="min-height:400px;height:100%;width:100%"
+        frameborder="0" height="100%" width="100%">
       </iframe>
     </div>
   </div>
@@ -44,23 +41,26 @@
 
 <!-- sharejs rendered content -->
 
-<template name='renderer'>
+<template name="renderer">
   {{> renderPanel }}
   {{> raw }} <!-- look in raw.html -->
 </template>
 
-<template name='renderPanel'>
-  <div class='btn-group btn-group-justified' role='group'>
-    <div class='btn-group' role='group'>
-      <a href='#'>
-        <button type='button' class='btn btn-default btn-lg grn reload'>
-          reload tester </button>
+<template name="renderPanel">
+  <div class="btn-group btn-group-justified" role="group">
+    <div class="btn-group">
+      <a href="/">
+        <button type="button" class="btn btn-default btn-lg grn"> code </button>
       </a>
     </div>
-    <div class='btn-group' role='group'>
-      <a href='/test'>
-        <button type='button' class='btn btn-default btn-lg edit'>
-          return to test pane </button>
+    <div class="btn-group">
+      <a href="#">
+        <button type="button" class="btn btn-default btn-lg grn reload"> reload </button>
+      </a>
+    </div>
+    <div class="btn-group" role="group">
+      <a href="/test">
+        <button type="button" class="btn btn-default btn-lg grn"> test pane </button>
       </a>
     </div>
   </div>
@@ -70,15 +70,16 @@
 
 <!-- issue rendered content -->
 
-<template name='render'>
-  <nav class='navbar navbar-fixed-top'>
-    <div class='btn-group btn-group-justified' role='group'>
-      <div class='btn-group' role='group'>
-        <a href='/test'>
-          <button type='button' class='btn btn-default btn-lg edit'> return to test pane </button>
+<template name="render">
+  <nav class="navbar navbar-fixed-top">
+    <div class="btn-group btn-group-justified" role="group">
+      <div class="btn-group" role="group">
+        <a href="/test">
+          <button type="button" class="btn btn-default btn-lg edit"> return to test pane </button>
         </a>
       </div>
     </div>
   </nav>
   {{> rawIssue }}
 </template>
+

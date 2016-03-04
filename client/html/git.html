@@ -4,18 +4,20 @@
   <div class="col-xs-8 full-height">
     {{#if isPilot}}
     {{> commitPanel }}
-    {{> history }}
-    {{else}}
-    {{> history }}
     {{/if}}
+
+    {{> history }}
   </div>
 </template>
 
 <template name="commitPanel">
-  <div class="panel panel-default">
-    <div class="panel-heading"><h3 class="panel-title"> github integration </h3></div>
+  <div class="panel panel-primary">
+
+    {{#if committing}}
+    <div class="panel-heading">
+      <h3 class='panel-title'> Code saved! Commit in progress... </h3>
+    </div>
     <div class="panel-body">
-      {{#if committing}}
 
       <div class="alert alert-success">
         <div class="input-group">
@@ -39,21 +41,24 @@
       <!--<img class="center wide" src="https://octodex.github.com/images/nyantocat.gif"/>-->
       <!--[><img class="center" style="width:40%;" src="http://random-octocat.herokuapp.com"/><]-->
       <!--</a>-->
+    </div>
 
-      {{else}}
+    {{else}}
+
+    <div class="panel-heading">
       <div class="btn-group btn-group-justified">
         <div class="btn-group" role="group">
-          <button class="btn grn newcommit">new commit</button>
+          <button type="button" class="btn btn-default btn-lg grn newcommit"> new commit </button>
         </div>
         <div class="btn-group" role="group">
-          <button class="btn edit refresh">refresh</button>
+          <button type="button" class="btn btn-default btn-lg grn refresh"> refresh </button>
         </div>
         <!--<div class="btn-group" role="group">-->
         <!--<button class="btn del loadhead">load {{branch}} HEAD</button>-->
         <!--</div>-->
       </div>
-      {{/if}}
     </div>
+    {{/if}}
   </div>
 </template>
 
@@ -87,7 +92,7 @@
       </div>
       <div class="btn-group" role="group">
         <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ sha }}"
-           class="btn btn-group edit" target="_blank" > browse code </a>
+           class="btn btn-group grn" target="_blank" > browse code </a>
       </div>
       <!--<div class="btn-group" role="group">-->
       <!--<button class="btn btn-group del loadcommit">-->

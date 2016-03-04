@@ -62,7 +62,7 @@ Template.commitPanel.events({
   },
 
   'click .loadhead': function(e) { // load head of branch into SJS
-    var trulyLoad = confirm("This will overwrite any uncommited changes. Proceed?");
+    var trulyLoad = confirm("This will overwrite any uncommitted changes. Proceed?");
     if (trulyLoad)
       Meteor.call('loadHead', prof().repoBranch);
   },
@@ -104,7 +104,7 @@ Template.commit.events({
   },
 
   'click .loadcommit': function(e) {
-    var trulyLoad = confirm("This will overwrite any uncommited changes. Proceed?");
+    var trulyLoad = confirm("This will overwrite any uncommitted changes. Proceed?");
     if (trulyLoad)
       Meteor.call('loadCommit', this.commit.sha);
   },
