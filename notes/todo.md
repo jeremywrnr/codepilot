@@ -1,6 +1,8 @@
 TODOS
 =====
 
+generating visualizations of the javascript AST??? or something similar to
+python tutor in some way.
 
 notification of who is working on project, what file is open in their buffer
 and what branch they are on.
@@ -8,26 +10,12 @@ and what branch they are on.
 when committing, get the diff working, and also give the option to just commit
 specific files, instead of only being able to do a mass commit.
 
-aaron comments
-- linking to new heroku host
-- explicity select html/css/js
-- fixing diff system (jsdiff?)
-- no reording on codepilot
-- create user should route to home
-- inviting users to edit w/o github collaborator
-
 actually rendering an issues code?
     if not found, let user know of this
     render the default view
 
 tell when nothing changes and trying to commit
 make screenshot of code each time you commit
-abdullah feedback
-    maybe host on a different website to be quick
-    request a link for collaborators
-    smaller link for generation
-    use for interviewing maybe?
-    clean up config panel
 
 check if issue has feedback field (generated from codepilot), then display live
 link, will also need to update the rawjs source location for that.
