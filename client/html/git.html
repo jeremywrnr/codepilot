@@ -14,6 +14,7 @@
   {{#if changes}}
 
   <div class="list-group nomargin">
+    <pre><span class="lineno">old line / new line</span></pre>
     {{#each diffs}}
     {{> diff}}
     {{/each}}
@@ -151,16 +152,21 @@
 <template name="diffline">
   {{#if skipped}}
   <!--<pre> ... </pre>-->
+  <!--not in context-->
 
   {{else}}{{#if equal}}
-  <pre class="diff"> {{ content }} </pre>
+  <pre class="diff">
+  <span class="lineno">{{ oldnum }}/{{ newnum }}</span> {{ content }} </pre>
 
   {{else}}{{#if deleted}}
-  <pre class="diff del"> {{ content }} </pre>
+  <pre class="diff del">
+  <span class="lineno">{{ oldnum }}/{{ newnum }}</span> {{ content }} </pre>
 
   {{else}}{{#if inserted}}
-  <pre class="diff ins grn"> {{ content }} </pre>
+  <pre class="diff ins grn">
+  <span class="lineno">{{ oldnum }}/{{ newnum }}</span> {{ content }} </pre>
 
   {{/if}}{{/if}}{{/if}}{{/if}}
 </template>
+
 

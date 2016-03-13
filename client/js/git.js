@@ -103,9 +103,9 @@ Template.statusPanel.helpers({
   changes: function() { // return true if any diffs exist.
     var changed = false;
 
-    ufiles().forEach(function(file){ // content v cache
-      changed = changed || (file.content !== file.cache) // file changed
-    });
+    // content v cache, check if any of the file changed
+    ufiles().forEach(function(file){ changed = changed ||
+                     (file.content !== file.cache) });
 
     return changed;
   },
@@ -147,14 +147,10 @@ Template.diff.helpers({
       viewType: 1, // 0 for side by side, 1 for inline diff
     });
 
-
     return codeview.map(function parse(x){
 
-      console.log(x)
-
-      var linedata = {};
-
       // parsing out the old and new line numbers
+      var linedata = {};
       var oldnum, newnum;
       var numinfo = x.getElementsByTagName('th');
       if (numinfo[0] == undefined || numinfo[1] == undefined)
@@ -170,10 +166,10 @@ Template.diff.helpers({
       linedata.oldnum = numinfo[0].innerHTML;
       linedata.newnum = numinfo[1].innerHTML;
       linedata.status = allinfo[0].getAttribute('class');
-      linedata.content =  clean(allinfo[0].innerHTML);
+      linedata.content = clean(allinfo[0].innerHTML);
       return linedata;
 
-    }).filter(function denull(l){
+    }).filter(function denull(l){ // remove any empty rows
       return l != undefined;
     });
   },
@@ -210,6 +206,22 @@ Template.diffline.helpers({
 
   deleted: function() {
     return this.status == 'delete'
+  },
+
+  newnum: function() {
+    var num = this.newnum;
+    if (num > 0)
+      return num
+    else
+      return '-'
+  },
+
+  oldnum: function() {
+    var num = this.newnum;
+    if (num > 0)
+      return num
+    else
+      return '-'
   },
 
 });
