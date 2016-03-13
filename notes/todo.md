@@ -4,6 +4,9 @@ TODOS
 generating visualizations of the javascript AST??? or something similar to
 python tutor in some way.
 
+on loading the git page, it should automatically load the diffs rather than
+forcing the user to load them manually
+
 notification of who is working on project, what file is open in their buffer
 and what branch they are on.
 

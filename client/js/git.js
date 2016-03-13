@@ -18,20 +18,6 @@ Template.commitPanel.helpers({
     return Session.equals('focusPane', 'committer');
   },
 
-  diffs: function() { // using jsdiff, return a diff on each file
-    return ufiles().map(function checkDiff(file){ // content v cache
-      if(file.content !== file.cache) // return the different file
-        return {
-          id: file._id,
-          title: file.title,
-          content: file.content,
-          cache: file.cache
-        };
-    }).filter(function removeNull(diff){
-      return diff != undefined;
-    });
-  },
-
 });
 
 Template.commitPanel.events({
@@ -111,6 +97,34 @@ Template.commit.events({
 
 });
 
+Template.statusPanel.helpers({
+
+  changes: function() {
+    var changed = false;
+
+    ufiles().forEach(function(file){ // content v cache
+      changed = changed || (file.content !== file.cache) // file changed
+    });
+
+    return changed;
+  },
+
+  diffs: function() { // using jsdiff, return a diff on each file
+    return ufiles().map(function checkDiff(file){ // content v cache
+      if(file.content !== file.cache) // return the different file
+        return {
+          id: file._id,
+          title: file.title,
+          content: file.content,
+          cache: file.cache
+        };
+    }).filter(function removeNull(diff){
+      return diff != undefined;
+    });
+  },
+
+});
+
 Template.diff.helpers({
 
   renderDiff: function() {
@@ -118,40 +132,43 @@ Template.diff.helpers({
 
     var base = difflib.stringAsLines( this.cache );
     var newtxt = difflib.stringAsLines( this.content );
-    //var byid = function (id) { return document.getElementById('#'+id); }
-    var byid = function (id) { return this.$('#'+id); }
-    var diffoutputdiv = byid(this.id);
     var sm = new difflib.SequenceMatcher(base, newtxt);
     var opcodes = sm.get_opcodes();
-    var contextsize = 10;
 
     console.log(this.id)
-    console.log(diffoutputdiv);
-
-    var codeview = diffview.buildView({
-      baseTextLines: base,
-      newTextLines: newtxt,
-      opcodes: opcodes,
-      baseTextName: "base",
-      newTextName: "new",
-      contextSize: contextsize,
-      viewType: 0, // 0 for side by side, 1 for inline diff
-    })
-
-    console.log(codeview);
-    diffoutputdiv.innerhtml = "hello there";
-    diffoutputdiv.append(codeview);
-    diffoutputdiv.innerhtml = codeview;
+    console.log(opcodes)
+    return [opcodes];
   },
 
 });
 
 Template.diff.events({
 
-  'click .reset': function(e) {
+  "click .reset": function(e) {
     var trulyReset = confirm("This will reset this file back to the last commit. Proceed?");
     if (trulyReset)
-      Meteor.call('resetFile', this.id);
+      Meteor.call("resetFile", this.id);
   }
 
 });
+
+Template.diffline.helpers({
+});
+
+Template.diffline.helpers({
+
+  renderDiff: function() {
+    if (this.content === this.cache) return; // nodiff
+
+    var base = difflib.stringAsLines( this.cache );
+    var newtxt = difflib.stringAsLines( this.content );
+    var sm = new difflib.SequenceMatcher(base, newtxt);
+    var opcodes = sm.get_opcodes();
+
+    console.log(this.id)
+    console.log(opcodes)
+    return [opcodes];
+  },
+
+});
+

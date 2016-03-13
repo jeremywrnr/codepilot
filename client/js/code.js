@@ -1,5 +1,7 @@
 // code editor things
 
+focusForm = Codepilot.focusForm;
+
 Template.code.helpers({
 
   nulldoc: function() {
