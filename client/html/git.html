@@ -81,6 +81,8 @@
   </div>
 </template>
 
+
+
 <template name="history">
   <div class="panel panel-default">
     <div class="panel-heading"><h3 class="panel-title">
@@ -132,29 +134,33 @@
   {{/if}}
 </template>
 
+
+
 <template name="diff">
   <li class="list-group-item list-group-item-info"> {{title}}
     <button class="btn btn-xs del btn-default pull-right reset">reset</button>
   </li>
 
   <li class="list-group-item">
-    {{#each diffinfo}}
-    {{> diffline diffinfo}}
+    {{#each lines}}
+    {{> diffline }}
     {{/each}}
   </li>
 </template>
 
 <template name="diffline">
-  <pre>
-  {{#if equal}}
+  {{#if skipped}}
+  <!--<pre> ... </pre>-->
 
-  {{else}}
-  {{#if replaced}}
+  {{else}}{{#if equal}}
+  <pre class="diff"> {{ content }} </pre>
 
-  {{else}} <!--deleted-->
+  {{else}}{{#if deleted}}
+  <pre class="diff del"> {{ content }} </pre>
 
-  {{/if}}
-  {{/if}}
-  </pre>
+  {{else}}{{#if inserted}}
+  <pre class="diff ins grn"> {{ content }} </pre>
+
+  {{/if}}{{/if}}{{/if}}{{/if}}
 </template>
 

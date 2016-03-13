@@ -49,6 +49,13 @@ Codepilot = {
            );
   },
 
+  sanitizeDiffs: function(str) { // make lts / gts into actual spacing
+    return (str
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+           );
+  },
+
   labelLineNumbers: function(text) { // label a chunk of text with line numbers
     var doc = $('<pre></pre>');
     var full = '<span class="line-number"></span>' + text + '<span class="cl"></span>';

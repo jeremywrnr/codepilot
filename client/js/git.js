@@ -5,6 +5,7 @@ var diffview = Difflib.view;
 
 var prof = Codepilot.prof;
 var ufiles = Codepilot.userfiles;
+var clean = Codepilot.sanitizeDiffs;
 var focusForm = Codepilot.focusForm;
 var labelLineNumbers = Codepilot.labelLineNumbers;
 
@@ -127,17 +128,34 @@ Template.statusPanel.helpers({
 
 Template.diff.helpers({
 
-  renderDiff: function() {
+  lines: function() {
     if (this.content === this.cache) return; // nodiff
 
     var base = difflib.stringAsLines( this.cache );
     var newtxt = difflib.stringAsLines( this.content );
     var sm = new difflib.SequenceMatcher(base, newtxt);
     var opcodes = sm.get_opcodes();
+    var context = 1; // relevant rows
 
-    console.log(this.id)
-    console.log(opcodes)
-    return [opcodes];
+    var codeview = diffview.buildView({
+      opcodes: opcodes,
+      baseTextLines: base,
+      newTextLines: newtxt,
+      baseTextName: "base",
+      newTextName: "new",
+      contextSize: context,
+      viewType: 1, // 0 for side by side, 1 for inline diff
+    });
+
+    return codeview.map(function parse(x){
+      console.log(x.getElementsByTagName('td')[0].getAttribute('class'))
+      console.log(clean(x.getElementsByTagName('td')[0].innerHTML))
+
+      return {
+        status: x.getElementsByTagName('td')[0].getAttribute('class'),
+        content: clean(x.getElementsByTagName('td')[0].innerHTML),
+      }
+    });
   },
 
 });
@@ -153,21 +171,26 @@ Template.diff.events({
 });
 
 Template.diffline.helpers({
-});
 
-Template.diffline.helpers({
+  content: function() {
+    console.log(this)
+    return this.content;
+  },
 
-  renderDiff: function() {
-    if (this.content === this.cache) return; // nodiff
+  skipped: function() {
+    return this.status == 'skip'
+  },
 
-    var base = difflib.stringAsLines( this.cache );
-    var newtxt = difflib.stringAsLines( this.content );
-    var sm = new difflib.SequenceMatcher(base, newtxt);
-    var opcodes = sm.get_opcodes();
+  equal: function() {
+    return this.status == 'equal'
+  },
 
-    console.log(this.id)
-    console.log(opcodes)
-    return [opcodes];
+  inserted: function() {
+    return this.status == 'insert'
+  },
+
+  deleted: function() {
+    return this.status == 'delete'
   },
 
 });
