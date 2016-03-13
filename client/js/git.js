@@ -100,7 +100,7 @@ Template.commit.events({
 
 Template.statusPanel.helpers({
 
-  changes: function() {
+  changes: function() { // return true if any diffs exist.
     var changed = false;
 
     ufiles().forEach(function(file){ // content v cache
@@ -147,14 +147,34 @@ Template.diff.helpers({
       viewType: 1, // 0 for side by side, 1 for inline diff
     });
 
-    return codeview.map(function parse(x){
-      console.log(x.getElementsByTagName('td')[0].getAttribute('class'))
-      console.log(clean(x.getElementsByTagName('td')[0].innerHTML))
 
-      return {
-        status: x.getElementsByTagName('td')[0].getAttribute('class'),
-        content: clean(x.getElementsByTagName('td')[0].innerHTML),
-      }
+    return codeview.map(function parse(x){
+
+      console.log(x)
+
+      var linedata = {};
+
+      // parsing out the old and new line numbers
+      var oldnum, newnum;
+      var numinfo = x.getElementsByTagName('th');
+      if (numinfo[0] == undefined || numinfo[1] == undefined)
+        return; // for some reason no line numbers???
+
+      // parsing out the table data (edit/delete)
+      var allinfo, info, status, content;
+      allinfo = x.getElementsByTagName('td');
+      if (allinfo[0] == undefined)
+        return; // empty tags???
+
+      // building up the line data information
+      linedata.oldnum = numinfo[0].innerHTML;
+      linedata.newnum = numinfo[1].innerHTML;
+      linedata.status = allinfo[0].getAttribute('class');
+      linedata.content =  clean(allinfo[0].innerHTML);
+      return linedata;
+
+    }).filter(function denull(l){
+      return l != undefined;
     });
   },
 
@@ -173,7 +193,6 @@ Template.diff.events({
 Template.diffline.helpers({
 
   content: function() {
-    console.log(this)
     return this.content;
   },
 
