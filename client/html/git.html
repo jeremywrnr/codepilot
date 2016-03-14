@@ -23,9 +23,9 @@
 
   {{else}}
 
-  <h5>
-    No changes to be committed yet (try refreshing)!
-  </h5>
+  <div class="alert alert-info nomargin" role="alert">
+    No changes to be committed yet. Your edits will be shown here once you change your files!
+  </div>
 
   {{/if}}
 </template>
@@ -63,15 +63,26 @@
     <div class="panel-heading">
       <div class="btn-group btn-group-justified">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default btn-lg grn newcommit"> new commit </button>
-        </div>
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default btn-lg grn refresh"> refresh </button>
+          <a href="#">
+          {{#if changes}}
+            <button type="button" class="btn btn-default btn-lg"> new commit </button>
+          {{else}}
+            <button type="button" class="btn btn-default btn-lg grn newcommit"> new commit </button>
+          {{/if}}
+          </a>
         </div>
 
-        <!--<div class="btn-group" role="group">-->
-        <!--<button class="btn del loadhead">load {{branch}} HEAD</button>-->
-        <!--</div>-->
+        <div class="btn-group" role="group">
+          <a href="#">
+            <button type="button" class="btn btn-default btn-lg grn refresh"> refresh </button>
+          </a>
+        </div>
+
+        <div class="btn-group" role="group">
+          <a href="#">
+            <button type="button" class="btn btn-default btn-lg del loadhead">import {{branch}}</button>
+          </a>
+        </div>
       </div>
 
     </div>
@@ -113,14 +124,15 @@
       <div class="btn-group" role="group">
         <a class="btn btn-group grn" target="_blank" href="{{ commit.html_url }}"> view diff </a>
       </div>
+
       <div class="btn-group" role="group">
         <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ sha }}"
            class="btn btn-group grn" target="_blank" > browse code </a>
       </div>
-      <!--<div class="btn-group" role="group">-->
-      <!--<button class="btn btn-group del loadcommit">-->
-      <!--load into codepilot</button>-->
-      <!--</div>-->
+
+      <div class="btn-group" role="group">
+        <button class="btn btn-group del loadcommit"> import </button>
+      </div>
     </div>
   </li>
 

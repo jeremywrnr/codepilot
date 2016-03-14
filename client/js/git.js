@@ -19,6 +19,10 @@ Template.commitPanel.helpers({
     return Session.equals('focusPane', 'committer');
   },
 
+  changes: function() {
+    return !Codepilot.changes()
+  },
+
 });
 
 Template.commitPanel.events({
@@ -34,7 +38,7 @@ Template.commitPanel.events({
     e.preventDefault();
     $(e.target).blur();
     var msg = $('#commitMsg')[0].value;
-    if (msg == null || msg == '') return false;
+    if (msg == null || msg == '') return false; // dont allow empty commit msgs
     Session.set('committing', null);
     Session.set('focusPane', null);
     Meteor.call('newCommit', msg);
@@ -93,8 +97,10 @@ Template.commit.events({
 
   'click .loadcommit': function(e) {
     var trulyLoad = confirm("This will overwrite any uncommitted changes. Proceed?");
-    if (trulyLoad)
+    if (trulyLoad) {
+      Session.set('focusPane', null);
       Meteor.call('loadCommit', this.commit.sha);
+    }
   },
 
 });
@@ -102,13 +108,7 @@ Template.commit.events({
 Template.statusPanel.helpers({
 
   changes: function() { // return true if any diffs exist.
-    var changed = false;
-
-    // content v cache, check if any of the file changed
-    ufiles().forEach(function(file){ changed = changed ||
-                     (file.content !== file.cache) });
-
-    return changed;
+    return Codepilot.changes();
   },
 
   diffs: function() { // using jsdiff, return a diff on each file

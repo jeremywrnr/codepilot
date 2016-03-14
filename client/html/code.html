@@ -54,6 +54,11 @@
   <div class='navbar navbar-code'>
     <div class='container-fluid'>
 
+      <strong>
+        <p class='navbar-text'> ~/{{title}} </p>
+      </strong>
+
+      <!--
       {{#if rename}}
       <form class='navbar-form pull-left rename'>
         <input id='filetitle' class='form-control' type='text' name='title' value='{{title}}'>
@@ -68,7 +73,13 @@
         <button class='edit btn btn-small'>rename</button>
         <button class='del btn btn-small'>delete</button>
       </form>
+        -->
 
+      <form class='navbar-form pull-right'>
+        <a href='/test'>
+        <button class='grn btn btn-default btn-small'>test</button>
+        </a>
+      </form>
 
     </div>
   </div>

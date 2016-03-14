@@ -147,8 +147,8 @@ Template.issue.events({
   },
 
   'click .closeissue': function(e) { // click to close a given issue
-    var trulyClose = confirm("Are you sure you'd like to close this issue?");
-    if (trulyClose)
+    //var trulyClose = confirm("Are you sure you'd like to close this issue?");
+    //if (trulyClose)
       Meteor.call('closeIssue', this);
   },
 

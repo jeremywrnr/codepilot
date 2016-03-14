@@ -3,6 +3,18 @@
 var domain = /^http.*\.(io|com|web|net|org|gov|edu)(\/.*)?/g
 
 Codepilot = {
+  any: function(ary, fn) {
+    return ary.reduce(function(o, n){
+      return o || fn(n)
+    }, false);
+  },
+
+  all: function(ary, fn) {
+    return ary.reduce(function(o, n){
+      return o && fn(n)
+    }, true);
+  },
+
   prof: function() { // return the current users profile
     var user = Meteor.user();
     if (user) return user.profile;
@@ -14,6 +26,13 @@ Codepilot = {
       repo: user.repo,
       branch: user.repoBranch
     });
+  },
+
+  changes: function() { // content v cache, check if any files changed
+    return Codepilot.any(
+      Codepilot.userfiles().fetch(),
+      function(file) { return file.content !== file.cache }
+    )
   },
 
   findFileFromExt: function(ext) {
