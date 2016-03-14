@@ -45,6 +45,7 @@ Template.commitPanel.events({
   },
 
   'click .refresh': function(e) { // pull in latest commits from gh
+    Meteor.call('getAllShareJS');
     Meteor.call('initCommits');
   },
 
