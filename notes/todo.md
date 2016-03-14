@@ -1,6 +1,9 @@
 TODOS
 =====
 
+commit author not being recorded / displays???
+only allow commit button to be pressed when there are commits
+
 generating visualizations of the javascript AST??? or something similar to
 python tutor in some way.
 
