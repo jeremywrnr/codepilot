@@ -1,53 +1,34 @@
 TODOS
 =====
 
-commit author not being recorded / displays???
-only allow commit button to be pressed when there are commits
-
 generating visualizations of the javascript AST??? or something similar to
 python tutor in some way.
 
-on loading the git page, it should automatically load the diffs rather than
-forcing the user to load them manually
-
-notification of who is working on project, what file is open in their buffer
-and what branch they are on.
-
-when committing, get the diff working, and also give the option to just commit
-specific files, instead of only being able to do a mass commit.
+better notification of who is working on project, what file is open in their
+buffer and what branch they are on.
 
 actually rendering an issues code?
     if not found, let user know of this
     render the default view
-
-tell when nothing changes and trying to commit
-make screenshot of code each time you commit
-
 check if issue has feedback field (generated from codepilot), then display live
 link, will also need to update the rawjs source location for that.
 filter sharejs loading to type == file
 
 collaboration idea: in the users tab, add ability to add a copilot by their
-username on github, as well as the ability to revoke if you are true user
-great BC they dont have to be github collab to edit it!!!
-adding revokable users to a repo
+username on github, as well as the ability to revoke if you are true user great
+BC they dont have to be github collab to edit it!!! adding revokable users to a
+repo??
 
 when loading a new repo in, display that in the files, so user knows,
 then reset session variable after successful load (or error) in cb()
+this takes some time, and the buffers are just empty until loading
 
 
 
 ## UI / UX
 
-diffing hmtl does not work, renders
-slightly smaller spacing in sidebar
 adjust the js debugger depending on the screen size
-add a repo and branch icon to filebar
-diff not loading auto - double it
 marking a release on github plz
-get all issues, hide closed button
-show commit panel to all users
-paginate long commit histories
 expose editor configuration to user
 add a footer in for spacing in main
 loading bar for the commit progress
@@ -62,10 +43,8 @@ console.error() on loadrepo??
 
 ## SERVER
 
-parse folders off when getting file extension - for null
-implement system testing? velocity
 \_pick your data as to not bloat the database
-autoload repos after creating an account
+autoload repos once after creating an account
 only request commits after current
 install loglevel meteor
 rendering local images in a view?
@@ -136,4 +115,5 @@ change if it drops below a certain point
 - an untitled file sometimes gets generated when switching repos/branches
 - after longtime of unwatching: Uncaught SyntaxError: Unexpected token Y start
 - file contents while renaming, many errors
-- commits breaking down
+- when email is set to private, label is not shown
+
