@@ -291,7 +291,7 @@ Meteor.methods({
 
     // specify author of this commit
     var commitAuthor = {
-      name: user.name,
+      name: user.login,
       email: user.email,
       date: new Date()
     };

@@ -7,6 +7,7 @@ Accounts.onCreateUser(function(options, user){
     headers: { 'User-Agent': 'Code Pilot' },
     params: { access_token: accessToken }
   });
+
   if (result.error) throw result.error;
   profile = _.pick(
     result.data, 'login', 'name', 'avatar_url', 'url', 'email', 'html_url');

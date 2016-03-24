@@ -5,6 +5,51 @@
     <div class='panel panel-primary'>
       <div class='panel-heading'> <h2 class='panel-title'> setup </h2> </div>
       <div class='panel-body'>
+
+        <div class='list-group nomargin'>
+          {{#if repoSelecting}}
+          <button class='list-group-item unfocus'>
+            <button class='btn btn-xs del pull-right unfocus'> cancel </button>
+            Repository:
+            <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
+              target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+          </button>
+
+          {{> forkRepo }}
+          {{#each repos}}
+          {{> repo}}
+          {{/each}}
+          {{else}}
+          <button class='list-group-item repoSelect'>
+            <button class='btn btn-xs grn pull-right repoSelect'> choose </button>
+            Repository:
+            <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
+              target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+          </button>
+          {{/if}}
+
+          {{#if branchSelecting}}
+          <button class='list-group-item unfocus'>
+            <button class='btn btn-xs del pull-right unfocus'> cancel </button>
+            Branch:
+            <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
+              target='_blank'>{{ currentUser.profile.repoBranch }}</a>
+          </button>
+
+          {{> newBranch }}
+          {{#each branches}}
+          {{> branch}}
+          {{/each}}
+          {{else}}
+          <button class='list-group-item branchSelect'>
+            <button class='btn btn-xs grn pull-right branchSelect'> choose </button>
+            Branch:
+            <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
+              target='_blank'>{{ currentUser.profile.repoBranch }}</a>
+          </button>
+          {{/if}}
+        </div>
+
       </div>
     </div>
 
@@ -40,42 +85,6 @@
               <a href='{{currentUser.profile.html_url}}' target='_blank'>
                 {{ currentUser.profile.login }}</a>
             </li>
-
-            <li class='list-group-item'>
-              {{#if repoSelecting}}
-              <button class='btn btn-xs del pull-right unfocus'> cancel </button>
-              {{else}}
-              <button class='btn btn-xs grn pull-right repoSelect'> choose </button>
-              {{/if}}
-              repo:
-              <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
-                target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
-            </li>
-
-            {{#if repoSelecting}}
-            {{> forkRepo }}
-            {{#each repos}}
-            {{> repo}}
-            {{/each}}
-            {{/if}}
-
-            <li class='list-group-item'>
-              {{#if branchSelecting}}
-              <button class='btn btn-xs del pull-right unfocus'> cancel </button>
-              {{else}}
-              <button class='btn btn-xs grn pull-right branchSelect'> choose </button>
-              {{/if}}
-              branch:
-              <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
-                target='_blank'>{{ currentUser.profile.repoBranch }}</a>
-            </li>
-
-            {{#if branchSelecting}}
-            {{> newBranch }}
-            {{#each branches}}
-            {{> branch}}
-            {{/each}}
-            {{/if}}
 
             <li class='list-group-item'>
               <div class='btn-group pull-right'>
@@ -217,3 +226,4 @@
     </div>
   </div>
 </template>
+

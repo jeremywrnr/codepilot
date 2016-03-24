@@ -1,6 +1,5 @@
 // file things
 
-var prof = Codepilot.prof;
 var newFile = function() {
   Meteor.call('newFile', function(err, id){
     Session.set('document', id);
@@ -39,7 +38,7 @@ Template.fileitem.events({
 
   'click .file': function() {
     if (!Session.equals('document', this._id))
-      Meteor.call('addMessage', prof().login + " opened file " + this.title);
+      Meteor.call('addMessage', "opened file " + this.title);
 
     Session.set('document', this._id);
   },
