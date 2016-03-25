@@ -48,8 +48,11 @@ Template.commitPanel.events({
     Session.set('focusPane', null);
   },
 
-  'click .refresh': function(e) { // pull in latest commits from gh
+  'click .refresh': function(e) { // pull in latest version of buffers
     Meteor.call('getAllShareJS');
+  },
+
+  'click .reload': function(e) { // pull in latest commits from gh
     Meteor.call('initCommits');
   },
 

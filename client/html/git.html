@@ -64,11 +64,11 @@
       <div class="btn-group btn-group-justified">
         <div class="btn-group" role="group">
           <a href="#">
-          {{#if changes}}
+            {{#if changes}}
             <button type="button" class="btn btn-default btn-lg"> new commit </button>
-          {{else}}
+            {{else}}
             <button type="button" class="btn btn-default btn-lg grn newcommit"> new commit </button>
-          {{/if}}
+            {{/if}}
           </a>
         </div>
 
@@ -98,8 +98,13 @@
 
 <template name="history">
   <div class="panel panel-default">
-    <div class="panel-heading"><h3 class="panel-title">
-        recent commits ({{ commitCount }}) </h3></div>
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        recent commits ({{ commitCount }})
+        <button class='btn btn-xs grn btn-default pull-right reload'> reload </button>
+      </h3>
+    </div>
+
     <div class="panel-body">
       <div class="list-group nomargin">
         {{#each commits}}

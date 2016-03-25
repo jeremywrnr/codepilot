@@ -21,3 +21,4 @@ Template.renderPanel.events({
   },
 
 });
+
