@@ -15,7 +15,7 @@ lookup, and commenting/documenting source code.
 
 ## features
 
-- supports simulatenous file editing
+- supports simultaneous file editing
 - import a any github repo into codepilot
 - edit, test, and commit back to github
 - supports live branching, testing
