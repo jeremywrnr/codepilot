@@ -18,7 +18,8 @@ Meteor.methods({
     Meteor.call('ghAuth'); // auth for getting all pushable repos
     var uid = Meteor.userId(); // userID, used below
     github.repos.getAll({
-      user: Meteor.user().profile.login
+      user: Meteor.user().profile.login,
+      per_page: 100
     }).map(function attachUser(gr){ // attach user to git repo (gr)
 
       var repo = Repos.findOne({ id: gr.id });
