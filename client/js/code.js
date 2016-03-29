@@ -91,6 +91,11 @@ Template.filename.events({
     Session.set('focusPane', null);
   },
 
+  // delete the current file
+  'click button.save': function(e) {
+    Meteor.call('getAllShareJS');
+  },
+
   // enable changing of filename
   'click button.edit': function (e) {
     e.preventDefault();
