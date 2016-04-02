@@ -3,6 +3,8 @@
 var domain = /^http.*\.(io|com|web|net|org|gov|edu)(\/.*)?/g
 
 Codepilot = {
+  host: "http://codepilot.xyz/",
+
   any: function(ary, fn) {
     return ary.reduce(function(o, n){
       return o || fn(n)

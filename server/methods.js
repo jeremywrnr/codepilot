@@ -3,7 +3,7 @@
 // dlog is debugger log, see server/setup.js
 
 var ufiles = Codepilot.userfiles;
-var hoster = 'http://codepilot.herokuapp.com'
+var hoster = Codepilot.host;
 
 Meteor.methods({
   //////////////////
