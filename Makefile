@@ -3,3 +3,6 @@ mongo:
 
 test:
 	spacejam test-packages ./packages/codepilot/
+
+lines:
+	find ./* -type f | grep -v jpg | grep -v gif | grep -v md | grep -v ico | xargs wc -l
