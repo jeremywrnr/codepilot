@@ -6,6 +6,7 @@ var ufiles = Codepilot.userfiles;
 var hoster = Codepilot.host;
 
 Meteor.methods({
+
   //////////////////
   // FILE MANAGEMENT
   //////////////////
@@ -324,6 +325,7 @@ Meteor.methods({
 
   //http://stackoverflow.com/questions/10677491/how-to-get-meteor-call-to-return-value-for-template
   getCollabs: function(repo) {
+
     // get a users profile based on their id, from project repo id
     return repo.users.map(function(uid) {
       var user = Meteor.users.findOne(uid);
@@ -334,16 +336,5 @@ Meteor.methods({
     });
   },
 
-  resetAllData: function() { // detroy everything
-    Files.find({}).map(function(f){ Meteor.call('deleteFile', f._id) });
-    Messages.remove({});
-    Commits.remove({});
-    Screens.remove({});
-    Issues.remove({});
-    Repos.remove({});
-    Tasks.remove({});
-    Files.remove({});
-    Docs.remove({});
-  },
 });
 
