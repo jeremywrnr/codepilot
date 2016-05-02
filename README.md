@@ -2,7 +2,7 @@
 ==================================
 
 [![MIT License](https://img.shields.io/npm/l/alt.svg?style=flat)](http://jeremywrnr.com/mit-license)
-[![Build Status](https://travis-ci.org/jeremywrnr/git-sync.svg?branch=dev)](https://travis-ci.org/jeremywrnr/GitSync)
+[![Build Status](https://travis-ci.org/jeremywrnr/git-sync.svg?branch=dev)](https://travis-ci.org/jeremywrnr/git-sync)
 [![bitHound Score](https://www.bithound.io/github/jeremywrnr/git-sync/badges/score.svg)](https://www.bithound.io/github/jeremywrnr/git-sync)
 
 This is a tool meant to help people collaborate on code more seamlessly. The
@@ -27,7 +27,7 @@ lookup, and commenting/documenting source code.
 ## cloning + running
 
     git clone https://github.com/jeremywrnr/git-sync.git
-    cd git-sync/app/private
+    cd git-sync/app/private && make
 
 You will need to register an application key with github in order to login with
 their oauth system, more information on how you can do that [here][oauth]. A
