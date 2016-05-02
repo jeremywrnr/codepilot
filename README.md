@@ -1,4 +1,4 @@
-[code pilot](http://GitSync.xyz)
+[code pilot](http://codepilot.xyz)
 ==================================
 
 [![MIT License](https://img.shields.io/npm/l/alt.svg?style=flat)](http://jeremywrnr.com/mit-license)
