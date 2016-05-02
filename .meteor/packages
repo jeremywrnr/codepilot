@@ -17,4 +17,6 @@ service-configuration
 http
 meteorhacks:async
 standard-minifiers
-jeremywrnr:codepilot
+
+# LOCAL PACKAGE
+jeremywrnr:git-sync
