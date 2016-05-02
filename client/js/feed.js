@@ -1,6 +1,6 @@
 // messages and events feed
 
-var linkify = Codepilot.linkify;
+var linkify = GitSync.linkify;
 
 Template.chatter.events({
 
@@ -52,4 +52,3 @@ Template.message.helpers({
     return msgdate.toLocaleDateString();
   }
 });
-

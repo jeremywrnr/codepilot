@@ -3,11 +3,11 @@
 var difflib = Difflib.lib;
 var diffview = Difflib.view;
 
-var prof = Codepilot.prof;
-var ufiles = Codepilot.userfiles;
-var clean = Codepilot.sanitizeDiffs;
-var focusForm = Codepilot.focusForm;
-var labelLineNumbers = Codepilot.labelLineNumbers;
+var prof = GitSync.prof;
+var ufiles = GitSync.userfiles;
+var clean = GitSync.sanitizeDiffs;
+var focusForm = GitSync.focusForm;
+var labelLineNumbers = GitSync.labelLineNumbers;
 
 Template.commitPanel.helpers({
 
@@ -20,7 +20,7 @@ Template.commitPanel.helpers({
   },
 
   changes: function() {
-    return !Codepilot.changes()
+    return !GitSync.changes()
   },
 
 });
@@ -111,7 +111,7 @@ Template.commit.events({
 Template.statusPanel.helpers({
 
   changes: function() { // return true if any diffs exist.
-    return Codepilot.changes();
+    return GitSync.changes();
   },
 
   diffs: function() { // using jsdiff, return a diff on each file
@@ -229,4 +229,3 @@ Template.diffline.helpers({
   },
 
 });
-

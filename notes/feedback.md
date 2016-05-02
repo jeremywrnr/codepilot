@@ -14,7 +14,7 @@ hiding git information
 - linking to new heroku host
 - explicity select html/css/js
 - fixing diff system (jsdiff?)
-- no reording on codepilot
+- no reording on GitSync
 - create user should route to home
 - inviting users to edit w/o github collaborator
 

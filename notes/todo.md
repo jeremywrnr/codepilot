@@ -10,7 +10,7 @@ buffer and what branch they are on.
 actually rendering an issues code?
     if not found, let user know of this
     render the default view
-check if issue has feedback field (generated from codepilot), then display live
+check if issue has feedback field (generated from GitSync), then display live
 link, will also need to update the rawjs source location for that.
 filter sharejs loading to type == file
 
@@ -70,7 +70,7 @@ github vs git, able to collaborate, but not
 (within subjects takes care of it)
 auxiliray - coding spectator to jump in
 live webcasting of them coding, people can help
-codepilot for strangers (pull requests vs codepilot)
+GitSync for strangers (pull requests vs GitSync)
 one pilot and many coding helpers
 
 
@@ -83,7 +83,7 @@ case study from Mythical Man Month of surgeon + multiple assistants
 a distributed task 1 pilot, 4 copilots
 video or talk embedding - collab github education?
 creating an issue on this repo, could be helpful to PROF
-github as an education platform, codepilot as a even *more* collaborative platform?
+github as an education platform, GitSync as a even *more* collaborative platform?
 a teacher can have lecture code stored in the repo, and then walk through bit
 by bit (eg commits), even if not runnable in the browser/cloud form controls
 make note of andy, talking about debugging webapps, related to work that bryan
@@ -95,7 +95,7 @@ by creating a gh-pages branch, you can actually host the content that you make
 from a specific readme - this is cool, because it lets you export the code from
 the renderer to an actual live webpage. some dependencies may break however.
 
-Yep! Codepilot is very relevant nowadays since more and more people are working
+Yep! GitSync is very relevant nowadays since more and more people are working
 remotely as software developers. Remote and distributed development teams are
 more of a norm now, so people need better situational awareness and pair
 programming tools for this new workflow. That's a great thing to include in an

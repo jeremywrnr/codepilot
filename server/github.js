@@ -122,14 +122,14 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
-  postLabel: function(gr) { // used in repo initing - create codepilot issue label
+  postLabel: function(gr) { // used in repo initing - create GitSync issue label
     Meteor.call('ghAuth');
     if (! gr.labelCreated) {
       return github.issues.createLabel({
         user: Meteor.user().profile.repoOwner,
         repo: Meteor.user().profile.repoName,
-        name: 'codepilot',
-        color: '000000' // set the codepilot label color black for this repo
+        name: 'GitSync',
+        color: '000000' // set the GitSync label color black for this repo
       });
     } else { // mark label created
       gr.labelCreated = true;
@@ -146,7 +146,7 @@ Meteor.methods({
       repo: user.profile.repoName,
       title: issue.note,
       body: issue.body,
-      labels: ['bug', 'codepilot']
+      labels: ['bug', 'GitSync']
     });
   },
 

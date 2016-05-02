@@ -1,9 +1,9 @@
 // iframe helper - load content from editor
 
-var prof = Codepilot.prof;
-var clean = Codepilot.sanitizeStringQuotes;
-var getTag = Codepilot.grabTagContentsToRender;
-var findFile = Codepilot.findFileFromExt;
+var prof = GitSync.prof;
+var clean = GitSync.sanitizeStringQuotes;
+var getTag = GitSync.grabTagContentsToRender;
+var findFile = GitSync.findFileFromExt;
 
 Template.raw.helpers({
   getUser: function () { // return id of current user
@@ -88,4 +88,3 @@ Template.rawIssue.helpers({
       return js.content;
   },
 });
-

@@ -9,7 +9,7 @@ Session.setDefault('hideClosedIssues', true);
 
 // startup data subscriptions
 
-var prof = Codepilot.prof;
+var prof = GitSync.prof;
 
 Meteor.subscribe('screens');
 Tracker.autorun(function() { // subscribe on login
@@ -79,4 +79,3 @@ Template.userLoggedin.events({
     });
   }
 });
-

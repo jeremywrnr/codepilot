@@ -1,9 +1,9 @@
-[code pilot](http://codepilot.xyz)
+[code pilot](http://GitSync.xyz)
 ==================================
 
 [![MIT License](https://img.shields.io/npm/l/alt.svg?style=flat)](http://jeremywrnr.com/mit-license)
-[![Build Status](https://travis-ci.org/jeremywrnr/codepilot.svg?branch=dev)](https://travis-ci.org/jeremywrnr/codepilot)
-[![bitHound Score](https://www.bithound.io/github/jeremywrnr/codepilot/badges/score.svg)](https://www.bithound.io/github/jeremywrnr/codepilot)
+[![Build Status](https://travis-ci.org/jeremywrnr/git-sync.svg?branch=dev)](https://travis-ci.org/jeremywrnr/GitSync)
+[![bitHound Score](https://www.bithound.io/github/jeremywrnr/git-sync/badges/score.svg)](https://www.bithound.io/github/jeremywrnr/git-sync)
 
 This is a tool meant to help people collaborate on code more seamlessly. The
 model is based on that of a pilot and a co-pilot, where the pilot does most of
@@ -16,7 +16,7 @@ lookup, and commenting/documenting source code.
 ## features
 
 - supports simultaneous file editing
-- import a any github repo into codepilot
+- import a any github repo into GitSync
 - edit, test, and commit back to github
 - supports live branching, testing
 - import, create, and close issues (GH)
@@ -26,8 +26,8 @@ lookup, and commenting/documenting source code.
 
 ## cloning + running
 
-    git clone https://github.com/jeremywrnr/codepilot.git
-    cd codepilot/app/private
+    git clone https://github.com/jeremywrnr/git-sync.git
+    cd git-sync/app/private
 
 You will need to register an application key with github in order to login with
 their oauth system, more information on how you can do that [here][oauth]. A
@@ -55,4 +55,3 @@ breaking, so I'd recommend against doing that.
 
 [devel]:https://developer.github.com/program/
 [oauth]:https://developer.github.com/v3/oauth/
-

@@ -1,7 +1,7 @@
 // testing page task management
 
-var linkify = Codepilot.linkify;
-var prof = Codepilot.prof;
+var linkify = GitSync.linkify;
+var prof = GitSync.prof;
 
 
 Template.tasks.helpers({

@@ -1,22 +1,22 @@
 Package.describe({
   version: "1.0.0",
-  name: "jeremywrnr:codepilot",
+  name: "jeremywrnr:GitSync",
   summary: "Pair programming toolset.",
-  git: "https://github.com/jeremywrnr/codepilot",
+  git: "https://github.com/jeremywrnr/GitSync",
 });
 
 
 Package.onUse(function(api) {
-  api.export("Codepilot");
+  api.export("GitSync");
   api.export("Difflib");
 
   api.versionsFrom("METEOR@1.2");
-  api.addFiles(["difflib.js", "codepilot.js"]);
+  api.addFiles(["difflib.js", "GitSync.js"]);
 });
 
 
 Package.onTest(function (api) {
-  api.use(["tinytest", "jeremywrnr:codepilot"]);
-  api.addFiles("codepilot-tests.js");
+  api.use(["tinytest", "jeremywrnr:GitSync"]);
+  api.addFiles("GitSync-tests.js");
 });
 

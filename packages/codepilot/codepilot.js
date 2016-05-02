@@ -2,7 +2,7 @@
 
 var domain = /^http.*\.(io|com|web|net|org|gov|edu)(\/.*)?/g
 
-Codepilot = {
+GitSync = {
   host: "http://git-sync.com/",
 
   any: function(ary, fn) {
@@ -23,7 +23,7 @@ Codepilot = {
   },
 
   userfiles: function() { // return the current b/r files
-    var user = Codepilot.prof();
+    var user = GitSync.prof();
     if (user) return Files.find({
       repo: user.repo,
       branch: user.repoBranch
@@ -31,8 +31,8 @@ Codepilot = {
   },
 
   changes: function() { // content v cache, check if any files changed
-    return Codepilot.any(
-      Codepilot.userfiles().fetch(),
+    return GitSync.any(
+      GitSync.userfiles().fetch(),
       function(file) { return file.content !== file.cache }
     )
   },
@@ -40,7 +40,7 @@ Codepilot = {
   findFileFromExt: function(ext) {
     return Files.findOne({
       title: new RegExp(".*\." + ext, 'i'),
-      branch: Codepilot.prof().repoBranch,
+      branch: GitSync.prof().repoBranch,
     });
   },
 

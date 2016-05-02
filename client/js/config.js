@@ -1,6 +1,6 @@
 // configuration page
 
-var prof = Codepilot.prof;
+var prof = GitSync.prof;
 
 Template.config.helpers({
   users: function() { // give all CP project collaborators
@@ -171,7 +171,7 @@ Template.newBranch.events({
 
 Template.repo.events({
 
-  'click .repo': function(e) { // load a different repo into codepilot
+  'click .repo': function(e) { // load a different repo into GitSync
     if (prof().repo !== this._id)
       Meteor.call('loadRepo', this);
     Session.set('focusPane', null);
@@ -181,7 +181,7 @@ Template.repo.events({
 
 Template.branch.events({
 
-  'click .branch': function(e) { // load a different branch into codepilot
+  'click .branch': function(e) { // load a different branch into GitSync
     if (prof().repoBranch !== this.name)
       Meteor.call('loadBranch', this.name);
     Session.set('focusPane', null);

@@ -1,6 +1,6 @@
 // code editor things
 
-focusForm = Codepilot.focusForm;
+focusForm = GitSync.focusForm;
 
 Template.code.helpers({
 
@@ -127,4 +127,3 @@ Template.renderImage.helpers({
       return file.raw;
   },
 });
-

@@ -2,8 +2,8 @@
 // so: files, shareJS, and top-level functions
 // dlog is debugger log, see server/setup.js
 
-var ufiles = Codepilot.userfiles;
-var hoster = Codepilot.host;
+var ufiles = GitSync.userfiles;
+var hoster = GitSync.host;
 
 Meteor.methods({
 
