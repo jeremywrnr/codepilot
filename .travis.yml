@@ -8,7 +8,7 @@ before_install:
 - curl https://install.meteor.com | /bin/sh
 - export PATH="$HOME/.meteor:$PATH"
 - meteor --version
-- npm install -g coffee
+- npm install -g coffee-script
 - npm install -g spacejam
 
 script: cd packages/git-sync && spacejam test-packages ./
