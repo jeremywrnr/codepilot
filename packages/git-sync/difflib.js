@@ -24,11 +24,11 @@ var diffview = {
     var baseTextName = params.baseTextName ? params.baseTextName : "Base Text";
     var newTextName = params.newTextName ? params.newTextName : "New Text";
     var contextSize = params.contextSize;
-    var inline = (params.viewType == 0 || params.viewType == 1) ? params.viewType : 0;
+    var inline = (params.viewType === 0 || params.viewType === 1) ? params.viewType : 0;
 
-    if (baseTextLines == null)
+    if (baseTextLines === null)
       throw "Cannot build diff view; baseTextLines is not defined.";
-    if (newTextLines == null)
+    if (newTextLines === null)
       throw "Cannot build diff view; newTextLines is not defined.";
     if (!opcodes)
       throw "Canno build diff view; opcodes is not defined.";
@@ -92,8 +92,8 @@ var diffview = {
     }
 
     function addCellsInline (row, tidx, tidx2, textLines, change) {
-      row.appendChild(telt("th", tidx == null ? "" : (tidx + 1).toString()));
-      row.appendChild(telt("th", tidx2 == null ? "" : (tidx2 + 1).toString()));
+      row.appendChild(telt("th", tidx === null ? "" : (tidx + 1).toString()));
+      row.appendChild(telt("th", tidx2 === null ? "" : (tidx2 + 1).toString()));
       row.appendChild(ctelt("td", change, textLines[tidx != null ? tidx : tidx2].replace(/\t/g, "\u00a0\u00a0\u00a0\u00a0")));
     }
 
@@ -109,8 +109,8 @@ var diffview = {
       var botrows = [];
       for (var i = 0; i < rowcnt; i++) {
         // jump ahead if we've alredy provided leading context or if this is the first range
-        if (contextSize && opcodes.length > 1 && ((idx > 0 && i == contextSize) || (idx == 0 && i == 0)) && change=="equal") {
-          var jump = rowcnt - ((idx == 0 ? 1 : 2) * contextSize);
+        if (contextSize && opcodes.length > 1 && ((idx > 0 && i === contextSize) || (idx === 0 && i === 0)) && change==="equal") {
+          var jump = rowcnt - ((idx === 0 ? 1 : 2) * contextSize);
           if (jump > 1) {
             toprows.push(node = document.createElement("tr"));
 
@@ -123,7 +123,7 @@ var diffview = {
             node.appendChild(ctelt("td", "skip", ""));
 
             // skip last lines if they're all equal
-            if (idx + 1 == opcodes.length) {
+            if (idx + 1 === opcodes.length) {
               break;
             } else {
               continue;
@@ -133,13 +133,13 @@ var diffview = {
 
         toprows.push(node = document.createElement("tr"));
         if (inline) {
-          if (change == "insert") {
+          if (change === "insert") {
             addCellsInline(node, null, n++, newTextLines, change);
-          } else if (change == "replace") {
+          } else if (change === "replace") {
             botrows.push(node2 = document.createElement("tr"));
             if (b < be) addCellsInline(node, b++, null, baseTextLines, "delete");
             if (n < ne) addCellsInline(node2, null, n++, newTextLines, "insert");
-          } else if (change == "delete") {
+          } else if (change === "delete") {
             addCellsInline(node, b++, null, baseTextLines, change);
           } else {
             // equal
