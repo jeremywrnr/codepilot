@@ -3,6 +3,7 @@ app/.meteor/.*
 app/packages/*
 app/.tern-project
 
+.environment
 .versions
 
 lib-cov
