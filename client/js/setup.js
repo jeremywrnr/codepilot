@@ -4,7 +4,6 @@ Session.setDefault('feedCount', 0);
 Session.setDefault('document', null);
 Session.setDefault('focusPane', null);
 Session.setDefault('editorType', 'ace');
-Session.setDefault('hideDoneTasks', true);
 Session.setDefault('hideClosedIssues', true);
 
 // startup data subscriptions
@@ -18,7 +17,6 @@ Tracker.autorun(function() { // subscribe on login
     if (prof().repo) {
 
       var user = prof(); // get user profile
-      Meteor.subscribe('tasks', user.repo);
       Meteor.subscribe('issues', user.repo);
       Meteor.subscribe('messages', user.repo);
 

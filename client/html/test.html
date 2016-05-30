@@ -2,13 +2,10 @@
 
 <template name="test">
   <div class="col-s-8 full-height">
-    {{> tester}}
+    {{> issues}}
+
     {{#if isPilot}}<!-- pilot layout -->
-    {{> tasks }}
-    {{> issues}}
     {{else}}      <!-- copilot layout -->
-    {{> issues}}
-    {{> tasks }}
     {{/if}}
 
     <iframe width="800" height="500" frameborder="0"
