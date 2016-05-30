@@ -16,7 +16,7 @@ Template.commitPanel.helpers({
   },
 
   committing: function() {
-    return Session.equals('focusPane', 'committer');
+    return Session.equals("focusPane", "committer");
   },
 
   changes: function() {
@@ -27,39 +27,39 @@ Template.commitPanel.helpers({
 
 Template.commitPanel.events({
 
-  'click .newcommit': function(e) {
+  "click .newcommit": function(e) {
     e.preventDefault();
-    Meteor.call('getAllShareJS');
-    Session.set('focusPane', 'committer');
-    focusForm('#commitMsg');
+    Meteor.call("getAllShareJS");
+    Session.set("focusPane", "committer");
+    focusForm("#commitMsg");
   },
 
-  'submit .committer': function(e) {
+  "submit .committer": function(e) {
     e.preventDefault();
     $(e.target).blur();
-    var msg = $('#commitMsg')[0].value;
-    if (msg == null || msg == '') return false; // dont allow empty commit msgs
-    Session.set('committing', null);
-    Session.set('focusPane', null);
-    Meteor.call('newCommit', msg);
+    var msg = $("#commitMsg")[0].value;
+    if (msg == null || msg == "") return false; // dont allow empty commit msgs
+    Session.set("committing", null);
+    Session.set("focusPane", null);
+    Meteor.call("newCommit", msg);
   },
 
-  'click .cancelCommit': function(e) {
-    Session.set('focusPane', null);
+  "click .cancelCommit": function(e) {
+    Session.set("focusPane", null);
   },
 
-  'click .refresh': function(e) { // pull in latest version of buffers
-    Meteor.call('getAllShareJS');
+  "click .refresh": function(e) { // pull in latest version of buffers
+    Meteor.call("getAllShareJS");
   },
 
-  'click .reload': function(e) { // pull in latest commits from gh
-    Meteor.call('initCommits');
+  "click .reload": function(e) { // pull in latest commits from gh
+    Meteor.call("initCommits");
   },
 
-  'click .loadhead': function(e) { // load head of branch into SJS
+  "click .loadhead": function(e) { // load head of branch into SJS
     var trulyLoad = confirm("This will overwrite any uncommitted changes. Proceed?");
     if (trulyLoad)
-      Meteor.call('loadHead', prof().repoBranch);
+      Meteor.call("loadHead", prof().repoBranch);
   },
 
 });
@@ -67,7 +67,7 @@ Template.commitPanel.events({
 Template.history.helpers({ // sort the commits by time
 
   commits: function() {
-    return Commits.find({}, {sort: {'commit.commit.committer.date': -1}} );
+    return Commits.find({}, {sort: {"commit.commit.committer.date": -1}} );
   },
 
   commitCount: function() {
@@ -79,7 +79,7 @@ Template.history.helpers({ // sort the commits by time
 Template.commit.helpers({
 
   current: function() {
-    return Session.equals('focusPane', this._id);
+    return Session.equals("focusPane", this._id);
   },
 
   mine: function() {
@@ -90,19 +90,19 @@ Template.commit.helpers({
 
 Template.commit.events({
 
-  'click .commit': function(e) {
-    if ( Session.equals('focusPane', this._id) ) {
-      Session.set('focusPane', null);
+  "click .commit": function(e) {
+    if ( Session.equals("focusPane", this._id) ) {
+      Session.set("focusPane", null);
     } else {
-      Session.set('focusPane', this._id);
+      Session.set("focusPane", this._id);
     }
   },
 
-  'click .loadcommit': function(e) {
+  "click .loadcommit": function(e) {
     var trulyLoad = confirm("This will overwrite any uncommitted changes. Proceed?");
     if (trulyLoad) {
-      Session.set('focusPane', null);
-      Meteor.call('loadCommit', this.commit.sha);
+      Session.set("focusPane", null);
+      Meteor.call("loadCommit", this.commit.sha);
     }
   },
 
@@ -156,20 +156,20 @@ Template.diff.helpers({
       // parsing out the old and new line numbers
       var linedata = {};
       var oldnum, newnum;
-      var numinfo = x.getElementsByTagName('th');
+      var numinfo = x.getElementsByTagName("th");
       if (numinfo[0] == undefined || numinfo[1] == undefined)
         return; // for some reason no line numbers???
 
       // parsing out the table data (edit/delete)
       var allinfo, info, status, content;
-      allinfo = x.getElementsByTagName('td');
+      allinfo = x.getElementsByTagName("td");
       if (allinfo[0] == undefined)
         return; // empty tags???
 
       // building up the line data information
       linedata.oldnum = numinfo[0].innerHTML;
       linedata.newnum = numinfo[1].innerHTML;
-      linedata.status = allinfo[0].getAttribute('class');
+      linedata.status = allinfo[0].getAttribute("class");
       linedata.content = clean(allinfo[0].innerHTML);
       return linedata;
 
@@ -197,19 +197,19 @@ Template.diffline.helpers({
   },
 
   skipped: function() {
-    return this.status == 'skip'
+    return this.status == "skip"
   },
 
   equal: function() {
-    return this.status == 'equal'
+    return this.status == "equal"
   },
 
   inserted: function() {
-    return this.status == 'insert'
+    return this.status == "insert"
   },
 
   deleted: function() {
-    return this.status == 'delete'
+    return this.status == "delete"
   },
 
   newnum: function() {
@@ -217,7 +217,7 @@ Template.diffline.helpers({
     if (num > 0)
       return num
     else
-      return '-'
+      return "-"
   },
 
   oldnum: function() {
@@ -225,7 +225,7 @@ Template.diffline.helpers({
     if (num > 0)
       return num
     else
-      return '-'
+      return "-"
   },
 
 });

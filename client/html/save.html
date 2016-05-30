@@ -1,13 +1,11 @@
 <!--git controls and api stuff here-->
 
 <template name="git">
-  <div class="col-s-8 full-height">
-    {{#if isPilot}}
-    {{> commitPanel }}
-    {{/if}}
+  {{#if isPilot}}
+  {{> commitPanel }}
+  {{/if}}
 
-    {{> history }}
-  </div>
+  {{> history }}
 </template>
 
 <template name="statusPanel">

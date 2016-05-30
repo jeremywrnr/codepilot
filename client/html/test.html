@@ -1,24 +1,37 @@
 <!-- testing tasks -->
 
 <template name="test">
-  <div class="col-s-8 full-height">
-    {{> issues}}
+  {{> testviz}}
+  {{> issues}}
 
-    {{#if isPilot}}<!-- pilot layout -->
-    {{else}}      <!-- copilot layout -->
-    {{/if}}
+  {{#if isPilot}}<!-- pilot layout -->
+  {{else}}      <!-- copilot layout -->
+  {{/if}}
 
-    <iframe width="800" height="500" frameborder="0"
-    src="http://pythontutor.com/iframe-embed.html#code=require+'set'%0A%0Amy_array+%3D+%5B1,+2,+3,+'hello',+false,+true,+nil%5D%0Amy_hash+%3D+%7B'John'+%3D%3E+26,+'Jane'+%3D%3E+21,+'Jack'+%3D%3E+30%7D%0Amy_set+%3D+my_array.to_set%0A%0Amy_hash%5B'nested+array'%5D+%3D+my_array%0Amy_array%5B1%5D+%3D+%5B'a',+'b',+'c'%5D&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py=ruby&rawInputLstJSON=%5B%5D&curInstr=0&codeDivWidth=350&codeDivHeight=400">
-    </iframe>
-  </div>
 </template>
 
+
+<template name="testviz">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"> tester
+        <button class="btn btn-xs grn btn-default pull-right reload">reload</button>
+      </h3>
+    </div>
+    <div class="panel-body">
+
+      <iframe width="800" height="500" frameborder="0" src="http://pythontutor.com/iframe-embed.html#code=require+'set'%0A%0Amy_array+%3D+%5B1,+2,+3,+'hello',+false,+true,+nil%5D%0Amy_hash+%3D+%7B'John'+%3D%3E+26,+'Jane'+%3D%3E+21,+'Jack'+%3D%3E+30%7D%0Amy_set+%3D+my_array.to_set%0A%0Amy_hash%5B'nested+array'%5D+%3D+my_array%0Amy_array%5B1%5D+%3D+%5B'a',+'b',+'c'%5D&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py=ruby&rawInputLstJSON=%5B%5D&curInstr=0&codeDivWidth=350&codeDivHeight=400">
+        <!--src="http://pythontutor.com/iframe-embed.html#code=(escaped snippet)&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py=(language)&rawInputLstJSON=%5B%5D&curInstr=0&codeDivWidth=350&codeDivHeight=400">-->
+      </iframe>
+
+    </div>
+  </div>
+</template>
 
 <!-- github issue integration -->
 
 <template name="issues">
-  <div class="panel panel-default">
+  <div class="panel">
     <div class="panel-heading">
       <h3 class="panel-title"> issues ({{issueCount}})
         <button class="btn btn-xs grn btn-default pull-right reload">reload</button>

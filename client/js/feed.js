@@ -4,11 +4,11 @@ var linkify = GitSync.linkify;
 
 Template.chatter.events({
 
-  'keydown input#message': function(e) {
-    if (e.which === 13) { // 'enter' keycode recieved
-      var msg = $('input#message')[0];
-      Meteor.call('addMessage', $.trim(msg.value));
-      msg.value = ''; // purge the old message
+  "keydown input#message": function(e) {
+    if (e.which === 13) { // "enter" keycode recieved
+      var msg = $("input#message")[0];
+      Meteor.call("addMessage", $.trim(msg.value));
+      msg.value = ""; // purge the old message
     }
   }
 
@@ -31,9 +31,9 @@ Template.message.onRendered(function () {
   var newFeedCount = Messages.find({}).count();
   var feed = $("#feed")[0];
 
-  if ((! Session.equals('feedCount', newFeedCount)) && feed) {
-    $('#feed').stop().animate({ scrollTop: feed.scrollHeight }, 500);
-    Session.set('feedCount', newFeedCount);
+  if ((! Session.equals("feedCount", newFeedCount)) && feed) {
+    $("#feed").stop().animate({ scrollTop: feed.scrollHeight }, 500);
+    Session.set("feedCount", newFeedCount);
   }
 });
 
