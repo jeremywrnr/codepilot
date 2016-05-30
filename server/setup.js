@@ -33,9 +33,6 @@ Meteor.publish('files', function(repoId, branch) { // only serve b+r files
 Meteor.publish('messages', function(repoId) { // only serve repo msgs
   return Messages.find({repo: repoId});
 });
-Meteor.publish('tasks', function(repoId) { // only serve repo tasks
-  return Tasks.find({repo: repoId});
-});
 Meteor.publish('issues', function(repoId) { // only serve repo issues
   return Issues.find({repo: repoId});
 });
