@@ -16,7 +16,8 @@ accounts-base
 service-configuration
 http
 meteorhacks:async
-standard-minifiers
+standard-minifier-css
+standard-minifier-js
 
 # LOCAL PACKAGE
 jeremywrnr:git-sync
