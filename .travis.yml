@@ -12,5 +12,5 @@ before_install:
 - npm install -g spacejam
 - cd private && yes $GH_PASSWORD | make decrypt
 
-script: cd packages/git-sync && spacejam test-packages ./
+script: cd ../packages/git-sync && spacejam test-packages ./
 
