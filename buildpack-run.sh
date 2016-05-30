@@ -1,0 +1,1 @@
+cd private && make decrypt
