@@ -10,64 +10,12 @@
     {{> issues}}
     {{> tasks }}
     {{/if}}
+
+    <iframe width="800" height="500" frameborder="0"
+    src="http://pythontutor.com/iframe-embed.html#code=require+'set'%0A%0Amy_array+%3D+%5B1,+2,+3,+'hello',+false,+true,+nil%5D%0Amy_hash+%3D+%7B'John'+%3D%3E+26,+'Jane'+%3D%3E+21,+'Jack'+%3D%3E+30%7D%0Amy_set+%3D+my_array.to_set%0A%0Amy_hash%5B'nested+array'%5D+%3D+my_array%0Amy_array%5B1%5D+%3D+%5B'a',+'b',+'c'%5D&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py=ruby&rawInputLstJSON=%5B%5D&curInstr=0&codeDivWidth=350&codeDivHeight=400">
+    </iframe>
   </div>
 </template>
-
-
-
-<!-- todo task integration -->
-
-<template name="tasks">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title"> tasks ({{taskCount}})
-        <span class="pull-right"> <small>hide done</small>
-          <input type="checkbox" checked="{{hideCompleted}}" class="hide-completed"/>
-        </span>
-      </h3>
-    </div>
-    <div class="panel-body">
-      <form class="new-task">
-        <input id="task-name" type="text" class="form-control" placeholder="add a task..." />
-      </form>
-      <ul class="list-group nomargin">
-        {{#if taskCount}}
-        {{#each tasks}}
-        {{> task}}
-        {{/each}}
-        {{else}}
-        <button class="list-group-item"> no tasks yet. </button>
-        {{/if}}
-      </ul>
-    </div>
-  </div>
-</template>
-
-<template name="task">
-  <button id="{{#if current }}active-task{{/if}}" class="list-group-item task {{#if checked}}checked disabled{{/if}}">
-    <label class="pull-right btn label {{#if mine}}label-primary{{else}}label-info{{/if}}">{{username}}</label>
-    {{{linkd}}}
-  </button>
-
-  {{#if current}}
-  <button class="list-group-item">
-    <div class="btn-group btn-group-justified">
-      <div class="btn-group" role="group">
-        <button class="btn grn toggle-checked">
-          {{#if checked}} restore
-          {{else}} complete
-          {{/if}}
-        </button>
-      </div>
-      <div class="btn-group" role="group">
-        <button class="btn del">delete</button>
-      </div>
-    </div>
-  </button>
-  {{/if}}
-
-</template>
-
 
 
 <!-- github issue integration -->
