@@ -55,25 +55,8 @@
 <template name="topnav">
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="containter-fluid">
-
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapser">
-          <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-        </button>
-        <ul class="nav navbar-nav navbar-right nomargin">
-          <li class="navitem text-center grn">
-            <a href="/">
-              <span class="glyphicon glyphicon-pencil"></span> editing
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="collapse navbar-collapse" id="collapser">
-        {{> navigation }}
-        {{> loginGithub }}
-      </div>
-
+      {{> navigation }}
+      {{> loginGithub }}
     </div>
   </nav>
 </template>
@@ -96,9 +79,8 @@
 
 <template name="userLoggedin">
   <li class="navitem text-center">
-    <a href="/config"> {{ currentUser.profile.login }} | {{ currentUser.profile.role }}
-      <!--<span class="glyphicon glyphicon-cog"></span>-->
-    </a>
+    <a href="/config"> {{ currentUser.profile.login }}
+      | {{ currentUser.profile.role }} </a>
   </li>
   <li class="del logout text-center">
     <a href="#"> logout </a>
@@ -120,18 +102,23 @@
 <template name="navigation"> <!-- adding the active class would be good -->
   {{#if currentUser }}
   <ul class="nav navbar-nav">
+    <li class="navitem text-center grn">
+      <a href="/">
+        <span class="glyphicon glyphicon-pencil"></span> edit </a>
+    </li>
 
     <li class="navitem grn text-center">
       <a href="/test">
-        <span class="glyphicon glyphicon-play"></span> testing </a>
+        <span class="glyphicon glyphicon-play"></span> test </a>
     </li>
 
     <li class="navitem grn text-center">
       <a href="/git">
-        <span class="glyphicon glyphicon-list-alt"></span> versions </a>
+        <span class="glyphicon glyphicon-list-alt"></span> save </a>
     </li>
-
   </ul>
+  {{else}}
+  <a class="navbar-brand" href="#"> Git Sync </a>
   {{/if}}
 </template>
 

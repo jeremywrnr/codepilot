@@ -9,7 +9,7 @@
         {{#if repoSelecting}}
         <button class='list-group-item unfocus'>
           <button class='btn btn-xs del pull-right unfocus'> cancel </button>
-          Repository:
+          repo:
           <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
             target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
         </button>
@@ -21,7 +21,7 @@
         {{else}}
         <button class='list-group-item repoSelect'>
           <button class='btn btn-xs grn pull-right repoSelect'> choose </button>
-          Repository:
+          repo:
           <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
             target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
         </button>
@@ -30,7 +30,7 @@
         {{#if branchSelecting}}
         <button class='list-group-item unfocus'>
           <button class='btn btn-xs del pull-right unfocus'> cancel </button>
-          Branch:
+          branch:
           <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
             target='_blank'>{{ currentUser.profile.repoBranch }}</a>
         </button>
@@ -42,7 +42,7 @@
         {{else}}
         <button class='list-group-item branchSelect'>
           <button class='btn btn-xs grn pull-right branchSelect'> choose </button>
-          Branch:
+          branch:
           <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
             target='_blank'>{{ currentUser.profile.repoBranch }}</a>
         </button>
