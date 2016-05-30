@@ -11,5 +11,8 @@ export_env_dir() {
   fi
 }
 
+# call environemnt export
+export_env_dir $1 $2 $3
+
 # decrypting API keys
 cd private/ && make decrypt
