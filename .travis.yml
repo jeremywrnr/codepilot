@@ -11,5 +11,7 @@ before_install:
 - npm install -g coffee-script
 - npm install -g spacejam
 
-script: cd packages/git-sync && spacejam test-packages ./
+script:
+- cd private && yes $GH_PASSWORD | make decrypt
+- cd ../packages/git-sync && spacejam test-packages ./
 
