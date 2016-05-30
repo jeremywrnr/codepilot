@@ -12,8 +12,6 @@
   {{#if changes}}
 
   <div class="list-group nomargin">
-    <!--<pre>old / new line numbers </pre>-->
-
     {{#each diffs}}
     {{> diff}}
     {{/each}}
@@ -29,62 +27,41 @@
 </template>
 
 <template name="commitPanel">
-  <div class="panel panel-primary">
-
+  <div id="mainhead">
     {{#if committing}}
-    <div class="panel-heading">
-      <h3 class='panel-title'> Code saved! Commit in progress... </h3>
-    </div>
-    <div class="panel-body">
-      <div class="alert alert-success">
-        <div class="input-group">
-          <form class="committer">
-            <input placeholder="enter a commit message..."
-                   id="commitMsg" class="form-control" type="text" name="title" value="">
-          </form>
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default del cancelCommit">cancel</button>
-          </span>
-        </div>
-      </div>
 
-      {{> statusPanel }}
-    </div>
+    <p class="navbar-text"> Code saved! Commit in progress... </p>
 
     {{else}}
 
-    <div class="panel-heading">
-      <div class="btn-group btn-group-justified">
-        <div class="btn-group" role="group">
-          <a href="#">
-            {{#if changes}}
-            <button type="button" class="btn btn-default btn-lg"> new commit </button>
-            {{else}}
-            <button type="button" class="btn btn-default btn-lg grn newcommit"> new commit </button>
-            {{/if}}
-          </a>
-        </div>
+    <p class="navbar-text"> github </p>
+    <form class="navbar-form pull-right">
+      <a href="/"><button class="grn btn btn-default btn-small">code</button></a>
+      <a href="/test"><button class="grn btn btn-default btn-small">test</button></a>
+      {{#if changes}}
+      <button type="button" class="btn btn-default btn-small"> new commit </button>
+      {{else}}
+      <button type="button" class="btn btn-default btn-small grn newcommit"> new commit </button>
+      {{/if}}
+      <button type="button" class="btn btn-default btn-small grn refresh"> refresh </button>
+      <button type="button" class="btn btn-default btn-small del loadhead">import {{branch}}</button>
+    </form>
 
-        <div class="btn-group" role="group">
-          <a href="#">
-            <button type="button" class="btn btn-default btn-lg grn refresh"> refresh </button>
-          </a>
-        </div>
-
-        <div class="btn-group" role="group">
-          <a href="#">
-            <button type="button" class="btn btn-default btn-lg del loadhead">import {{branch}}</button>
-          </a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="panel-body">
-      {{> statusPanel }}
-    </div>
     {{/if}}
   </div>
+
+  {{#if committing}}
+  <div class="alert alert-success">
+    <div class="input-group">
+      <form class="committer">
+        <input placeholder="enter a commit message..." id="commitMsg" class="form-control" type="text" name="title" value="">
+      </form>
+      <span class="input-group-btn"> <button type="button" class="btn btn-default del cancelCommit">cancel</button> </span>
+    </div>
+  </div>
+  {{/if}}
+
+  {{> statusPanel }}
 </template>
 
 
