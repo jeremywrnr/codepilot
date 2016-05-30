@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export "GH_PASSWORD=$(cat $1/GH_PASSWORD)"
+echo $GH_PASSWORD
