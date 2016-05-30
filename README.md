@@ -12,7 +12,6 @@ can include version control management, system testing, online reference
 lookup, and commenting/documenting source code.
 
 
-
 ## features
 
 - supports simultaneous file editing
@@ -21,7 +20,6 @@ lookup, and commenting/documenting source code.
 - supports live branching, testing
 - import, create, and close issues (GH)
 - includes screenshot, live code
-
 
 
 ## cloning + running
@@ -50,7 +48,6 @@ Once this is setup, do the following to start running it locally:
 Then, you can check out [localhost:3000](http://localhost:3000), and play
 around with things. I tried running `meteor update`, and the editor started
 breaking, so I'd recommend against doing that.
-
 
 
 [devel]:https://developer.github.com/program/

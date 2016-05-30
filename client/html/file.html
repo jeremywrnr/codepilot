@@ -1,43 +1,43 @@
 <!--display a list of files -->
 
-<template name='filelist'>
-  <div class='panel panel-default sidepanel'>
-    <div class='panel-heading'>
-      <h3 class='panel-title'>files
-        <button class='btn btn-xs grn btn-default pull-right new'>new</button>
+<template name="filelist">
+  <div class="panel panel-default sidepanel">
+    <div class="panel-heading">
+      <h3 class="panel-title">files
+        <button class="btn btn-xs grn btn-default pull-right new">new</button>
       </h3>
     </div>
 
-    <div class='panel-body'>
-      <ul class='nav nav-pills nav-stacked sidelist'>
+    <div class="panel-body">
+      <ul class="nav nav-pills nav-stacked sidelist">
         {{> userfiles}}
 
-        <li class='file'>
-          <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
-            target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+        <li class="file">
+          <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}"
+            target="_blank">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
         </li>
       </ul>
     </div>
   </div>
 </template>
 
-<template name='userfiles'>
+<template name="userfiles">
   {{#if files.count}}
   {{#each files}}
   {{> fileitem}}
   {{/each}}
   {{else}}
-  <li class='file new'> <a href='#'> no files yet </a> </li>
+  <li class="file new"> <a href="#"> no files yet </a> </li>
   {{/if}}
 </template>
 
 <!-- todo, also show the collaborators file location pointers -->
 
-<template name='fileitem'>
-  <li class='file {{#if current}}active{{/if}}'>
-    <a id='{{#if current}}active-file{{/if}}' href='/'>
+<template name="fileitem">
+  <li class="file {{#if current}}active{{/if}}">
+    <a id="{{#if current}}active-file{{/if}}" href="/">
       {{#if current}}
-      <span class='glyphicon glyphicon-asterisk'></span>
+      <span class="glyphicon glyphicon-asterisk"></span>
       {{/if}}
       {{title}}
     </a>

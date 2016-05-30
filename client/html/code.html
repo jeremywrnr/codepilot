@@ -1,6 +1,6 @@
 <!-- code editor layout -->
 
-<template name='code'>
+<template name="code">
   {{#if nulldoc}}
   {{> loadprompt}}
   {{else}}
@@ -8,8 +8,8 @@
   {{/if}}
 </template>
 
-<template name='editor'>
-  <div class='col-xs-8 editor-container full-height'>
+<template name="editor">
+  <div class="editor-container full-height">
     {{#with docid}}
     {{> filename this}}
 
@@ -17,69 +17,67 @@
     {{> renderImage this}}
 
     {{else}}
-    {{> sharejsAce docid=this onRender=config onConnect=setMode id='editor'}}
+    {{> sharejsAce docid=this onRender=config onConnect=setMode id="editor"}}
 
     {{/if}}
     {{/with}}
   </div>
 </template>
 
-<template name='loadprompt'>
-  <div class='col-xs-8 full-height'>
-    <div class='panel panel-primary'>
-      <div class='panel-heading'>
-        <h3 class='panel-title'>code editor</h3>
+<template name="loadprompt">
+  <div class="panel panel-primary col-xs-8 full-height">
+    <div class="panel-heading">
+      <h3 class="panel-title">code editor</h3>
+    </div>
+    <div class="panel-body">
+      <div class="alert alert-success alert-dismissable" role="alert">
+        First time here? <a class="alert-link" href="config"> [click here to set up your account]</a>
       </div>
-      <div class='panel-body'>
-        <div class="alert alert-success alert-dismissable" role="alert">
-          First time here? <a class='alert-link' href='config'> [click here to set up your account]</a>
-        </div>
-        <div class="alert alert-info" role="alert">
-          Let's get started - click a file to start editing code!
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <ul class='nav nav-pills nav-stacked'>
-              {{> userfiles}} <!--found in file.html-->
-            </ul>
-          </div>
+      <div class="alert alert-info" role="alert">
+        Let"s get started - click a file to start editing code!
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <ul class="nav nav-pills nav-stacked">
+            {{> userfiles}} <!--found in file.html-->
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<template name='filename'>
-  <div class='navbar navbar-code'>
-    <div class='container-fluid'>
+<template name="filename">
+  <div class="navbar navbar-code">
+    <div class="container-fluid">
 
       <strong>
-        <p class='navbar-text'> ~/{{title}} </p>
+        <p class="navbar-text"> ~/{{title}} </p>
       </strong>
 
       <!--
         {{#if rename}}
-        <form class='navbar-form pull-left rename'>
-        <input id='filetitle' class='form-control' type='text' name='title' value='{{title}}'>
+        <form class="navbar-form pull-left rename">
+        <input id="filetitle" class="form-control" type="text" name="title" value="{{title}}">
         </form>
         {{else}}
         <strong>
-        <p class='navbar-text'> ~/{{title}} </p>
+        <p class="navbar-text"> ~/{{title}} </p>
         </strong>
         {{/if}}
 
-        <form class='navbar-form pull-right'>
-        <button class='edit btn btn-small'>rename</button>
-        <button class='del btn btn-small'>delete</button>
+        <form class="navbar-form pull-right">
+        <button class="edit btn btn-small">rename</button>
+        <button class="del btn btn-small">delete</button>
         </form>
       -->
 
-      <form class='navbar-form pull-right'>
-        <a class='button' href='/test'>
-          <button class='grn btn btn-default btn-small'>test</button>
+      <form class="navbar-form pull-right">
+        <a class="button" href="/test">
+          <button class="grn btn btn-default btn-small">test</button>
         </a>
-        <a class='button' href='/git'>
-          <button class='grn btn btn-default save btn-small'>save</button>
+        <a class="button" href="/git">
+          <button class="grn btn btn-default save btn-small">save</button>
         </a>
       </form>
 
@@ -87,11 +85,11 @@
   </div>
 </template>
 
-<template name='renderImage'>
-  <div class='panel panel-default nomargin-image'>
-    <div class='panel-body'>
-      <a target='_blank' href='{{ html }}'>
-        <img class='wide' src='{{ raw }}'/>
+<template name="renderImage">
+  <div class="panel panel-default nomargin-image">
+    <div class="panel-body">
+      <a target="_blank" href="{{ html }}">
+        <img class="wide" src="{{ raw }}"/>
       </a>
     </div>
   </div>
