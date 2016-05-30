@@ -1,4 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+# export github password
 export "GH_PASSWORD=$(cat $1/GH_PASSWORD)"
-echo $GH_PASSWORD
+echo "GH PASSWORD EXPORTED"
+
+# decrypt auth keys
+cd private
+make decrypt
+cd ..
