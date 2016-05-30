@@ -36,6 +36,14 @@ Meteor.methods({
     }
   },
 
+  renameFile: function(fileid, name) { // rename a file with id and name
+    Files.update(
+      fileid,
+      {$set: {
+        title: name
+      }});
+  },
+
   deleteFile: function(id) { // with id, delete a file from system
     ShareJS.model.delete(id);
     Files.remove(id);

@@ -27,11 +27,11 @@ ga("send", "pageview");
   {{> topnav }}
 
   {{#if currentUser }}
-  <div class="mainbody full-height">
-    {{> sidebar}}
 
-    <div class="main-content"> {{> yield}} </div>
+  <div class="mainbody full-height">
+    {{> sidebar}} <div class="main-content"> {{> yield}} </div>
   </div>
+
   {{else}}
   {{> login}}
   {{/if}}

@@ -3,6 +3,21 @@
 <template name="filelist">
   <div class="sidepanel panel panel-default">
     <div class="panel-heading">
+      <h3 class="panel-title">repo </h3>
+    </div>
+
+    <div class="panel-body">
+      <ul class="nav nav-pills nav-stacked sidelist">
+        <li class="file">
+          <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}"
+            target="_blank">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sidepanel panel panel-default">
+    <div class="panel-heading">
       <h3 class="panel-title">files
         <button class="btn btn-xs grn btn-default pull-right new">new</button>
       </h3>

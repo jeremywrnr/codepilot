@@ -2,7 +2,7 @@ TODOS
 =====
 
 generating visualizations of the javascript AST??? or something similar to
-python tutor in some way.
+python tutor in some way. (use python tutor as api with embeds)
 
 better notification of who is working on project, what file is open in their
 buffer and what branch they are on.
