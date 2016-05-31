@@ -35,6 +35,9 @@ Template.message.onRendered(function () {
     $("#feed").stop().animate({ scrollTop: feed.scrollHeight }, 500);
     Session.set("feedCount", newFeedCount);
   }
+
+  // auto enable bootstrap tooltips
+  $('[data-toggle="tooltip"]').tooltip()
 });
 
 Template.message.helpers({
