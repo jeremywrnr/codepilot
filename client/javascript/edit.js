@@ -114,17 +114,3 @@ Template.filename.events({
   }
 });
 
-
-Template.renderImage.helpers({
-  html: function() { // return link to file on github
-    var file = Files.findOne(Session.get("document"));
-    if (file)
-      return file.html;
-  },
-
-  raw: function() { // return link to github image
-    var file = Files.findOne(Session.get("document"));
-    if (file)
-      return file.raw;
-  },
-});

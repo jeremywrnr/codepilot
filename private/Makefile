@@ -18,4 +18,4 @@ encrypt:
 clean:
 	rm -fv *.json
 
-.PHONY: prompt decrypt encrypt clean
+.PHONY: decrypt encrypt clean
