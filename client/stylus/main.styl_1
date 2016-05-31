@@ -1,11 +1,11 @@
 // variable defs
 
-lightgreen = rgb(223, 240, 216)
-lightred = rgb(242, 222, 222)
 lightborder = #ddd
 lightgray = #f5f5f5
 lightblue = #d9edf7
 darkblue = #337AB7
+darkgreen =  rgb(223, 240, 216)
+darkred = 
 
 // stylus mixins
 
@@ -104,12 +104,11 @@ h5
 .list-group
     margin-bottom 0
 
-// button styling
-
 a.btn
     background buttonface
     color rgb(85, 85, 85)
     text-decoration none
+
 .btn:hover
     color white
 .grn:hover
@@ -119,25 +118,26 @@ a.btn
 .del:hover
     background-color red
 
-// id based styles
+#active-file
+#active-issue
+#active-commit
+li.file:hover a
+button.list-group-item:hover
+    background-color #d9edf7
+    color rgb(49, 112, 143)
 
 #mainhead // colors: txt, bg, border
     heading-style(white, darkblue, white)
+
 #editor-container // todo: make this dynamic
     height 800px
+
 #editor
     position absolute
     top 48px
     bottom 0
     right 0
     left 0
-#active-file
-#active-issue
-#active-commit
-li.file:hover a
-button.list-group-item:hover
-    background-color lightblue
-    color darkblue
 
 // line numbering the diffs
 
@@ -149,7 +149,7 @@ pre.diff
 pre.ins
     background darkgreen
 pre.del
-    background darkred
+    background rgb(242, 222, 222)
 span.lineno
     font-weight lighter
     font-style italic
