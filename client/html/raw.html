@@ -32,6 +32,9 @@
       background: #F5F5F5;
       border-width: 4px 0px 4px 0px;
       }
+    #logbody .logerr {
+      color: red;
+    }
     </style>
     <link rel="stylesheet" href="/css/feedback.min.css"/>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -57,6 +60,14 @@
 
     // overwrite console.log for iframe to append to output div
     console.log = function (msg) {
+    var logerr = "<p class=\"logerr\">";
+    var timestamp = logerr+"["+new Date().toLocaleTimeString()+"] </p>";
+    if (typeof msg === "object") $("#log")[0].innerHTML +=
+    timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
+    else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
+
+    // overwrite console.log for iframe to append to output div
+    console.error = function (msg) {
     var timestamp = "["+new Date().toLocaleTimeString()+"] ";
     if (typeof msg === "object") $("#log")[0].innerHTML +=
     timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";

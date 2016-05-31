@@ -24,9 +24,12 @@
 
 <template name="testweb">
   <div id="mainhead">
-    <p class="navbar-text"> renderer </p>
+    <p class="navbar-text"> render </p>
     <form class="navbar-form pull-right">
-      <button class="grn btn btn-default btn-small">reload</button>
+      <a href="/renderer"><button class="grn btn btn-default btn-small">code</button></a>
+      <a href="/save"><button class="grn btn btn-default btn-small">save</button></a>
+      <button class="edit btn btn-default btn-small">target</button>
+      <button class="del btn btn-default btn-small">reload</button>
     </form>
   </div>
 
@@ -40,25 +43,22 @@
 <!-- github issue integration -->
 
 <template name="issues">
-  <div class="panel">
-    <div class="panel-heading">
-      <h3 class="panel-title"> issues ({{issueCount}})
-        <button class="btn btn-xs grn btn-default pull-right reload"> reload </button>
-      </h3>
-    </div>
-
-    <div class="panel-body">
-      <ul class="list-group nomargin">
-        {{#if issueCount}}
-        {{#each issues }}
-        {{> issue }}
-        {{/each}}
-        {{else}}
-        <button class="list-group-item issue"> no issues yet. </button>
-        {{/if}}
-      </ul>
-    </div>
+  <div class="header">
+    <p class="navbar-text"> issues ({{issueCount}}) </p>
+    <form class="navbar-form pull-right">
+      <button class="grn btn btn-default pull-right reload"> reload </button>
+    </form>
   </div>
+
+  <ul class="list-group nomargin">
+    {{#if issueCount}}
+    {{#each issues }}
+    {{> issue }}
+    {{/each}}
+    {{else}}
+    <button class="list-group-item issue"> no issues yet. </button>
+    {{/if}}
+  </ul>
 </template>
 
 <template name="issue">

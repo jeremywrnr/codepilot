@@ -1,34 +1,20 @@
 <!--display a list of files -->
 
 <template name="filelist">
-  <div class="sidepanel panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title"> repo </h3>
-    </div>
+  <div class="header">
+    <p class="navbar-text"> repo </p> </div>
+  <ul class="nav nav-pills nav-stacked sidelist">
+    <li class="file">
+      <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}" target="_blank">
+        {{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a> </li> </ul>
 
-    <div class="panel-body">
-      <ul class="nav nav-pills nav-stacked sidelist">
-        <li class="file">
-          <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}"
-            target="_blank">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="sidepanel panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">files
-        <button class="btn btn-xs grn btn-default pull-right new">new</button>
-      </h3>
-    </div>
-
-    <div class="panel-body">
-      <ul class="nav nav-pills nav-stacked sidelist">
-        {{> userfiles}}
-      </ul>
-    </div>
-  </div>
+  <div class="sidepanel">
+    <div class="header">
+      <p class="navbar-text"> files </p>
+      <form class="navbar-form pull-right">
+        <button class="grn btn btn-default btn-small new"> new </button> </form> </div>
+    <ul class="nav nav-pills nav-stacked sidelist">
+      {{> userfiles}} </ul> </div>
 </template>
 
 <template name="userfiles">

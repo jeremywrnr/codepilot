@@ -1,47 +1,62 @@
 // stylus mixins
 
 border-radius()
-  -webkit-border-radius arguments
-  -moz-border-radius arguments
-  border-radius arguments
+    -webkit-border-radius arguments
+    -moz-border-radius arguments
+    border-radius arguments
+
+w-content(w)
+    max-width w
+    top 50px
+    width w
+
+v-center(n)
+    vertical-align middle
+    margin-bottom 0px
+    margin-top n
+
+heading-style(txt, bg, border)
+    border-width 1px 0px 0px 0px
+    background-color bg
+    border-color border
+    border-style solid
+    font-size 16px
+    height 48px
+    color txt
 
 // main stylus
 
 html
     font-family Verdana, sans-serif
     padding 10px
-
-html, body, .full-height
-    height 100%
+html, body
     line-height normal
-
+    height 100%
 h5
     text-decoration underline
 
-//.mainbody
+// main body
 
 .main-content
-    top 50px
-    left 30vw
-    width 70vw
-    max-width 70vw
+    padding-bottom 5em
     position absolute
-
+    w-content(70vw)
+    left 30vw
+.header // colors: txt, bg, border
+    heading-style(black, #f5f5f5, #ddd)
 .sidebar
-    top 50px
-    left 0px
-    width 30vw
-    max-width 30vw
+    border-right thin dotted #222
     max-height 100%
     position fixed
-    border-right thin dotted #222
+    w-content(30vw)
+    left 0px
 
-.header
-    background-color #337AB7
-    color white
-    height 48px
-.header p
-    font-size 16px
+.navbar-nav
+    font-size 18px
+.navbar-text
+    v-center(14px)
+.navbar-form
+    v-center(6px)
 
 .panel
 .panel-heading
@@ -50,41 +65,32 @@ h5
     margin-bottom 0px
     margin-top 0px
 
+.full-height
+    height 100%
+
 .sidelist
     max-height 30vh
     overflow-y scroll
     overflow-x hidden
-
 .nav.sidelist > li.msg
-.nav.sidelist > li.file > a
     padding 5px
 
 .center
     display block
     margin auto
-
 .round
     border-radius(4px)
-
 .hidden
     visibility hidden
-
-.white
-    background white
-
 .wide
     max-width 500px
     width 100%
-
 .wider
     width 100%
-
 .nomargin
     margin 0px
-
 .nomargin-image
     margin-top -20px
-
 .alert
 .list-group
     margin-bottom 0
@@ -96,32 +102,26 @@ a.btn
 
 .btn:hover
     color white
-
 .grn:hover
     background-color green
-
 .edit:hover
     background-color orange
-
 .del:hover
     background-color red
 
 #active-file
-#active-commit
 #active-issue
+#active-commit
+li.file:hover a
 button.list-group-item:hover
     background-color #d9edf7
     color rgb(49, 112, 143)
 
-#mainhead
-    background-color #337AB7
-    color white
-    height 48px
-#mainhead p
-    font-size 16px
+#mainhead // colors: txt, bg, border
+    heading-style(white, #337AB7, white)
 
-#editor-container
-    height 800px // todo: make this dynamic
+#editor-container // todo: make this dynamic
+    height 800px
 
 #editor
     position absolute
@@ -129,9 +129,6 @@ button.list-group-item:hover
     bottom 0
     right 0
     left 0
-
-#setup
-    margin-top -3px
 
 // line numbering the diffs
 
