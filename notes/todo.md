@@ -6,10 +6,6 @@ python tutor in some way. (use python tutor as api with embeds)
 
 better notification of who is working on project, what file is open in their
 buffer and what branch they are on.
-
-actually rendering an issues code?
-    if not found, let user know of this
-    render the default view
 check if issue has feedback field (generated from GitSync), then display live
 link, will also need to update the rawjs source location for that.
 filter sharejs loading to type == file

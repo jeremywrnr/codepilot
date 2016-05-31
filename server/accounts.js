@@ -22,11 +22,11 @@ Accounts.onCreateUser(function(options, user){
     user.profile.name = user.profile.login;
 
   // set default target repo
-  user.profile.repoOwner = profile.login
   user.profile.repoBranch = 'master'
-  user.profile.repoName = 'select a repo from the menu below!'
-  user.profile.repo = 'choose a repo to get a project id!'
+  user.profile.repoName = 'Click here to select your repo!'
+  user.profile.repoOwner = ''
   user.profile.role = 'pilot'
+  user.profile.repo = ''
   return user;
 
 });

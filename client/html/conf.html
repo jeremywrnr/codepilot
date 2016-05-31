@@ -1,55 +1,49 @@
 <!--allow user to configure things-->
 
 <template name='config'>
-  <div class='panel panel-primary'>
-    <div class='panel-heading'> <h2 class='panel-title'> setup </h2> </div>
-    <div class='panel-body'>
+  <div id="mainhead">
+    <p class="navbar-text"> setup </p>
+  </div>
 
-      <div class='list-group nomargin'>
-        {{#if repoSelecting}}
-        <button class='list-group-item unfocus'>
-          <button class='btn btn-xs del pull-right unfocus'> cancel </button>
-          repo:
-          <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
-            target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
-        </button>
+  <div class='list-group'>
+    {{#if repoSelecting}}
 
-        {{> forkRepo }}
-        {{#each repos}}
-        {{> repo}}
-        {{/each}}
-        {{else}}
-        <button class='list-group-item repoSelect'>
-          <button class='btn btn-xs grn pull-right repoSelect'> choose </button>
-          repo:
-          <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}'
-            target='_blank'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
-        </button>
-        {{/if}}
+    <button class='list-group-item unfocus'>
+      <button class='btn btn-xs del pull-right unfocus'> cancel </button>
+      repo: <a href='#'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+    </button>
+    {{> forkRepo }}
+    {{#each repos}}
+    {{> repo}}
+    {{/each}}
 
-        {{#if branchSelecting}}
-        <button class='list-group-item unfocus'>
-          <button class='btn btn-xs del pull-right unfocus'> cancel </button>
-          branch:
-          <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
-            target='_blank'>{{ currentUser.profile.repoBranch }}</a>
-        </button>
+    {{else}}
+    <button class='list-group-item repoSelect'>
+      <button class='btn btn-xs grn pull-right repoSelect'> choose </button>
+      repo: <a href='#'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+    </button>
+    {{/if}}
 
-        {{> newBranch }}
-        {{#each branches}}
-        {{> branch}}
-        {{/each}}
-        {{else}}
-        <button class='list-group-item branchSelect'>
-          <button class='btn btn-xs grn pull-right branchSelect'> choose </button>
-          branch:
-          <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
-            target='_blank'>{{ currentUser.profile.repoBranch }}</a>
-        </button>
-        {{/if}}
-      </div>
+    {{#if branchSelecting}}
+    <button class='list-group-item unfocus'>
+      <button class='btn btn-xs del pull-right unfocus'> cancel </button>
+      branch:
+      <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
+       target='_blank'>{{ currentUser.profile.repoBranch }}</a>
+    </button>
 
-    </div>
+    {{> newBranch }}
+    {{#each branches}}
+    {{> branch}}
+    {{/each}}
+    {{else}}
+    <button class='list-group-item branchSelect'>
+      <button class='btn btn-xs grn pull-right branchSelect'> choose </button>
+      branch:
+      <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
+       target='_blank'>{{ currentUser.profile.repoBranch }}</a>
+    </button>
+    {{/if}}
   </div>
 
   <div class='panel panel-default'>
@@ -126,7 +120,7 @@
       <div class='input-group'>
         <form class='forker'>
           <input placeholder='enter a repo to fork (eg: jeremywrnr/GitSync) ...'
-          id='repoForker' class='form-control' type='text' name='title' value=''>
+       id='repoForker' class='form-control' type='text' name='title' value=''>
         </form>
         <span class='input-group-btn'>
           <button type='button' class='btn btn-default del cancelFork'>cancel</button>
@@ -152,7 +146,7 @@
       <div class='input-group'>
         <form class='brancher'>
           <input placeholder='enter the new branch name...' id='branchNamer'
-          class='form-control' type='text' name='title' value=''>
+       class='form-control' type='text' name='title' value=''>
         </form>
         <span class='input-group-btn'>
           <button type='button' class='btn btn-default del cancelBranch'>cancel</button>

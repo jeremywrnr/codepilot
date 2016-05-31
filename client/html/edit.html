@@ -9,42 +9,36 @@
 </template>
 
 <template name="editor">
-    {{#with docid}}
-    {{> filename this}}
+  {{#with docid}}
+  {{> filename this}}
 
-    {{#if isImage }}
-    {{> renderImage this}}
+  {{#if isImage }}
+  {{> renderImage this}}
 
-    {{else}}
-    <div id="editor-container">
+  {{else}}
+  <div id="editor-container">
     {{> sharejsAce docid=this onRender=config onConnect=setMode id="editor"}}
-    </div>
+  </div>
 
-    {{/if}}
-    {{/with}}
+  {{/if}}
+  {{/with}}
 </template>
 
 <template name="loadprompt">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title">editor</h3>
-    </div>
-    <div class="panel-body">
-      <div class="alert alert-success alert-dismissable" role="alert">
-        First time here? <a class="alert-link" href="config"> [click here to set up your account]</a>
-      </div>
-      <div class="alert alert-info" role="alert">
-        Let's get started - click a file to start editing code!
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <ul class="nav nav-pills nav-stacked">
-            {{> userfiles}} <!--found in file.html-->
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div id="mainhead">
+    <p class="navbar-text"> editor </p>
   </div>
+
+  <div class="alert alert-success alert-dismissable" role="alert">
+    First time here? <a class="alert-link" href="config"> [click here to set up your account]</a>
+  </div>
+  <div class="alert alert-info" role="alert">
+    Let's get started - click a file to start editing code!
+  </div>
+
+  <ul class="nav nav-pills nav-stacked">
+    {{> userfiles}} <!--found in file.html-->
+  </ul>
 </template>
 
 <template name="filename">
