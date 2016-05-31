@@ -17,8 +17,7 @@
 
   {{else}}
   <div id="editor-container">
-    {{> sharejsAce docid=this onRender=config onConnect=setMode id="editor"}}
-  </div>
+    {{> sharejsAce docid=this onRender=config onConnect=setMode id="editor"}} </div>
 
   {{/if}}
   {{/with}}
@@ -26,37 +25,33 @@
 
 <template name="loadprompt">
   <div id="mainhead">
-    <p class="navbar-text"> editor </p>
-  </div>
+    <p class="navbar-text"> editor </p> </div>
 
   <div class="alert alert-success alert-dismissable" role="alert">
-    First time here? <a class="alert-link" href="config"> [click here to set up your account]</a>
-  </div>
+    First time here? <a class="alert-link" href="/config"> [click here to set up your account] </a> </div>
   <div class="alert alert-info" role="alert">
-    Let's get started - click a file to start editing code!
-  </div>
+    Let's get started - click a file to start editing code! </div>
 
   <ul class="nav nav-pills nav-stacked">
-    {{> userfiles}} <!--found in file.html-->
-  </ul>
+    {{> userfiles}} </ul> <!-- file.html-->
 </template>
 
 <template name="filename">
   <div id="mainhead">
     {{#if rename}}
     <form class="navbar-form pull-left rename">
-      <input id="filetitle" class="form-control" type="text" name="title" value="{{title}}">
-    </form>
+      <input id="filetitle" class="form-control" type="text" name="title" value="{{title}}"> </form>
+    <form class="navbar-form pull-right">
+      <button class="grn btn btn-default btn-small">cancel</button> </form>
     {{else}}
-    <p class="navbar-text"> ~/{{title}} </p>
-    {{/if}}
 
+    <p class="navbar-text"> ~/{{title}} </p>
     <form class="navbar-form pull-right">
       <a href="/test"><button class="grn btn btn-default btn-small">test</button></a>
       <a href="/save"><button class="grn btn btn-default btn-small">save</button></a>
       <button class="edit btn btn-default btn-small">rename</button>
-      <button class="del btn btn-default btn-small">delete</button>
-    </form>
+      <button class="del btn btn-default btn-small">delete</button> </form>
+    {{/if}}
   </div>
 </template>
 

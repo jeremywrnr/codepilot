@@ -34,16 +34,13 @@ Template.editor.helpers({
 
   config: function() { // set default theme and autocomplete
     return function(editor) {
-      editor.$blockScrolling = Infinity;
       editor.setTheme("ace/theme/monokai");
       editor.setShowPrintMargin(false);
       editor.getSession().setUseWrapMode(true);
       var beautify = ace.require("ace/ext/beautify");
       editor.commands.addCommands(beautify.commands);
-      editor.setOptions({
+      editor.setOptions({ // more editor completion
         enableBasicAutocompletion: true,
-
-        // more advanced editor completion
         enableLiveAutocompletion: true,
         enableSnippets: true
       });
@@ -51,6 +48,8 @@ Template.editor.helpers({
   },
 
   setMode: function() { // different style on filetype
+    //var editor = $("#editor").data('ace').editor;
+    //editor.$blockScrolling = Infinity;
     return function(editor) {
       var file = Files.findOne(Session.get("document"));
       var modelist = ace.require("ace/ext/modelist");

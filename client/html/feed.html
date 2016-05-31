@@ -1,15 +1,9 @@
 <!--chat with other users-->
 
 <template name="chat">
-  <div class="sidepanel panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">feed </h3>
-    </div>
-    <div class="panel-body">
-      {{> messages }}
-      {{> chatter }}
-    </div>
-  </div>
+  <div class="header"> <p class="navbar-text"> feed </p> </div>
+  {{> messages }}
+  {{> chatter }}
 </template>
 
 <template name="chatter">
@@ -30,9 +24,8 @@
 
 <template name="message">
   <li class="msg">
-    <p class="nomargin" data-toggle="tooltip" title="{{timestamp}} - {{datestamp}}">
-    <strong>{{name}}</strong> {{{linked}}}
-    </p>
+    <p class="nomargin">
+    <strong data-toggle="tooltip" data-placement="right" title="{{timestamp}} - {{datestamp}}">{{name}}</strong> {{{linked}}} </p>
   </li>
 </template>
 
