@@ -1,11 +1,9 @@
-{
-    "ignore":
-        [
-        "app/public/**.js",
-        "packages/git-sync/difflib.js",
-        ],
-    "test":
-        [
-        "app/tests/**.js",
-        ]
-}
+"ignore":
+[
+    "public/**.js",
+    "packages/git-sync/difflib.js",
+]
+"test":
+[
+    "packages/git-sync/git-sync-tests.js",
+]

@@ -8,7 +8,7 @@
   <div class="list-group" id="setup">
     {{#if repoSelecting}}
     <button class="list-group-item unfocus">
-      <button class="btn btn-xs pull-right"> cancel </button>
+      <button class="label label-danger btn btn-xs pull-right"> cancel </button>
       repo: <a href="#">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
     </button>
     {{> forkRepo }}
@@ -18,14 +18,14 @@
 
     {{else}}
     <button class="list-group-item repoSelect">
-      <button class="btn btn-xs pull-right"> choose </button>
+      <button class="label label-success btn btn-xs pull-right"> choose </button>
       repo: <a href="#">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
     </button>
     {{/if}}
 
     {{#if branchSelecting}}
     <button class="list-group-item unfocus">
-      <button class="btn btn-xs pull-right"> cancel </button>
+      <button class="label label-danger btn btn-xs pull-right"> cancel </button>
       branch: <a href="#">{{ currentUser.profile.repoBranch }}</a>
     </button>
     {{> newBranch }}
@@ -35,7 +35,7 @@
 
     {{else}}
     <button class="list-group-item branchSelect">
-      <button class="btn btn-xs pull-right"> choose </button>
+      <button class="label label-success btn btn-xs pull-right"> choose </button>
       branch: <a href="#">{{ currentUser.profile.repoBranch }}</a>
     </button>
     {{/if}}
@@ -115,7 +115,7 @@
     <div class="alert alert-success nomargin">
       <div class="input-group">
         <form class="forker">
-          <input placeholder="enter a repo to fork (eg: jeremywrnr/GitSync) ..."
+          <input placeholder="enter a repo to fork (eg: jeremywrnr/git-sync) ..."
                  id="repoForker" class="form-control" type="text" name="title" value="">
         </form>
         <span class="input-group-btn">
@@ -188,8 +188,6 @@
   <div class="panel panel-default">
     <div class="panel-heading"> <h2 class="panel-title"> about </h2> </div>
     <div class="panel-body">
-
-      <h5> about </h5>
 
       {{> about }} <!--from welcome.html-->
 

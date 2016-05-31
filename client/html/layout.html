@@ -6,26 +6,22 @@
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,"script","https://www.google-analytics.com/analytics.js","ga");
-
 ga("create", "UA-58096309-2", "auto");
 ga("send", "pageview");
-
   </script>
 </head>
 
-
-<body>
-  <!-- library to make editor spiffy -->
+<body><!-- library to make editor spiffy -->
   <script src="/packages/mizzao_sharejs-ace/ace-builds/src/ext-modelist.js"></script>
   <script src="/packages/mizzao_sharejs-ace/ace-builds/src/ext-beautify.js"></script>
   <script src="/packages/mizzao_sharejs-ace/ace-builds/src/ext-language_tools.js"></script>
 </body>
 
 
+<!--top navbar-->
 
 <template name="main">
   {{> topnav }}
-
   {{#if currentUser }}
 
   <div class="mainbody full-height">
@@ -49,10 +45,6 @@ ga("send", "pageview");
 <template name="null">
   {{> yield }}
 </template>
-
-
-
-<!--top navbar-->
 
 <template name="topnav">
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -81,8 +73,7 @@ ga("send", "pageview");
 
 <template name="userLoggedin">
   <li class="navitem text-center">
-    <a href="/config"> {{ currentUser.profile.login }}
-      | {{ currentUser.profile.role }} </a>
+    <a href="/config"> {{ currentUser.profile.login }} | {{ currentUser.profile.role }} </a>
   </li>
   <li class="del logout text-center">
     <a href="#"> logout </a>
@@ -91,9 +82,7 @@ ga("send", "pageview");
 
 <template name="userLoggedout">
   <li class="grn login text-center">
-    <a href="#">
-      login with <img style="height: 20px;" alt="GitHub" src="img/github.gif">
-    </a>
+    <a href="#"> login with <img style="height: 20px;" alt="GitHub" src="img/github.gif"> </a>
   </li>
 </template>
 
@@ -101,26 +90,22 @@ ga("send", "pageview");
 
 <!-- navigation icons from http://glyphicons.com/ -->
 
-<template name="navigation"> <!-- adding the active class would be good -->
+<template name="navigation">
   {{#if currentUser }}
   <ul class="nav navbar-nav">
+
+    {{#each navItems}}
     <li class="navitem text-center grn">
-      <a href="/">
-        <span class="glyphicon glyphicon-pencil"></span> edit </a>
+      <a href="{{ iconpath }}">
+        <span class="glyphicon glyphicon-{{ iconname }}"></span> {{ name }} </a>
     </li>
+    {{/each}}
 
-    <li class="navitem grn text-center">
-      <a href="/test">
-        <span class="glyphicon glyphicon-play"></span> test </a>
-    </li>
-
-    <li class="navitem grn text-center">
-      <a href="/git">
-        <span class="glyphicon glyphicon-list-alt"></span> save </a>
-    </li>
   </ul>
   {{else}}
+
   <a class="navbar-brand" href="#"> Git Sync </a>
+
   {{/if}}
 </template>
 

@@ -44,10 +44,9 @@ Template.registerHelper("isPilot", function() { // check if currentUser is pilot
 Template.navigation.helpers({ // uses glyphicons in template
   navItems: function(){
     return [
-      { iconpath:"/test", iconname:"play", name:"test"  },
-      { iconpath:"/git", iconname:"list-alt", name:"git"  },
-    ];
-  }
+      { iconpath:"/code", iconname:"pencil",   name:"code" },
+      { iconpath:"/test", iconname:"play",     name:"test" },
+      { iconpath:"/save", iconname:"list-alt", name:"save" } ] }
 });
 
 // bring renderer to the top of the page
@@ -63,9 +62,9 @@ Template.userLoggedout.events({
       requestPermissions: ["user", "public_repo"],
       loginStyle: "redirect",
     }, function(err) {
-      if (err)
-        Session.set("errorMessage", err.reason);
-    });
+        if (err)
+          Session.set("errorMessage", err.reason);
+      });
   }
 });
 
@@ -77,3 +76,4 @@ Template.userLoggedin.events({
     });
   }
 });
+

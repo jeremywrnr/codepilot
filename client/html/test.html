@@ -10,8 +10,8 @@
   <div id="mainhead">
     <p class="navbar-text"> visualize </p>
     <form class="navbar-form pull-right">
-      <a href="/"><button class="grn btn btn-default btn-small">code</button></a>
-      <a href="/git"><button class="grn btn btn-default btn-small">save</button></a>
+      <a href="/code"><button class="grn btn btn-default btn-small">code</button></a>
+      <a href="/save"><button class="grn btn btn-default btn-small">save</button></a>
       <button class="edit btn btn-default btn-small">target</button>
       <button class="del btn btn-default btn-small">reload</button>
     </form>
@@ -36,15 +36,17 @@
 </template>
 
 
+
 <!-- github issue integration -->
 
 <template name="issues">
   <div class="panel">
     <div class="panel-heading">
       <h3 class="panel-title"> issues ({{issueCount}})
-        <button class="btn btn-xs grn btn-default pull-right reload">reload</button>
+        <button class="btn btn-xs grn btn-default pull-right reload"> reload </button>
       </h3>
     </div>
+
     <div class="panel-body">
       <ul class="list-group nomargin">
         {{#if issueCount}}
@@ -60,7 +62,6 @@
 </template>
 
 <template name="issue">
-
   <button class="list-group-item issue" id="{{#if current }}active-issue{{/if}}">
     {{ issue.title }}
     {{#each labels }}
