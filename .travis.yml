@@ -10,7 +10,7 @@ before_install:
 - meteor --version
 - npm install -g coffee-script
 - npm install -g spacejam
-- cd private && yes $GH_PASSWORD | make decrypt
+- cd private && make decrypt
+- cd ../packages/git-sync
 
-script: cd ../packages/git-sync && spacejam test-packages ./
-
+script: spacejam test-packages ./
