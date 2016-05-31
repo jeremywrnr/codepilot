@@ -1,16 +1,15 @@
 <!--allow user to configure things-->
 
-<template name='config'>
+<template name="config">
   <div id="mainhead">
     <p class="navbar-text"> setup </p>
   </div>
 
-  <div class='list-group'>
+  <div class="list-group" id="setup">
     {{#if repoSelecting}}
-
-    <button class='list-group-item unfocus'>
-      <button class='btn btn-xs del pull-right unfocus'> cancel </button>
-      repo: <a href='#'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+    <button class="list-group-item unfocus">
+      <button class="btn btn-xs pull-right"> cancel </button>
+      repo: <a href="#">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
     </button>
     {{> forkRepo }}
     {{#each repos}}
@@ -18,50 +17,47 @@
     {{/each}}
 
     {{else}}
-    <button class='list-group-item repoSelect'>
-      <button class='btn btn-xs grn pull-right repoSelect'> choose </button>
-      repo: <a href='#'>{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+    <button class="list-group-item repoSelect">
+      <button class="btn btn-xs pull-right"> choose </button>
+      repo: <a href="#">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
     </button>
     {{/if}}
 
     {{#if branchSelecting}}
-    <button class='list-group-item unfocus'>
-      <button class='btn btn-xs del pull-right unfocus'> cancel </button>
-      branch:
-      <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
-       target='_blank'>{{ currentUser.profile.repoBranch }}</a>
+    <button class="list-group-item unfocus">
+      <button class="btn btn-xs pull-right"> cancel </button>
+      branch: <a href="#">{{ currentUser.profile.repoBranch }}</a>
     </button>
-
     {{> newBranch }}
     {{#each branches}}
     {{> branch}}
     {{/each}}
+
     {{else}}
-    <button class='list-group-item branchSelect'>
-      <button class='btn btn-xs grn pull-right branchSelect'> choose </button>
-      branch:
-      <a href='https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}'
-       target='_blank'>{{ currentUser.profile.repoBranch }}</a>
+    <button class="list-group-item branchSelect">
+      <button class="btn btn-xs pull-right"> choose </button>
+      branch: <a href="#">{{ currentUser.profile.repoBranch }}</a>
     </button>
     {{/if}}
   </div>
 
-  <div class='panel panel-default'>
-    <div class='panel-heading'> <h2 class='panel-title'> account </h2> </div>
-    <div class='panel-body'>
 
-      <div class='panel panel-default'>
-        <div class='panel-body'>
-          <h4><img class='img-rounded' style='height: 75px;' src='{{currentUser.profile.avatar_url}}'>
+  <div class="panel panel-default">
+    <div class="panel-heading"> <h2 class="panel-title"> account </h2> </div>
+    <div class="panel-body">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h4><img class="img-rounded" style="height: 75px;" src="{{currentUser.profile.avatar_url}}">
             {{currentUser.profile.name}}</h4>
         </div>
-        <ul class='list-group nomargin'>
+        <ul class="list-group nomargin">
 
-          <li class='list-group-item'>
+          <li class="list-group-item">
             {{#if userShowing}}
-            <button class='btn btn-xs del pull-right unfocus'> hide </button>
+            <button class="btn btn-xs del pull-right unfocus"> hide </button>
             {{else}}
-            <button class='btn btn-xs grn pull-right showUsers'> users</button>
+            <button class="btn btn-xs grn pull-right showUsers"> users</button>
             {{/if}}
             project id: {{ currentUser.profile.repo }}
           </li>
@@ -72,17 +68,17 @@
           {{/each}}
           {{/if}}
 
-          <li class='list-group-item'>
-            <button class='loadGHData grn btn btn-xs pull-right'>refresh</button>
+          <li class="list-group-item">
+            <button class="loadGHData grn btn btn-xs pull-right">refresh</button>
             github:
-            <a href='{{currentUser.profile.html_url}}' target='_blank'>
+            <a href="{{currentUser.profile.html_url}}" target="_blank">
               {{ currentUser.profile.login }}</a>
           </li>
 
-          <li class='list-group-item'>
-            <div class='btn-group pull-right'>
-              <button class='makePilot btn-xs grn btn'>pilot</button>
-              <button class='makeCopilot btn-xs grn btn'>co-pilot</button>
+          <li class="list-group-item">
+            <div class="btn-group pull-right">
+              <button class="makePilot btn-xs grn btn">pilot</button>
+              <button class="makeCopilot btn-xs grn btn">co-pilot</button>
             </div>
             role: {{currentUser.profile.role}}
           </li>
@@ -112,18 +108,18 @@
 
 
 
-<template name='forkRepo'>
+<template name="forkRepo">
   {{#if forking}}
 
-  <button class='list-group-item'>
-    <div class='alert alert-success nomargin'>
-      <div class='input-group'>
-        <form class='forker'>
-          <input placeholder='enter a repo to fork (eg: jeremywrnr/GitSync) ...'
-       id='repoForker' class='form-control' type='text' name='title' value=''>
+  <button class="list-group-item">
+    <div class="alert alert-success nomargin">
+      <div class="input-group">
+        <form class="forker">
+          <input placeholder="enter a repo to fork (eg: jeremywrnr/GitSync) ..."
+                 id="repoForker" class="form-control" type="text" name="title" value="">
         </form>
-        <span class='input-group-btn'>
-          <button type='button' class='btn btn-default del cancelFork'>cancel</button>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default del cancelFork">cancel</button>
         </span>
       </div>
     </div>
@@ -131,25 +127,25 @@
 
   {{else}}
 
-  <button class='list-group-item forkrepo'>
-    <div class='wider grn btn btn-lg forkrepo'> fork a repo from github </div>
+  <button class="list-group-item forkrepo">
+    <div class="wider grn btn btn-lg forkrepo"> fork a repo from github </div>
   </button>
 
   {{/if}}
 </template>
 
-<template name='newBranch'>
+<template name="newBranch">
   {{#if branching}}
 
-  <button class='list-group-item'>
-    <div class='alert alert-success nomargin'>
-      <div class='input-group'>
-        <form class='brancher'>
-          <input placeholder='enter the new branch name...' id='branchNamer'
-       class='form-control' type='text' name='title' value=''>
+  <button class="list-group-item">
+    <div class="alert alert-success nomargin">
+      <div class="input-group">
+        <form class="brancher">
+          <input placeholder="enter the new branch name..." id="branchNamer"
+                                                            class="form-control" type="text" name="title" value="">
         </form>
-        <span class='input-group-btn'>
-          <button type='button' class='btn btn-default del cancelBranch'>cancel</button>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default del cancelBranch">cancel</button>
         </span>
       </div>
     </div>
@@ -157,8 +153,8 @@
 
   {{else}}
 
-  <button class='list-group-item newBranch'>
-    <div class='wider grn btn btn-lg newBranch'> make new branch from {{ currentBranch }}</div>
+  <button class="list-group-item newBranch">
+    <div class="wider grn btn btn-lg newBranch"> make new branch from {{ currentBranch }}</div>
   </button>
 
   {{/if}}
@@ -166,32 +162,32 @@
 
 
 
-<template name='user'>
-  <button class='list-group-item repo'>
+<template name="user">
+  <button class="list-group-item repo">
     <!--<span class="label label-primary pull-right">user</span>-->
-    <button class='label label-primary btn btn-xs pull-right'> user </button>
+    <button class="label label-primary btn btn-xs pull-right"> user </button>
     {{ login }} | {{ role }} | {{ repoBranch }}
   </button>
 </template>
 
-<template name='repo'>
-  <button class='list-group-item repo'>
-    <button class='label label-primary btn btn-xs pull-right'> repo </button>
+<template name="repo">
+  <button class="list-group-item repo">
+    <button class="label label-primary btn btn-xs pull-right"> repo </button>
     {{ repo.full_name }} </button>
 </template>
 
-<template name='branch'>
-  <button class='list-group-item branch'>
-    <button class='label label-primary btn btn-xs pull-right'> branch </button>
+<template name="branch">
+  <button class="list-group-item branch">
+    <button class="label label-primary btn btn-xs pull-right"> branch </button>
     {{ name }} </button>
 </template>
 
 
 
-<template name='extras'>
-  <div class='panel panel-default'>
-    <div class='panel-heading'> <h2 class='panel-title'> extras </h2> </div>
-    <div class='panel-body'>
+<template name="extras">
+  <div class="panel panel-default">
+    <div class="panel-heading"> <h2 class="panel-title"> about </h2> </div>
+    <div class="panel-body">
 
       <h5> about </h5>
 
@@ -202,15 +198,14 @@
       I do not own the Octocat or any image similar to it. I use it to link
       back to the source of this project, which is hosted on GitHub - the
       creator and owner of the Octocat. This project is maintained by
-      <a href='https://github.com/jeremywrnr'>@jeremywrnr</a> - please get in
+      <a href="https://github.com/jeremywrnr">@jeremywrnr</a> - please get in
       touch with me if you have feedback on the tool, or if you find a bug feel
       free to open up an issue.
 
       <h5> debugging </h5>
 
-      <div class='alert alert-danger nomargin' role='alert'>
-        <button style='width:100%;' class='btn del resetfiles'>
-          reset current project to basic html/css/js website</button>
+      <div class="alert alert-danger resetfiles" role="alert">
+          reset current project to basic html/css/js website
       </div>
 
     </div>

@@ -1,4 +1,4 @@
-// iframe helper - load content from editor
+// iframe helper - load editor content
 
 var prof = GitSync.prof;
 var clean = GitSync.sanitizeStringQuotes;
@@ -59,32 +59,3 @@ Template.raw.helpers({
   },
 });
 
-
-// iframe helper - load content from an issue
-// TODO: load code from issue.feedback instead!
-
-Template.rawIssue.helpers({
-  getHead: function () { // parse head of html file
-    var full = findFile('html');
-    if (full)
-      return getTag(full, 'head');
-  },
-
-  getBody: function () { // parse body of file
-    var full = findFile('html');
-    if (full)
-      return getTag(full, 'body');
-  },
-
-  getCSS: function () {
-    var css = findFile('css');
-    if (css)
-      return css.content;
-  },
-
-  getJS: function () {
-    var js = findFile('js');
-    if (js)
-      return js.content;
-  },
-});
