@@ -3,7 +3,7 @@
 var domain = /^http.*\.(io|com|web|net|org|gov|edu)(\/.*)?/g
 
 GitSync = {
-  host: "http://www.git-sync.com/",
+  host: "https://www.git-sync.com/",
 
   any: function(ary, fn) {
     return ary.reduce(function(o, n){
