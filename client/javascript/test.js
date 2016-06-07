@@ -23,9 +23,16 @@ Template.testfile.events({
 
 Template.testviz.helpers({
 
+  file: function() {
+    return !Session.equals("testfile", null)
+  },
+
+  mode: function() {
+    return Session.get("testFile");
+  },
+
   lang: function() {
     var mode = GitSync.findFileMode(Session.get("testFile"))
-    console.log(GitSync.tutorMap[mode]);
     return GitSync.tutorMap[mode];
   },
 
@@ -60,6 +67,15 @@ Template.testviz.events({
       Session.set("focusPane", "target");
   },
 
+  'click .reload': function (e) {
+    e.preventDefault();
+    Session.set("testViz", !Session.get("testViz") );
+    setTimeout(function() {
+      Session.set("testViz", !Session.get("testViz") );
+    }, 100);
+    Meteor.call('getAllShareJS');
+  },
+
 });
 
 Template.testweb.helpers({
@@ -74,7 +90,13 @@ Template.testweb.events({
 
   "click .toggle": function(e) {
     e.preventDefault();
-    Session.set("testWeb",  !Session.get("testWeb") );
+    Session.set("testWeb", !Session.get("testWeb") );
+  },
+
+  'click .reload': function (e) {
+    e.preventDefault();
+    $("#testweb")[0].contentWindow.location.reload(true)
+    Meteor.call('getAllShareJS');
   },
 
 });

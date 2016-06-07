@@ -103,14 +103,14 @@ GitSync = {
     "ace/mode/typescript": "ts",
     "ace/mode/ruby": "ruby",
     "ace/mode/java": "java",
-    "ace/mode/python": "3",
-    "ace/mode/c_cpp": "c",
+    "ace/mode/c_cpp": "cpp",
+    "ace/mode/python": "2",
   },
 
   findFileMode: function(doc) {
     var modelist = ace.require("ace/ext/modelist");
     var file = Files.findOne(doc);
-    if (file)
+    if (file && modelist)
       return modelist.getModeForPath(file.title).mode;
   },
 
