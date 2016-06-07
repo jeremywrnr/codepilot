@@ -64,17 +64,17 @@ GitSync = {
 
   sanitizeStringQuotes: function(str) { // try to avoid breaking srcdoc
     return (str
-            .replace(/'/g, '"')
-            .replace(/"/g, '\\"')
-            .replace(/\n/g, '\\n')
-           );
+      .replace(/'/g, '"')
+      .replace(/"/g, '\\"')
+      .replace(/\n/g, '\\n')
+    );
   },
 
   sanitizeDiffs: function(str) { // make lts / gts into actual spacing
     return (str
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-           );
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+    );
   },
 
   labelLineNumbers: function(text) { // label a chunk of text with line numbers
@@ -97,5 +97,22 @@ GitSync = {
         return s
     }).join(' ');
   },
+
+  tutorMap: {
+    "ace/mode/javascript": "js",
+    "ace/mode/typescript": "ts",
+    "ace/mode/ruby": "ruby",
+    "ace/mode/java": "java",
+    "ace/mode/python": "3",
+    "ace/mode/c_cpp": "c",
+  },
+
+  findFileMode: function(doc) {
+    var modelist = ace.require("ace/ext/modelist");
+    var file = Files.findOne(doc);
+    if (file)
+      return modelist.getModeForPath(file.title).mode;
+  },
+
 };
 

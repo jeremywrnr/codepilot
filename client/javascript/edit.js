@@ -49,14 +49,10 @@ Template.editor.helpers({
 
   setMode: function() { // different style on filetype
     //var editor = $("#editor").data('ace').editor;
-    //editor.$blockScrolling = Infinity;
     return function(editor) {
-      var file = Files.findOne(Session.get("document"));
-      var modelist = ace.require("ace/ext/modelist");
-      if (file) {
-        var mode = modelist.getModeForPath(file.title);
-        editor.getSession().setMode(mode.mode);
-      }
+      var mode = GitSync.findFileMode(Session.get("document"));
+      editor.$blockScrolling = Infinity;
+      editor.getSession().setMode(mode);
     }
   },
 });

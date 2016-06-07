@@ -60,15 +60,15 @@
 
     // overwrite console.log for iframe to append to output div
     console.log = function (msg) {
-    var logerr = "<p class=\"logerr\">";
-    var timestamp = logerr+"["+new Date().toLocaleTimeString()+"] </p>";
+    var timestamp = "["+new Date().toLocaleTimeString()+"] ";
     if (typeof msg === "object") $("#log")[0].innerHTML +=
     timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
     else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
 
-    // overwrite console.log for iframe to append to output div
+    // overwrite console.error for iframe to append to output div
     console.error = function (msg) {
-    var timestamp = "["+new Date().toLocaleTimeString()+"] ";
+    var logerr = "<span class=\"logerr\">";
+    var timestamp = logerr+"["+new Date().toLocaleTimeString()+"] </span>";
     if (typeof msg === "object") $("#log")[0].innerHTML +=
     timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
     else $("#log")[0].innerHTML += timestamp + msg + "\n"; }

@@ -38,12 +38,12 @@
     <form class="navbar-form pull-right">
       <a href="/"><button class="grn btn btn-default btn-small">code</button></a>
       <a href="/test"><button class="grn btn btn-default btn-small">test</button></a>
+      <button type="button" class="btn btn-default btn-small grn refresh"> reload </button>
       {{#if changes}}
       <button type="button" class="btn btn-default btn-small"> new commit </button>
       {{else}}
       <button type="button" class="btn btn-default btn-small grn newcommit"> new commit </button>
       {{/if}}
-      <button type="button" class="btn btn-default btn-small grn refresh"> reload </button>
       <button type="button" class="btn btn-default btn-small del loadhead">import {{branch}}</button>
     </form>
 

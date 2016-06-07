@@ -10,33 +10,69 @@
   <div id="mainhead">
     <p class="navbar-text"> visualize </p>
     <form class="navbar-form pull-right">
+      {{#if enabled }}
       <a href="/code"><button class="grn btn btn-default btn-small">code</button></a>
       <a href="/save"><button class="grn btn btn-default btn-small">save</button></a>
-      <button class="edit btn btn-default btn-small">target</button>
-      <button class="del btn btn-default btn-small">reload</button>
+      <button class="grn btn btn-default btn-small">reload</button>
+      <button class="edit btn btn-default btn-small target">target</button>
+      {{/if}}
+      <button class="edit btn btn-default btn-small toggle">toggle</button>
     </form>
   </div>
 
-  <iframe width="100%" height="100%" frameborder="0" style="min-height:400px;height:100%;width:100%"
-    src="http://pythontutor.com/iframe-embed.html#code=require+'set'%0A%0Amy_array+%3D+%5B1,+2,+3,+'hello',+false,+true,+nil%5D%0Amy_hash+%3D+%7B'John'+%3D%3E+26,+'Jane'+%3D%3E+21,+'Jack'+%3D%3E+30%7D%0Amy_set+%3D+my_array.to_set%0A%0Amy_hash%5B'nested+array'%5D+%3D+my_array%0Amy_array%5B1%5D+%3D+%5B'a',+'b',+'c'%5D&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py=ruby&rawInputLstJSON=%5B%5D&curInstr=0&codeDivWidth=350&codeDivHeight=400">
-    <!--src="http://pythontutor.com/iframe-embed.html#code=(escaped snippet)&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py=(language)&rawInputLstJSON=%5B%5D&curInstr=0&codeDivWidth=350&codeDivHeight=400">-->
+  {{#if enabled }}
+  {{#if target }}
+  {{> testfile }}
+  {{else}}
+  <iframe style="min-height:400px;height:100%;width:100%"
+          src="http://pythontutor.com/iframe-embed.html#code={{ testcode }}&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py={{ lang }}&rawInputLstJSON=%5B%5D&curInstr=0&codeDivWidth=400&codeDivHeight=400"
+          width="100%" height="100%" frameborder="0">
   </iframe>
+  {{/if}}
+  {{else}}
+
+  <div class="alert alert-info" role="alert">
+    Filetype {{ filetype }} currently has no python tutor support. </div>
+
+  {{/if}}
+</template>
+
+<template name="testfile">
+  <ul class="nav nav-pills nav-stacked sidelist">
+    {{#if files.count}}
+    {{#each files}}
+    <li class="file {{#if current}}active{{/if}}">
+      <a href="#">
+        {{#if current}}
+        <span class="glyphicon glyphicon-asterisk"></span>
+        {{/if}}
+        {{title}} </a> </li>
+    {{/each}}
+    {{else}}
+    <li class="file new"> <a href="#"> no files yet </a> </li>
+    {{/if}}
+  </ul>
 </template>
 
 <template name="testweb">
   <div id="mainhead">
     <p class="navbar-text"> render </p>
     <form class="navbar-form pull-right">
-      <a href="/renderer"><button class="grn btn btn-default btn-small">code</button></a>
+      {{#if enabled }}
+      <a href="/code"><button class="grn btn btn-default btn-small">code</button></a>
       <a href="/save"><button class="grn btn btn-default btn-small">save</button></a>
-      <button class="edit btn btn-default btn-small">target</button>
-      <button class="del btn btn-default btn-small">reload</button>
+      <a href="/renderer"><button class="grn btn btn-default btn-small">full</button></a>
+      <button class="grn btn btn-default btn-small">reload</button>
+      {{/if}}
+      <button class="edit btn btn-default btn-small toggle">toggle</button>
     </form>
   </div>
 
+  {{#if enabled }}
   <iframe src="/raw" style="min-height:400px;height:100%;width:100%"
                      frameborder="0" height="100%" width="100%">
   </iframe>
+  {{/if}}
 </template>
 
 
@@ -73,9 +109,7 @@
   {{#if current}}
   <button class="list-group-item" href="#">
     <div class="btn-group btn-group-justified nomargin">
-      <a role="button" class="btn btn-default grn" href="render/{{ _id }}">
-        view live </a>
-      <a role="button" target="_blank" class="btn btn-default edit" href="{{ issue.html_url }}">
+      <a role="button" target="_blank" class="btn btn-default grn" href="{{ issue.html_url }}">
         view github issue </a>
       <a role="button" class="btn btn-default del closeissue" href="#">
         close issue </a>
