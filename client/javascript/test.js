@@ -24,11 +24,11 @@ Template.testfile.events({
 Template.testviz.helpers({
 
   file: function() {
-    return !Session.equals("testfile", null)
+    return !Session.equals("testFile", null)
   },
 
   mode: function() {
-    return Session.get("testFile");
+    return GitSync.findFileMode(Session.get("testFile"))
   },
 
   lang: function() {
@@ -48,6 +48,12 @@ Template.testviz.helpers({
     var file = Files.findOne(Session.get("testFile"));
     if (file)
       return escape(file.content);
+  },
+
+  title: function() {
+    var file = Files.findOne(Session.get("testFile"));
+    if (file)
+      return file.title;
   },
 
 });

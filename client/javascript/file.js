@@ -1,13 +1,14 @@
 // file things
 
-var newFile = function() {
+var newFile = function(e) {
+  e.preventDefault();
   Meteor.call("newFile", function(err, id){
     Session.set("document", id);
   });
 };
 
 Template.filelist.events({
-  "click .new": function() { newFile(); }
+  "click .new": function(e) { newFile(e); }
 });
 
 Template.userfiles.helpers({
@@ -19,7 +20,7 @@ Template.userfiles.helpers({
 });
 
 Template.userfiles.events({
-  "click .new": function() { newFile(); }
+  "click .new": function(e) { newFile(e); }
 });
 
 

@@ -31,7 +31,8 @@ Meteor.publish("files", function(repoId, branch) { // only serve b+r files
   return Files.find({repo: repoId, branch: branch});
 });
 Meteor.publish("messages", function(repoId) { // only serve repo msgs
-  return Messages.find({repo: repoId});
+  return Messages.find({repo: repoId},
+    {sort: {time: -1}, limit: 50}); // no drowning feed
 });
 Meteor.publish("issues", function(repoId) { // only serve repo issues
   return Issues.find({repo: repoId});
