@@ -74,6 +74,8 @@ h5
 .center
     display block
     margin auto
+.tcenter
+    text-align center
 .round
     border-radius(4px)
 .hidden
@@ -116,6 +118,17 @@ a.btn
 
 #mainhead // colors: txt, bg, border
     heading-style(white, darkblue, white)
+#mainlogin
+    background darkgreen
+    list-style none
+    padding 0px
+    height 48px
+#mainlogin li.login
+    border-radius(4px)
+    padding 15px
+#mainlogin li.login a
+    text-decoration none
+    color lightgray
 #editor-container
     overflow hidden
     height 83vh
@@ -174,32 +187,25 @@ span.lineno
 
 @media (min-width: 400px) {
 .navbar-toggle {
-    display: none;
-}
+    display: none; }
 .navbar-collapse {
     border-top: 0 none;
     box-shadow: none;
-    width: auto;
-}
+    width: auto; }
 .navbar-collapse.collapse {
     display: block !important;
     height: auto !important;
     padding-bottom: 0;
-    overflow: visible !important;
-}
+    overflow: visible !important; }
 .navbar-nav {
     float: left !important;
-    margin: 0;
-}
+    margin: 0; }
 .navbar-right {
     float: right !important;
-    margin: 0;
-}
+    margin: 0; }
 .navbar-nav>li {
-float: left;
-}
+float: left; }
 .navbar-nav>li>a {
     padding-top: 15px;
-    padding-bottom: 15px;
-}
+    padding-bottom: 15px; }
 }

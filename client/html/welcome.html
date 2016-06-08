@@ -2,46 +2,58 @@
 
 <template name="login">
   <div id="welcome" class="center">
+    <h1 class="tcenter"> Welcome to Git Sync!</h1>
     <a href="https://github.com/jeremywrnr/git-sync" target="_blank">
       <img class="wide center" src="/img/topguntocat.gif" alt="GitSync works with GitHub!"/> </a>
-    <h1> Welcome to Git Sync!</h1>
+
+    <ul id="mainlogin" class="wide center round">
+      {{#if loggingIn }}
+      <li><a href="#">logging in...</a></li>
+      {{else}}{{#if currentUser }}
+      {{> userLoggedin }}
+      {{else}}
+      {{> userLoggedout }}
+      {{/if}}{{/if}}
+    </ul>
+
     {{> about }}
   </div>
 </template>
 
 <template name="about">
+  <div class="alert alert-info wide center" role="alert">
 
-<div class="alert alert-info" role="alert"> This is a tool meant to help
-people collaborate on code more seamlessly, featuring the ability to import
-repos from GitHub, edit them simulatenously as your collaborators, and
-finally commit back to GitHub. It also serves as a bridge for people learning to
-use version control. This project started out as the master's thesis of <a
-target="_blank" class="alert-link" href="https://jeremywrnr.com"> Jeremy
-Warner</a>, and is open sourced (<a class="alert-link" target="_blank"
-href="https://github.com/jeremywrnr/git-sync">see on GitHub</a>) with the <a
-class="alert-link" target="_blank" href="https://jeremywrnr.com/mit-license/">MIT License</a>).</div>
+    Git Sync helps people collaborate on code more seamlessly,
+    featuring the ability to import repos from GitHub, edit them simulatenously
+    as your collaborators, and finally commit back to GitHub. It also serves as a
+    bridge for people learning to use version control. This project started out
+    as the master's thesis of <a target="_blank" class="alert-link" href="https://jeremywrnr.com"> Jeremy Warner</a>,
+    and is open source (<a class="alert-link" target="_blank" href="https://github.com/jeremywrnr/git-sync">see on GitHub</a>)
+    with the <a class="alert-link" target="_blank" href="https://jeremywrnr.com/mit-license/">MIT License</a>.
+
+  </div>
 
   <h2> Synchronous Editing </h2>
   <img class="wider center" src="/img/editor.png" alt="GitSync editor"/>
-  <p> This is a tool meant to help people collaborate on code more seamlessly.
-  The model is based on that of a pilot and a co-pilot, where the pilot does
-  most of the actual programming, and the co-pilot performs background coding
-  tasks. This can include version control management, system testing, online
-  reference lookup, and commenting/documenting source code.</p>
+  <div class="alert alert-info" role="alert">
+    <a target="_blank" class="alert-link" href="https://jeremywrnr.com"> link </a>
+  </div>
 
-  <h2> code visualization </h2>
+  <h2> Code Visualization </h2>
   <img class="wider center" src="/img/visualize.png" alt="Python Tutor Visualizer"/>
-  <p> This is a tool meant to help people collaborate on code more seamlessly.
-  The model is based on that of a pilot and a co-pilot, where the pilot does
-  most of the actual programming, and the co-pilot performs background coding
-  tasks. This can include version control management, system testing, online
-  reference lookup, and commenting/documenting source code.</p>
+  <div class="alert alert-info" role="alert">
+    <a target="_blank" class="alert-link" href="http://pythontutor.com"> Python Tutor </a>
+  </div>
 
-  <h2> web renderer </h2>
+  <h2> Web Renderer </h2>
   <img class="wider center" src="/img/render.png" alt="Git Sync Renderer"/>
-  <p> This is a tool meant to help people collaborate on code more seamlessly.
-  The model is based on that of a pilot and a co-pilot, where the pilot does
-  most of the actual programming, and the co-pilot performs background coding
-  tasks. This can include version control management, system testing, online
-  reference lookup, and commenting/documenting source code.</p>
+  <div class="alert alert-info" role="alert">
+    <a target="_blank" class="alert-link" href="https://jeremywrnr.com"> link </a>
+  </div>
+
+  <h2> GitHub Integration </h2>
+  <img class="wider center" src="/img/render.png" alt="Git Sync Renderer"/>
+  <div class="alert alert-info" role="alert">
+    <a target="_blank" class="alert-link" href="https://jeremywrnr.com"> link </a>
+  </div>
 </template>
