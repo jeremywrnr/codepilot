@@ -47,7 +47,7 @@ Template.testviz.helpers({
   testcode: function() {
     var file = Files.findOne(Session.get("testFile"));
     if (file)
-      return escape(file.content);
+      return encodeURIComponent(file.content);
   },
 
   title: function() {
