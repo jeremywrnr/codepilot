@@ -58,6 +58,14 @@ Template.editor.helpers({
 });
 
 
+Template.editor.events({
+
+  "load #editor": function() {
+    ace.edit('editor').$blockScrolling = 1
+  },
+
+});
+
 Template.filename.helpers({
   rename: function() {
     return Session.equals("focusPane", "renamer");
