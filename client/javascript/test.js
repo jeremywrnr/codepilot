@@ -60,6 +60,10 @@ Template.testviz.helpers({
 
 Template.testviz.events({
 
+  "load #testviz": function() {
+    $(".resize").resizable({ handles: "s", helper: "ui-resizable-helper" });
+  },
+
   "click .toggle": function(e) {
     e.preventDefault();
     Session.set("testViz", !Session.get("testViz") );
@@ -73,13 +77,13 @@ Template.testviz.events({
       Session.set("focusPane", "target");
   },
 
-  'click .reload': function (e) {
+  "click .reload": function (e) {
     e.preventDefault();
     Session.set("testViz", !Session.get("testViz") );
     setTimeout(function() {
       Session.set("testViz", !Session.get("testViz") );
     }, 100);
-    Meteor.call('getAllShareJS');
+    Meteor.call("getAllShareJS");
   },
 
 });
@@ -94,15 +98,20 @@ Template.testweb.helpers({
 
 Template.testweb.events({
 
+  "load #testweb": function() {
+    $(".resize").resizable({ handles: "s", helper: "ui-resizable-helper" });
+  },
+
   "click .toggle": function(e) {
     e.preventDefault();
     Session.set("testWeb", !Session.get("testWeb") );
+    $(".resize").resizable({ handles: "s" });
   },
 
-  'click .reload': function (e) {
+  "click .reload": function (e) {
     e.preventDefault();
     $("#testweb")[0].contentWindow.location.reload(true)
-    Meteor.call('getAllShareJS');
+    Meteor.call("getAllShareJS");
   },
 
 });
@@ -179,9 +188,10 @@ Template.issue.events({
 
 Template.renderPanel.events({
 
-  'click .reload': function () {
-    Meteor.call('getAllShareJS', function(){
-      console.log('tester reload complete!')
+  "click .reload": function (e) {
+    e.preventDefault();
+    Meteor.call("getAllShareJS", function(){
+      console.log("tester reload complete!")
     });
   },
 

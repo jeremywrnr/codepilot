@@ -126,8 +126,10 @@ a.btn
     left 0
 #testviz
 #testweb
-    resize vertical
-    overflow auto
+.resize
+    min-height 300px
+    height 100%
+    width 100%
 #active-file
 #active-issue
 #active-commit
@@ -152,4 +154,15 @@ span.lineno
     font-style italic
     margin-left 0.5em
     float left
+
+// jquery ui resizer
+
+.ui-resizable-s
+    background lightgray
+    height 25px
+    bottom 0px
+.ui-resizable-s:hover
+    background midgray
+.ui-resizable-helper
+    border 2px dotted #00F
 

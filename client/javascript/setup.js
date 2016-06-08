@@ -7,8 +7,8 @@ Session.setDefault("editorType", "ace");
 Session.setDefault("hideClosedIssues", true);
 
 // todo move these to repo level
-Session.setDefault("testViz", true);
-Session.setDefault("testWeb", true);
+Session.setDefault("testViz", false);
+Session.setDefault("testWeb", false);
 Session.setDefault("testFile", null);
 
 // startup data subscriptions
