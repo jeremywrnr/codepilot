@@ -131,6 +131,9 @@ a.btn
     min-height 300px
     height 100%
     width 100%
+#welcome
+    padding-top: 5em
+    max-width: 800px
 #active-file
 #active-issue
 #active-commit
@@ -167,3 +170,36 @@ span.lineno
 .ui-resizable-helper
     border 2px dotted #00F
 
+// smaller bootstrap nav
+
+@media (min-width: 400px) {
+.navbar-toggle {
+    display: none;
+}
+.navbar-collapse {
+    border-top: 0 none;
+    box-shadow: none;
+    width: auto;
+}
+.navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+}
+.navbar-nav {
+    float: left !important;
+    margin: 0;
+}
+.navbar-right {
+    float: right !important;
+    margin: 0;
+}
+.navbar-nav>li {
+float: left;
+}
+.navbar-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+}

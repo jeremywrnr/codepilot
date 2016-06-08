@@ -79,11 +79,11 @@ Template.testviz.events({
 
   "click .reload": function (e) {
     e.preventDefault();
+    Meteor.call("getAllShareJS");
     Session.set("testViz", !Session.get("testViz") );
     setTimeout(function() {
       Session.set("testViz", !Session.get("testViz") );
     }, 100);
-    Meteor.call("getAllShareJS");
   },
 
 });
@@ -110,12 +110,11 @@ Template.testweb.events({
 
   "click .reload": function (e) {
     e.preventDefault();
-    $("#testweb")[0].contentWindow.location.reload(true)
     Meteor.call("getAllShareJS");
+    $("#testweb")[0].contentWindow.location.reload(true)
   },
 
 });
-
 
 
 
