@@ -135,7 +135,8 @@ Template.issues.helpers({
 
 Template.issues.events({
 
-  "click .reload": function () { // update the issues for this repo
+  "click .reload": function (e) { // update the issues for this repo
+    e.preventDefault();
     Meteor.call("initIssues");
   }
 
@@ -179,20 +180,6 @@ Template.issue.events({
     //var trulyClose = confirm("Are you sure you"d like to close this issue?");
     //if (trulyClose)
     Meteor.call("closeIssue", this);
-  },
-
-});
-
-
-// update all file contents, refreshing the tester frame
-
-Template.renderPanel.events({
-
-  "click .reload": function (e) {
-    e.preventDefault();
-    Meteor.call("getAllShareJS", function(){
-      console.log("tester reload complete!")
-    });
   },
 
 });
