@@ -1,0 +1,60 @@
+<!doctype html>
+<!-- See http://www.firepad.io/docs/ for detailed embedding docs. -->
+<html>
+<head>
+  <meta charset="utf-8" />
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+
+  <!-- ACE and its JavaScript mode and theme files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.2/ace.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.2/mode-javascript.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.2/theme-textmate.js"></script>
+
+  <!-- Firepad -->
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.3.0/firepad.css" />
+  <script src="https://cdn.firebase.com/libs/firepad/1.3.0/firepad.min.js"></script>
+
+  <style>
+    html { height: 100%; }
+    body { margin: 0; height: 100%; position: relative; }
+    /* Height / width / positioning can be customized for your use case.
+       For demo purposes, we make firepad fill the entire browser. */
+    #firepad-container {
+      width: 100%;
+      color: gray;
+      background-color: black; /* dark orange background */
+      height: 100%;
+    }
+
+
+    a.powered-by-firepad { display: none; }
+  </style>
+</head>
+
+<body>
+  <div id="firepad-container"></div>
+
+  <script>
+    function init() {
+      //// Initialize Firebase.
+      var firepadRef = new Firebase('https://codepilot.firebaseio.com/');
+
+      //// Create ACE
+      var editor = ace.edit("firepad-container");
+      editor.setTheme("ace/theme/textmate");
+      var session = editor.getSession();
+      session.setUseWrapMode(true);
+      session.setUseWorker(false);
+      session.setMode("ace/mode/javascript");
+
+      //// Create Firepad.
+      var firepad = Firepad.fromACE(firepadRef, editor, {
+        defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
+      });
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
