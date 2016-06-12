@@ -45,18 +45,22 @@ Template.commitPanel.events({
   },
 
   "click .cancelCommit": function(e) {
+    e.preventDefault();
     Session.set("focusPane", null);
   },
 
   "click .refresh": function(e) { // pull in latest version of buffers
+    e.preventDefault();
     Meteor.call("getAllShareJS");
   },
 
   "click .reload": function(e) { // pull in latest commits from gh
+    e.preventDefault();
     Meteor.call("initCommits");
   },
 
   "click .loadhead": function(e) { // load head of branch into SJS
+    e.preventDefault();
     var trulyLoad = confirm("This will overwrite any uncommitted changes. Proceed?");
     if (trulyLoad)
       Meteor.call("loadHead", prof().repoBranch);
@@ -76,6 +80,15 @@ Template.history.helpers({ // sort the commits by time
 
 });
 
+Template.history.events({
+
+  "click .reload": function(e) { // pull in latest commits from gh
+    e.preventDefault();
+    Meteor.call("initCommits");
+  },
+
+});
+
 Template.commit.helpers({
 
   current: function() {
@@ -83,7 +96,9 @@ Template.commit.helpers({
   },
 
   mine: function() {
-    return (prof().login === this.commit.author.login)
+    var myprof = prof();
+    if (myprof)
+      return (myprof.login === this.commit.author.login)
   },
 
 });
@@ -91,7 +106,7 @@ Template.commit.helpers({
 Template.commit.events({
 
   "click .commit": function(e) {
-    if ( Session.equals("focusPane", this._id) ) {
+    if (Session.equals("focusPane", this._id)) {
       Session.set("focusPane", null);
     } else {
       Session.set("focusPane", this._id);
@@ -192,25 +207,11 @@ Template.diff.events({
 
 Template.diffline.helpers({
 
-  content: function() {
-    return this.content;
-  },
-
-  skipped: function() {
-    return this.status == "skip"
-  },
-
-  equal: function() {
-    return this.status == "equal"
-  },
-
-  inserted: function() {
-    return this.status == "insert"
-  },
-
-  deleted: function() {
-    return this.status == "delete"
-  },
+  content: function() { return this.content; },
+  skipped: function() { return this.status == "skip" },
+  equal: function() { return this.status == "equal" },
+  inserted: function() { return this.status == "insert" },
+  deleted: function() { return this.status == "delete" },
 
   newnum: function() {
     var num = this.newnum;
@@ -229,3 +230,4 @@ Template.diffline.helpers({
   },
 
 });
+

@@ -9,13 +9,13 @@ Meteor.methods({
 
   ghAuth: function() { // authenticate for secure api calls
     github.authenticate({
-      type: 'token',
+      type: "token",
       token: Meteor.user().services.github.accessToken
     });
   },
 
   getAllRepos: function() { // put them in db, serve to user (no return)
-    Meteor.call('ghAuth'); // auth for getting all pushable repos
+    Meteor.call("ghAuth"); // auth for getting all pushable repos
     var uid = Meteor.userId(); // userID, used below
     github.repos.getAll({
       user: Meteor.user().profile.login,
@@ -40,7 +40,7 @@ Meteor.methods({
     return github.issues.repoIssues({
       user: gr.repo.owner.login,
       repo: gr.repo.name,
-      state: 'open', // or closed, etc
+      state: "open", // or closed, etc
     });
   },
 
@@ -95,7 +95,7 @@ Meteor.methods({
 
   getContent: function(filename) { // get encoded content of a file
     return github.repos.getContent({
-      //headers: {'Accept':'application/vnd.github.VERSION.raw'},
+      //headers: {"Accept":"application/vnd.github.VERSION.raw"},
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
       path: filename,
@@ -105,7 +105,7 @@ Meteor.methods({
 
   getBlob: function(blob) { // give a blobs file contents
     return github.gitdata.getBlob({
-      headers: {'Accept':'application/vnd.github.VERSION.raw'},
+      headers: {"Accept":"application/vnd.github.VERSION.raw"},
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
       sha: blob.sha
@@ -114,22 +114,18 @@ Meteor.methods({
 
 
 
-
-
-
-
   ///////////////////////
   // GITHUB POST REQUESTS
   ///////////////////////
 
   postLabel: function(gr) { // used in repo initing - create GitSync issue label
-    Meteor.call('ghAuth');
+    Meteor.call("ghAuth");
     if (! gr.labelCreated) {
       return github.issues.createLabel({
         user: Meteor.user().profile.repoOwner,
         repo: Meteor.user().profile.repoName,
-        name: 'GitSync',
-        color: '#f14e32' // set the GitSync label color black for this repo
+        name: "GitSync",
+        color: "f14e32" // set the GitSync label color black for this repo
       });
     } else { // mark label created
       gr.labelCreated = true;
@@ -140,18 +136,18 @@ Meteor.methods({
     // custom login - iframe not given Meteor.user() scope
     var user = Meteor.users.findOne(issue.user);
     var token = user.services.github.accessToken;
-    github.authenticate({ type: 'token', token: token });
+    github.authenticate({ type: "token", token: token });
     return github.issues.create({ // return githubs issue response
       user: user.profile.repoOwner,
       repo: user.profile.repoName,
       title: issue.note,
       body: issue.body,
-      labels: ['bug', 'GitSync']
+      labels: ["bug", "GitSync"]
     });
   },
 
   postTree: function(t) { // takes tree, gives tree SHA hash id
-    Meteor.call('ghAuth');
+    Meteor.call("ghAuth");
     return github.gitdata.createTree({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -161,17 +157,17 @@ Meteor.methods({
   },
 
   postBranch: function(branch, parent) { // make new branch off current
-    Meteor.call('ghAuth');
+    Meteor.call("ghAuth");
     return github.gitdata.createReference({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      ref: 'refs/heads/' + branch, // new branch name
+      ref: "refs/heads/" + branch, // new branch name
       sha: parent, // sha hash of parent
     });
   },
 
   postCommit: function(c) { // takes commit c, returns gh commit respns.
-    Meteor.call('ghAuth');
+    Meteor.call("ghAuth");
     return github.gitdata.createCommit({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -183,17 +179,17 @@ Meteor.methods({
   },
 
   postRef: function(cr) { // takes commit results (cr),  updates ref
-    Meteor.call('ghAuth');
+    Meteor.call("ghAuth");
     return github.gitdata.updateReference({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      ref: 'heads/' + Meteor.user().profile.repoBranch,
+      ref: "heads/" + Meteor.user().profile.repoBranch,
       sha: cr.sha
     });
   },
 
   postRepo: function(owner, repo) { // done to fork a repo for a new user
-    Meteor.call('ghAuth');
+    Meteor.call("ghAuth");
     return  github.repos.fork({
       user: owner,
       repo: repo
