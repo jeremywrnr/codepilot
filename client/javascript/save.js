@@ -97,7 +97,7 @@ Template.commit.helpers({
 
   mine: function() {
     var myprof = prof();
-    if (myprof)
+    if (myprof && this.commit && this.commit.author)
       return (myprof.login === this.commit.author.login)
   },
 

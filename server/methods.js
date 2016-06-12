@@ -22,11 +22,11 @@ Meteor.methods({
       branch: Meteor.user().profile.repoBranch,
       title: file.path,
     },{ $set: {
-      content: file.content,
-      cache: file.content,
-      html: file.html, // linked to for unsupported filetypes
-      raw: file.raw, // used for rendering images
-    }});
+        content: file.content,
+        cache: file.content,
+        html: file.html, // linked to for unsupported filetypes
+        raw: file.raw, // used for rendering images
+      }});
 
     if (fs.insertedId) { // if a new file made, create sharejs
       Meteor.call("addMessage", " created file - " + file.path);
@@ -96,15 +96,15 @@ Meteor.methods({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
     }).fetch().filter(function typeCheck(file) { // remove imgs
-      return file.type === "file";
-    }).map(function readSJS(file) {
-      var sjs = Meteor.call("getShareJS", file);
-      Files.update(
-        file._id,
-        {$set: {
-          content: sjs.snapshot
-        }});
-    });
+        return file.type === "file";
+      }).map(function readSJS(file) {
+        var sjs = Meteor.call("getShareJS", file);
+        Files.update(
+          file._id,
+          {$set: {
+            content: sjs.snapshot
+          }});
+      });
   },
 
   postShareJS: function(file) { // update files with their ids
@@ -233,24 +233,19 @@ Meteor.methods({
 
       if (blob.type === "blob") { // only load files, not folders/trees
         var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
+        var content = Async.runSync(function(done) { // wait on github response
+          var content = Meteor.call("getBlob", blob.path);
+          done(content, content);
+        }).result;
 
         if (image.test(blob.path)) { // get the encoded file content
-          var img = Async.runSync(function(done) { // wait on github response
-            var content = Meteor.call("getContent", blob.path);
-            done(content, content);
-          }).result;
-
           blob.content = "";
           blob.type = "image";
-          blob.html = img.html_url;
-          blob.raw = img.download_url;
-
+          blob.html = content.url;
+          blob.raw = content.url;
         } else { // get the raw file content
+          blob.content = content;
           blob.type = "file"; // set null type on front end with mode check
-          blob.content = Async.runSync(function(done) { // wait on GH response
-            var content = Meteor.call("getBlob", blob);
-            done(content, content);
-          }).result;
         }
 
         Meteor.call("createFile", blob);
@@ -275,49 +270,49 @@ Meteor.methods({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
     }).fetch().filter(function typeCheck(file) { // remove imgs
-      return file.type === "file" && file.content != undefined;
-    }).map(function makeBlob(file) { // set file cache
-      Files.update(file._id, {$set: {cache: file.content}});
-      return {
-        path: file.title,
-        mode: "100644",
-        type: "blob",
-        content: file.content
+        return file.type === "file" && file.content != undefined;
+      }).map(function makeBlob(file) { // set file cache
+        Files.update(file._id, {$set: {cache: file.content}});
+        return {
+          path: file.title,
+          mode: "100644",
+          type: "blob",
+          content: file.content
+        };
+      });
+
+      // get old tree and update it with new shas, post and get that sha
+      var branch = Meteor.call("getBranch", bname);
+      var oldTree = Meteor.call("getTree", branch.commit.commit.tree.sha);
+      var newTree = {base: oldTree.sha, tree: blobs};
+      var treeSHA = Meteor.call("postTree", newTree);
+
+      // specify author of this commit
+      var commitAuthor = {
+        name: user.login,
+        email: user.email,
+        date: new Date()
       };
-    });
 
-    // get old tree and update it with new shas, post and get that sha
-    var branch = Meteor.call("getBranch", bname);
-    var oldTree = Meteor.call("getTree", branch.commit.commit.tree.sha);
-    var newTree = {base: oldTree.sha, tree: blobs};
-    var treeSHA = Meteor.call("postTree", newTree);
+      // make the new commit result object
+      var commitResult = Meteor.call("postCommit", {
+        message: msg, // passed in
+        author: commitAuthor,
+        parents: [ branch.commit.sha ],
+        tree: treeSHA
+      });
 
-    // specify author of this commit
-    var commitAuthor = {
-      name: user.login,
-      email: user.email,
-      date: new Date()
-    };
+      // update the ref, point to new commmit
+      Meteor.call("postRef", commitResult);
 
-    // make the new commit result object
-    var commitResult = Meteor.call("postCommit", {
-      message: msg, // passed in
-      author: commitAuthor,
-      parents: [ branch.commit.sha ],
-      tree: treeSHA
-    });
+      // get the latest commit from the branch head
+      var lastCommit = Meteor.call("getBranch", bname).commit;
 
-    // update the ref, point to new commmit
-    Meteor.call("postRef", commitResult);
+      // post into commit db with repo tag
+      Meteor.call("addCommit", lastCommit);
 
-    // get the latest commit from the branch head
-    var lastCommit = Meteor.call("getBranch", bname).commit;
-
-    // post into commit db with repo tag
-    Meteor.call("addCommit", lastCommit);
-
-    // update the feed with new commit
-    Meteor.call("addMessage", "committed - " + msg);
+      // update the feed with new commit
+      Meteor.call("addMessage", "committed - " + msg);
   },
 
 
