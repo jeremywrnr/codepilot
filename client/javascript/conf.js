@@ -175,6 +175,7 @@ Template.repo.events({
     if (prof().repo !== this._id)
       Meteor.call("loadRepo", this);
     Session.set("focusPane", null);
+    Session.set("testFile", null);
   }
 
 });

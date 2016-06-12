@@ -129,7 +129,7 @@ Meteor.methods({
         user: Meteor.user().profile.repoOwner,
         repo: Meteor.user().profile.repoName,
         name: 'GitSync',
-        color: '000000' // set the GitSync label color black for this repo
+        color: '#f14e32' // set the GitSync label color black for this repo
       });
     } else { // mark label created
       gr.labelCreated = true;
