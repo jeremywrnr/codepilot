@@ -5,7 +5,6 @@
 
 standard-app-packages
 stylus
-mizzao:sharejs-ace
 twbs:bootstrap
 bruz:github-api
 accounts-password
