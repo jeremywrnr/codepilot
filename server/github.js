@@ -50,7 +50,6 @@ Meteor.methods({
       repo: Meteor.user().profile.repoName,
       sha: Meteor.user().profile.repoBranch,
       per_page: 100
-      //since: (Date Timestamp (ISO 8601)): YYYY-MM-DDTHH:MM:SSZ
     });
   },
 
@@ -117,20 +116,6 @@ Meteor.methods({
   ///////////////////////
   // GITHUB POST REQUESTS
   ///////////////////////
-
-  postLabel: function(gr) { // used in repo initing - create GitSync issue label
-    Meteor.call("ghAuth");
-    if (! gr.labelCreated) {
-      return github.issues.createLabel({
-        user: Meteor.user().profile.repoOwner,
-        repo: Meteor.user().profile.repoName,
-        name: "GitSync",
-        color: "f14e32" // set the GitSync label color black for this repo
-      });
-    } else { // mark label created
-      gr.labelCreated = true;
-    }
-  },
 
   postIssue: function(issue) { // takes feedback issue, creates GH issue
     // custom login - iframe not given Meteor.user() scope

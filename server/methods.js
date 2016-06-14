@@ -29,13 +29,11 @@ Meteor.methods({
     },{ $set: {
         content: file.content,
         cache: file.content,
-        html: file.html, // linked to for unsupported filetypes
-        raw: file.raw, // used for rendering images
       }});
 
-    if (fs.insertedId) { // if a new file made, create sharejs
+    if (fs.insertedId) { // if a new file made, create firepad
       Meteor.call("addMessage", " created file - " + file.path);
-      Meteor.call("newShareJS", fs.insertedId);
+      Meteor.call("newFirepad", fs.insertedId);
       return fs.insertedId;
     }
   },
@@ -49,7 +47,7 @@ Meteor.methods({
   },
 
   deleteFile: function(id) { // with id, delete a file from system
-    ShareJS.model.delete(id);
+    //Firepad.model.delete(id);
     Files.remove(id);
     Docs.remove(id);
   },
@@ -67,7 +65,7 @@ Meteor.methods({
     if (o) {
       Files.update(id, {$set: {content: o.cache}});
       var n = Files.findOne(id); // get new version
-      Meteor.call("postShareJS", n); // load into sharejs
+      Meteor.call("postFirepad", n); // load into sharejs
     }
   },
 
@@ -81,53 +79,51 @@ Meteor.methods({
   /////////////////////
   // SHAREJS MANAGEMENT
   /////////////////////
-  newShareJS: function(id) { // create sharejs document with same id
-    //var time = Math.round( new Date() / 1000 );
-    //ShareJS.model.create(id, "text", { mtime: time, ctime: time });
+  newFirepad: function(id, content) { // create firepad document with same id
   },
 
-  getShareJS: function(file) { // give live editor copy, v and snapshot
+  getFirepad: function(file) { // give live editor copy, v and snapshot
     //if(! file._id ) return null;
     //var sjs = Docs.findOne( file._id );
     //if (sjs)
-      //return sjs.data;
+    //return sjs.data;
     //else
-      //Meteor.call("newShareJS", file._id);
-    //return Meteor.call("getShareJS", file._id);
+    //Meteor.call("newFirepad", file._id);
+    //return Meteor.call("getFirepad", file._id);
   },
 
-  getAllShareJS: function() { // update file.content from sjs
+  getAllFirepad: function() { // update file.content from sjs
     //Files.find({
-      //repo:  Meteor.user().profile.repo,
-      //branch: Meteor.user().profile.repoBranch,
+    //repo:  Meteor.user().profile.repo,
+    //branch: Meteor.user().profile.repoBranch,
     //}).fetch().filter(function typeCheck(file) { // remove imgs
-        //return file.type === "file";
-      //}).map(function readSJS(file) {
-        //var sjs = Meteor.call("getShareJS", file);
-        //Files.update(
-          //file._id,
-          //{$set: {
-            //content: sjs.snapshot
-          //}});
-      //});
-  },
-
-  postShareJS: function(file) { // update files with their ids
-    //var sjs = Meteor.call("getShareJS", file); // get doc and version
-    //if (!sjs) return null; // if file id broke, don"t propagate error
-    //ShareJS.model.applyOp( file._id, {
-      //op: [
-        //{ p:0, d: sjs.snapshot }, // delete old content
-        //{ p:0, i: file.content } // insert new blob content
-      //],
-      //meta: null,
-      //v: sjs.v // apply it to last seen version
+    //return file.type === "file";
+    //}).map(function readSJS(file) {
+    //var sjs = Meteor.call("getFirepad", file);
+    //Files.update(
+    //file._id,
+    //{$set: {
+    //content: sjs.snapshot
+    //}});
     //});
   },
 
-  postAllShareJS: function(file) { // update all project sjs files
+  postFirepad: function(file) { // update files with their ids
+    //var sjs = Meteor.call("getFirepad", file); // get doc and version
+    //if (!sjs) return null; // if file id broke, don"t propagate error
+    //Firepad.model.applyOp( file._id, {
+    //op: [
+    //{ p:0, d: sjs.snapshot }, // delete old content
+    //{ p:0, i: file.content } // insert new blob content
+    //],
+    //meta: null,
+    //v: sjs.v // apply it to last seen version
+    //});
+  },
+
+  postAllFirepad: function(file) { // update all project sjs files
     //ufiles().map(function setSJS(file) {
-      //Meteor.call("postShareJS", file);
+    //Meteor.call("postFirepad", file);
     //});
   },
 
@@ -210,6 +206,7 @@ Meteor.methods({
   /////////////////////
   // COMMIT MANAGEMENT
   /////////////////////
+
   initCommits: function() { // re-populating the commit log
     Meteor.call("getAllCommits").map(function(c){
       Meteor.call("addCommit", c);
@@ -238,28 +235,20 @@ Meteor.methods({
     treeResults.tree.forEach(function updateBlob(blob) {
 
       if (blob.type === "blob") { // only load files, not folders/trees
-        var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
         var content = Async.runSync(function(done) { // wait on github response
           var content = Meteor.call("getBlob", blob.path);
           done(content, content);
         }).result;
 
-        if (image.test(blob.path)) { // get the encoded file content
-          blob.content = "";
-          blob.type = "image";
-          blob.html = content.url;
-          blob.raw = content.url;
-        } else { // get the raw file content
-          blob.content = content;
-          blob.type = "file"; // set null type on front end with mode check
-        }
+        blob.content = content;
+        blob.type = "file";
 
         Meteor.call("createFile", blob);
       }
 
     });
 
-    Meteor.call("postAllShareJS");
+    Meteor.call("postAllFirepad");
   },
 
 
