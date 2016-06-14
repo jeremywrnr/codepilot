@@ -9,8 +9,46 @@ Template.code.helpers({
 
 });
 
+var renderEditor = function() {
+  $("#editor-container").empty();
+  $("#editor-container").append("<div id='editor'></div>");
+  if($("#editor-container")[0]){ // make fresh new editor
+
+    focusForm("#editor");
+    var editor = ace.edit("editor")
+    editor.$blockScrolling = Infinity;
+    editor.setTheme("ace/theme/monokai");
+    editor.setShowPrintMargin(false);
+    var session = editor.getSession();
+    session.setUseWrapMode(true);
+    session.setUseWorker(false);
+    focusForm("#editor");
+
+    //// Create Firepad.
+    var docRef = Session.get("fb") + Session.get("document");
+    var firepadRef = new Firebase(docRef);
+    var firepad = Firepad.fromACE(firepadRef,
+      editor, { userId: prof().login, });
+
+    //// Filemode and suggestions
+    var mode = GitSync.findFileMode(Session.get("document"));
+    editor.getSession().setMode(mode);
+    var beautify = ace.require("ace/ext/beautify");
+    editor.commands.addCommands(beautify.commands);
+    editor.setOptions({ // more editor completion
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true,
+      enableSnippets: true
+    });
+  }
+}
+
+Template.editor.onRendered(renderEditor);
+
 Template.editor.helpers({
   docid: function() { return Session.get("document"); },
+
+  render: function() { renderEditor(); }, // Create ACE editor
 
   isImage: function() { // check if file extension is renderable
     var file = Files.findOne(Session.get("document"));
@@ -27,77 +65,8 @@ Template.editor.helpers({
       }
     }
   },
-
-  render: function() { // Create ACE editor
-    console.log('render helper is running')
-    console.log(Session.get("document"))
-    $("#editor-container").empty();
-    $("#editor-container").append("<div id='editor'></div>");
-    console.log($("#editor-container")[0])
-    focusForm("#editor");
-
-    // make fresh new editor
-    var editor = ace.edit("editor")
-    editor.$blockScrolling = Infinity;
-    editor.setTheme("ace/theme/monokai");
-    editor.setShowPrintMargin(false);
-    var session = editor.getSession();
-    session.setUseWrapMode(true);
-    session.setUseWorker(false);
-
-    //// Create Firepad.
-    var docRef = Session.get("fb") + Session.get("document");
-    var firepadRef = new Firebase(docRef);
-    var firepad = Firepad.fromACE(firepadRef,
-      editor, { userId: prof().login, });
-
-    //// Filemode and suggestions
-    var mode = GitSync.findFileMode(Session.get("document"));
-    editor.getSession().setMode(mode);
-    var beautify = ace.require("ace/ext/beautify");
-    editor.commands.addCommands(beautify.commands);
-    editor.setOptions({ // more editor completion
-      enableBasicAutocompletion: true,
-      enableLiveAutocompletion: true,
-      enableSnippets: true
-    });
-  },
 });
 
-Template.editor.onRendered(function() {
-    console.log('render helper is running')
-    console.log(Session.get("document"))
-    $("#editor-container").empty();
-    $("#editor-container").append("<div id='editor'></div>");
-    console.log($("#editor-container")[0])
-    focusForm("#editor");
-
-    // make fresh new editor
-    var editor = ace.edit("editor")
-    editor.$blockScrolling = Infinity;
-    editor.setTheme("ace/theme/monokai");
-    editor.setShowPrintMargin(false);
-    var session = editor.getSession();
-    session.setUseWrapMode(true);
-    session.setUseWorker(false);
-
-    //// Create Firepad.
-    var docRef = Session.get("fb") + Session.get("document");
-    var firepadRef = new Firebase(docRef);
-    var firepad = Firepad.fromACE(firepadRef,
-      editor, { userId: prof().login, });
-
-    //// Filemode and suggestions
-    var mode = GitSync.findFileMode(Session.get("document"));
-    editor.getSession().setMode(mode);
-    var beautify = ace.require("ace/ext/beautify");
-    editor.commands.addCommands(beautify.commands);
-    editor.setOptions({ // more editor completion
-      enableBasicAutocompletion: true,
-      enableLiveAutocompletion: true,
-      enableSnippets: true
-    });
-});
 
 
 Template.filename.helpers({
