@@ -232,11 +232,12 @@ Meteor.methods({
     var commitResults = Meteor.call("getCommit", sha);
     var treeSHA = commitResults.commit.tree.sha;
     var treeResults = Meteor.call("getTree", treeSHA);
+
     treeResults.tree.forEach(function updateBlob(blob) {
 
       if (blob.type === "blob") { // only load files, not folders/trees
         var content = Async.runSync(function(done) { // wait on github response
-          var content = Meteor.call("getBlob", blob.path);
+          var content = Meteor.call("getBlob", blob);
           done(content, content);
         }).result;
 

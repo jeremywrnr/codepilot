@@ -10,6 +10,7 @@ var renderEditor = function() {
   $("#editor-container").empty();
   $("#editor-container").append("<div id='editor'></div>");
   console.log(($("#editor-container")[0]))
+
   // make fresh new editor
   focusForm("#editor");
   var editor = ace.edit("editor")
@@ -21,13 +22,19 @@ var renderEditor = function() {
   session.setUseWorker(false);
   focusForm("#editor");
 
-  //// Create Firepad.
+  // Create Firepad.
   var docRef = Session.get("fb") + Session.get("document");
   var firepadRef = new Firebase(docRef);
   var firepad = Firepad.fromACE(firepadRef,
     editor, { userId: prof().login, });
 
-  //// Filemode and suggestions
+  // Get cached content for when history empty
+  var file = Files.findOne(Session.get("document"))
+  firepad.on('ready', function() {
+    if (firepad.isHistoryEmpty()) firepad.setText(file.content);
+  });
+
+  // Filemode and suggestions
   var mode = GitSync.findFileMode(Session.get("document"));
   editor.getSession().setMode(mode);
   var beautify = ace.require("ace/ext/beautify");

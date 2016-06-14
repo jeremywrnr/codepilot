@@ -49,8 +49,12 @@ Template.registerHelper("isPilot", function() { // check if currentUser is pilot
 });
 
 Template.registerHelper("nulldoc", function() { // check if currentDoc is null
-  console.log("nulldoc")
   return Session.equals("document", null);
+});
+
+Template.registerHelper("nullrepo", function() { // check if currentDoc is null
+  if (! Meteor.user()) return false; // still logging in or page loading
+  return prof().repo === null;
 });
 
 
