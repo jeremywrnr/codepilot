@@ -11,6 +11,12 @@ Session.setDefault("testViz", false);
 Session.setDefault("testWeb", false);
 Session.setDefault("testFile", null);
 
+// checking which firebase to use
+Meteor.call("firebase", function(err, res) {
+  if (!err)
+    Session.set("fb", res)
+});
+
 // startup data subscriptions
 
 var prof = GitSync.prof;

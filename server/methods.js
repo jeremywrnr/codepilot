@@ -10,6 +10,11 @@ Meteor.methods({
   //////////////////
   // FILE MANAGEMENT
   //////////////////
+
+  firebase: function() { // expose production host for connection
+    return GitSync.firebase; // server's version
+  },
+
   newFile: function() { // create a new unnamed file
     return Meteor.call("createFile", {path: "untitled"});
   },

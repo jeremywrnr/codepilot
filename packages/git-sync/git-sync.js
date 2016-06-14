@@ -1,9 +1,14 @@
 // global js functions, preloaded into meteor from lib
 
-var domain = /^http.*\.(io|com|web|net|org|gov|edu)(\/.*)?/g
 
 GitSync = {
   host: "https://www.git-sync.com/",
+
+  firebaseSetup: function(dev) {
+    var devFB = "https://gitsync-dev.firebaseio.com/"
+    var prodFB = "https://gitsync.firebaseio.com/"
+    this.firebase = (dev ? devFB : prodFB)
+  },
 
   any: function(ary, fn) {
     return ary.reduce(function(o, n){
@@ -90,6 +95,8 @@ GitSync = {
   },
 
   linkify: function(str) { // take in string, parse and wrap any links inside
+    var domain = /^http.*\.(io|com|web|net|org|gov|edu)(\/.*)?/g
+
     return str.split(' ').map(function linker(s) { // open in new tab, too
       if (s.match(domain))
         return '<a target="_blank" href="' + s + '">' + s + '</a>'
@@ -108,11 +115,11 @@ GitSync = {
   },
 
   findFileMode: function(doc) {
-    var modelist = ace.require("ace/ext/modelist");
-    var file = Files.findOne(doc);
-    if (file && modelist)
-      return modelist.getModeForPath(file.title).mode;
-  },
+      var modelist = ace.require("ace/ext/modelist");
+      var file = Files.findOne(doc);
+      if (file && modelist)
+        return modelist.getModeForPath(file.title).mode;
+    },
 
 };
 
