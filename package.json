@@ -1,0 +1,27 @@
+{
+  "name": "git-sync",
+  "version": "1.0.0",
+  "description": "[code pilot](http://codepilot.xyz) ==================================",
+  "main": "index.js",
+  "dependencies": {
+    "firebase": "^3.0.4",
+    "firepad": "^1.4.0",
+    "jsdom": "0.8.0",
+    "meteor-node-stubs": "^0.2.3",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremywrnr/git-sync.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeremywrnr/git-sync/issues"
+  },
+  "homepage": "https://github.com/jeremywrnr/git-sync#readme"
+}
