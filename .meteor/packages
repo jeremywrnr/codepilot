@@ -1,8 +1,11 @@
-# Meteor packages used by this project, one per line.
-# 'meteor add' and 'meteor remove' will edit this file for you,
-# but you can also edit it by hand.
+# LOCAL PACKAGE
+#
+jeremywrnr:git-sync
 
+# ATMOSPHERE
+#
 standard-app-packages
+http
 stylus
 twbs:bootstrap
 bruz:github-api
@@ -12,13 +15,8 @@ accounts-github
 iron:router
 accounts-base
 service-configuration
-http
 meteorhacks:async
 standard-minifier-css
 standard-minifier-js
-jeremywrnr:git-sync # LOCAL PACKAGE
 mizzao:jquery-ui
 ecmascript
-
-
-npm-container

@@ -2,7 +2,8 @@
 // so: files, shareJS, and top-level functions
 // dlog is debugger log, see server/setup.js
 
-var firepad = require("firepad")
+import firepad from 'firepad';
+
 var ufiles = GitSync.userfiles;
 var hoster = GitSync.host;
 

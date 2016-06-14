@@ -63,7 +63,6 @@ modules-runtime@0.6.4
 mongo@1.1.8
 mongo-id@1.0.5
 npm-bcrypt@0.8.6_1
-npm-container@1.2.0
 npm-mongo@1.4.44
 oauth@1.1.11
 oauth2@1.1.10
