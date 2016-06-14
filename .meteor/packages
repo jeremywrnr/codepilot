@@ -1,5 +1,4 @@
 # Meteor packages used by this project, one per line.
-#
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
@@ -17,7 +16,6 @@ http
 meteorhacks:async
 standard-minifier-css
 standard-minifier-js
-
-# LOCAL PACKAGE
-jeremywrnr:git-sync
+jeremywrnr:git-sync # LOCAL PACKAGE
 mizzao:jquery-ui
+ecmascript
