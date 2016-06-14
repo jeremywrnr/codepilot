@@ -1,13 +1,8 @@
 // code editor things
 
-var focusForm = GitSync.focusForm;
 var prof = GitSync.prof;
 
-Template.code.helpers({
-
-  nulldoc: function() { return Session.equals("document", null); }
-
-});
+var focusForm = GitSync.focusForm;
 
 var renderEditor = function() {
   console.log("rendering...")

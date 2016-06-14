@@ -3,7 +3,6 @@
 Session.setDefault("feedCount", 0);
 Session.setDefault("document", null);
 Session.setDefault("focusPane", null);
-Session.setDefault("editorType", "ace");
 Session.setDefault("hideClosedIssues", true);
 
 // todo move these to repo level
@@ -13,8 +12,7 @@ Session.setDefault("testFile", null);
 
 // checking which firebase to use
 Meteor.call("firebase", function(err, res) {
-  if (!err)
-    Session.set("fb", res)
+  if (!err) Session.set("fb", res)
 });
 
 
@@ -48,6 +46,11 @@ Tracker.autorun(function() { // subscribe on login
 Template.registerHelper("isPilot", function() { // check if currentUser is pilot
   if (! Meteor.user()) return false; // still logging in or page loading
   return prof().role === "pilot";
+});
+
+Template.registerHelper("nulldoc", function() { // check if currentDoc is null
+  console.log("nulldoc")
+  return Session.equals("document", null);
 });
 
 

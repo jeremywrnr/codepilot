@@ -5,8 +5,14 @@
     <p class="navbar-text"> repo </p> </div>
   <ul class="nav nav-pills nav-stacked sidelist">
     <li class="file">
+      {{# if nulldoc }}
+      <a href="/config"> no repo yet </a>
+      {{else}}
       <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}" target="_blank">
-        {{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a> </li> </ul>
+        {{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+      {{/if}}
+    </li>
+  </ul>
 
   <div class="sidepanel">
     <div class="header">
