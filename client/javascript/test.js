@@ -79,7 +79,7 @@ Template.testviz.events({
 
   "click .reload": function (e) {
     e.preventDefault();
-    Meteor.call("getAllShareJS");
+    Meteor.call("getAllFirepad");
     Session.set("testViz", !Session.get("testViz") );
     setTimeout(function() {
       Session.set("testViz", !Session.get("testViz") );
@@ -110,7 +110,7 @@ Template.testweb.events({
 
   "click .reload": function (e) {
     e.preventDefault();
-    Meteor.call("getAllShareJS");
+    Meteor.call("getAllFirepad");
     $("#testweb")[0].contentWindow.location.reload(true)
   },
 

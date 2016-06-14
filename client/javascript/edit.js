@@ -103,7 +103,7 @@ Template.filename.events({
   // delete the current file
   "click button.save": function(e) {
     e.preventDefault();
-    Meteor.call("getAllShareJS");
+    Meteor.call("getAllFirepad");
   },
 
   // enable changing of filename

@@ -29,7 +29,7 @@ Template.commitPanel.events({
 
   "click .newcommit": function(e) {
     e.preventDefault();
-    Meteor.call("getAllShareJS");
+    Meteor.call("getAllFirepad");
     Session.set("focusPane", "committer");
     focusForm("#commitMsg");
   },
@@ -51,7 +51,7 @@ Template.commitPanel.events({
 
   "click .refresh": function(e) { // pull in latest version of buffers
     e.preventDefault();
-    Meteor.call("getAllShareJS");
+    Meteor.call("getAllFirepad");
   },
 
   "click .reload": function(e) { // pull in latest commits from gh

@@ -4,6 +4,7 @@ lightgreen = rgb(223, 240, 216)
 lightred = rgb(242, 222, 222)
 lightgray = #f5f5f5
 lightblue = #d9edf7
+monokai = #2f3129
 darkblue = #337AB7
 darkgray = #222
 midgray = #ddd
@@ -101,6 +102,8 @@ h5
 
 // button styling
 
+a.powered-by-firepad // firepad editor
+    display none
 a.btn
     background buttonface
     color rgb(85, 85, 85)
@@ -129,14 +132,16 @@ a.btn
 #mainlogin li.login a
     text-decoration none
     color lightgray
-#editor-head // colors: txt, bg, border
+#editor-head
     heading-style(white, darkblue, white)
     position fixed
+    z-index 10
     width 100%
     .navbar-form
         margin-right 31vw
         padding 0px
 #editor-container
+    min-height: calc(100vh - 120px);
     overflow hidden
     height 83vh
 #editor
@@ -182,11 +187,11 @@ span.lineno
 // jquery ui resizer
 
 .ui-resizable-s
-    background lightgray
+    background midgray
     height 25px
     bottom 0px
 .ui-resizable-s:hover
-    background midgray
+    background lightblue
 .ui-resizable-helper
     border 2px dotted #00F
 
@@ -217,12 +222,3 @@ float: left; }
     padding-bottom: 15px; }
 }
 
-// firepad editor
-
-a.powered-by-firepad
-    display none
-#firepad-container
-    background-color black
-    height 100%
-    width 100%
-    color gray

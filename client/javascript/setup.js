@@ -6,7 +6,7 @@ Session.setDefault("focusPane", null);
 Session.setDefault("hideClosedIssues", true);
 
 // todo move these to repo level
-Session.setDefault("testViz", false);
+Session.setDefault("testViz", true);
 Session.setDefault("testWeb", false);
 Session.setDefault("testFile", null);
 
