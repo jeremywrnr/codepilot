@@ -19,3 +19,6 @@ standard-minifier-js
 jeremywrnr:git-sync # LOCAL PACKAGE
 mizzao:jquery-ui
 ecmascript
+
+
+npm-container
