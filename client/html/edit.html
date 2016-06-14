@@ -9,22 +9,13 @@
 </template>
 
 <template name="editor">
-  {{# with docid }}
   {{> filename }}
-
   {{#if isImage }}
   {{> renderImage }}
-
   {{else}}
-  <div id="editor-container">
-    {{> firepad }}
-  </div>
+  <div id="editor-container"></div>
+  {{render}}
   {{/if}}
-  {{/with}}
-</template>
-
-<template name="firepad">
-  <div id="editor"></div>
 </template>
 
 

@@ -82,53 +82,53 @@ Meteor.methods({
   // SHAREJS MANAGEMENT
   /////////////////////
   newShareJS: function(id) { // create sharejs document with same id
-    var time = Math.round( new Date() / 1000 );
-    ShareJS.model.create(id, "text", { mtime: time, ctime: time });
+    //var time = Math.round( new Date() / 1000 );
+    //ShareJS.model.create(id, "text", { mtime: time, ctime: time });
   },
 
   getShareJS: function(file) { // give live editor copy, v and snapshot
-    if(! file._id ) return null;
-    var sjs = Docs.findOne( file._id );
-    if (sjs)
-      return sjs.data;
-    else
-      Meteor.call("newShareJS", file._id);
-    return Meteor.call("getShareJS", file._id);
+    //if(! file._id ) return null;
+    //var sjs = Docs.findOne( file._id );
+    //if (sjs)
+      //return sjs.data;
+    //else
+      //Meteor.call("newShareJS", file._id);
+    //return Meteor.call("getShareJS", file._id);
   },
 
   getAllShareJS: function() { // update file.content from sjs
-    Files.find({
-      repo:  Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-    }).fetch().filter(function typeCheck(file) { // remove imgs
-        return file.type === "file";
-      }).map(function readSJS(file) {
-        var sjs = Meteor.call("getShareJS", file);
-        Files.update(
-          file._id,
-          {$set: {
-            content: sjs.snapshot
-          }});
-      });
+    //Files.find({
+      //repo:  Meteor.user().profile.repo,
+      //branch: Meteor.user().profile.repoBranch,
+    //}).fetch().filter(function typeCheck(file) { // remove imgs
+        //return file.type === "file";
+      //}).map(function readSJS(file) {
+        //var sjs = Meteor.call("getShareJS", file);
+        //Files.update(
+          //file._id,
+          //{$set: {
+            //content: sjs.snapshot
+          //}});
+      //});
   },
 
   postShareJS: function(file) { // update files with their ids
-    var sjs = Meteor.call("getShareJS", file); // get doc and version
-    if (!sjs) return null; // if file id broke, don"t propagate error
-    ShareJS.model.applyOp( file._id, {
-      op: [
-        { p:0, d: sjs.snapshot }, // delete old content
-        { p:0, i: file.content } // insert new blob content
-      ],
-      meta: null,
-      v: sjs.v // apply it to last seen version
-    });
+    //var sjs = Meteor.call("getShareJS", file); // get doc and version
+    //if (!sjs) return null; // if file id broke, don"t propagate error
+    //ShareJS.model.applyOp( file._id, {
+      //op: [
+        //{ p:0, d: sjs.snapshot }, // delete old content
+        //{ p:0, i: file.content } // insert new blob content
+      //],
+      //meta: null,
+      //v: sjs.v // apply it to last seen version
+    //});
   },
 
   postAllShareJS: function(file) { // update all project sjs files
-    ufiles().map(function setSJS(file) {
-      Meteor.call("postShareJS", file);
-    });
+    //ufiles().map(function setSJS(file) {
+      //Meteor.call("postShareJS", file);
+    //});
   },
 
 
@@ -201,6 +201,7 @@ Meteor.methods({
       number: issue.issue.number,
       state: "closed"
     });
+
     Issues.remove(issue._id); // remove from the local database
   },
 
