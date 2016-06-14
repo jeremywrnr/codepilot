@@ -17,6 +17,8 @@ Meteor.call("firebase", function(err, res) {
     Session.set("fb", res)
 });
 
+
+
 // startup data subscriptions
 
 var prof = GitSync.prof;

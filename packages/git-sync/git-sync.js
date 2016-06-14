@@ -5,8 +5,8 @@ GitSync = {
   host: "https://www.git-sync.com/",
 
   firebaseSetup: function(dev) {
-    var devFB = "https://gitsync-dev.firebaseio.com/"
-    var prodFB = "https://gitsync.firebaseio.com/"
+    var prodFB = "https://project-3627267568762325747.firebaseio.com/"
+    var devFB = "https://gitsync-test.firebaseio.com/"
     this.firebase = (dev ? devFB : prodFB)
   },
 

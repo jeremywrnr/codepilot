@@ -51,9 +51,7 @@ Meteor.publish("screens", function() { // serve all issue screenshots
 
 var inDevelopment = process.env.NODE_ENV === "development";
 
-GitSync.firebaseSetup(inDevelopment); // firebase link
-
-console.log(GitSync.firebase)
+GitSync.firebaseSetup(inDevelopment); // setup firebase link
 
 Meteor.startup(function () { // get correct github auth key
   ServiceConfiguration.configurations.remove({service: "github"});

@@ -16,8 +16,23 @@
   {{> renderImage this}}
 
   {{else}}
-  <div id="editor-container">
-    {{> sharejsAce docid=this onRender=config onConnect=setMode id="editor"}} </div>
+  <div id="editor-container"> <div id="editor"></div> </div>
+  <script>
+      //// Initialize Firebase.
+      var docRef = (Session.get("fb") + "{{docid}}" );
+      var firepadRef = new Firebase(docRef);
+
+      //// Create ACE
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/monokai");
+      var session = editor.getSession();
+      session.setUseWrapMode(true);
+      session.setUseWorker(false);
+      session.setMode("ace/mode/javascript");
+
+      //// Create Firepad.
+      var firepad = Firepad.fromACE(firepadRef, editor, {});
+  </script>
 
   {{/if}}
   {{/with}}
