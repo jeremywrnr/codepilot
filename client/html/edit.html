@@ -9,34 +9,24 @@
 </template>
 
 <template name="editor">
-  {{#with docid}}
-  {{> filename this}}
+  {{# with docid }}
+  {{> filename }}
 
   {{#if isImage }}
-  {{> renderImage this}}
+  {{> renderImage }}
 
   {{else}}
-  <div id="editor-container"> <div id="editor"></div> </div>
-  <script>
-      //// Initialize Firebase.
-      var docRef = (Session.get("fb") + "{{docid}}" );
-      var firepadRef = new Firebase(docRef);
-
-      //// Create ACE
-      var editor = ace.edit("editor");
-      editor.setTheme("ace/theme/monokai");
-      var session = editor.getSession();
-      session.setUseWrapMode(true);
-      session.setUseWorker(false);
-      session.setMode("ace/mode/javascript");
-
-      //// Create Firepad.
-      var firepad = Firepad.fromACE(firepadRef, editor, {});
-  </script>
-
+  <div id="editor-container">
+    {{> firepad }}
+  </div>
   {{/if}}
   {{/with}}
 </template>
+
+<template name="firepad">
+  <div id="editor"></div>
+</template>
+
 
 <template name="loadprompt">
   <div id="mainhead">

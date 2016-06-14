@@ -1,20 +1,16 @@
 // code editor things
 
-focusForm = GitSync.focusForm;
+var focusForm = GitSync.focusForm;
+var prof = GitSync.prof;
 
 Template.code.helpers({
 
-  nulldoc: function() {
-    return Session.equals("document", null);
-  }
+  nulldoc: function() { return Session.equals("document", null); }
 
 });
 
-
 Template.editor.helpers({
-  docid: function() {
-    return Session.get("document");
-  },
+  docid: function() { return Session.get("document"); },
 
   isImage: function() { // check if file extension is renderable
     var file = Files.findOne(Session.get("document"));
@@ -31,12 +27,37 @@ Template.editor.helpers({
       }
     }
   },
+});
 
-  config: function() { // set default theme and autocomplete
-    return function(editor) {
+Template.firepad.onRendered(function() { // Create ACE editor
+  Tracker.autorun(function () { //// Initialize Firebase.
+    if (! Session.equals("document", Session.get("editing"))) {
+      Session.set("editing", Session.get("document")); // trigger
+
+      // Destroy old gear
+      $("#editor").remove();
+
+      // make fresh new editor
+      $("#editor-container").append("<div id='editor'></div>");
+      var editor = ace.edit("editor")
+      editor.$blockScrolling = Infinity;
       editor.setTheme("ace/theme/monokai");
       editor.setShowPrintMargin(false);
-      editor.getSession().setUseWrapMode(true);
+
+      var session = editor.getSession();
+      session.setUseWrapMode(true);
+      session.setUseWorker(false);
+
+
+      //// Create Firepad.
+      var docRef = Session.get("fb") + Session.get("document");
+      var firepadRef = new Firebase(docRef);
+      var firepad = Firepad.fromACE(firepadRef,
+        editor, { userId: prof().login, });
+
+      //// Filemode and autosuggestions
+      var mode = GitSync.findFileMode(Session.get("document"));
+      editor.getSession().setMode(mode);
       var beautify = ace.require("ace/ext/beautify");
       editor.commands.addCommands(beautify.commands);
       editor.setOptions({ // more editor completion
@@ -44,27 +65,11 @@ Template.editor.helpers({
         enableLiveAutocompletion: true,
         enableSnippets: true
       });
-    };
-  },
-
-  setMode: function() { // different style on filetype
-    //var editor = $("#editor").data('ace').editor;
-    return function(editor) {
-      var mode = GitSync.findFileMode(Session.get("document"));
-      editor.$blockScrolling = Infinity;
-      editor.getSession().setMode(mode);
     }
-  },
+  }); // tracker
 });
 
 
-Template.editor.events({
-
-  "load #editor": function() {
-    ace.edit('editor').$blockScrolling = 1
-  },
-
-});
 
 Template.filename.helpers({
   rename: function() {
@@ -72,11 +77,10 @@ Template.filename.helpers({
   },
 
   title: function() { // strange artifact.
-    var ref;
-    return (ref = Files.findOne(this + "")) != null ? ref.title : void 0;
+    var ref = Files.findOne(Session.get("document"));
+    if (ref) return ref.title;
   }
 });
-
 
 Template.filename.events({
   // rename the current file
@@ -97,6 +101,7 @@ Template.filename.events({
 
   // delete the current file
   "click button.save": function(e) {
+    e.preventDefault();
     Meteor.call("getAllShareJS");
   },
 
