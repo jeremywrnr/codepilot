@@ -15,40 +15,35 @@ FirepadAPI = {
   // CLIENT METHODS - for file manipulation
   /////////////////////
 
-  getText: function(id) {
-  },
-
-  getFirepad: function(id) { // give live editor copy, v and snapshot
-    if (!id) return null;
-    var content = "";
-    var headless = Firepad.Headless(Session.get("firepadRef"));
-
-    headless.onReady(function(){
-      headless.getText(function(txt){ content = txt; });
+  getText: function(id, cb) {
+    var headless = Firepad.Headless(Session.get("fb") + id);
+    headless.getText(function(txt) {
       headless.dispose();
+      cb(txt);
     });
-
-    console.log(content)
-    return content;
   },
 
-  getAllFirepad: function() { // update file.content from firepad
-    //Files.find({
-    //repo:  Meteor.user().profile.repo,
-    //branch: Meteor.user().profile.repoBranch,
-    //}).fetch().filter(function typeCheck(file) { // remove imgs
-    //return file.type === "file";
-    //}).map(function readSJS(file) {
-    //var sjs = Meteor.call("getFirepad", file);
-    //Files.update(
-    //file._id,
-    //{$set: {
-    //content: sjs.snapshot
-    //}});
-    //});
+  getAllText: function(cb) { // update file.content from firepad
+    Files.find({
+      repo:  Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+    })
+
+    .fetch().filter(function typeCheck(file) { // remove imgs
+      return file.type === "file";
+    }).map(function(file) { // using document ids
+      return file._id
+
+    }).map(function(id) {
+
+      this.getText(id, function(txt){
+        console.log(id, txt);
+        Files.update( id, {$set: { content: txt }});
+      });
+    });
   },
 
-  postFirepad: function(file) { // update files with their ids
+  setText: function(file) { // update files with their ids
     //var sjs = Meteor.call("getFirepad", file); // get doc and version
     //if (!sjs) return null; // if file id broke, don"t propagate error
     //Firepad.model.applyOp( file._id, {
@@ -61,10 +56,10 @@ FirepadAPI = {
     //});
   },
 
-  postAllFirepad: function(file) { // update all project sjs files
-    //ufiles().map(function setSJS(file) {
-    //Meteor.call("postFirepad", file);
-    //});
+  setAllText: function() { // update all project sjs files
+    ufiles().map(function(file) {
+      this.setText(file)
+    });
   },
 
 };
