@@ -99,7 +99,9 @@ ga("send", "pageview");
 <!-- navigation icons from http://glyphicons.com/ -->
 
 <template name="navigation">
-  <img alt="Git Sync" src="/img/gitlogo2.gif" id="brand-img">
+  <a href="/">
+    <img alt="Git Sync" src="/img/gitlogo2.gif" id="brand-img">
+  </a>
 
   {{#if currentUser }}
   <ul class="nav navbar-nav">
