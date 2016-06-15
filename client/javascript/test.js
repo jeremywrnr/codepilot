@@ -79,7 +79,8 @@ Template.testviz.events({
 
   "click .reload": function (e) {
     e.preventDefault();
-    FirepadAPI.getAllText();
+    FirepadAPI.getAllText(function(id, txt){
+      Meteor.call("updateFile", id, txt); });
     Session.set("testViz", !Session.get("testViz") );
     setTimeout(function() {
       Session.set("testViz", !Session.get("testViz") );
@@ -110,7 +111,8 @@ Template.testweb.events({
 
   "click .reload": function (e) {
     e.preventDefault();
-    FirepadAPI.getAllText();
+    FirepadAPI.getAllText(function(id, txt){
+      Meteor.call("updateFile", id, txt); });
     $("#testweb")[0].contentWindow.location.reload(true)
   },
 

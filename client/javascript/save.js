@@ -29,7 +29,8 @@ Template.commitPanel.events({
 
   "click .newcommit": function(e) {
     e.preventDefault();
-    FirepadAPI.getAllText()
+    FirepadAPI.getAllText(function(id, txt){
+      Meteor.call("updateFile", id, txt); });
     Session.set("focusPane", "committer");
     focusForm("#commitMsg");
   },
@@ -49,16 +50,10 @@ Template.commitPanel.events({
     Session.set("focusPane", null);
   },
 
-  "click .refresh": function(e) { // pull in latest version of buffers
+  "click .reload": function(e) { // pull in latest version of buffers
     e.preventDefault();
     FirepadAPI.getAllText(function(id, txt){
-      Meteor.call("updateFile", id, txt);
-    });
-  },
-
-  "click .reload": function(e) { // pull in latest commits from gh
-    e.preventDefault();
-    Meteor.call("initCommits");
+      Meteor.call("updateFile", id, txt); });
   },
 
   "click .loadhead": function(e) { // load head of branch into SJS
@@ -124,6 +119,11 @@ Template.commit.events({
   },
 
 });
+
+
+
+
+// RENDERING DIFFS
 
 Template.statusPanel.helpers({
 

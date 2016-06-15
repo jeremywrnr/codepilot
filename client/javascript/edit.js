@@ -30,7 +30,8 @@ var renderEditor = function() {
   // Get cached content for when history empty
   var file = Files.findOne(Session.get("document"))
   firepad.on('ready', function() {
-    if (firepad.isHistoryEmpty()) firepad.setText(file.content);
+    if (firepad.isHistoryEmpty())
+      firepad.setText(file.content);
   });
 
   // Filemode and suggestions
@@ -44,6 +45,17 @@ var renderEditor = function() {
     enableSnippets: true
   });
 }
+
+/* Odd artifact here - onRendered needs to have the render editor function fed
+ * into it in order for the firepad to be loaded when returning from another
+ * view, but will not trigger when the session document updates. To get around
+ * this, we insert a 'render' helper in the editor template body, inside a with
+ * docid statement. this handles not updating the firepad when the template is
+ * the same. first tried using tracker autorun but that was running way to many
+ * times and was unsure if you could configure it to reload only when the
+ * active session document works. still gives * 'cant find edtior' errors
+ * sometimes, but still loads it. hmmm. works!
+ * */
 
 Template.editor.helpers({
   docid: function() { return Session.get("document"); },
@@ -76,7 +88,7 @@ Template.filename.helpers({
     return Session.equals("focusPane", "renamer");
   },
 
-  title: function() { // strange artifact.
+  title: function() {
     var ref = Files.findOne(Session.get("document"));
     if (ref) return ref.title;
   }
@@ -102,7 +114,9 @@ Template.filename.events({
   // delete the current file
   "click button.save": function(e) {
     e.preventDefault();
-    FirepadAPI.getAllText();
+    FirepadAPI.getAllText(function(id, txt){
+      Meteor.call("updateFile", id, txt);
+    });
   },
 
   // enable changing of filename
