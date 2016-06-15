@@ -79,7 +79,7 @@ Template.testviz.events({
 
   "click .reload": function (e) {
     e.preventDefault();
-    Meteor.call("getAllFirepad");
+    FirepadAPI.getAllText();
     Session.set("testViz", !Session.get("testViz") );
     setTimeout(function() {
       Session.set("testViz", !Session.get("testViz") );
@@ -110,7 +110,7 @@ Template.testweb.events({
 
   "click .reload": function (e) {
     e.preventDefault();
-    Meteor.call("getAllFirepad");
+    FirepadAPI.getAllText();
     $("#testweb")[0].contentWindow.location.reload(true)
   },
 
@@ -176,8 +176,6 @@ Template.issue.events({
   },
 
   "click .closeissue": function(e) { // click to close a given issue
-    //var trulyClose = confirm("Are you sure you"d like to close this issue?");
-    //if (trulyClose)
     Meteor.call("closeIssue", this);
   },
 

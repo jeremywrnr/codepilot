@@ -11,11 +11,11 @@ FirepadAPI = {
   },
 
 
-  /////////////////////
-  // CLIENT METHODS - for file manipulation
-  /////////////////////
+  //////////////////
+  // CLIENT METHODS
+  /////////////////
 
-  getText: function(id, cb) {
+  getText: function(id, cb) { // return the contents of firepad
     var headless = Firepad.Headless(Session.get("fb") + id);
     headless.getText(function(txt) {
       headless.dispose();
@@ -23,44 +23,32 @@ FirepadAPI = {
     });
   },
 
-  getAllText: function(cb) { // update file.content from firepad
+  getAllText: function(cb) { // update file.content from firepad (for testing)
     Files.find({
-      repo:  Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-    })
+      repo: Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch, }
+    ).fetch().filter(function typeCheck(file) {
+      return file.type === "file"; // remove imgs
 
-    .fetch().filter(function typeCheck(file) { // remove imgs
-      return file.type === "file";
     }).map(function(file) { // using document ids
       return file._id
 
     }).map(function(id) {
-
-      this.getText(id, function(txt){
-        console.log(id, txt);
-        Files.update( id, {$set: { content: txt }});
+      FirepadAPI.getText(id, function(txt) {
+        cb(id, txt);
       });
     });
   },
 
-  setText: function(file) { // update files with their ids
-    //var sjs = Meteor.call("getFirepad", file); // get doc and version
-    //if (!sjs) return null; // if file id broke, don"t propagate error
-    //Firepad.model.applyOp( file._id, {
-    //op: [
-    //{ p:0, d: sjs.snapshot }, // delete old content
-    //{ p:0, i: file.content } // insert new blob content
-    //],
-    //meta: null,
-    //v: sjs.v // apply it to last seen version
-    //});
+  setText: function(id, txt) { // update firebase with their ids
+    var headless = Firepad.Headless(Session.get("fb") + id);
+    headless.setText(txt, function(txt) { headless.dispose() });
   },
 
-  setAllText: function() { // update all project sjs files
+  setAllText: function() { // update all project caches from firepad (for reset)
     ufiles().map(function(file) {
-      this.setText(file)
+      FirepadAPI.setText(file._id, file.cache)
     });
   },
-
 };
 

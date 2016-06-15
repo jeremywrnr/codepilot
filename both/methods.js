@@ -44,6 +44,16 @@ Meteor.methods({
 
 
   //////////////////
+  // FILE MANAGEMENT
+  //////////////////
+
+  updateFile: function(id, txt) { // updating files from firepad snapshot
+    Files.update(id, {$set: { content: txt }});
+  },
+
+
+
+  //////////////////
   // ROLE MANAGEMENT
   //////////////////
 
