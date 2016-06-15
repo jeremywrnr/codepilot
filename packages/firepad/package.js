@@ -6,9 +6,9 @@ Package.describe({
 
 
 Package.onUse(function(api) {
-  api.export("Firepad");
+  api.export("FirepadAPI");
   api.versionsFrom("METEOR@1.3");
-  api.addFiles(["difflib.js", "firepad.js"]);
+  api.addFiles(["firepad.js"]);
 });
 
 

@@ -10,7 +10,7 @@ Package.onUse(function(api) {
   api.export("GitSync");
   api.export("Difflib");
 
-  api.versionsFrom("METEOR@1.2");
+  api.versionsFrom("METEOR@1.3");
   api.addFiles(["difflib.js", "git-sync.js"]);
 });
 

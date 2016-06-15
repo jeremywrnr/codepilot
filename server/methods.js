@@ -12,7 +12,7 @@ Meteor.methods({
   //////////////////
 
   firebase: function() { // expose production host for connection
-    return Firebase.host; // server's version
+    return FirepadAPI.host; // server's version
   },
 
   newFile: function() { // create a new unnamed file
@@ -47,9 +47,7 @@ Meteor.methods({
   },
 
   deleteFile: function(id) { // with id, delete a file from system
-    //Firepad.model.delete(id);
     Files.remove(id);
-    Docs.remove(id);
   },
 
   setFileType: function(file, type) { // set the type field of a file
@@ -74,59 +72,6 @@ Meteor.methods({
     var base = [{"title":"site.html"},{"title":"site.css"},{"title":"site.js"}];
     base.map(function(f){ Meteor.call("createFile", f) });
   },
-
-
-  /////////////////////
-  // SHAREJS MANAGEMENT
-  /////////////////////
-  newFirepad: function(id, content) { // create firepad document with same id
-  },
-
-  getFirepad: function(file) { // give live editor copy, v and snapshot
-    //if(! file._id ) return null;
-    //var sjs = Docs.findOne( file._id );
-    //if (sjs)
-    //return sjs.data;
-    //else
-    //Meteor.call("newFirepad", file._id);
-    //return Meteor.call("getFirepad", file._id);
-  },
-
-  getAllFirepad: function() { // update file.content from sjs
-    //Files.find({
-    //repo:  Meteor.user().profile.repo,
-    //branch: Meteor.user().profile.repoBranch,
-    //}).fetch().filter(function typeCheck(file) { // remove imgs
-    //return file.type === "file";
-    //}).map(function readSJS(file) {
-    //var sjs = Meteor.call("getFirepad", file);
-    //Files.update(
-    //file._id,
-    //{$set: {
-    //content: sjs.snapshot
-    //}});
-    //});
-  },
-
-  postFirepad: function(file) { // update files with their ids
-    //var sjs = Meteor.call("getFirepad", file); // get doc and version
-    //if (!sjs) return null; // if file id broke, don"t propagate error
-    //Firepad.model.applyOp( file._id, {
-    //op: [
-    //{ p:0, d: sjs.snapshot }, // delete old content
-    //{ p:0, i: file.content } // insert new blob content
-    //],
-    //meta: null,
-    //v: sjs.v // apply it to last seen version
-    //});
-  },
-
-  postAllFirepad: function(file) { // update all project sjs files
-    //ufiles().map(function setSJS(file) {
-    //Meteor.call("postFirepad", file);
-    //});
-  },
-
 
   ///////////////////
   // ISSUE MANAGEMENT

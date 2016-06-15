@@ -1,3 +1,5 @@
+// interface for interacting with Firepad
+
 FirepadAPI = {
 
   // getting whether the host is in production or development
@@ -8,6 +10,7 @@ FirepadAPI = {
     this.host = (dev ? devFB : prodFB);
   },
 
+
   /////////////////////
   // CLIENT METHODS - for file manipulation
   /////////////////////
@@ -15,20 +18,21 @@ FirepadAPI = {
   getText: function(id) {
   },
 
-  newFirepad: function(id, content) { // create firepad document with same id
+  getFirepad: function(id) { // give live editor copy, v and snapshot
+    if (!id) return null;
+    var content = "";
+    var headless = Firepad.Headless(Session.get("firepadRef"));
+
+    headless.onReady(function(){
+      headless.getText(function(txt){ content = txt; });
+      headless.dispose();
+    });
+
+    console.log(content)
+    return content;
   },
 
-  getFirepad: function(file) { // give live editor copy, v and snapshot
-    //if(! file._id ) return null;
-    //var sjs = Docs.findOne( file._id );
-    //if (sjs)
-    //return sjs.data;
-    //else
-    //Meteor.call("newFirepad", file._id);
-    //return Meteor.call("getFirepad", file._id);
-  },
-
-  getAllFirepad: function() { // update file.content from sjs
+  getAllFirepad: function() { // update file.content from firepad
     //Files.find({
     //repo:  Meteor.user().profile.repo,
     //branch: Meteor.user().profile.repoBranch,
