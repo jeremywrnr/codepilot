@@ -2,8 +2,6 @@
 // so: files, shareJS, and top-level functions
 // dlog is debugger log, see server/setup.js
 
-import firebase from 'firebase';
-
 var ufiles = GitSync.userfiles;
 var hoster = GitSync.host;
 
