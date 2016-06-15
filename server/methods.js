@@ -33,7 +33,6 @@ Meteor.methods({
 
     if (fs.insertedId) { // if a new file made, create firepad
       Meteor.call("addMessage", " created file - " + file.path);
-      Meteor.call("newFirepad", fs.insertedId);
       return fs.insertedId;
     }
   },
@@ -59,12 +58,9 @@ Meteor.methods({
   },
 
   resetFile: function(id) { // reset file back to cached version
-    var o = Files.findOne(id); // overwrite content
-    if (o) {
-      Files.update(id, {$set: {content: o.cache}});
-      var n = Files.findOne(id); // get new version
-      Meteor.call("postFirepad", n); // load into sharejs
-    }
+    var old = Files.findOne(id); // overwrite content
+    if (old)
+      Files.update(id, {$set: {content: old.cache}});
   },
 
   resetFiles: function() { // reset db and hard code simple website structure

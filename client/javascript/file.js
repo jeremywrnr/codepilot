@@ -1,4 +1,4 @@
-// file feed things
+// file feed helpers
 
 var newFile = function(e) {
   e.preventDefault();

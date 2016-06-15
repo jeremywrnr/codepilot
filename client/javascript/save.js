@@ -202,9 +202,10 @@ Template.diff.helpers({
 Template.diff.events({
 
   "click .reset": function(e) {
+    console.log(this.id)
     var trulyReset = confirm("This will reset this file back to the last commit. Proceed?");
-    if (trulyReset)
-      Meteor.call("resetFile", this.id);
+    if (trulyReset) Meteor.call("resetFile", this.id);
+    FirepadAPI.setText(this.id)
   }
 
 });
