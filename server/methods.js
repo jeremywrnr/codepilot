@@ -179,7 +179,6 @@ Meteor.methods({
     var treeResults = Meteor.call("getTree", treeSHA);
 
     treeResults.tree.forEach(function updateBlob(blob) {
-
       if (blob.type === "blob") { // only load files, not folders/trees
         var content = Async.runSync(function(done) { // wait on github response
           var content = Meteor.call("getBlob", blob);
@@ -191,10 +190,7 @@ Meteor.methods({
 
         Meteor.call("createFile", blob);
       }
-
     });
-
-    Meteor.call("postAllFirepad");
   },
 
 

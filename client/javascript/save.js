@@ -59,8 +59,10 @@ Template.commitPanel.events({
   "click .loadhead": function(e) { // load head of branch into SJS
     e.preventDefault();
     var trulyLoad = confirm("This will overwrite any uncommitted changes. Proceed?");
-    if (trulyLoad)
+    if (trulyLoad) {
       Meteor.call("loadHead", prof().repoBranch);
+      FirepadAPI.setAllText();
+    }
   },
 
 });
@@ -103,11 +105,10 @@ Template.commit.helpers({
 Template.commit.events({
 
   "click .commit": function(e) {
-    if (Session.equals("focusPane", this._id)) {
+    if (Session.equals("focusPane", this._id))
       Session.set("focusPane", null);
-    } else {
+    else
       Session.set("focusPane", this._id);
-    }
   },
 
   "click .loadcommit": function(e) {
@@ -115,6 +116,7 @@ Template.commit.events({
     if (trulyLoad) {
       Session.set("focusPane", null);
       Meteor.call("loadCommit", this.commit.sha);
+      FirepadAPI.setAllText();
     }
   },
 

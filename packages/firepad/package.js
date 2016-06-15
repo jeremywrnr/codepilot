@@ -7,6 +7,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.export("FirepadAPI");
+  api.use("jeremywrnr:git-sync");
   api.versionsFrom("METEOR@1.3");
   api.addFiles(["firepad.js"]);
 });

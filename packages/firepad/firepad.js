@@ -24,10 +24,7 @@ FirepadAPI = {
   },
 
   getAllText: function(cb) { // update file.content from firepad (for testing)
-    Files.find({
-      repo: Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch, }
-    ).fetch().filter(function typeCheck(file) {
+    GitSync.userfiles().fetch().filter(function typeCheck(file) {
       return file.type === "file"; // remove imgs
 
     }).map(function(file) { // using document ids
@@ -42,11 +39,11 @@ FirepadAPI = {
 
   setText: function(id, txt) { // update firebase with their ids
     var headless = Firepad.Headless(Session.get("fb") + id);
-    headless.setText(txt, function(txt) { headless.dispose() });
+    headless.setText(txt, function() { headless.dispose() });
   },
 
   setAllText: function() { // update all project caches from firepad (for reset)
-    ufiles().map(function(file) {
+    GitSync.userfiles().fetch().map(function(file) {
       FirepadAPI.setText(file._id, file.cache)
     });
   },
