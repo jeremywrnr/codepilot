@@ -248,23 +248,5 @@ Meteor.methods({
       Meteor.call("addMessage", "committed - " + msg);
   },
 
-
-  ///////////////////////////
-  // helper & testing methods
-  ///////////////////////////
-
-  //http://stackoverflow.com/questions/10677491/how-to-get-meteor-call-to-return-value-for-template
-  getCollabs: function(repo) {
-
-    // get a users profile based on their id, from project repo id
-    return repo.users.map(function(uid) {
-      var user = Meteor.users.findOne(uid);
-
-      // return users currently working on project
-      if (user.profile.repo === repo._id)
-        return user.profile;
-    });
-  },
-
 });
 

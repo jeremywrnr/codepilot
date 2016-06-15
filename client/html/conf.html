@@ -41,69 +41,23 @@
     {{/if}}
   </div>
 
-
-
-  <div class="panel panel-default">
-    <div class="panel-heading"> <h2 class="panel-title"> account </h2> </div>
-    <div class="panel-body">
-
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <h4><img class="img-rounded" style="height: 75px;" src="{{currentUser.profile.avatar_url}}">
-            {{currentUser.profile.name}}</h4>
-        </div>
-        <ul class="list-group nomargin">
-
-          <li class="list-group-item">
-            {{#if userShowing}}
-            <button class="btn btn-xs del pull-right unfocus"> hide </button>
-            {{else}}
-            <button class="btn btn-xs grn pull-right showUsers"> users</button>
-            {{/if}}
-            project id: {{ currentUser.profile.repo }}
-          </li>
-
-          {{#if userShowing}}
-          {{#each users}}
-          {{> user}}
-          {{/each}}
-          {{/if}}
-
-          <li class="list-group-item">
-            <button class="loadGHData grn btn btn-xs pull-right">refresh</button>
-            github:
-            <a href="{{currentUser.profile.html_url}}" target="_blank">
-              {{ currentUser.profile.login }}</a>
-          </li>
-
-          <li class="list-group-item">
-            <div class="btn-group pull-right">
-              <button class="makePilot btn-xs grn btn">pilot</button>
-              <button class="makeCopilot btn-xs grn btn">co-pilot</button>
-            </div>
-            role: {{currentUser.profile.role}}
-          </li>
-
-        </ul>
-      </div>
-
-      <h5> role </h5>
-
-      {{#if isPilot}}
-      <p>This view is only seen by pilots. The pilot should focus on entering
-      a flow state, knocking down issues and tasks. The testing and github
-      integration panels are hidden to the pilot to aid in this regard,
-      allowing them to focus on coding while the copilot performs testing and
-      creates issues, writes documentation, and makes commits.</p>
-      {{else}}
-      <p>This view is only seen by copilots. The copilot should focus on
-      testing the work that the pilot performs by using the testing panel,
-      and filing any bugs found. They also are in control of the github
-      integration, so they decide when it is time to make a commit.</p>
-      {{/if}}
-
-    </div>
+  <div class="header">
+    <p class="navbar-text"> account </p>
+    <form class="navbar-form pull-right">
+      <button class="grn btn btn-default btn-small loadGHData">reload</button>
+    </form>
   </div>
+
+  <div class="panel-body">
+    <img class="img-rounded" src="{{currentUser.profile.avatar_url}}" style="float: left; height: 75px; margin-right:15px;">
+    <h4>
+      {{currentUser.profile.name}}
+      <br/>
+      <br/>
+      <a href="{{currentUser.profile.html_url}}" target="_blank"> {{ currentUser.profile.login }}</a>
+    </h4>
+  </div>
+
   {{> extras }}
 </template>
 
@@ -117,12 +71,9 @@
       <div class="input-group">
         <form class="forker">
           <input placeholder="enter a repo to fork (eg: jeremywrnr/git-sync) ..."
-                 id="repoForker" class="form-control" type="text" name="title" value="">
-        </form>
+                 id="repoForker" class="form-control" type="text" name="title" value=""> </form>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-default del cancelFork">cancel</button>
-        </span>
-      </div>
+          <button type="button" class="btn btn-default del cancelFork">cancel</button> </span> </div>
     </div>
   </button>
 
@@ -142,13 +93,10 @@
     <div class="alert alert-success nomargin">
       <div class="input-group">
         <form class="brancher">
-          <input placeholder="enter the new branch name..." id="branchNamer"
-                                                            class="form-control" type="text" name="title" value="">
-        </form>
+          <input placeholder="enter the new branch name..."
+                 id="branchNamer" class="form-control" type="text" name="title" value=""> </form>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-default del cancelBranch">cancel</button>
-        </span>
-      </div>
+          <button type="button" class="btn btn-default del cancelBranch">cancel</button> </span> </div>
     </div>
   </button>
 
@@ -162,13 +110,6 @@
 </template>
 
 
-
-<template name="user">
-  <button class="list-group-item repo">
-    <button class="label label-info btn btn-xs pull-right"> user </button>
-    {{ login }} | {{ role }} | {{ repoBranch }}
-  </button>
-</template>
 
 <template name="repo">
   <button class="list-group-item repo">
@@ -185,27 +126,25 @@
 
 
 <template name="extras">
-  <div class="panel panel-default">
-    <div class="panel-heading"> <h2 class="panel-title"> about </h2> </div>
-    <div class="panel-body">
+  <div class="header">
+    <p class="navbar-text"> about </p>
+  </div>
 
-      {{> about }} <!--from welcome.html-->
+  {{> about }} <!--from welcome.html-->
 
-      <h5> disclaimer </h5>
+  <h5> disclaimer </h5>
 
-      I do not own the Octocat or any image similar to it. I use it to link
-      back to the source of this project, which is hosted on GitHub - the
-      creator and owner of the Octocat. This project is maintained by
-      <a href="https://github.com/jeremywrnr">@jeremywrnr</a> - please get in
-      touch with me if you have feedback on the tool, or if you find a bug feel
-      free to open up an issue.
+  I do not own the Octocat or any image similar to it. I use it to link
+  back to the source of this project, which is hosted on GitHub - the
+  creator and owner of the Octocat. This project is maintained by
+  <a href="https://github.com/jeremywrnr">@jeremywrnr</a> - please get in
+  touch with me if you have feedback on the tool, or if you find a bug feel
+  free to open up an issue.
 
-      <h5> debugging </h5>
+  <h5> debugging </h5>
 
-      <div class="alert alert-danger resetfiles" role="alert">
-          reset current project to basic html/css/js website
-      </div>
-
-    </div>
+  <div class="alert alert-danger resetfiles del" role="alert">
+    reset current project to basic html/css/js website
   </div>
 </template>
+

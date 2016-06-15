@@ -3,10 +3,6 @@
 var prof = GitSync.prof;
 
 Template.config.helpers({
-  users: function() { // give all CP project collaborators
-    return Session.get("collabs");
-  },
-
   repos: function() {
     return Repos.find({}, {sort: {"repo.owner": -1, "repo.name": 1}} );
   },
@@ -22,10 +18,6 @@ Template.config.helpers({
       return [];
   },
 
-  userShowing: function() {
-    return Session.equals("focusPane", "users");
-  },
-
   repoSelecting: function() {
     return Session.equals("focusPane", "repo");
   },
@@ -37,17 +29,6 @@ Template.config.helpers({
 
 
 Template.config.events({
-  "click .showUsers": function(e) { // show the repos registered users
-    e.preventDefault();
-    Session.set("focusPane", "users");
-    var repo = Repos.findOne( prof().repo );
-    if (repo) {
-      Meteor.call("getCollabs", repo, function setCollabs(err, users) {
-        Session.set("collabs", users); // show off your collaborators
-      });
-    }
-  },
-
   "click .repoSelect": function(e) { // show the available repos
     e.preventDefault();
     Session.set("focusPane", "repo");
@@ -68,16 +49,6 @@ Template.config.events({
     Session.set("focusPane", null);
     Session.set("branching", false);
     Session.set("forking", false);
-  },
-
-  "click .makePilot": function(e) {
-    e.preventDefault();
-    Meteor.call("setPilot");
-  },
-
-  "click .makeCopilot": function(e) {
-    e.preventDefault();
-    Meteor.call("setCopilot");
   },
 
   "click .loadGHData": function(e) { // load in repos from github
@@ -198,3 +169,4 @@ Template.extras.events({
   },
 
 });
+
