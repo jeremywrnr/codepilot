@@ -1,4 +1,4 @@
-// file things
+// file feed things
 
 var newFile = function(e) {
   e.preventDefault();
@@ -40,7 +40,7 @@ Template.fileitem.events({
   "click .file": function() {
     if (!Session.equals("document", this._id))
       Meteor.call("addMessage", "opened file " + this.title);
-
+    Session.set("firepadRef", Session.get("fb") + this._id);
     Session.set("document", this._id);
   },
 

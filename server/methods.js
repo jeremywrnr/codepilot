@@ -12,7 +12,7 @@ Meteor.methods({
   //////////////////
 
   firebase: function() { // expose production host for connection
-    return GitSync.firebase; // server's version
+    return Firebase.host; // server's version
   },
 
   newFile: function() { // create a new unnamed file

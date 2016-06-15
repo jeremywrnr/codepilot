@@ -23,8 +23,7 @@ var renderEditor = function() {
   focusForm("#editor");
 
   // Create Firepad.
-  var docRef = Session.get("fb") + Session.get("document");
-  var firepadRef = new Firebase(docRef);
+  var firepadRef = new Firebase(Session.get("firepadRef"));
   var firepad = Firepad.fromACE(firepadRef,
     editor, { userId: prof().login, });
 
