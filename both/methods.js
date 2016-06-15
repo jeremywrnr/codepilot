@@ -77,6 +77,14 @@ Meteor.methods({
   // REPO MANAGEMENT
   //////////////////
 
+  updateRepo: function() { // update when repo was last updated
+    return Meteor.users.update(
+      {"_id": Meteor.userId()},
+      {$set : {
+        "profile.lastUpdated": new Date(),
+      }});
+  },
+
   loadRepo: function(gr) { // load a repo into code pilot
     Meteor.call("setRepo", gr); // set the active project / repo
     Meteor.call("initBranches", gr); // get all the possible branches

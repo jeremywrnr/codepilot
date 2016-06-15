@@ -25,6 +25,10 @@ Template.config.helpers({
   branchSelecting: function() {
     return Session.equals("focusPane", "branch");
   },
+
+  lastUpdated: function() {
+    return prof().lastUpdated.toLocaleString();
+  },
 });
 
 
@@ -34,6 +38,7 @@ Template.config.events({
     Session.set("focusPane", "repo");
     if (Repos.find({}).count() === 0) { // if no repos, load them in
       Meteor.call("getAllRepos");
+      Meteor.call("updateRepo");
     }
   },
 
@@ -54,6 +59,7 @@ Template.config.events({
   "click .loadGHData": function(e) { // load in repos from github
     e.preventDefault();
     Meteor.call("getAllRepos");
+    Meteor.call("updateRepo");
   }
 });
 

@@ -41,6 +41,7 @@
     {{/if}}
   </div>
 
+
   <div class="header">
     <p class="navbar-text"> account </p>
     <form class="navbar-form pull-right">
@@ -49,12 +50,12 @@
   </div>
 
   <div class="panel-body">
-    <img class="img-rounded" src="{{currentUser.profile.avatar_url}}" style="float: left; height: 75px; margin-right:15px;">
+    <img class="img-rounded pull-left" src="{{currentUser.profile.avatar_url}}" style="height: 75px; margin-right:15px;">
     <h4>
       {{currentUser.profile.name}}
+      - <a href="{{currentUser.profile.html_url}}" target="_blank"> {{ currentUser.profile.login }}</a>
       <br/>
-      <br/>
-      <a href="{{currentUser.profile.html_url}}" target="_blank"> {{ currentUser.profile.login }}</a>
+      <small><i>updated {{ lastUpdated }}</i></small>
     </h4>
   </div>
 
@@ -132,28 +133,45 @@
 
   <div class="panel-body">
     <h5> mission </h5>
+    <ol>
+      <li>integrate some core programming tasks into a single web IDE</li>
+      <li>encourage collaborator awareness without onerous distraction</li>
+      <li>serve as a bridge for people learning to use version control</li>
+    </ol>
 
     <h5> features </h5>
+    <ol>
+      <li>project-wide synchronous editing (updates in real time)</li>
+      <li>testing, both with PythonTutor and our website renderer</li>
+      <li>robust GitHub interface (push, pull, checkout, fork, branch)</li>
+    </ol>
 
-    <h5> tech stack </h5>
+    <h5> history </h5>
 
-    This project started out as the master's thesis of <a target="_blank" class="alert-link" href="https://jeremywrnr.com">Jeremy Warner</a>,
-    and is open source (<a class="alert-link" target="_blank" href="https://github.com/jeremywrnr/git-sync">see on GitHub</a>)
-    with the <a class="alert-link" target="_blank" href="https://jeremywrnr.com/mit-license/">MIT License</a>.
-    It also serves as a bridge for people learning to use version control.
-    <a href="http://pythontutor.com"> Python Tutor </a>
-    <a href="http://goo.gl/forms/zyGQuoOb82UWUvpy1" target="_blank">
-      Please fill this form on using GitSync for our research purposes!
-    </a>
+    Git Sync was created and is maintained by <a href="https://github.com/jeremywrnr">@jeremywrnr</a>
+    - please get in touch with me if you have feedback on the tool, or if you
+    find a bug feel free to open up an issue. I am very grateful for the
+    guidance of Philip Guo, my thesis adviser, and many others who provided
+    thoughtful feedback and suggestions so far. This project started out as my
+    <a target="_blank" href="https://jeremywrnr.com/ms-thesis">master's thesis</a>,
+    and is <a target="_blank" href="https://jeremywrnr.com/mit-license/">MIT</a> Licensed
+     - <a target="_blank" href="https://github.com/jeremywrnr/git-sync">check out the source on GitHub</a>.
+
+    <!--<a href="http://goo.gl/forms/zyGQuoOb82UWUvpy1" target="_blank"> Please fill this form on using GitSync for our research purposes! </a>-->
+
+    <h5> stack </h5>
+
+    <i>Git Sync</i> is Meteor application hosted on Heroku that uses
+    Firepad and Ace for synchronous editors, GitHub for git hosting,
+    and both <a href="http://pythontutor.com" target="blank">
+    Python Tutor</a> by Philip Guo as well as a custom internal
+    HTML/CSS/JS renderer and debugger for software verification.
 
     <h5> disclaimer </h5>
 
-    I do not own the Octocat or any image similar to it. I use it to link
-    back to the source of this project, which is hosted on GitHub - the
-    creator and owner of the Octocat. This project is maintained by
-    <a href="https://github.com/jeremywrnr">@jeremywrnr</a> - please get in
-    touch with me if you have feedback on the tool, or if you find a bug feel
-    free to open up an issue.
+    I do not own the Octocat or any image similar to it. I use it to link back
+    to the source of this project, which is hosted on GitHub - the creator and
+    owner of the Octocat.
 
     <h5> debugging </h5>
 
