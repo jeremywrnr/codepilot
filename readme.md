@@ -1,54 +1,50 @@
-[code pilot](http://codepilot.xyz)
+[git-sync](http://git-sync.com)
 ==================================
 
 [![MIT License](https://img.shields.io/npm/l/alt.svg?style=flat)](http://jeremywrnr.com/mit-license)
 [![Build Status](https://travis-ci.org/jeremywrnr/git-sync.svg?branch=dev)](https://travis-ci.org/jeremywrnr/git-sync)
 [![bitHound Score](https://www.bithound.io/github/jeremywrnr/git-sync/badges/score.svg)](https://www.bithound.io/github/jeremywrnr/git-sync)
 
-This is a tool meant to help people collaborate on code more seamlessly. The
-model is based on that of a pilot and a co-pilot, where the pilot does most of
-the actual programming, and the co-pilot performs background coding tasks. This
-can include version control management, system testing, online reference
-lookup, and commenting/documenting source code.
+This is a tool meant to help people collaborate on code more seamlessly by
+integrating some core programming tasks into a single web IDE. It also
+encourages collaborator awareness without generating onerous distractions, and
+can serve as a bridge for people learning to use version control.
 
 
 ## features
 
-- supports simultaneous file editing
-- import a any github repo into GitSync
-- edit, test, and commit back to github
-- supports live branching, testing
-- import, create, and close issues (GH)
-- includes screenshot, live code
+- project-wide synchronous editing (updates in real time)
+- testing, both with PythonTutor and our website renderer
+- robust GitHub interface (push, pull, checkout, fork, branch)
 
 
-## cloning + running
+## development
+
+First:
 
     git clone https://github.com/jeremywrnr/git-sync.git
-    cd git-sync/app/private && make
 
 You will need to register an application key with github in order to login with
-their oauth system, more information on how you can do that [here][oauth]. A
-related note is the [github developer program][devel], which I think you (may?)
-need to join if you want to register an app - this is free. The application
-will look for deployment keys in the `app/private` folder, in production.json
-and development.json, respectively. This is what the insides should resemble:
+their OAuth system - more information on how you can do that [here][oauth].
+
+On a related note, there is the [github developer program][devel], which I
+think you (may?) need to join if you want to register an app - this is free.
+
+The application will look for deployment keys in the `app/private` folder, in
+production.json and development.json, respectively. This is what the insides
+of those files should resemble:
 
     {
         "service": "github",
-        "clientId": "gooddaygoodsir",
-        "secret": "meaningoflife"
+        "clientId": "YOUR-CLIENT-ID",
+        "secret": "YOUR-SECRET-ID"
     }
 
-Once this is setup, do the following to start running it locally:
+Once this is setup, simply start running it locally:
 
-    cd ../
     meteor
-
-Then, you can check out [localhost:3000](http://localhost:3000), and play
-around with things. I tried running `meteor update`, and the editor started
-breaking, so I'd recommend against doing that.
 
 
 [devel]:https://developer.github.com/program/
 [oauth]:https://developer.github.com/v3/oauth/
+
