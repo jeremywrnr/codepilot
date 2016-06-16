@@ -1,7 +1,8 @@
-# LOCAL PACKAGE
+# LOCAL PACKAGES
 #
 jeremywrnr:git-sync
 jeremywrnr:firepad
+jeremywrnr:difflib
 
 # ATMOSPHERE
 #

@@ -34,7 +34,6 @@ Tracker.autorun(function() { // subscribe on login
       var branch = user.repoBranch; // get branch
       Meteor.subscribe("files", user.repo, branch);
       Meteor.subscribe("commits", user.repo, branch);
-
     }
   }
 });

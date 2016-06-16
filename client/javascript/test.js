@@ -23,6 +23,10 @@ Template.testfile.events({
 
 Template.testviz.helpers({
 
+  enabled: function() {
+    return Session.get("testViz");
+  },
+
   file: function() {
     return !Session.equals("testFile", null)
   },
@@ -34,10 +38,6 @@ Template.testviz.helpers({
   lang: function() {
     var mode = GitSync.findFileMode(Session.get("testFile"))
     return GitSync.tutorMap[mode];
-  },
-
-  enabled: function() {
-    return Session.get("testViz");
   },
 
   target: function() {
