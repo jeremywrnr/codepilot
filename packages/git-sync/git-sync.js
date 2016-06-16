@@ -2,7 +2,7 @@
 
 
 GitSync = {
-  host: "https://www.git-sync.com/",
+  host: "http://www.git-sync.com/",
 
   firebaseSetup: function(dev) {
     var prodFB = "https://project-3627267568762325747.firebaseio.com/"
