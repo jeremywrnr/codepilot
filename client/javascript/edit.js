@@ -2,6 +2,8 @@
 
 var prof = GitSync.prof;
 
+var imgcheck = GitSync.imgcheck;
+
 var focusForm = GitSync.focusForm;
 
 var renderEditor = function() {
@@ -71,18 +73,8 @@ Template.editor.helpers({
 
   isImage: function() { // check if file extension is renderable
     var file = Files.findOne(Session.get("document"));
-    if (file) {
-      var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
-      if (image.test(file.title)) {
-        if (file.type !== "image")
-          Meteor.call("setFileType", file, "image");
-        return true;
-      } else {
-        if (file.type !== "file")
-          Meteor.call("setFileType", file, "file");
-        return false;
-      }
-    }
+    if (file)
+      return imgcheck(file.title)
   },
 });
 

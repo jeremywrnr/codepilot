@@ -29,6 +29,7 @@ Meteor.methods({
     },{ $set: {
         content: file.content,
         cache: file.content,
+        mode: file.mode,
       }});
 
     if (fs.insertedId) { // if a new file made, create firepad
@@ -72,6 +73,7 @@ Meteor.methods({
   ///////////////////
   // ISSUE MANAGEMENT
   ///////////////////
+
   initIssues: function() { // re-populating git repo issues
     var repo = Repos.findOne(Meteor.user().profile.repo);
     if (repo) {
@@ -174,18 +176,16 @@ Meteor.methods({
     var treeSHA = commitResults.commit.tree.sha;
     var treeResults = Meteor.call("getTree", treeSHA);
 
-    treeResults.tree.forEach(function updateBlob(blob) {
-      if (blob.type === "blob") { // only load files, not folders/trees
-        var content = Async.runSync(function(done) { // wait on github response
-          var content = Meteor.call("getBlob", blob);
-          done(content, content);
-        }).result;
+    treeResults.tree.forEach(function update(blob) {
+      // only load files, not folders/trees
+      var image = GitSync.imgcheck(blob.path);
 
-        blob.content = content;
-        blob.type = "file";
-
-        Meteor.call("createFile", blob);
-      }
+      if ((!image) && blob.type === "blob")
+        Meteor.call("getBlob", blob, function(err, res) {
+          blob.content = res.content;
+          if (blob.content.length < GitSync.maxFileLength)
+            Meteor.call("createFile", blob);
+        });
     });
   },
 
@@ -194,7 +194,7 @@ Meteor.methods({
   // top level function, grab files and commit to github
   ////////////////////////////////////////////////////////
 
-  newCommit: function(msg) { // grab sjs contents, commit to github
+  newCommit: function(msg) { // grab cache content, commit to github
 
     // getting all file ids, names, and content
     var user = Meteor.user().profile;
@@ -207,10 +207,10 @@ Meteor.methods({
       }).map(function makeBlob(file) { // set file cache
         Files.update(file._id, {$set: {cache: file.content}});
         return {
+          content: file.content,
           path: file.title,
-          mode: "100644",
+          mode: file.mode,
           type: "blob",
-          content: file.content
         };
       });
 

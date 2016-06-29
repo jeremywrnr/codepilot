@@ -4,6 +4,8 @@
 GitSync = {
   host: "http://www.git-sync.com/",
 
+  maxFileLength: 15000,
+
   firebaseSetup: function(dev) {
     var prodFB = "https://project-3627267568762325747.firebaseio.com/"
     var devFB = "https://gitsync-test.firebaseio.com/"
@@ -87,10 +89,9 @@ GitSync = {
     var full = '<span class="line-number"></span>' + text + '<span class="cl"></span>';
     doc.html( full );
     var num = text.split(/\n/).length;
-    for (var i = 0; i < num; i++) { // for all lines in the file
-      var line_num = $('span', doc)[0];
-      line_num.innerHTML += '<span>' + (i + 1) + '</span>';
-    }
+
+    for (var i = 0; i < num; i++) // for all lines in the file
+      $('span', doc)[0].innerHTML += '<span>' + (i + 1) + '</span>';
     return doc[0].innerHTML;
   },
 
@@ -105,13 +106,19 @@ GitSync = {
     }).join(' ');
   },
 
+  imgcheck: function(title) {
+    var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
+
+    return title.match(image);
+  },
+
   tutorMap: {
     "ace/mode/javascript": "js",
     "ace/mode/typescript": "ts",
     "ace/mode/ruby": "ruby",
     "ace/mode/java": "java",
     "ace/mode/c_cpp": "cpp",
-    "ace/mode/python": "2",
+    "ace/mode/python": "3",
   },
 
   findFileMode: function(doc) {

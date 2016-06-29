@@ -9,10 +9,10 @@
 </template>
 
 <template name="editor">
-  {{> filename }}
   {{#if isImage }}
   {{> renderImage }}
   {{else}}
+  {{> filename }}
   <div id="editor-container"></div>
   {{render}}
   {{/if}}
@@ -52,3 +52,6 @@
   </div>
 </template>
 
+<template name="renderImage">
+  Rendering image: {{ this }}
+</template>

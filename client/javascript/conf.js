@@ -2,6 +2,8 @@
 
 var prof = GitSync.prof;
 
+var focusForm = GitSync.focusForm;
+
 Template.config.helpers({
   repos: function() {
     return Repos.find({}, {sort: {"repo.owner": -1, "repo.name": 1}} );
