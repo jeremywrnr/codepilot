@@ -121,6 +121,7 @@ Template.filename.events({
   // test the current file
   "click .test": function(e) {
     console.log("testing...")
+    Session.set("testVis", true)
     console.log(Session.get("document"))
     Session.set("testFile", Session.get("document"))
   },
