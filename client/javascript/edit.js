@@ -5,14 +5,17 @@ var prof = GitSync.prof;
 var focusForm = GitSync.focusForm;
 
 var renderEditor = function() {
+  // deleting old editor
   console.log("rendering...")
   console.log(Session.get("document"))
   $("#editor-container").empty();
   $("#editor-container").append("<div id='editor'></div>");
-  console.log(($("#editor-container")[0]))
+  focusForm("#editor");
+
+  // avoid first rendering error
+  if ($("#editor").length === 0) return;
 
   // make fresh new editor
-  focusForm("#editor");
   var editor = ace.edit("editor")
   editor.$blockScrolling = Infinity;
   editor.setTheme("ace/theme/monokai");
@@ -32,6 +35,10 @@ var renderEditor = function() {
   firepad.on('ready', function() {
     if (firepad.isHistoryEmpty())
       firepad.setText(file.content);
+
+    // Focus the editor panel
+    editor.focus();
+    editor.gotoLine(1);
   });
 
   // Filemode and suggestions
@@ -53,8 +60,8 @@ var renderEditor = function() {
  * docid statement. this handles not updating the firepad when the template is
  * the same. first tried using tracker autorun but that was running way to many
  * times and was unsure if you could configure it to reload only when the
- * active session document works. still gives * 'cant find edtior' errors
- * sometimes, but still loads it. hmmm. works!
+ * active session document works. fails to style content on first load -
+ * something with not being able to find the editor instance
  * */
 
 Template.editor.helpers({
@@ -111,7 +118,14 @@ Template.filename.events({
     Session.set("focusPane", null);
   },
 
-  // delete the current file
+  // test the current file
+  "click .test": function(e) {
+    console.log("testing...")
+    console.log(Session.get("document"))
+    Session.set("testFile", Session.get("document"))
+  },
+
+  // save the current file
   "click button.save": function(e) {
     e.preventDefault();
     FirepadAPI.getAllText(function(id, txt){

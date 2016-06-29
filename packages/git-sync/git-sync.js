@@ -55,7 +55,7 @@ GitSync = {
         $(id).focus();
         clearInterval(this);
       } //wait til element exists, focus
-    }, 100); // check every 100ms
+    }, 10); // check every 100ms
   },
 
   grabTagContentsToRender: function(full, tag) { // return parsed html from tag

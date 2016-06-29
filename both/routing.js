@@ -16,17 +16,6 @@ Router.map(function() {
   this.route("renderer", { layoutTemplate: "null" });
 });
 
-// rendering python tutor image
-
-Router.route("pyt/:_lang/:_code", {
-  layoutTemplate: "null",
-  action: function() {
-    this.render("pyt", { data: {
-      code: encodeURIComponent(this.params._code),
-      lang: this.params._lang,
-    }})
-  }
-});
 
 // accepting screenshots at the feedback url
 // curl --data "lat=12&lon=14" http://localhost:3000/feedback
