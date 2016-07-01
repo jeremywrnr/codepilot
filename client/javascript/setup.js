@@ -11,7 +11,7 @@ Session.setDefault("testWeb", false);
 Session.setDefault("testFile", null);
 
 // checking which firebase to use
-Meteor.call("firebase", function(err, res) {
+Meteor.call("firebase", (err, res) => {
   if (!err) Session.set("fb", res)
 });
 
@@ -19,19 +19,19 @@ Meteor.call("firebase", function(err, res) {
 
 // startup data subscriptions
 
-var prof = GitSync.prof;
+const prof = GitSync.prof;
 
 Meteor.subscribe("screens");
-Tracker.autorun(function() { // subscribe on login
+Tracker.autorun(() => { // subscribe on login
   if (Meteor.user()) {
     Meteor.subscribe("repos", Meteor.userId());
     if (prof().repo) {
 
-      var user = prof(); // get user profile
+      const user = prof(); // get user profile
       Meteor.subscribe("issues", user.repo);
       Meteor.subscribe("messages", user.repo);
 
-      var branch = user.repoBranch; // get branch
+      const branch = user.repoBranch; // get branch
       Meteor.subscribe("files", user.repo, branch);
       Meteor.subscribe("commits", user.repo, branch);
     }
@@ -42,16 +42,14 @@ Tracker.autorun(function() { // subscribe on login
 
 // global client helper(s)
 
-Template.registerHelper("isPilot", function() { // check if currentUser is pilot
+Template.registerHelper("isPilot", () => { // check if currentUser is pilot
   if (!Meteor.user()) return false; // still logging in or page loading
   return prof().role === "pilot";
 });
 
-Template.registerHelper("nulldoc", function() { // check if currentDoc is null
-  return Session.equals("document", null);
-});
+Template.registerHelper("nulldoc", () => Session.equals("document", null));
 
-Template.registerHelper("nullrepo", function() { // check if currentDoc is null
+Template.registerHelper("nullrepo", () => { // check if currentDoc is null
   if (!Meteor.user()) return false; // still logging in or page loading
   return !prof().repo; // return true when repo is null
 });
@@ -61,7 +59,7 @@ Template.registerHelper("nullrepo", function() { // check if currentDoc is null
 // navbar config
 
 Template.navigation.helpers({ // uses glyphicons in template
-  navItems: function(){
+  navItems() {
     return [
       { iconpath:"/code", iconname:"pencil",   name:"code" },
       { iconpath:"/test", iconname:"play",     name:"test" },
@@ -69,18 +67,18 @@ Template.navigation.helpers({ // uses glyphicons in template
 });
 
 // bring renderer to the top of the page
-Template.renderer.onRendered(function() {
+Template.renderer.onRendered(() => {
   window.scrollTo(0,0);
 });
 
 // login setup
 
 Template.userLoggedout.events({
-  "click .login": function(e) {
+  "click .login"(e) {
     Meteor.loginWithGithub({
       requestPermissions: ["user", "public_repo"],
       loginStyle: "redirect",
-    }, function(err) {
+    }, err => {
         if (err)
           Session.set("errorMessage", err.reason);
       });
@@ -88,8 +86,8 @@ Template.userLoggedout.events({
 });
 
 Template.userLoggedin.events({
-  "click .logout": function(e) {
-    Meteor.logout(function(err) {
+  "click .logout"(e) {
+    Meteor.logout(err => {
       if (err)
         Session.set("errorMessage", err.reason);
     });

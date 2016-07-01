@@ -2,11 +2,11 @@
 
 Template.testfile.helpers({
 
-  files: function() {
+  files() {
     return Files.find({}, {sort: {"title": 1}} )
   },
 
-  current: function() {
+  current() {
     return Session.equals("testFile", this._id);
   },
 
@@ -14,7 +14,7 @@ Template.testfile.helpers({
 
 Template.testfile.events({
 
-  "click .file": function() {
+  "click .file"() {
     Session.set("testFile", this._id);
     Session.set("focusPane", null);
   },
@@ -23,35 +23,35 @@ Template.testfile.events({
 
 Template.testviz.helpers({
 
-  enabled: function() {
+  enabled() {
     return Session.get("testViz");
   },
 
-  file: function() {
+  file() {
     return !Session.equals("testFile", null)
   },
 
-  mode: function() {
+  mode() {
     return GitSync.findFileMode(Session.get("testFile"))
   },
 
-  lang: function() {
-    var mode = GitSync.findFileMode(Session.get("testFile"))
+  lang() {
+    const mode = GitSync.findFileMode(Session.get("testFile"));
     return GitSync.tutorMap[mode];
   },
 
-  target: function() {
+  target() {
     return Session.equals("focusPane", "target");
   },
 
-  testcode: function() {
-    var file = Files.findOne(Session.get("testFile"));
+  testcode() {
+    const file = Files.findOne(Session.get("testFile"));
     if (file)
       return encodeURIComponent(file.content);
   },
 
-  title: function() {
-    var file = Files.findOne(Session.get("testFile"));
+  title() {
+    const file = Files.findOne(Session.get("testFile"));
     if (file)
       return file.title;
   },
@@ -60,16 +60,16 @@ Template.testviz.helpers({
 
 Template.testviz.events({
 
-  "load #testviz": function() {
+  "load #testviz"() {
     $(".resize").resizable({ handles: "s", helper: "ui-resizable-helper" });
   },
 
-  "click .toggle": function(e) {
+  "click .toggle"(e) {
     e.preventDefault();
     Session.set("testViz", !Session.get("testViz") );
   },
 
-  "click .target": function(e) {
+  "click .target"(e) {
     e.preventDefault();
     if ( Session.equals("focusPane", "target") )
       Session.set("focusPane", null);
@@ -77,12 +77,12 @@ Template.testviz.events({
       Session.set("focusPane", "target");
   },
 
-  "click .reload": function (e) {
+  "click .reload"(e) {
     e.preventDefault();
-    FirepadAPI.getAllText(function(id, txt){
+    FirepadAPI.getAllText((id, txt) => {
       Meteor.call("updateFile", id, txt); });
     Session.set("testViz", !Session.get("testViz") );
-    setTimeout(function() {
+    setTimeout(() => {
       Session.set("testViz", !Session.get("testViz") );
     }, 100);
   },
@@ -91,7 +91,7 @@ Template.testviz.events({
 
 Template.testweb.helpers({
 
-  enabled: function() {
+  enabled() {
     return Session.get("testWeb");
   },
 
@@ -99,19 +99,19 @@ Template.testweb.helpers({
 
 Template.testweb.events({
 
-  "load #testweb": function() {
+  "load #testweb"() {
     $(".resize").resizable({ handles: "s", helper: "ui-resizable-helper" });
   },
 
-  "click .toggle": function(e) {
+  "click .toggle"(e) {
     e.preventDefault();
     Session.set("testWeb", !Session.get("testWeb") );
     $(".resize").resizable({ handles: "s" });
   },
 
-  "click .reload": function (e) {
+  "click .reload"(e) {
     e.preventDefault();
-    FirepadAPI.getAllText(function(id, txt){
+    FirepadAPI.getAllText((id, txt) => {
       Meteor.call("updateFile", id, txt); });
     $("#testweb")[0].contentWindow.location.reload(true)
   },
@@ -124,11 +124,11 @@ Template.testweb.events({
 
 Template.issues.helpers({
 
-  issues: function () { // sort and return issues for this repo
+  issues() { // sort and return issues for this repo
     return Issues.find({}, {sort: {"issue.updated_at": -1}});
   },
 
-  issueCount: function () { // return amount of open issues
+  issueCount() { // return amount of open issues
     return Issues.find({}).count();
   },
 
@@ -136,7 +136,7 @@ Template.issues.helpers({
 
 Template.issues.events({
 
-  "click .reload": function (e) { // update the issues for this repo
+  "click .reload"(e) { // update the issues for this repo
     e.preventDefault();
     Meteor.call("initIssues");
   }
@@ -149,19 +149,19 @@ Template.issues.events({
 
 Template.issue.helpers({
 
-  current: function() {
+  current() {
     return Session.equals("focusPane", this._id);
   },
 
-  screen: function() { // return an issue screenshot
-    var screen;
+  screen() { // return an issue screenshot
+    let screen;
     if (this.feedback)
       screen = Screens.findOne(this.feedback.imglink);
     if (screen)
       return screen.img;
   },
 
-  labels: function () {
+  labels() {
     if (this.issue)
       return this.issue.labels;
   },
@@ -170,14 +170,14 @@ Template.issue.helpers({
 
 Template.issue.events({
 
-  "click .issue": function(e) { // click to focus issue, again to reset
+  "click .issue"(e) { // click to focus issue, again to reset
     if ( Session.equals("focusPane", this._id) )
       Session.set("focusPane", null);
     else
       Session.set("focusPane", this._id);
   },
 
-  "click .closeissue": function(e) { // click to close a given issue
+  "click .closeissue"(e) { // click to close a given issue
     Meteor.call("closeIssue", this);
   },
 

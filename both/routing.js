@@ -24,7 +24,7 @@ Router.route("feedback", {
   path: "/feedback/",
   where: "server",
   action: function addIssue() {
-    var issue = JSON.parse( this.request.body.feedback );
+    const issue = JSON.parse( this.request.body.feedback );
     if(Meteor.users.findOne(issue.user)) // dont take junk
       Meteor.call("addIssue", issue);
     this.response.statusCode = 201;
@@ -40,7 +40,7 @@ Router.route("screenshot/:_id", { // serve feedback images
   layoutTemplate: "null",
   onBeforeAction: null,
   action: function viewScreen() {
-    var img = Screens.findOne(this.params._id);
+    const img = Screens.findOne(this.params._id);
     this.render("screenshot", {data: img});
   }
 });

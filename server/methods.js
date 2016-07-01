@@ -2,8 +2,8 @@
 // so: files, shareJS, and top-level functions
 // dlog is debugger log, see server/setup.js
 
-var ufiles = GitSync.userfiles;
-var hoster = GitSync.host;
+const ufiles = GitSync.userfiles;
+const hoster = GitSync.host;
 
 Meteor.methods({
 
@@ -11,18 +11,18 @@ Meteor.methods({
   // FILE MANAGEMENT
   //////////////////
 
-  firebase: function() { // expose production host for connection
+  firebase() { // expose production host for connection
     return FirepadAPI.host; // server's version
   },
 
-  newFile: function() { // create a new unnamed file
+  newFile() { // create a new unnamed file
     return Meteor.call("createFile", {path: "untitled"});
   },
 
-  createFile: function(file) { // create or update a file, make sjs doc
+  createFile(file) { // create or update a file, make sjs doc
     file.content = file.content || ""; // handle null contents
 
-    var fs = Files.upsert({
+    const fs = Files.upsert({
       repo: Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
       title: file.path,
@@ -33,12 +33,12 @@ Meteor.methods({
       }});
 
     if (fs.insertedId) { // if a new file made, create firepad
-      Meteor.call("addMessage", " created file - " + file.path);
+      Meteor.call("addMessage", ` created file - ${file.path}`);
       return fs.insertedId;
     }
   },
 
-  renameFile: function(fileid, name) { // rename a file with id and name
+  renameFile(fileid, name) { // rename a file with id and name
     Files.update(
       fileid,
       {$set: {
@@ -46,80 +46,80 @@ Meteor.methods({
       }});
   },
 
-  deleteFile: function(id) { // with id, delete a file from system
+  deleteFile(id) { // with id, delete a file from system
     Files.remove(id);
   },
 
-  setFileType: function(file, type) { // set the type field of a file
+  setFileType(file, type) { // set the type field of a file
     Files.update(
       file._id,
       {$set: {
-        type: type
+        type
       }});
   },
 
-  resetFile: function(id) { // reset file back to cached version
-    var old = Files.findOne(id); // overwrite content
+  resetFile(id) { // reset file back to cached version
+    const old = Files.findOne(id); // overwrite content
     if (old)
       Files.update(id, {$set: {content: old.cache}});
   },
 
-  resetFiles: function() { // reset db and hard code simple website structure
+  resetFiles() { // reset db and hard code simple website structure
     ufiles().map(function delFile(f){ Meteor.call("deleteFile", f._id)});
-    var base = [{"title":"site.html"},{"title":"site.css"},{"title":"site.js"}];
-    base.map(function(f){ Meteor.call("createFile", f) });
+    const base = [{"title":"site.html"},{"title":"site.css"},{"title":"site.js"}];
+    base.map(f => { Meteor.call("createFile", f) });
   },
 
   ///////////////////
   // ISSUE MANAGEMENT
   ///////////////////
 
-  initIssues: function() { // re-populating git repo issues
-    var repo = Repos.findOne(Meteor.user().profile.repo);
+  initIssues() { // re-populating git repo issues
+    const repo = Repos.findOne(Meteor.user().profile.repo);
     if (repo) {
       Meteor.call("getAllIssues", repo).map(function load(issue) {
         Issues.upsert({
           repo: repo._id,
           ghid: issue.id // (from github)
         },{
-          $set: {issue: issue},
+          $set: {issue},
         });
       });
     }
   },
 
-  addIssue: function(feedback){ // adds a feedback issue to github
-    feedback.imglink = Async.runSync(function(done) { // save screens, give id
-      Screens.insert({img: feedback.img}, function(err, id){
+  addIssue(feedback) { // adds a feedback issue to github
+    feedback.imglink = Async.runSync(done => { // save screens, give id
+      Screens.insert({img: feedback.img}, (err, id) => {
         done(err, id);
       });
     }).result; // attach screenshot to this issue
     delete feedback.img; // delete redundant png
 
     // insert a dummy issue to get id, use later in GH issue body txt
-    var issueId = Async.runSync(function(done){
-      Issues.insert({issue: null}, function(err, id){
+    const issueId = Async.runSync(done => {
+      Issues.insert({issue: null}, (err, id) => {
         done(err, id);
       });
     }).result; // get the id of the newly inserted issue
 
     // construct and append the text of the github issue, including links to screenshot and demo
-    var imglink = "[issue screenshot](" + hoster + "/screenshot/" + feedback.imglink + ")\n";
-    var livelink = "[live code here](" + hoster + "/render/" + issueId + ")\n";
-    var htmllink = "html:\n```html\n" + feedback.html + "\n```\n";
-    var csslink = "css:\n```css\n" + feedback.css + "\n```\n";
-    var jslink = "js:\n```js\n" + feedback.js + "\n```\n";
-    var loglink = "console log:\n```\n" + feedback.log + "```\n";
+    const imglink = `[issue screenshot](${hoster}/screenshot/${feedback.imglink})\n`;
+    const livelink = `[live code here](${hoster}/render/${issueId})\n`;
+    const htmllink = `html:\n\`\`\`html\n${feedback.html}\n\`\`\`\n`;
+    const csslink = `css:\n\`\`\`css\n${feedback.css}\n\`\`\`\n`;
+    const jslink = `js:\n\`\`\`js\n${feedback.js}\n\`\`\`\n`;
+    const loglink = `console log:\n\`\`\`\n${feedback.log}\`\`\`\n`;
     feedback.body = imglink + livelink + htmllink + csslink + jslink + loglink;
 
     // post the issue to github, and get the GH generated content
-    var issue = Meteor.call("postIssue", feedback);
-    var ghIssue = { // the entire issue object
+    const issue = Meteor.call("postIssue", feedback);
+    const ghIssue = { // the entire issue object
       _id: issueId,
       ghid: issue.id, // (from github)
       repo: feedback.repo, // attach repo forming data
-      feedback: feedback, // attach feedback issue data
-      issue: issue // returned from github call
+      feedback, // attach feedback issue data
+      issue // returned from github call
     };
 
     // insert complete issue, and add it to the feed
@@ -127,13 +127,13 @@ Meteor.methods({
     Meteor.call(
       "addUserMessage",
       feedback.user,
-      "opened issue - " + feedback.note
+      `opened issue - ${feedback.note}`
     );
   },
 
-  closeIssue: function(issue){ // close an issue on github by number
+  closeIssue(issue) { // close an issue on github by number
     Meteor.call("ghAuth");
-    Meteor.call("addMessage", "closed issue - " + issue.issue.title);
+    Meteor.call("addMessage", `closed issue - ${issue.issue.title}`);
     github.issues.edit({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -150,13 +150,13 @@ Meteor.methods({
   // COMMIT MANAGEMENT
   /////////////////////
 
-  initCommits: function() { // re-populating the commit log
-    Meteor.call("getAllCommits").map(function(c){
+  initCommits() { // re-populating the commit log
+    Meteor.call("getAllCommits").map(c => {
       Meteor.call("addCommit", c);
     });
   },
 
-  addCommit: function(c) { // adds a commit, links to repo + branch
+  addCommit(c) { // adds a commit, links to repo + branch
     Commits.upsert({
       repo: Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
@@ -166,22 +166,22 @@ Meteor.methods({
     });
   },
 
-  loadHead: function(bname) { // load head of branch, from sha
-    var sha =  Meteor.call("getBranch", bname).commit.sha;
+  loadHead(bname) { // load head of branch, from sha
+    const sha =  Meteor.call("getBranch", bname).commit.sha;
     if (sha) Meteor.call("loadCommit", sha);
   },
 
-  loadCommit: function(sha) { // takes commit sha, loads into sjs
-    var commitResults = Meteor.call("getCommit", sha);
-    var treeSHA = commitResults.commit.tree.sha;
-    var treeResults = Meteor.call("getTree", treeSHA);
+  loadCommit(sha) { // takes commit sha, loads into sjs
+    const commitResults = Meteor.call("getCommit", sha);
+    const treeSHA = commitResults.commit.tree.sha;
+    const treeResults = Meteor.call("getTree", treeSHA);
 
     treeResults.tree.forEach(function update(blob) {
       // only load files, not folders/trees
-      var image = GitSync.imgcheck(blob.path);
+      const image = GitSync.imgcheck(blob.path);
 
       if ((!image) && blob.type === "blob")
-        Meteor.call("getBlob", blob, function(err, res) {
+        Meteor.call("getBlob", blob, (err, res) => {
           blob.content = res.content;
           if (blob.content.length < GitSync.maxFileLength)
             Meteor.call("createFile", blob);
@@ -194,12 +194,12 @@ Meteor.methods({
   // top level function, grab files and commit to github
   ////////////////////////////////////////////////////////
 
-  newCommit: function(msg) { // grab cache content, commit to github
+  newCommit(msg) { // grab cache content, commit to github
 
     // getting all file ids, names, and content
-    var user = Meteor.user().profile;
-    var bname = user.repoBranch;
-    var blobs = Files.find({
+    const user = Meteor.user().profile;
+    const bname = user.repoBranch;
+    const blobs = Files.find({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
     }).fetch().filter(function typeCheck(file) { // remove imgs
@@ -215,20 +215,20 @@ Meteor.methods({
       });
 
       // get old tree and update it with new shas, post and get that sha
-      var branch = Meteor.call("getBranch", bname);
-      var oldTree = Meteor.call("getTree", branch.commit.commit.tree.sha);
-      var newTree = {base: oldTree.sha, tree: blobs};
-      var treeSHA = Meteor.call("postTree", newTree);
+      const branch = Meteor.call("getBranch", bname);
+      const oldTree = Meteor.call("getTree", branch.commit.commit.tree.sha);
+      const newTree = {base: oldTree.sha, tree: blobs};
+      const treeSHA = Meteor.call("postTree", newTree);
 
       // specify author of this commit
-      var commitAuthor = {
+      const commitAuthor = {
         name: user.login,
         email: user.email,
         date: new Date()
       };
 
       // make the new commit result object
-      var commitResult = Meteor.call("postCommit", {
+      const commitResult = Meteor.call("postCommit", {
         message: msg, // passed in
         author: commitAuthor,
         parents: [ branch.commit.sha ],
@@ -239,13 +239,13 @@ Meteor.methods({
       Meteor.call("postRef", commitResult);
 
       // get the latest commit from the branch head
-      var lastCommit = Meteor.call("getBranch", bname).commit;
+      const lastCommit = Meteor.call("getBranch", bname).commit;
 
       // post into commit db with repo tag
       Meteor.call("addCommit", lastCommit);
 
       // update the feed with new commit
-      Meteor.call("addMessage", "committed - " + msg);
+      Meteor.call("addMessage", `committed - ${msg}`);
   },
 
 });

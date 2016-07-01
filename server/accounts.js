@@ -1,8 +1,9 @@
 // setting up a new account with github api
 
-Accounts.onCreateUser(function(options, user){
-
-  var accessToken = user.services.github.accessToken, result, profile;
+Accounts.onCreateUser((options, user) => {
+  const accessToken = user.services.github.accessToken;
+  var result;
+  let profile;
   var result = Meteor.http.get('https://api.github.com/user', {
     headers: { 'User-Agent': 'Code Pilot' },
     params: { access_token: accessToken }
@@ -15,7 +16,7 @@ Accounts.onCreateUser(function(options, user){
 
   // use default address if none publicly available
   if(!user.profile.email)
-    user.profile.email = user.profile.login + '@users.noreply.github.com';
+    user.profile.email = `${user.profile.login}@users.noreply.github.com`;
 
   // use login as name if none publicly available
   if(!user.profile.name)
@@ -28,6 +29,5 @@ Accounts.onCreateUser(function(options, user){
   user.profile.role = 'pilot'
   user.profile.repo = ''
   return user;
-
 });
 

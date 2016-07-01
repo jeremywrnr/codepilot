@@ -7,25 +7,25 @@ Meteor.methods({
   // GITHUB GET REQUESTS
   //////////////////////
 
-  ghAuth: function() { // authenticate for secure api calls
+  ghAuth() { // authenticate for secure api calls
     github.authenticate({
       type: "token",
       token: Meteor.user().services.github.accessToken
     });
   },
 
-  getAllRepos: function() { // put them in db, serve to user (no return)
+  getAllRepos() { // put them in db, serve to user (no return)
     Meteor.call("ghAuth"); // auth for getting all pushable repos
-    var uid = Meteor.userId(); // userID, used below
+    const uid = Meteor.userId(); // userID, used below
     github.repos.getAll({
       user: Meteor.user().profile.login,
       per_page: 100
     }).map(function attachUser(gr){ // attach user to git repo (gr)
 
-      var repo = Repos.findOne({ id: gr.id });
+      const repo = Repos.findOne({ id: gr.id });
       if (repo) { // repo already exists
 
-        var attached = (repo.users.indexOf( uid ) > -1);
+        const attached = (repo.users.indexOf( uid ) > -1);
         if (! attached) // not attached, push user to collaborators
           Repos.update(repo._id, {$push: {users: uid }});
 
@@ -36,7 +36,7 @@ Meteor.methods({
     });
   },
 
-  getAllIssues: function(gr) { // return all issues for repo
+  getAllIssues(gr) { // return all issues for repo
     return github.issues.repoIssues({
       user: gr.repo.owner.login,
       repo: gr.repo.name,
@@ -44,7 +44,7 @@ Meteor.methods({
     });
   },
 
-  getAllCommits: function() { // give all commits for branch
+  getAllCommits() { // give all commits for branch
     return github.repos.getCommits({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -53,14 +53,14 @@ Meteor.methods({
     });
   },
 
-  getRepo: function(owner, repo) { // give github repo res
+  getRepo(owner, repo) { // give github repo res
     return github.repos.get({
       user: owner,
-      repo: repo
+      repo
     });
   },
 
-  getCommit: function(commitSHA) { // give commit res
+  getCommit(commitSHA) { // give commit res
     return github.repos.getCommit({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -68,14 +68,14 @@ Meteor.methods({
     });
   },
 
-  getBranches: function(gr) { // update all branches for repo
+  getBranches(gr) { // update all branches for repo
     return github.repos.getBranches({
       user: gr.repo.owner.login,
       repo: gr.repo.name
     });
   },
 
-  getBranch: function(branchName) { // give branch res
+  getBranch(branchName) { // give branch res
     return github.repos.getBranch({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -83,7 +83,7 @@ Meteor.methods({
     });
   },
 
-  getTree: function(treeSHA) { // gives tree res
+  getTree(treeSHA) { // gives tree res
     return github.gitdata.getTree({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -92,7 +92,7 @@ Meteor.methods({
     });
   },
 
-  getBlob: function(blob) { // give a blobs file contents
+  getBlob(blob) { // give a blobs file contents
     return github.gitdata.getBlob({
       headers: {"Accept":"application/vnd.github.VERSION.raw"},
       user: Meteor.user().profile.repoOwner,
@@ -107,11 +107,11 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
-  postIssue: function(issue) { // takes feedback issue, creates GH issue
+  postIssue(issue) { // takes feedback issue, creates GH issue
     // custom login - iframe not given Meteor.user() scope
-    var user = Meteor.users.findOne(issue.user);
-    var token = user.services.github.accessToken;
-    github.authenticate({ type: "token", token: token });
+    const user = Meteor.users.findOne(issue.user);
+    const token = user.services.github.accessToken;
+    github.authenticate({ type: "token", token });
     return github.issues.create({ // return githubs issue response
       user: user.profile.repoOwner,
       repo: user.profile.repoName,
@@ -121,7 +121,7 @@ Meteor.methods({
     });
   },
 
-  postTree: function(t) { // takes tree, gives tree SHA hash id
+  postTree(t) { // takes tree, gives tree SHA hash id
     Meteor.call("ghAuth");
     return github.gitdata.createTree({
       user: Meteor.user().profile.repoOwner,
@@ -131,17 +131,17 @@ Meteor.methods({
     }).sha; // beware!! - returns sha, not the entire post response
   },
 
-  postBranch: function(branch, parent) { // make new branch off current
+  postBranch(branch, parent) { // make new branch off current
     Meteor.call("ghAuth");
     return github.gitdata.createReference({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      ref: "refs/heads/" + branch, // new branch name
+      ref: `refs/heads/${branch}`, // new branch name
       sha: parent, // sha hash of parent
     });
   },
 
-  postCommit: function(c) { // takes commit c, returns gh commit respns.
+  postCommit(c) { // takes commit c, returns gh commit respns.
     Meteor.call("ghAuth");
     return github.gitdata.createCommit({
       user: Meteor.user().profile.repoOwner,
@@ -153,21 +153,21 @@ Meteor.methods({
     });
   },
 
-  postRef: function(cr) { // takes commit results (cr),  updates ref
+  postRef(cr) { // takes commit results (cr),  updates ref
     Meteor.call("ghAuth");
     return github.gitdata.updateReference({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
-      ref: "heads/" + Meteor.user().profile.repoBranch,
+      ref: `heads/${Meteor.user().profile.repoBranch}`,
       sha: cr.sha
     });
   },
 
-  postRepo: function(owner, repo) { // done to fork a repo for a new user
+  postRepo(owner, repo) { // done to fork a repo for a new user
     Meteor.call("ghAuth");
     return  github.repos.fork({
       user: owner,
-      repo: repo
+      repo
     });
   },
 

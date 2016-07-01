@@ -1,26 +1,26 @@
 // file feed helpers
 
-var newFile = function(e) {
+const newFile = e => {
   e.preventDefault();
-  Meteor.call("newFile", function(err, id){
+  Meteor.call("newFile", (err, id) => {
     Session.set("document", id);
   });
 };
 
 Template.filelist.events({
-  "click .new": function(e) { newFile(e); }
+  "click .new"(e) { newFile(e); }
 });
 
 Template.userfiles.helpers({
 
-  files: function() {
+  files() {
     return Files.find({}, {sort: {"title": 1}} )
   }
 
 });
 
 Template.userfiles.events({
-  "click .new": function(e) { newFile(e); }
+  "click .new"(e) { newFile(e); }
 });
 
 
@@ -29,7 +29,7 @@ Template.userfiles.events({
 
 Template.fileitem.helpers({
 
-  current: function() {
+  current() {
     return Session.equals("document", this._id);
   }
 
@@ -37,7 +37,7 @@ Template.fileitem.helpers({
 
 Template.fileitem.events({
 
-  "click .file": function() {
+  "click .file"() {
     //if (!Session.equals("document", this._id))
       //Meteor.call("addMessage", "opened file " + this.title);
     Session.set("firepadRef", Session.get("fb") + this._id);
