@@ -176,14 +176,12 @@ Meteor.methods({
     let treeSHA = commitResults.commit.tree.sha;
     let treeResults = Meteor.call("getTree", treeSHA);
 
-    treeResults.tree.forEach(function update(blob) {
-      // only load files, not folders/trees
-      let image = GitSync.imgcheck(blob.path);
-
-      if ((!image) && blob.type === "blob")
-        Meteor.call("getBlob", blob, (err, res) => {
-          blob.content = res.content;
-          if (blob.content && blob.content.length < GitSync.maxFileLength)
+    // only load files, not folders/trees
+    treeResults.tree.forEach(blob => {
+      if ((!GitSync.imgcheck(blob.path)) && blob.type === "blob")
+        Meteor.call("getBlob", blob, (err, content) => {
+          blob.content = content;
+          if (content && content.length < GitSync.maxFileLength)
             Meteor.call("createFile", blob);
         });
     });
