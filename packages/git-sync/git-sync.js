@@ -107,7 +107,7 @@ GitSync = {
   },
 
   imgcheck: function(title) {
-    var image = /\.(gif|jpg|jpeg|tiff|png|bmp)$/i;
+    var image = /\.(gif|jpg|jpeg|tiff|png|bmp|svg|pdf|zip|tar|gz2|rar|bz2|dmg|xz)$/i;
 
     return title.match(image);
   },
