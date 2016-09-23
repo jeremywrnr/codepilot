@@ -45,6 +45,19 @@ Once this is setup, simply start running it locally:
 
 ## deployment
 
+This application is currently deployed on Heroku, with the following buildpack
+set up to decrypt the secret key information in `private/`. The `ROOT_URL`
+variable has to be set to where you are hosting it, beforehand. Then,
+`horse-buildpack` is used to install meteor and start up the server.
+
+- https://github.com/jeremywrnr/heroku-buildpack-run
+- https://github.com/AdmitHub/meteor-buildpack-horse
+
+
+## background
+
+This project started out as work done for my master's thesis, which can be found
+[here](https://jeremywrnr.com/ms-thesis/).
 
 
 [devel]:https://developer.github.com/program/
