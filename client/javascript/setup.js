@@ -61,9 +61,9 @@ Template.registerHelper("nullrepo", () => { // check if currentDoc is null
 Template.navigation.helpers({ // uses glyphicons in template
   navItems() {
     return [
-      { iconpath:"/code", iconname:"pencil",     name:"code" },
-      { iconpath:"/test", iconname:"riflescope", name:"test" },
-      { iconpath:"/save", iconname:"list-alt",   name:"save" } ] }
+      { iconpath:"/code", iconname:"pencil",   name:"code" },
+      { iconpath:"/test", iconname:"search",   name:"test" },
+      { iconpath:"/save", iconname:"list-alt", name:"save" } ] }
 });
 
 // bring renderer to the top of the page
