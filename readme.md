@@ -25,14 +25,12 @@ First:
     git clone https://github.com/jeremywrnr/git-sync.git
 
 You will need to register an application key with github in order to login with
-their OAuth system - more information on how you can do that [here][oauth].
-
-On a related note, there is the [github developer program][devel], which I
-think you (may?) need to join if you want to register an app - this is free.
-
-The application will look for deployment keys in the `app/private` folder, in
-production.json and development.json, respectively. This is what the insides
-of those files should resemble:
+their OAuth system - more information on how you can do that [here][oauth]. On
+a related note, there is the [github developer program][devel], which I think
+you (may?) need to join if you want to register an app - this is free. The
+application will look for deployment keys in the `app/private` folder, in
+production.json and development.json, respectively. This is what the insides of
+those files should resemble:
 
     {
         "service": "github",
@@ -43,6 +41,10 @@ of those files should resemble:
 Once this is setup, simply start running it locally:
 
     meteor
+
+
+## deployment
+
 
 
 [devel]:https://developer.github.com/program/
