@@ -104,8 +104,8 @@ Meteor.methods({
     }).result; // get the id of the newly inserted issue
 
     // letruct and append the text of the github issue, including links to screenshot and demo
-    let imglink = `[issue screenshot](${hoster}/screenshot/${feedback.imglink})\n`;
-    let livelink = `[live code here](${hoster}/render/${issueId})\n`;
+    let imglink = `[issue screenshot](${hoster}screenshot/${feedback.imglink})\n`;
+    let livelink = `[live code here](${hoster}render/${issueId})\n`;
     let htmllink = `html:\n\`\`\`html\n${feedback.html}\n\`\`\`\n`;
     let csslink = `css:\n\`\`\`css\n${feedback.css}\n\`\`\`\n`;
     let jslink = `js:\n\`\`\`js\n${feedback.js}\n\`\`\`\n`;
