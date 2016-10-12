@@ -81,7 +81,7 @@ ga("send", "pageview");
 
 <template name="userLoggedin">
   <li class="navitem text-center">
-    <a href="/config"> {{ currentUser.profile.login }} </a>
+    <a href="/config"><span class="glyphicon glyphicon-cog"></span> {{ currentUser.profile.login }} </a>
   </li>
   <li class="del logout text-center">
     <a href="#"> logout </a>
