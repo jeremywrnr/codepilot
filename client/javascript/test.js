@@ -1,7 +1,8 @@
 // testing page management
 
-Template.testfile.helpers({
+const ufids = GitSync.ufids;
 
+Template.testfile.helpers({
   files() {
     return Files.find({}, {sort: {"title": 1}} )
   },
@@ -9,8 +10,8 @@ Template.testfile.helpers({
   current() {
     return Session.equals("testFile", this._id);
   },
-
 });
+
 
 Template.testfile.events({
 
@@ -21,8 +22,8 @@ Template.testfile.events({
 
 });
 
-Template.testviz.helpers({
 
+Template.testviz.helpers({
   enabled() {
     return Session.get("testViz");
   },
@@ -55,11 +56,10 @@ Template.testviz.helpers({
     if (file)
       return file.title;
   },
-
 });
 
-Template.testviz.events({
 
+Template.testviz.events({
   "load #testviz"() {
     $(".resize").resizable({ handles: "s", helper: "ui-resizable-helper" });
   },
@@ -79,26 +79,23 @@ Template.testviz.events({
 
   "click .reload"(e) {
     e.preventDefault();
-    FirepadAPI.getAllText((id, txt) => {
+    FirepadAPI.getAllText(ufids(), (id, txt) => {
       Meteor.call("updateFile", id, txt); });
     Session.set("testViz", !Session.get("testViz") );
     setTimeout(() => {
       Session.set("testViz", !Session.get("testViz") );
     }, 100);
   },
-
 });
 
-Template.testweb.helpers({
 
+Template.testweb.helpers({
   enabled() {
     return Session.get("testWeb");
   },
-
 });
 
 Template.testweb.events({
-
   "load #testweb"() {
     $(".resize").resizable({ handles: "s", helper: "ui-resizable-helper" });
   },
@@ -111,11 +108,10 @@ Template.testweb.events({
 
   "click .reload"(e) {
     e.preventDefault();
-    FirepadAPI.getAllText((id, txt) => {
+    FirepadAPI.getAllText(ufids(), (id, txt) => {
       Meteor.call("updateFile", id, txt); });
     $("#testweb")[0].contentWindow.location.reload(true)
   },
-
 });
 
 
@@ -123,7 +119,6 @@ Template.testweb.events({
 // github issue event integration
 
 Template.issues.helpers({
-
   issues() { // sort and return issues for this repo
     return Issues.find({}, {sort: {"issue.updated_at": -1}});
   },
@@ -131,16 +126,13 @@ Template.issues.helpers({
   issueCount() { // return amount of open issues
     return Issues.find({}).count();
   },
-
 });
 
 Template.issues.events({
-
   "click .reload"(e) { // update the issues for this repo
     e.preventDefault();
     Meteor.call("initIssues");
   }
-
 });
 
 
@@ -148,7 +140,6 @@ Template.issues.events({
 // individual issue helpers
 
 Template.issue.helpers({
-
   current() {
     return Session.equals("focusPane", this._id);
   },
@@ -165,11 +156,9 @@ Template.issue.helpers({
     if (this.issue)
       return this.issue.labels;
   },
-
 });
 
 Template.issue.events({
-
   "click .issue"(e) { // click to focus issue, again to reset
     if ( Session.equals("focusPane", this._id) )
       Session.set("focusPane", null);
@@ -180,6 +169,4 @@ Template.issue.events({
   "click .closeissue"(e) { // click to close a given issue
     Meteor.call("closeIssue", this);
   },
-
 });
-

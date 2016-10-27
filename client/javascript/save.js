@@ -4,6 +4,7 @@ const difflib = Difflib.lib;
 const diffview = Difflib.view;
 
 const prof = GitSync.prof;
+const ufids = GitSync.ufids;
 const ufiles = GitSync.userfiles;
 const clean = GitSync.sanitizeDiffs;
 const focusForm = GitSync.focusForm;
@@ -29,7 +30,7 @@ Template.commitPanel.events({
 
   "click .newcommit"(e) {
     e.preventDefault();
-    FirepadAPI.getAllText((id, txt) => {
+    FirepadAPI.getAllText(ufids(), (id, txt) => {
       Meteor.call("updateFile", id, txt); });
     Session.set("focusPane", "committer");
     focusForm("#commitMsg");
@@ -52,7 +53,7 @@ Template.commitPanel.events({
 
   "click .reload"(e) { // pull in latest version of buffers
     e.preventDefault();
-    FirepadAPI.getAllText((id, txt) => {
+    FirepadAPI.getAllText(ufids(), (id, txt) => {
       Meteor.call("updateFile", id, txt); });
   },
 
@@ -214,8 +215,8 @@ Template.diffline.helpers({
 
   content() { return this.content; },
   skipped() { return this.status == "skip" },
-  equal() { return this.status == "equal" },
-  inserted() { return this.status == "insert" },
+  equal()   { return this.status == "equal" },
+  inserted(){ return this.status == "insert" },
   deleted() { return this.status == "delete" },
 
   newnum() {

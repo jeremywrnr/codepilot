@@ -2,6 +2,8 @@
 
 const prof = GitSync.prof;
 
+const ufids = GitSync.ufids;
+
 const imgcheck = GitSync.imgcheck;
 
 const focusForm = GitSync.focusForm;
@@ -121,7 +123,7 @@ Template.filename.events({
   // save the current file
   "click button.save"(e) {
     e.preventDefault();
-    FirepadAPI.getAllText((id, txt) => {
+    FirepadAPI.getAllText(ufids(), (id, txt) => {
       Meteor.call("updateFile", id, txt);
     });
   },

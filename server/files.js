@@ -22,9 +22,11 @@ Meteor.methods({
     // handle null cache/contents when createing a file
     file.branch  =  Meteor.user().profile.repoBranch;
     file.repo    = Meteor.user().profile.repo;
-    file.content = file.content || "";
-    file.mode    = file.mode   || "100644";
+    file.content = file.content  || "";
+    file.mode    = file.mode    || "100644";
+    file.type    = file.type  || "file";
     file.cache   = file.cache || "";
+    file.path    = file.path || "";
 
     // update or insert file
     let fs = Files.upsert({
@@ -44,6 +46,8 @@ Meteor.methods({
   },
 
   renameFile(fileid, name) { // rename a file with id and name
+    let file = Files.findOne(fileid);
+    Meteor.call("addMessage", ` renamed file ${file.title} to ${name}`);
     Files.update(
       fileid,
       {$set: {
@@ -52,6 +56,8 @@ Meteor.methods({
   },
 
   deleteFile(id) { // with id, delete a file from system
+    let file = Files.findOne(id);
+    Meteor.call("addMessage", ` deleted file ${file.title}`);
     Files.remove(id);
   },
 

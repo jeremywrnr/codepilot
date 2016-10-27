@@ -12,11 +12,9 @@ Template.filelist.events({
 });
 
 Template.userfiles.helpers({
-
   files() {
     return Files.find({}, {sort: {"title": 1}} )
   }
-
 });
 
 Template.userfiles.events({

@@ -12,7 +12,7 @@ Meteor.methods({
         owner: Meteor.userId(),
         repo: Meteor.user().profile.repo,
         name: Meteor.user().profile.login,
-        time: Date.now()
+        time: Date.now(),
         message: msg,
       });
 
@@ -31,7 +31,7 @@ Meteor.methods({
           owner: poster._id,
           repo: poster.profile.repo,
           name: poster.profile.login,
-          time: Date.now()
+          time: Date.now(),
           message: msg,
         });
       } else

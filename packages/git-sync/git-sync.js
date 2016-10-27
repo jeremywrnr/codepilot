@@ -37,6 +37,10 @@ GitSync = {
     });
   },
 
+  ufids: function() { // return an array of ids of users files
+    return GitSync.userfiles().fetch().map((f) => f._id);
+  },
+
   changes: function() { // content v cache, check if any files changed
     return GitSync.any(
       GitSync.userfiles().fetch(),

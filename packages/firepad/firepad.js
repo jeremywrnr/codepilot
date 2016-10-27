@@ -37,12 +37,8 @@ FirepadAPI = {
     });
   },
 
-  getAllText: function(cb) { // update file.content from firepad (for testing)
-    GitSync.userfiles().fetch().filter(function(file) {
-      return file.type === "file"; // remove imgs
-    }).map(function(file) { // using document ids
-      return file._id
-    }).map(function(id) {
+  getAllText: function(files, cb) { // apply callmback to all files
+    files.map(function(id) {
       FirepadAPI.getText(id, function(txt) {
         cb(id, txt); });
     });
@@ -70,4 +66,3 @@ FirepadAPI = {
   },
 
 };
-
