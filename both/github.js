@@ -1,77 +1,6 @@
-// common (server and client) methods
-// maybe need this in future:
-// if (! Meteor.userId()) throw new Meteor.Error("not-authorized");
+// common (server and client) github methods
 
 Meteor.methods({
-
-  //////////////////
-  // FEED MANAGEMENT
-  //////////////////
-
-  addMessage(msg) { // add a generic message to the activity feed
-    if (msg.length) {
-      Messages.insert({
-        owner: Meteor.userId(),
-        repo: Meteor.user().profile.repo,
-        name: Meteor.user().profile.login,
-        message: msg,
-        time: Date.now()
-      });
-      // scroll to the bottom of the feed
-      if(Meteor.isClient)
-        $("#feed").stop().animate({ scrollTop: $("#feed")[0].scrollHeight }, 500);
-    } else
-      throw new Meteor.Error("null-message"); // passed in empty message
-  },
-
-  addUserMessage(usr, msg) { // add message, with userId() (issues)
-    const poster = Meteor.users.findOne(usr);
-    if (msg.value !== "") {
-      if (poster) {
-        Messages.insert({
-          owner: poster._id,
-          repo: poster.profile.repo,
-          name: poster.profile.login,
-          message: msg,
-          time: Date.now()
-        });
-      } else
-        throw new Meteor.Error("null-poster"); // user account is not in mongo
-    } else
-      throw new Meteor.Error("null-message"); // they passed in empty message
-  },
-
-
-
-  //////////////////
-  // FILE MANAGEMENT
-  //////////////////
-
-  updateFile(id, txt) { // updating files from firepad snapshot
-    Files.update(id, {$set: { content: txt }});
-  },
-
-
-
-  //////////////////
-  // ROLE MANAGEMENT
-  //////////////////
-
-  setPilot() { // change the current users profile.role to pilot
-    return Meteor.users.update(
-      {"_id": Meteor.userId()},
-      {$set : {"profile.role":"pilot"}}
-    );
-  },
-
-  setCopilot() { // change the current users profile.role to pilot
-    return Meteor.users.update(
-      {"_id": Meteor.userId()},
-      {$set : {"profile.role":"copilot"}}
-    );
-  },
-
-
 
   //////////////////
   // REPO MANAGEMENT
@@ -156,3 +85,4 @@ Meteor.methods({
   },
 
 });
+

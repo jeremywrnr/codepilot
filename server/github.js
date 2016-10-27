@@ -53,7 +53,7 @@ Meteor.methods({
     });
   },
 
-  getRepo(owner, repo) { // give github repo res
+  getRepo(owner, repo) { // give github repo res (todo: check this)
     return github.repos.get({
       user: owner,
       repo
