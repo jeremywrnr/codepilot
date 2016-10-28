@@ -126,8 +126,8 @@ Meteor.methods({
     return github.gitdata.createTree({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
+      base_tree: t.base || "",
       tree: t.tree,
-      base_tree: t.base
     }).sha; // beware!! - returns sha, not the entire post response
   },
 
@@ -149,7 +149,7 @@ Meteor.methods({
       message: c.message,
       author: c.author,
       parents: c.parents,
-      tree: c.tree
+      tree: c.tree,
     });
   },
 

@@ -15,18 +15,16 @@ Meteor.methods({
   },
 
   newFile() { // create a new unnamed file
-    return Meteor.call("createFile", {path: "untitled"});
+    return Meteor.call("createFile", {
+      path: "untitled",
+    });
   },
 
   createFile(file) { // create or update a file, make sjs doc
     // handle null cache/contents when createing a file
-    file.branch  =  Meteor.user().profile.repoBranch;
-    file.repo    = Meteor.user().profile.repo;
-    file.content = file.content  || "";
-    file.mode    = file.mode    || "100644";
-    file.type    = file.type  || "file";
-    file.cache   = file.cache || "";
-    file.path    = file.path || "";
+    file.branch =  Meteor.user().profile.repoBranch;
+    file.repo   = Meteor.user().profile.repo;
+    file.path   = file.path || "untitled";
 
     // update or insert file
     let fs = Files.upsert({
@@ -34,15 +32,27 @@ Meteor.methods({
       branch: Meteor.user().profile.repoBranch,
       title: file.path,
     },{ $set: {
-      content: file.content,
-      cache: file.content,
-      mode: file.mode,
+      content: file.content || "",
+      cache: file.content || "",
+      mode: file.mode || "100644",
+      type: file.type || "file",
     }});
 
     if (fs.insertedId) { // if a new file made, create firepad
       Meteor.call("addMessage", ` created new file ${file.path}`);
       return fs.insertedId;
     }
+  },
+
+  updateAllFiles() {
+    Files.find({
+      repo:  Meteor.user().profile.repo,
+      branch: Meteor.user().profile.repoBranch,
+    }).fetch().filter(file => // remove imgs
+      file.type === "file" && file.content != undefined
+    ).map(file => // set file cache
+      Files.update(file._id, {$set: {cache: file.content}})
+    );
   },
 
   renameFile(fileid, name) { // rename a file with id and name

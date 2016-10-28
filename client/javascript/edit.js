@@ -1,17 +1,13 @@
 // code editor things
 
 const prof = GitSync.prof;
-
 const ufids = GitSync.ufids;
-
 const imgcheck = GitSync.imgcheck;
-
 const focusForm = GitSync.focusForm;
 
 const renderEditor = () => {
   // deleting old editor
-  console.log("rendering...")
-  console.log(Session.get("document"))
+  console.log(`rendering: ${Session.get("document")}`)
   $("#editor-container").empty();
   $("#editor-container").append("<div id='editor'></div>");
   focusForm("#editor");
@@ -37,7 +33,7 @@ const renderEditor = () => {
   // Get cached content for when history empty
   const file = Files.findOne(Session.get("document"));
   firepad.on('ready', () => {
-    if (firepad.isHistoryEmpty())
+    if (firepad.isHistoryEmpty() && file.content)
       firepad.setText(file.content);
 
     // Focus the editor panel
@@ -114,9 +110,8 @@ Template.filename.events({
 
   // test the current file
   "click .test"(e) {
-    console.log("testing...")
     Session.set("testVis", true)
-    console.log(Session.get("document"))
+    console.log(`testing: ${Session.get("document")}`)
     Session.set("testFile", Session.get("document"))
   },
 

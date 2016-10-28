@@ -62,49 +62,50 @@ Meteor.methods({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
     }).fetch().filter(function typeCheck(file) { // remove imgs
-        return file.type === "file" && file.content != undefined;
-      }).map(function makeBlob(file) { // set file cache
-        Files.update(file._id, {$set: {cache: file.content}});
-        return {
-          content: file.content,
-          path: file.title,
-          mode: file.mode,
-          type: "blob",
-        };
-      });
-
-      // get old tree and update it with new shas, post and get that sha
-      let branch = Meteor.call("getBranch", bname);
-      let oldTree = Meteor.call("getTree", branch.commit.commit.tree.sha);
-      let newTree = {base: oldTree.sha, tree: blobs};
-      let treeSHA = Meteor.call("postTree", newTree);
-
-      // specify author of this commit
-      let commitAuthor = {
-        name: user.login,
-        email: user.email,
-        date: new Date()
+      return file.type === "file" && file.content != undefined;
+    }).map(function makeBlob(file) { // set file cache
+      Files.update(file._id, {$set: {cache: file.content}});
+      return {
+        content: file.content,
+        path: file.title,
+        mode: file.mode,
+        type: "blob",
       };
+    });
 
-      // make the new commit result object
-      let commitResult = Meteor.call("postCommit", {
-        message: msg, // passed in
-        author: commitAuthor,
-        parents: [ branch.commit.sha ],
-        tree: treeSHA
-      });
+    // get old tree and update it with new shas, post and get that sha
+    let branch = Meteor.call("getBranch", bname);
+    let oldTree = Meteor.call("getTree", branch.commit.commit.tree.sha);
+    if (!oldTree) oldTree = {"sha": ""} // resetting for new file
+    let newTree = {base: oldTree.sha, tree: blobs};
+    let treeSHA = Meteor.call("postTree", newTree);
 
-      // update the ref, point to new commmit
-      Meteor.call("postRef", commitResult);
+    // specify author of this commit
+    let commitAuthor = {
+      name: user.login,
+      email: user.email,
+      date: new Date(),
+    };
 
-      // get the latest commit from the branch head
-      let lastCommit = Meteor.call("getBranch", bname).commit;
+    // make the new commit result object
+    let commitResult = Meteor.call("postCommit", {
+      message: msg, // passed in
+      author: commitAuthor,
+      parents: [branch.commit.sha],
+      tree: treeSHA,
+    });
 
-      // post into commit db with repo tag
-      Meteor.call("addCommit", lastCommit);
+    // update the ref, point to new commmit
+    Meteor.call("postRef", commitResult);
 
-      // update the feed with new commit
-      Meteor.call("addMessage", `committed - ${msg}`);
+    // get the latest commit from the branch head
+    let lastCommit = Meteor.call("getBranch", bname).commit;
+
+    // post into commit db with repo tag
+    Meteor.call("addCommit", lastCommit);
+
+    // update the feed with new commit
+    Meteor.call("addMessage", `committed - ${msg}`);
   },
 
 });
