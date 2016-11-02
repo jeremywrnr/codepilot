@@ -5,9 +5,14 @@ check:
 	source .environment || true
 
 test:
-	spacejam test-packages ./packages/git-sync/
+	meteor test-packages ./packages
+
+testci:
+	spacejam test-packages ./packages/git-sync
+	spacejam test-packages ./packages/difflib
+	spacejam test-packages ./packages/firepad
 
 lines:
 	find ./* -type f | grep -v jpg | grep -v gif | grep -v md | grep -v ico | xargs wc -l
 
-.PHONY: check mongo test lines
+.PHONY: mongo check test testci lines
