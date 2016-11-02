@@ -1,0 +1,1 @@
+meteor update --all-packages
