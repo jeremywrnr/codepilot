@@ -11,6 +11,9 @@ before_install:
 - npm install -g coffee-script
 - npm install -g spacejam
 - cd private && make decrypt
-- cd ../packages/git-sync
 
-script: spacejam test-packages ./
+
+script:
+- spacejam test-packages packages/difflib
+- spacejam test-packages packages/firepad
+- spacejam test-packages packages/git-sync
