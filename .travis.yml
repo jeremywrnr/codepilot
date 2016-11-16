@@ -8,8 +8,8 @@ before_install:
 - curl https://install.meteor.com | /bin/sh
 - export PATH="$HOME/.meteor:$PATH"
 - npm install -g spacejam
-- meteor npm install
 - meteor --version
 - make decrypt
+- npm install
 
 script: make test
