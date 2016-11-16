@@ -12,4 +12,4 @@ test:
 lines:
 	find ./* -type f | grep -v jpg | grep -v gif | grep -v md | grep -v ico | xargs wc -l
 
-.PHONY: mongo check test testci lines
+.PHONY: mongo check test lines
