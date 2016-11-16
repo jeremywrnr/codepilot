@@ -37,7 +37,7 @@ Template.message.onRendered(() => {
   }
 
   // auto enable bootstrap tooltips
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip({delay: 0})
 });
 
 Template.message.helpers({
