@@ -19,11 +19,10 @@ var userfiles = function () {
     prof = undefined;
   if (user)
     prof = user.profile;
-  if (prof)
-    return Files.find({
-      repo: user.repo,
-      branch: user.repoBranch
-    });
+  if (prof) return Files.find({
+    repo: user.repo,
+    branch: user.repoBranch
+  });
 }
 
 
