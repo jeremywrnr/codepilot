@@ -553,4 +553,3 @@ var difflib = {
 // finally export difflib
 Difflib.lib = difflib;
 Difflib.view = diffview;
-

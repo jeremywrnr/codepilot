@@ -1,5 +1,5 @@
 Package.describe({
-  version: "1.0.1",
+  version: "1.0.2",
   name: "jeremywrnr:git-sync",
   summary: "Real-time pair programming toolset.",
   git: "https://github.com/jeremywrnr/git-sync",
@@ -8,7 +8,8 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.export("GitSync");
-  api.versionsFrom("METEOR@1.4");
+
+  api.versionsFrom("METEOR@1.3");
   api.addFiles(["git-sync.js"]);
 });
 

@@ -7,9 +7,9 @@ node_js: 0.10.40
 before_install:
 - curl https://install.meteor.com | /bin/sh
 - export PATH="$HOME/.meteor:$PATH"
-- meteor --version
-- npm install -g coffee-script
 - npm install -g spacejam
+- meteor npm install
+- meteor --version
 - make decrypt
 
 script: make test

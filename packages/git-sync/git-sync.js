@@ -1,5 +1,5 @@
 // global js functions, preloaded into meteor from lib
-
+// includes many functions used throughout templates
 
 GitSync = {
   host: "http://www.git-sync.com/",
@@ -131,6 +131,4 @@ GitSync = {
       if (file && modelist)
         return modelist.getModeForPath(file.title).mode;
     },
-
 };
-

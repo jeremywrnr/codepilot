@@ -1,7 +1,7 @@
 Package.describe({
   version: "1.0.0",
   name: "jeremywrnr:difflib",
-  summary: "Differnce generator for file contents.",
+  summary: "Difference generator for file contents.",
   git: "https://github.com/jeremywrnr/git-sync",
 });
 
