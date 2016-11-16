@@ -1,11 +1,20 @@
-sudo: false
-
+sudo: required
 language: node_js
 services: mongodb
-node_js: 4.4.5
+node_js: 0.10
+
+# prereq for getting addon
+env: CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 
 before_install:
-- curl https://install.meteor.com | /bin/sh
+- curl -L https://install.meteor.com | /bin/sh
+- curl -L https://git.io/ejPSng | /bin/sh
 - export PATH="$HOME/.meteor:$PATH"
 - npm install -g spacejam
 - meteor --version
