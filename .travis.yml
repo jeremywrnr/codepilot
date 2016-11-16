@@ -10,6 +10,5 @@ before_install:
 - npm install -g spacejam
 - meteor --version
 - make decrypt
-- npm install
 
 script: make test
