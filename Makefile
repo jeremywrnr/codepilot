@@ -5,9 +5,6 @@ check:
 	source .environment || true
 
 test:
-	meteor test-packages ./packages
-
-testci:
 	spacejam test-packages ./packages/git-sync
 	spacejam test-packages ./packages/difflib
 	spacejam test-packages ./packages/firepad

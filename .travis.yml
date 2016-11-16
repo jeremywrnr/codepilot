@@ -13,7 +13,4 @@ before_install:
 - cd private && make decrypt
 
 
-script:
-- spacejam test-packages packages/difflib
-- spacejam test-packages packages/firepad
-- spacejam test-packages packages/git-sync
+script: make test
