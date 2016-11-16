@@ -19,3 +19,4 @@ service-configuration@1.0.11
 meteorhacks:async
 mizzao:jquery-ui
 ecmascript@0.5.9
+meteor-platform
