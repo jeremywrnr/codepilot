@@ -8,7 +8,6 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.export("Difflib");
-
   api.versionsFrom("METEOR@1.3");
   api.addFiles(["difflib.js"]);
 });
@@ -18,4 +17,3 @@ Package.onTest(function (api) {
   api.use(["tinytest", "jeremywrnr:difflib"]);
   api.addFiles("difflib-tests.js");
 });
-

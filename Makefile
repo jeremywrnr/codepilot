@@ -1,5 +1,7 @@
 test:
-	spacejam test-packages ./packages/*
+	spacejam test-packages ./packages/firepad
+	spacejam test-packages ./packages/difflib
+	#spacejam test-packages ./packages/git-sync
 
 check:
 	source .environment || true

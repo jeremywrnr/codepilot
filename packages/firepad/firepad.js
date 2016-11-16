@@ -2,15 +2,29 @@
 // most methods have to be called from client since jsdom cant run on the
 // server, which means that firepad cant run on the meteor backend.
 
-FirepadAPI = {
+FirepadAPI = {}
 
-  // getting whether the host is in production or development
+// getting whether the host is in production or development
 
-  setup: function(dev) {
-    var prodFB = "https://project-3627267568762325747.firebaseio.com/"
-    var devFB = "https://gitsync-test.firebaseio.com/"
-    this.host = (dev ? devFB : prodFB);
-  },
+var setup = function (dev) {
+  var prodFB = "https://project-3627267568762325747.firebaseio.com/"
+  var devFB = "https://gitsync-test.firebaseio.com/"
+  this.host = (dev ? devFB : prodFB);
+}
+
+// return the current branch/repo files
+
+var userfiles = function () {
+  var user = Meteor.user(),
+    prof = undefined;
+  if (user)
+    prof = user.profile;
+  if (prof)
+    return Files.find({
+      repo: user.repo,
+      branch: user.repoBranch
+    });
+}
 
 
   /***
@@ -29,20 +43,20 @@ FirepadAPI = {
    *   document.
    ***/
 
-  getText: function(id, cb) { // return the contents of firepad
-    var headless = Firepad.Headless(Session.get("fb") + id);
-    headless.getText(function(txt) {
-      headless.dispose();
-      cb(txt);
-    });
-  },
+var getText = function (id, cb) { // return the contents of firepad
+  var headless = Firepad.Headless(Session.get("fb") + id);
+  headless.getText(function(txt) {
+    headless.dispose();
+    cb(txt);
+  });
+}
 
-  getAllText: function(files, cb) { // apply callmback to all files
-    files.map(function(id) {
-      FirepadAPI.getText(id, function(txt) {
-        cb(id, txt); });
-    });
-  },
+var getAllText = function(files, cb) { // apply callmback to all files
+  files.map(function(id) {
+    FirepadAPI.getText(id, function(txt) {
+      cb(id, txt); });
+  });
+}
 
 
   /***
@@ -54,16 +68,22 @@ FirepadAPI = {
    * - dispose removes the connection to the firepad instance.
    ***/
 
-  setText: function(id) { // update firebase with their ids
-    var headless = Firepad.Headless(Session.get("fb") + id);
-    headless.setText(Files.findOne(id).cache,
-      function() { headless.dispose() });
-  },
+var setText = function (id) { // update firebase with their ids
+  var headless = Firepad.Headless(Session.get("fb") + id);
+  headless.setText(Files.findOne(id).cache,
+    function() { headless.dispose() });
+}
 
-  setAllText: function() { // update all project caches from firepad (for reset)
-    GitSync.userfiles().fetch().map(function(file) {
-      FirepadAPI.setText(file._id) });
-  },
+var setAllText = function () { // update all project caches from firepad (for reset)
+  FirepadAPI.userfiles().fetch().map(function(file) {
+    FirepadAPI.setText(file._id) });
+}
 
-};
 
+// exporting to package
+FirepadAPI.setup = setup;
+FirepadAPI.getText = getText;
+FirepadAPI.setText = setText;
+FirepadAPI.userfiles = userfiles;
+FirepadAPI.getAllText = getAllText;
+FirepadAPI.setAllText = setAllText;
