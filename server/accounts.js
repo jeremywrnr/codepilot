@@ -5,7 +5,7 @@ Accounts.onCreateUser((options, user) => {
   var result;
   let profile;
   var result = Meteor.http.get('https://api.github.com/user', {
-    headers: { 'User-Agent': 'Code Pilot' },
+    headers: { 'User-Agent': 'GitSync' },
     params: { access_token: accessToken }
   });
 

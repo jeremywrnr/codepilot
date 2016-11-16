@@ -54,7 +54,7 @@ Meteor.startup(() => { // get correct github auth key
     version: "3.0.0",
     protocol: "https",
     debug, // boolean declared above
-    headers: { "User-Agent": "code pilot" }
+    headers: { "User-Agent": "GitSync" }
   });
 
   // oauth for api 5000/hour

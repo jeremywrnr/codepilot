@@ -74,6 +74,7 @@ Meteor.methods({
     });
 
     // get old tree and update it with new shas, post and get that sha
+    console.log("blobs are", blobs)
     let branch = Meteor.call("getBranch", bname);
     let oldTree = Meteor.call("getTree", branch.commit.commit.tree.sha);
     if (!oldTree) oldTree = {"sha": ""} // resetting for new file
@@ -109,5 +110,3 @@ Meteor.methods({
   },
 
 });
-
-
