@@ -10,7 +10,6 @@ before_install:
 - meteor --version
 - npm install -g coffee-script
 - npm install -g spacejam
-- cd private && make decrypt
-
+- make decrypt
 
 script: make test
