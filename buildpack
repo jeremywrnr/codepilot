@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-# export github password
+# export github API password for production
 export "GH_PASSWORD=$(cat $1/GH_PASSWORD)"
-echo "GH PASSWORD EXPORTED"
+echo "GH PASSWORD EXPORTED =============="
 
-# decrypt auth keys
-cd private
+# get auth keys
 make decrypt
-cd ..
