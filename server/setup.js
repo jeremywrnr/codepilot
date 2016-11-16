@@ -64,4 +64,3 @@ Meteor.startup(() => { // get correct github auth key
     secret: GHAuth.secret
   });
 });
-

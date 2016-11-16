@@ -122,7 +122,6 @@ Meteor.methods({
   },
 
   postTree(t) { // takes tree, gives tree SHA hash id
-    console.log(t)
     Meteor.call("ghAuth");
     return github.gitdata.createTree({
       user: Meteor.user().profile.repoOwner,

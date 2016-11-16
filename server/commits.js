@@ -62,7 +62,7 @@ Meteor.methods({
       repo:  Meteor.user().profile.repo,
       branch: Meteor.user().profile.repoBranch,
     }).fetch().filter(function typeCheck(file) { // remove imgs
-      return file.type === "file" && file.content != undefined;
+      return (file.type === "file" || file.type === "blob") && file.content != undefined;
     }).map(function makeBlob(file) { // set file cache
       Files.update(file._id, {$set: {cache: file.content}});
       return {
@@ -73,8 +73,9 @@ Meteor.methods({
       };
     });
 
-    // get old tree and update it with new shas, post and get that sha
     console.log("blobs are", blobs)
+
+    // get old tree and update it with new shas, post and get that sha
     let branch = Meteor.call("getBranch", bname);
     let oldTree = Meteor.call("getTree", branch.commit.commit.tree.sha);
     if (!oldTree) oldTree = {"sha": ""} // resetting for new file
