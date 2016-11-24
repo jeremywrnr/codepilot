@@ -38,9 +38,9 @@
       color: red;
     }
     </style>
-    <link rel="stylesheet" href="/css/feedback.min.css"/>
+    <link rel="stylesheet" href="/style/feedback.min.css"/>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="/js/feedback.js"></script>
+    <script src="/javascript/feedback.js"></script>
 
     <script type="text/javascript">
     // waiting until the page loads
@@ -49,7 +49,7 @@
     // used in testing with feedback.js
     $.feedback({
       ajaxURL: "/feedback/",
-      html2canvasURL: "/js/html2canvas.min.js",
+      html2canvasURL: "/javascript/html2canvas.min.js",
       feedbackButton: ".issue",
       initButtonText: "report issue",
       onClose: function() { window.location.reload(); },
