@@ -30,4 +30,3 @@ Accounts.onCreateUser((options, user) => {
   user.profile.repo = ''
   return user;
 });
-

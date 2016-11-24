@@ -79,9 +79,9 @@ Template.userLoggedout.events({
       requestPermissions: ["user", "public_repo"],
       loginStyle: "redirect",
     }, err => {
-        if (err)
-          Session.set("errorMessage", err.reason);
-      });
+      if (err)
+        Session.set("errorMessage", err.reason);
+    });
   }
 });
 
@@ -93,4 +93,3 @@ Template.userLoggedin.events({
     });
   }
 });
-
