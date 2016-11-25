@@ -88,7 +88,7 @@ Template.main.helpers({ // check if user has setup repo yet
 Template.userLoggedout.events({
   "click .login"(e) {
     Meteor.loginWithGithub({
-      requestPermissions: ["user", "public_repo"],
+      requestPermissions: ["user", "repo"],
       loginStyle: "redirect",
     }, err => {
       if (err)
