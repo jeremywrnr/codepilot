@@ -1,10 +1,9 @@
 // configuration page
 
 const prof = GitSync.prof;
-
 const focusForm = GitSync.focusForm;
 
-Template.config.helpers({
+Template.account.helpers({
   repos() {
     return Repos.find({}, {sort: {"repo.owner": -1, "repo.name": 1}} );
   },
@@ -18,6 +17,10 @@ Template.config.helpers({
       return brs;
     else // branches havent loaded || something else?
       return [];
+  },
+
+  userHasRepo() { // empty string is default value for repo
+    return (Meteor.user() && Meteor.user().profile.repo != "")
   },
 
   repoSelecting() {
@@ -34,7 +37,7 @@ Template.config.helpers({
 });
 
 
-Template.config.events({
+Template.account.events({
   "click .repoSelect"(e) { // show the available repos
     e.preventDefault();
     Session.set("focusPane", "repo");

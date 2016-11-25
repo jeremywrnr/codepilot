@@ -31,11 +31,18 @@ ga("send", "pageview");
 
 <template name="main">
   {{> topnav }}
-  {{#if currentUser }}
 
-  <div class="mainbody full-height">
+  {{#if currentUser }}
+  {{# if userHasRepo }}
+  <div class="full-height">
     {{> sidebar}} <div class="main-content"> {{> yield}} </div>
   </div>
+  {{else}}
+  <div class="setup">
+    <h2> Choose a repo to import: </h2>
+    {{> account}}
+  </div>
+  {{/if}}
 
   {{else}}
   {{> login}}
@@ -104,7 +111,7 @@ ga("send", "pageview");
     <img alt="Git Sync" src="/images/gitlogo2.gif" id="brand-img">
   </a>
 
-  {{#if currentUser }}
+  {{#if userHasRepo }}
   <ul class="nav navbar-nav">
 
     {{#each navItems}}

@@ -15,6 +15,11 @@ border-radius()
     -webkit-border-radius arguments
     -moz-border-radius arguments
     border-radius arguments
+h-center(w)
+    margin-right auto
+    margin-left auto
+    max-width w
+    width w
 w-content(w)
     max-width w
     top 50px
@@ -50,13 +55,17 @@ h5
     position absolute
     w-content(70vw)
     left 30vw
+.setup
+    position relative
+    h-center(600px)
+    top 40px
 .header // colors: txt, bg, border
     heading-style(black, lightgray, midgray)
 .sidebar
     border-right thin dotted darkgray
-    max-height 100%
     position fixed
     w-content(30vw)
+    height 100%
     left 0px
 .navbar-nav
     font-size 16px
@@ -64,7 +73,7 @@ h5
     v-center(14px)
 .navbar-form
     v-center(6.5px)
-.full-height
+.account
     height 100%
 .sidelist
     max-height 30vh
@@ -99,6 +108,8 @@ h5
 .welcome>.jumbotron
     padding 10px 15vw 16px 15vw
     margin-bottom 15px
+.jumbotron > *
+    h-center(750px)
 .panel
 .panel-heading
     border-width 1px 0px 0px 0px
@@ -113,6 +124,8 @@ h5
     font-size 21px
     display block
     margin auto
+.about
+    max-width 600px
 .alert
 .list-group
     margin-bottom 0
@@ -254,4 +267,3 @@ float: left; }
 @media (min-width: 600px) {
     .navbar a { font-size: 25px; }
 }
-

@@ -1,6 +1,12 @@
 <!--allow user to configure things-->
 
 <template name="config">
+  {{> account }}
+  {{> extras }}
+</template>
+
+
+<template name="account">
   <div id="mainhead">
     <p class="navbar-text"> setup </p>
   </div>
@@ -23,6 +29,7 @@
     </button>
     {{/if}}
 
+    {{#if userHasRepo}}
     {{#if branchSelecting}}
     <button class="list-group-item unfocus">
       <button class="label label-danger btn btn-xs pull-right"> cancel </button>
@@ -38,6 +45,7 @@
       <button class="label label-success btn btn-xs pull-right"> choose </button>
       branch: <a href="#">{{ currentUser.profile.repoBranch }}</a>
     </button>
+    {{/if}}
     {{/if}}
   </div>
 
@@ -58,10 +66,7 @@
       <small><i>updated {{ lastUpdated }}</i></small>
     </h4>
   </div>
-
-  {{> extras }}
 </template>
-
 
 
 <template name="forkRepo">
@@ -72,7 +77,7 @@
       <div class="input-group">
         <form class="forker">
           <input placeholder="enter a repo to fork (eg: jeremywrnr/git-sync) ..."
-                 id="repoForker" class="form-control" type="text" name="title" value=""> </form>
+          id="repoForker" class="form-control" type="text" name="title" value=""> </form>
         <span class="input-group-btn">
           <button type="button" class="btn btn-default del cancelFork">cancel</button> </span> </div>
     </div>
@@ -95,7 +100,7 @@
       <div class="input-group">
         <form class="brancher">
           <input placeholder="enter the new branch name..."
-                 id="branchNamer" class="form-control" type="text" name="title" value=""> </form>
+          id="branchNamer" class="form-control" type="text" name="title" value=""> </form>
         <span class="input-group-btn">
           <button type="button" class="btn btn-default del cancelBranch">cancel</button> </span> </div>
     </div>
@@ -131,7 +136,7 @@
     <p class="navbar-text"> about </p>
   </div>
 
-  <div class="panel-body">
+  <div class="panel-body about">
     <h5> mission </h5>
     <ol>
       <li>integrate some core programming tasks into a single web IDE</li>
@@ -147,7 +152,6 @@
     </ol>
 
     <h5> history </h5>
-
     Git Sync was created and is maintained by <a href="https://github.com/jeremywrnr">@jeremywrnr</a>
     - please get in touch with me if you have feedback on the tool, or if you
     find a bug feel free to open up an issue. I am very grateful for the
@@ -160,7 +164,6 @@
     <!--<a href="http://goo.gl/forms/zyGQuoOb82UWUvpy1" target="_blank"> Please fill this form on using GitSync for our research purposes! </a>-->
 
     <h5> technology </h5>
-
     <i>Git Sync</i> is Meteor application hosted on Heroku that uses
     Firepad and Ace for synchronous editors, GitHub for git hosting,
     and both <a href="http://pythontutor.com" target="blank">
@@ -168,16 +171,13 @@
     HTML/CSS/JS renderer and debugger for software verification.
 
     <h5> disclaimer </h5>
-
     I do not own the Octocat or any image similar to it. I use it to link back
     to the source of this project, which is hosted on GitHub - the creator and
     owner of the Octocat.
 
     <h5> debugging </h5>
-
     <div class="alert alert-danger resetfiles del" role="alert">
       reset current git-sync project to basic html/css/js website
     </div>
   </div>
 </template>
-

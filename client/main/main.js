@@ -59,6 +59,10 @@ Template.registerHelper("nullrepo", () => { // check if currentDoc is null
 // navbar config
 
 Template.navigation.helpers({ // uses glyphicons in template
+  userHasRepo() { // empty string is default value for repo
+    return (Meteor.user() && Meteor.user().profile.repo != "")
+  },
+
   navItems() {
     return [
       { iconpath:"/code", iconname:"pencil",   name:"code" },
@@ -72,6 +76,14 @@ Template.renderer.onRendered(() => {
 });
 
 // login setup
+
+Template.main.helpers({ // check if user has setup repo yet
+
+  userHasRepo() { // empty string is default value for repo
+    return (Meteor.user() && Meteor.user().profile.repo != "")
+  },
+
+});
 
 Template.userLoggedout.events({
   "click .login"(e) {
