@@ -66,7 +66,7 @@ Template.navigation.helpers({ // uses glyphicons in template
   navItems() {
     return [
       { iconpath:"/code", iconname:"pencil",   name:"code" },
-      { iconpath:"/test", iconname:"search",   name:"test" },
+      { iconpath:"/test", iconname:"search",   name:"check" },
       { iconpath:"/save", iconname:"list-alt", name:"save" } ] }
 });
 

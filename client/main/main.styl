@@ -20,14 +20,14 @@ h-center(w)
     margin-left auto
     max-width w
     width w
-w-content(w)
-    max-width w
-    top 50px
-    width w
 v-center(n)
     vertical-align middle
     margin-bottom 0px
     margin-top n
+w-content(w)
+    max-width w
+    top 50px
+    width w
 heading-style(txt, bg, border)
     border-width 1px 0px 0px 0px
     background-color bg
@@ -41,10 +41,11 @@ heading-style(txt, bg, border)
 
 html
     font-family Verdana, sans-serif
-    padding 10px
 html, body
     line-height normal
     height 100%
+h1 > code
+    background transparent
 h5
     text-decoration underline
 
@@ -101,13 +102,14 @@ h5
     margin-top -20px
 .jumbotron
     background lightblue
-    margin-right -20px
-    margin-left -10px
+    //margin-right -20px
+    //margin-left -10px
     padding 40px 15vw 20px 15vw
     margin-bottom 0px
 .welcome>.jumbotron
     padding 10px 15vw 16px 15vw
-    margin-bottom 15px
+    margin-bottom 25px
+    max-width 100%
 .jumbotron > *
     h-center(750px)
 .panel
@@ -151,18 +153,6 @@ a.powered-by-firepad // firepad editor
 
 #mainhead // colors: txt, bg, border
     heading-style(white, darkblue, white)
-#mainlogin
-    background darkgreen
-    list-style none
-    padding 0px
-    height 72px
-#mainlogin li.login
-    border-radius(4px)
-    font-size 30px
-    padding 15px
-#mainlogin li.login a
-    text-decoration none
-    color lightgray
 #editor-head
     heading-style(white, darkblue, white)
     position fixed
@@ -183,10 +173,6 @@ a.powered-by-firepad // firepad editor
     left 0
 #feed
     padding 10px 5px
-#brand-img
-    max-height 50px
-    padding 4px
-    float left
 #testviz
 #testweb
 .resize
@@ -267,3 +253,37 @@ float: left; }
 @media (min-width: 600px) {
     .navbar a { font-size: 25px; }
 }
+
+
+// making custom navigation bar
+
+#sitenav
+    background white
+    max-height 50px
+    position fixed
+    height 50px
+    width 100%
+    left 0px
+    top 0px
+#sitenav > div
+    display block
+    height 50px
+a.sitelink
+    font-family monospace
+    display inline-block
+    v-center(12px)
+    font-size 20px
+    color red
+a.sitelink:hover
+    background red
+    color white
+#siteleft
+    padding-left 1em
+    float left
+#siteright
+    padding-right 1.5em
+    float right
+#siteimg
+    max-height 50px
+    padding 7px
+    float left
