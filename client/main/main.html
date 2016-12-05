@@ -33,7 +33,7 @@ ga("send", "pageview");
   {{> topnav }}
 
   {{#if currentUser }}
-  {{# if userHasRepo }}
+  {{#if userHasRepo }}
   <div class="full-height">
     {{> sidebar}} <div class="main-content"> {{> yield}} </div>
   </div>
@@ -121,8 +121,8 @@ ga("send", "pageview");
 <template name="login">
   <div class="wider jumbotron tcenter">
     <h1><code>welcome to git-sync</code></h1>
-    <p> this tool helps people collaborate on code seamlessly, by importing repos
-      from GitHub, editing them simulatenously, and pushing back to GitHub!
+    <p> this tool helps people collaborate on code seamlessly by importing
+      GitHub repos, editing them simulatenously, and pushing them back to GitHub!
     </p>
 
     <div>
@@ -144,11 +144,11 @@ ga("send", "pageview");
   </div>
 </template>
 
+
 <template name="about">
   <div class="jumbotron jumbotron-sm"><h2> starting </h2></div>
   <div class="wide about-panel">
-    <iframe width="100%" src="https://www.youtube.com/embed/dYJjDUW5uEU" frameborder="0" allowfullscreen></iframe>
-    <!--<iframe width="720" height="405" src="https://www.youtube.com/embed/dYJjDUW5uEU" frameborder="0" allowfullscreen></iframe>-->
+    <iframe width="100%" height="405" src="https://www.youtube.com/embed/dYJjDUW5uEU" frameborder="0" allowfullscreen></iframe>
   </div>
 
   <div class="jumbotron jumbotron-sm"><h2> editing </h2></div>

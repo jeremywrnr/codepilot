@@ -39,7 +39,7 @@ Meteor.methods({
     }});
 
     if (fs.insertedId) { // if a new file made, create firepad
-      Meteor.call("addMessage", ` created new file ${file.path}`);
+      //Meteor.call("addMessage", ` created new file ${file.path}`);
       return fs.insertedId;
     }
   },
