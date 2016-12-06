@@ -8,15 +8,21 @@
 
 <template name="testviz">
   <div id="mainhead">
-    <p class="navbar-text"> visualize </p>
+    <p class="navbar-text"> check </p>
     <form class="navbar-form pull-right">
       {{#if enabled }}
-      <a href="/code"><button class="grn btn btn-default btn-small">code</button></a>
-      <a href="/save"><button class="grn btn btn-default btn-small">save</button></a>
-      <button class="grn btn btn-default btn-small reload">reload</button>
-      <button class="edit btn btn-default btn-small target">target</button>
+      <button class="grn btn btn-default btn-small target">file</button>
+      <button class="grn btn btn-default btn-small reload">
+        <span class="glyphicon glyphicon-refresh"></span>
+      </button>
+      <button class="grn btn btn-default btn-small toggle">
+        <span class="glyphicon glyphicon-minus"></span>
+      </button>
+      {{else}}
+      <button class="grn btn btn-default btn-small toggle">
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
       {{/if}}
-      <button class="edit btn btn-default btn-small toggle">toggle</button>
     </form>
   </div>
 
@@ -71,12 +77,19 @@
     <p class="navbar-text"> render </p>
     <form class="navbar-form pull-right">
       {{#if enabled }}
-      <a href="/code"><button class="grn btn btn-default btn-small">code</button></a>
-      <a href="/save"><button class="grn btn btn-default btn-small">save</button></a>
-      <a href="/renderer"><button class="grn btn btn-default btn-small">full</button></a>
-      <button class="grn btn btn-default btn-small reload">reload</button>
+      <a href="/renderer"><button class="grn btn btn-default btn-small">
+        <span class="glyphicon glyphicon-fullscreen"></span></button></a>
+      <button class="grn btn btn-default btn-small reload">
+        <span class="glyphicon glyphicon-refresh"></span>
+      </button>
+      <button class="grn btn btn-default btn-small toggle">
+        <span class="glyphicon glyphicon-minus"></span>
+      </button>
+      {{else}}
+      <button class="grn btn btn-default btn-small toggle">
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
       {{/if}}
-      <button class="edit btn btn-default btn-small toggle">toggle</button>
     </form>
   </div>
 
@@ -95,7 +108,9 @@
   <div class="header">
     <p class="navbar-text"> issues ({{issueCount}}) </p>
     <form class="navbar-form pull-right">
-      <button class="grn btn btn-default pull-right reload"> reload </button>
+      <button class="grn btn btn-default pull-right reload">
+        <span class="glyphicon glyphicon-refresh"></span>
+      </button>
     </form>
   </div>
 

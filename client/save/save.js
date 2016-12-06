@@ -213,11 +213,11 @@ Template.diff.events({
 
 Template.diffline.helpers({
 
-  content() { return this.content; },
-  skipped() { return this.status == "skip" },
-  equal()   { return this.status == "equal" },
-  inserted(){ return this.status == "insert" },
-  deleted() { return this.status == "delete" },
+  content()  { return this.content; },
+  skipped()  { return this.status == "skip" },
+  equal()    { return this.status == "equal" },
+  inserted() { return this.status == "insert" },
+  deleted()  { return this.status == "delete" },
 
   newnum() {
     const num = this.newnum;

@@ -34,17 +34,17 @@
 
     {{else}}
 
-    <p class="navbar-text"> github </p>
+    <p class="navbar-text"> save with github </p>
     <form class="navbar-form pull-right">
-      <a href="/"><button class="grn btn btn-default btn-small">code</button></a>
-      <a href="/test"><button class="grn btn btn-default btn-small">test</button></a>
-      <button type="button" class="btn btn-default btn-small grn reload"> reload </button>
+      <button type="button" class="btn btn-default btn-small grn reload">
+        <span class="glyphicon glyphicon-refresh"></span>
+       </button>
       {{#if changes}}
-      <button type="button" class="btn btn-default btn-small"> new commit </button>
+      <!--<button type="button" class="btn btn-default btn-small"> commit </button>-->
       {{else}}
-      <button type="button" class="btn btn-default btn-small grn newcommit"> new commit </button>
+      <button type="button" class="btn btn-default btn-small grn newcommit"> commit </button>
       {{/if}}
-      <button type="button" class="btn btn-default btn-small del loadhead">import {{branch}}</button>
+      <button type="button" class="btn btn-default btn-small del loadhead">hard reset</button>
     </form>
 
     {{/if}}
@@ -70,7 +70,9 @@
   <div class="header">
     <p class="navbar-text"> recent commits ({{ commitCount }}) </p>
     <form class="navbar-form pull-right">
-      <button class="grn btn btn-default btn-small reload">reload</button>
+      <button class="grn btn btn-default btn-small reload">
+				<span class="glyphicon glyphicon-refresh"></span>
+      </button>
     </form>
   </div>
 
@@ -123,7 +125,9 @@
 
 <template name="diff">
   <li class="list-group-item list-group-item-info"> {{title}}
-    <button class="btn btn-xs del btn-default pull-right reset">reset</button>
+    <button class="btn btn-xs del btn-default pull-right reset">
+        <span class="glyphicon glyphicon-remove"></span>
+</button>
   </li>
 
   <li class="list-group-item">

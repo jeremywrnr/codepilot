@@ -1,9 +1,18 @@
 <!--chat with other users-->
 
 <template name="chat">
-  <div class="header"> <p class="navbar-text"> feed </p> </div>
-  {{> messages }}
-  {{> chatter }}
+  <div class="header">
+    <p class="navbar-text">
+      feed
+      <form class="navbar-form pull-right">
+      <a href="#feed-wrapper" data-toggle="collapse"><button class="grn btn btn-default btn-small">+</button></a>
+      </form>
+    </p>
+  </div>
+  <div id="feed-wrapper" class="collapse">
+    {{> messages }}
+    {{> chatter }}
+  </div>
 </template>
 
 <template name="chatter">
@@ -25,7 +34,7 @@
 <template name="message">
   <li class="msg">
     <p class="nomargin">
-    <strong data-toggle="tooltip" data-placement="right" title="{{timestamp}} - {{datestamp}}">{{name}}</strong> {{{linked}}} </p>
+      <strong data-toggle="tooltip" data-placement="right" title="{{timestamp}} - {{datestamp}}">{{name}}</strong> {{{linked}}} </p>
   </li>
 </template>
 

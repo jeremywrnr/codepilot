@@ -2,14 +2,20 @@
 
 <template name="filelist">
   <div class="header">
-    <p class="navbar-text"> repo </p> </div>
+    <p class="navbar-text"> repo </p>
+  </div>
+
   <ul class="nav nav-pills nav-stacked sidelist">
     <li class="file">
       {{#if nullrepo }}
       <a href="/config"> no repo yet </a>
       {{else}}
-      <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}" target="_blank">
-        {{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
+      <a href="https://github.com/{{ currentUser.profile.repoOwner }}/{{
+        currentUser.profile.repoName }}/tree/{{ currentUser.profile.repoBranch }}" target="_blank">
+        {{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName
+        }}/{{ currentUser.profile.repoBranch}}
+      </a>
+
       {{/if}}
     </li>
   </ul>
@@ -17,10 +23,15 @@
   <div class="sidepanel">
     <div class="header">
       <p class="navbar-text"> files </p>
+      <!--
       <form class="navbar-form pull-right">
-        <button class="grn btn btn-default btn-small new"> new </button> </form> </div>
+        <button class="grn btn btn-default btn-small new"> new </button> </form>
+      -->
+    </div>
     <ul class="nav nav-pills nav-stacked sidelist">
-      {{> userfiles}} </ul> </div>
+      {{> userfiles}}
+    </ul>
+  </div>
 </template>
 
 <template name="userfiles">
