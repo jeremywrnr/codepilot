@@ -154,8 +154,14 @@ Template.newBranch.events({
 Template.repo.events({
 
   "click .repo"(e) { // load a different repo into GitSync
+    //Session.set("loadingRepo", true)
     if (prof().repo !== this._id)
-      Meteor.call("loadRepo", this);
+      Meteor.call("loadRepo", this,
+        function() {
+          console.log("Done loading repo")
+          console.log(Session)
+          Session.set("loadingRepo", false)
+        });
     Session.set("focusPane", null);
     Session.set("testFile", null);
   }

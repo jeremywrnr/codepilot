@@ -32,8 +32,10 @@ Tracker.autorun(() => { // subscribe on login
       Meteor.subscribe("messages", user.repo);
 
       const branch = user.repoBranch; // get branch
-      Meteor.subscribe("files", user.repo, branch);
       Meteor.subscribe("commits", user.repo, branch);
+
+      // TODO get files just that are in this commit (how...)
+      Meteor.subscribe("files", user.repo, branch);
     }
   }
 });

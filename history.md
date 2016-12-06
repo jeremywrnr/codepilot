@@ -1,10 +1,7 @@
 TODOS
 =====
 
-generating visualizations of the javascript AST??? or something similar to
-python tutor in some way. (use python tutor as api with embeds)
-
-better notification of who is working on project, what file is open in their
+better notifications of who is working on project, what file is open in their
 buffer and what branch they are on.
 
 filter sharejs loading to type == file
@@ -12,7 +9,7 @@ filter sharejs loading to type == file
 collaboration idea: in the users tab, add ability to add a copilot by their
 username on github, as well as the ability to revoke if you are true user great
 BC they dont have to be github collab to edit it!!! adding revokable users to a
-repo??
+repo?? (unsure if this can be done with current api)
 
 when loading a new repo in, display that in the files, so user knows,
 then reset session variable after successful load (or error) in cb()
