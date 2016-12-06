@@ -34,14 +34,25 @@ ga("send", "pageview");
 
   {{#if currentUser }}
   {{#if userHasRepo }}
+  {{#if loadingRepo }}
+  <div class="center loading">
+    <img class="center" src="http://www.demilked.com/magazine/wp-content/uploads/2016/06/gif-animations-replace-loading-screen-14.gif">
+    <br/><br/>
+    <h1 class="tcenter center wide"> <code class="tcenter"> loading... </code> </h1>
+  </div>
+
+  {{else}} <!--display repo-->
   <div class="full-height">
     {{> sidebar}} <div class="main-content"> {{> yield}} </div>
   </div>
-  {{else}}
+
+  {{/if}}
+  {{else}} <!--choose repo-->
   <div class="setup">
     <h2> Choose a repo to import: </h2>
     {{> account}}
   </div>
+
   {{/if}}
 
   {{else}}
@@ -107,7 +118,7 @@ ga("send", "pageview");
 <template name="userLoggedin">
   <a class="sitelink" href="/config">{{ currentUser.profile.login }}
     <span class="glyphicon glyphicon-cog"></span></a>
-    <a class="sitelink logout" href="#">logout</a>
+  <a class="sitelink logout" href="#">logout</a>
 </template>
 
 <template name="userLoggedout">
@@ -137,16 +148,14 @@ ga("send", "pageview");
   </div>
 
   <div class="wider welcome">
-    <a href="https://github.com/jeremywrnr/git-sync" target="_blank">
-      <img class="wide center" src="/images/topguntocat.gif" alt="GitSync works with GitHub!"/>
-    </a>
     {{> about }}
   </div>
 </template>
 
 
 <template name="about">
-  <div class="jumbotron jumbotron-sm"><h2> starting </h2></div>
+  <div class="jumbotron jumbotron-sm"></div>
+
   <div class="wide about-panel">
     <iframe width="100%" height="405" src="https://www.youtube.com/embed/dYJjDUW5uEU" frameborder="0" allowfullscreen></iframe>
   </div>

@@ -83,6 +83,10 @@ Template.main.helpers({ // check if user has setup repo yet
     return (Meteor.user() && Meteor.user().profile.repo != "")
   },
 
+  loadingRepo() {
+    return Session.get("loadingRepo")
+  },
+
 });
 
 Template.userLoggedout.events({
