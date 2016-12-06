@@ -41,6 +41,7 @@ Meteor.methods({
     treeResults.tree.forEach(blob => {
       if ((!GitSync.imgcheck(blob.path)) && blob.type === "blob")
         Meteor.call("getBlob", blob, (err, content) => {
+          if (err) return console.error(err)
           blob.content = content;
           if (content && content.length < GitSync.maxFileLength)
             Meteor.call("createFile", blob);
@@ -73,7 +74,7 @@ Meteor.methods({
       };
     });
 
-    console.log("blobs are", blobs)
+    //console.log("blobs are", blobs)
 
     // get old tree and update it with new shas, post and get that sha
     let branch = Meteor.call("getBranch", bname);

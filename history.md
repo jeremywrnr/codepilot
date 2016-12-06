@@ -15,6 +15,19 @@ when loading a new repo in, display that in the files, so user knows,
 then reset session variable after successful load (or error) in cb()
 this takes some time, and the buffers are just empty until loading
 
+when you make a new file, list all the commit ids that it appears in so you can
+filter which files should show up based on the current commit
+
+filtering which files to show based on the current commit, only enabling one
+commit per repoBranch to be active at a time, so therefore must be attached to
+a repobranch rather than a user. however, each branch is only attached to user,
+so instead we can attach the active commit for each branch to a repo! so in the
+repos field, there will be a branches dict with a keymap from branch name to
+sha. then in the files we can add an array of commits in which they appear so
+we can filter out files which do not appear in certain commits.
+
+gahhhhh really need to switch to using node-git instead of doing so many api
+calls.
 
 
 ## UI / UX
@@ -111,6 +124,19 @@ change if it drops below a certain point
 
 ## HISTORY
 
+## vitchyr git-sync feedback
+
+wanted to know more about why he would use it
+initial interface was overly complex, rip out file opening notifications
+potentially collapsing parts of the ui initially, allow user to code
+making a getting started ui to show around different features
+loading screen for when importing or switching repos
+about panel makes it look it is about them rather than tool
+updating repo pane to includ3e git status data
+making the backend FS depend on git rather than github
+splitting the visualizer in the iframe so they are vertically stacked
+also still need to update the version control
+give more explanation to people before showing
 
 ## from study evaluation
 
