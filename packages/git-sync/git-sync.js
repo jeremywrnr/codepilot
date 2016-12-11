@@ -125,6 +125,12 @@ GitSync = {
     "ace/mode/python": "3",
   },
 
+  interactMap: {
+    "ace/mode/javascript": "javascript",
+    "ace/mode/python": "python",
+    "ace/mode/ruby": "ruby",
+  },
+
   findFileMode: function(doc) {
       var modelist = ace.require("ace/ext/modelist");
       var file = Files.findOne(doc);

@@ -14,6 +14,9 @@ Router.map(function() {
   this.route("config");
   this.route("raw", { layoutTemplate: "null" });
   this.route("renderer", { layoutTemplate: "null" });
+  this.route("interactJs", { layoutTemplate: "null" });
+  this.route("interactPy", { layoutTemplate: "null" });
+  this.route("interactRuby", { layoutTemplate: "null" });
 });
 
 

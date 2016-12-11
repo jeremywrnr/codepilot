@@ -89,6 +89,98 @@ Template.testviz.events({
 });
 
 
+
+// interactive testing
+
+Template.testint.helpers({
+  enabled() {
+    return Session.get("testInt");
+  },
+
+  file() {
+    return !Session.equals("testFile", null)
+  },
+
+  mode() {
+    return GitSync.findFileMode(Session.get("testFile"))
+  },
+
+  python() {
+    const mode = GitSync.findFileMode(Session.get("testFile"));
+    return GitSync.interactMap[mode] == "python";
+  },
+
+  ruby() {
+    const mode = GitSync.findFileMode(Session.get("testFile"));
+    return GitSync.interactMap[mode] == "ruby";
+  },
+
+  js() {
+    const mode = GitSync.findFileMode(Session.get("testFile"));
+    return GitSync.interactMap[mode] == "javascript";
+  },
+
+  unsupported() {
+    const mode = GitSync.findFileMode(Session.get("testFile"));
+    return ! GitSync.interactMap[mode]; // false if string
+  },
+
+  target() {
+    return Session.equals("focusPane", "target");
+  },
+
+  testcode() {
+    const file = Files.findOne(Session.get("testFile"));
+    if (file) return encodeURIComponent(file.content);
+  },
+
+  title() {
+    const file = Files.findOne(Session.get("testFile"));
+    if (file) return file.title;
+  },
+});
+
+
+Template.testint.events({
+  "load #testint"() {
+    $(".resize").resizable({ handles: "s", helper: "ui-resizable-helper" });
+  },
+
+  "click .toggle"(e) {
+    e.preventDefault();
+    Session.set("testInt", !Session.get("testInt") );
+  },
+
+  "click .target"(e) {
+    e.preventDefault();
+    if ( Session.equals("focusPane", "target") )
+      Session.set("focusPane", null);
+    else
+      Session.set("focusPane", "target");
+  },
+
+  "click .reload"(e) {
+    e.preventDefault();
+    FirepadAPI.getAllText(ufids(), (id, txt) => {
+      Meteor.call("updateFile", id, txt); });
+    Session.set("testInt", !Session.get("testInt") );
+    setTimeout(() => {
+      Session.set("testInt", !Session.get("testInt") );
+    }, 100);
+  },
+});
+
+
+Template.interactJs.helpers({
+  testcode() {
+    const file = Files.findOne(Session.get("testFile"));
+    if (file) return (file.content);
+  },
+})
+
+
+
+
 Template.testweb.helpers({
   enabled() {
     return Session.get("testWeb");

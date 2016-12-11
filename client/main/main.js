@@ -6,9 +6,14 @@ Session.setDefault("focusPane", null);
 Session.setDefault("hideClosedIssues", true);
 
 // todo move these to repo level
-Session.setDefault("testViz", true);
+Session.setDefault("testViz", false);
+Session.setDefault("testInt", true);
 Session.setDefault("testWeb", false);
 Session.setDefault("testFile", null);
+
+// remembering height of the debugger
+// TODO
+
 
 // checking which firebase to use
 Meteor.call("firebase", (err, res) => {

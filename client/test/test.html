@@ -2,13 +2,14 @@
 
 <template name="test">
   {{> testviz}}
+  {{> testint}}
   {{> testweb}}
   {{> issues}}
 </template>
 
 <template name="testviz">
   <div id="mainhead">
-    <p class="navbar-text"> check </p>
+    <p class="navbar-text"> visualize </p>
     <form class="navbar-form pull-right">
       {{#if enabled }}
       <button class="grn btn btn-default btn-small target">file</button>
@@ -34,8 +35,8 @@
   {{#if lang }}
   <div class="resize">
     <iframe src="http://pythontutor.com/iframe-embed.html#code={{ testcode }}&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py={{ lang }}&rawInputLstJSON=%5B%5D&curInstr=0&codeDivWidth=50%25&codeDivHeight=400"
-            sandbox="allow-scripts allow-same-origin"
-            frameborder="0" id="testviz" width="100%" height="100%"></iframe>
+      sandbox="allow-scripts allow-same-origin"
+      frameborder="0" id="testint" width="100%" height="100%"></iframe>
   </div>
 
   {{else}}
@@ -44,16 +45,73 @@
     <a class="alert-link" href="http://pythontutor.com/" target="_blank">Python Tutor</a> support. <br/> <br/>
     Please <a class="alert-link target" href="#">change your target file</a> to use Python Tutor for testing.
   </div>
+
   {{/if}}
   {{else}}
   <div class="alert alert-info" role="alert">
-    <a href="#" class="alert-link target">Select a target file</a> to run and
-    visualize with <a class="alert-link" href="http://pythontutor.com/" target="_blank">Python Tutor</a>! </div>
+    Please <a class="alert-link target" href="#">select your target file</a> to use Python Tutor for testing.
+  </div>
 
   {{/if}}
   {{/if}}
   {{/if}}
 </template>
+
+
+<template name="testint">
+  <div id="mainhead">
+    <p class="navbar-text"> interact </p>
+    <form class="navbar-form pull-right">
+      {{#if enabled }}
+      <button class="grn btn btn-default btn-small target">file</button>
+      <button class="grn btn btn-default btn-small reload">
+        <span class="glyphicon glyphicon-refresh"></span>
+      </button>
+      <button class="grn btn btn-default btn-small toggle">
+        <span class="glyphicon glyphicon-minus"></span>
+      </button>
+      {{else}}
+      <button class="grn btn btn-default btn-small toggle">
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+      {{/if}}
+    </form>
+  </div>
+
+  {{#if enabled }}
+  {{#if target }}
+  {{> testfile }}
+  {{else}}
+  {{#if file }}
+  {{#if python }}
+  {{> interactPy}}
+  {{/if}}
+
+  {{#if ruby }}
+  {{> interactRuby}}
+  {{/if}}
+
+  {{#if js }}
+  {{> interactJs}}
+  {{/if}}
+
+  {{#if unsupported }}
+  <div class="alert alert-info" role="alert">
+    File (<i>{{ title }}</i>) with type (<i>{{ mode }}</i>) currently has no
+    interactive testing support. <br> <br> Please <a class="alert-link target"
+      href="#">change your target file</a> to use interactive testing.
+  </div>
+  {{/if}}
+
+  {{else}}
+  <div class="alert alert-info" role="alert">
+    Please <a class="alert-link target" href="#">select your target file</a> to use Python Tutor for testing.
+  </div>
+  {{/if}}
+  {{/if}}
+  {{/if}}
+</template>
+
 
 <template name="testfile">
   <ul class="nav nav-pills nav-stacked sidelist">
@@ -78,7 +136,7 @@
     <form class="navbar-form pull-right">
       {{#if enabled }}
       <a href="/renderer"><button class="grn btn btn-default btn-small">
-        <span class="glyphicon glyphicon-fullscreen"></span></button></a>
+          <span class="glyphicon glyphicon-fullscreen"></span></button></a>
       <button class="grn btn btn-default btn-small reload">
         <span class="glyphicon glyphicon-refresh"></span>
       </button>
@@ -146,9 +204,99 @@
     </a>
   </button>
   {{/if}}
-
 </template>
 
 <template name="issueLabel">
   <span class="pull-right label label-default" style="background: #{{color}};"> {{ name }} </span>
+</template>
+
+
+
+
+<!-- interactive code templates -->
+<template name="interactPy">
+  this is python!
+</template>
+
+<template name="interactRuby">
+  this is ruby!
+</template>
+
+<template name="interactJs">
+    <iframe srcdoc='
+    <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <style>
+    #logbody, #ent { left: 0; width: 100%; margin: 0px; color: black; border-style: solid; background: #F5F5F5; border-color: black; border-width: 4px 0px 4px 0px; }
+    #ent { margin-bottom: 0.7em; font-family: monospace; border-radius: 0.2em; background: white; font-size: 1em; height: 2em; border: none; }
+    #logbody .logerr { color: red; }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+    // waiting until the page loads
+    $(document).ready(function () {
+
+    // overwrite console.log for iframe to append to output div
+    console.log = function () {
+   for (var i = 0; i < arguments.length; i++) {
+    msg = arguments[i];
+    var timestamp = "["+new Date().toLocaleTimeString()+"] ";
+    if (typeof msg === "object") $("#log")[0].innerHTML +=
+    timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
+    else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
+    }
+
+    // overwrite console.error for iframe to append to output div
+    console.error = function () {
+   for (var i = 0; i < arguments.length; i++) {
+    msg = arguments[i];
+    var logerr = "<span class=\"logerr\">";
+    var timestamp = logerr+"["+new Date().toLocaleTimeString()+"] </span>";
+    if (typeof msg === "object") $("#log")[0].innerHTML +=
+    timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
+    else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
+    }
+
+    // add event listener for form submit
+    $( "#log" ).keypress(function(e) {
+      var keycode = (event.keyCode ? event.keyCode : event.which);
+      if(keycode == "13"){ // enter pressed
+          var i = $("#ent").val()
+          try {
+            console.log( i );
+            var o = eval( i )
+            console.log( o )
+          } catch (e) {
+            console.error( e.message );
+          }
+          $("#ent").focus()
+       }
+    });
+
+    // scroll to the top of the debugging console
+    window.scrollTo(0,0);
+
+    console.log("beginning console output...");
+
+    // insert the users javascript
+    {{ testcode }}
+    $("#ent").focus()
+
+})
+    </script>
+    </head>
+    <body>
+
+      <div id="logbody">
+      <pre id="log"> &gt; <input value="" type="text" id="ent"</pre> </pre>
+      </div>
+
+    </body>
+      '
+      sandbox="allow-scripts allow-same-origin"
+      frameborder="0" id="testint" width="100%" height="800px">
+    </iframe>
 </template>
