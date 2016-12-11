@@ -61,7 +61,10 @@ Template.testviz.helpers({
 
 Template.testviz.events({
   "load #testviz"() {
-    $(".resize").resizable({ handles: "s", helper: "ui-resizable-helper" });
+    id = "#testviz"
+    $(id).load(function() {
+      $(this).height( 600 );
+    });
   },
 
   "click .toggle"(e) {
