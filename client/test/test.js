@@ -262,3 +262,9 @@ Template.issue.events({
     Meteor.call("closeIssue", this);
   },
 });
+
+Template.interactiveJs.onRendered(() => {
+  $("#testint").load(function() {
+    $(this).height( $(this).contents().find("html").height() );
+  });
+})

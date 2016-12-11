@@ -5,6 +5,7 @@
   {{> testint}}
   {{> testweb}}
   {{> issues}}
+<script>iFrameResize({log:true})</script>
 </template>
 
 <template name="testviz">
@@ -33,11 +34,8 @@
   {{else}}
   {{#if file }}
   {{#if lang }}
-  <div class="resize">
-    <iframe src="http://pythontutor.com/iframe-embed.html#code={{ testcode }}&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py={{ lang }}&rawInputLstJSON=%5B%5D&curInstr=0&codeDivWidth=50%25&codeDivHeight=400"
-      sandbox="allow-scripts allow-same-origin"
-      frameborder="0" id="testint" width="100%" height="100%"></iframe>
-  </div>
+  <iframe src="http://pythontutor.com/iframe-embed.html#code={{ testcode }}&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py={{ lang }}&rawInputLstJSON=%5B%5D&curInstr=0&codeDivWidth=50%25&codeDivHeight=400"
+    sandbox="allow-scripts allow-same-origin"></iframe>
 
   {{else}}
   <div class="alert alert-info" role="alert">
@@ -99,7 +97,7 @@
   <div class="alert alert-info" role="alert">
     File (<i>{{ title }}</i>) with type (<i>{{ mode }}</i>) currently has no
     interactive testing support. <br> <br> Please <a class="alert-link target"
-      href="#">change your target file</a> to use interactive testing.
+      href="#">change your target file</a> to JS, ruby, or python to use interactive testing.
   </div>
   {{/if}}
 
@@ -114,7 +112,7 @@
 
 
 <template name="testfile">
-  <ul class="nav nav-pills nav-stacked sidelist">
+  <ul class="nav nav-pills nav-stacked">
     {{#if files.count}}
     {{#each files}}
     <li class="file {{#if current}}active{{/if}}">
@@ -215,88 +213,91 @@
 
 <!-- interactive code templates -->
 <template name="interactPy">
-  this is python!
+  python! coming soon!
 </template>
 
 <template name="interactRuby">
-  this is ruby!
+  ruby! coming soon!
 </template>
 
 <template name="interactJs">
-    <iframe srcdoc='
-    <head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <style>
-    #logbody, #ent { left: 0; width: 100%; margin: 0px; color: black; border-style: solid; background: #F5F5F5; border-color: black; border-width: 4px 0px 4px 0px; }
-    #ent { margin-bottom: 0.7em; font-family: monospace; border-radius: 0.2em; background: white; font-size: 1em; height: 2em; border: none; }
-    #logbody .logerr { color: red; }
-    </style>
+  <iframe srcdoc='
+  <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+  #logbody, #ent {  padding-left: 1em; left: 0; width: 100%; margin: 0px; color: black; border-style: solid; background: #F5F5F5; border-color: black; border-width: 4px 0px 4px 0px; }
+  #ent { margin-bottom: 0.1em; font-family: monospace; border-radius: 0.2em; background: white; font-size: 1em; height: 2em; border: none; }
+  #logbody { padding 0px; }
+  #logbody .logerr { color: red; }
+  </style>
 
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="text/javascript">
-    // waiting until the page loads
-    $(document).ready(function () {
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript">
+  // waiting until the page loads
+  $(document).ready(function () {
 
-    // overwrite console.log for iframe to append to output div
-    console.log = function () {
-   for (var i = 0; i < arguments.length; i++) {
-    msg = arguments[i];
-    var timestamp = "["+new Date().toLocaleTimeString()+"] ";
-    if (typeof msg === "object") $("#log")[0].innerHTML +=
-    timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
-    else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
-    }
+  // overwrite console.log for iframe to append to output div
+  console.log = function () {
+ for (var i = 0; i < arguments.length; i++) {
+  msg = arguments[i];
+  if (typeof msg === "object")
+  $("#log")[0].innerHTML = (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n" + $("#log")[0].innerHTML;
+  else
+  $("#log")[0].innerHTML = msg + "\n" + $("#log")[0].innerHTML;
+  } }
 
-    // overwrite console.error for iframe to append to output div
-    console.error = function () {
-   for (var i = 0; i < arguments.length; i++) {
-    msg = arguments[i];
-    var logerr = "<span class=\"logerr\">";
-    var timestamp = logerr+"["+new Date().toLocaleTimeString()+"] </span>";
-    if (typeof msg === "object") $("#log")[0].innerHTML +=
-    timestamp + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n";
-    else $("#log")[0].innerHTML += timestamp + msg + "\n"; }
-    }
+  // overwrite console.error for iframe to append to output div
+  console.error = function () {
+  for (var i = 0; i < arguments.length; i++) {
+  msg = arguments[i];
+  var logerr = "<span class=\"logerr\">Error: </span>";
+  if (typeof msg === "object")
+  $("#log")[0].innerHTML = logerr + (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + "\n" + $("#log")[0].innerHTML;
+  else
+  $("#log")[0].innerHTML = logerr + msg + "\n" + $("#log")[0].innerHTML;
+  } }
 
-    // add event listener for form submit
-    $( "#log" ).keypress(function(e) {
-      var keycode = (event.keyCode ? event.keyCode : event.which);
-      if(keycode == "13"){ // enter pressed
-          var i = $("#ent").val()
-          try {
-            console.log( i );
-            var o = eval( i )
-            console.log( o )
-          } catch (e) {
-            console.error( e.message );
-          }
-          $("#ent").focus()
-       }
-    });
+  // add event listener for form submit
+  $( "#logbody" ).keypress(function(e) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == "13"){ // enter pressed
+        var i = $("#ent").val()
+        try {
+          var o = eval( i )
+          console.log( "&larr; " + o )
+        } catch (e) {
+          console.error( e.message );
+        }
+        console.log( "&rArr; " + i );
+        $("#ent").val("")
+        $("#ent").focus()
+     }
+  });
 
-    // scroll to the top of the debugging console
-    window.scrollTo(0,0);
+  // scroll to the top of the debugging console
+  window.scrollTo(0,0);
 
-    console.log("beginning console output...");
-
-    // insert the users javascript
-    {{ testcode }}
-    $("#ent").focus()
+  // insert the users javascript
+  {{ testcode }}
+  console.log("output:")
+  $("#ent").focus()
 
 })
-    </script>
-    </head>
-    <body>
+  </script>
+  </head>
+  <body>
 
-      <div id="logbody">
-      <pre id="log"> &gt; <input value="" type="text" id="ent"</pre> </pre>
-      </div>
+    <div id="logbody">
+    <pre> &rArr; <input value="" type="text" id="ent"> </pre>
+    <pre id="log"></pre>
+    <pre>source loaded: {{ testcode }}</pre>
+    </div>
 
-    </body>
-      '
-      sandbox="allow-scripts allow-same-origin"
-      frameborder="0" id="testint" width="100%" height="800px">
-    </iframe>
+  </body>
+    '
+    sandbox="allow-scripts allow-same-origin" id="testint">
+    <!--frameborder="0"-->
+  </iframe>
 </template>
