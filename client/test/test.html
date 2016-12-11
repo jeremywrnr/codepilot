@@ -5,7 +5,6 @@
   {{> testint}}
   {{> testweb}}
   {{> issues}}
-<script>iFrameResize({log:true})</script>
 </template>
 
 <template name="testviz">
@@ -221,12 +220,13 @@
 </template>
 
 <template name="interactJs">
-  <iframe srcdoc='
+  <iframe id="interactJs" srcdoc='
   <head>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <style>
+  body { max-width: 100%; }
   #logbody, #ent {  padding-left: 1em; left: 0; width: 100%; margin: 0px; color: black; border-style: solid; background: #F5F5F5; border-color: black; border-width: 4px 0px 4px 0px; }
   #ent { margin-bottom: 0.1em; font-family: monospace; border-radius: 0.2em; background: white; font-size: 1em; height: 2em; border: none; }
   #logbody { padding 0px; }
@@ -290,14 +290,15 @@
   <body>
 
     <div id="logbody">
-    <pre> &rArr; <input value="" type="text" id="ent"> </pre>
+    <pre>&rArr; <input value="" type="text" id="ent"> </pre>
     <pre id="log"></pre>
-    <pre>source loaded: {{ testcode }}</pre>
+    <pre>source loaded:
+{{ testcode }}</pre>
     </div>
 
   </body>
     '
-    sandbox="allow-scripts allow-same-origin" id="testint">
+    sandbox="allow-scripts allow-same-origin">
     <!--frameborder="0"-->
   </iframe>
 </template>

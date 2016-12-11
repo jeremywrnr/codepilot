@@ -263,8 +263,17 @@ Template.issue.events({
   },
 });
 
-Template.interactiveJs.onRendered(() => {
-  $("#testint").load(function() {
+
+// resize in a timely manner
+
+Template.interactJs.onRendered(() => {
+  id = "#interactJs"
+
+  $(id).load(function() {
     $(this).height( $(this).contents().find("html").height() );
   });
+
+  setInterval(function() {
+    $(id).height( $(id).contents().find("html").height() );
+  }, 100);
 })
