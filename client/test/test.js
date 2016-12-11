@@ -189,13 +189,20 @@ Template.testweb.helpers({
 
 Template.testweb.events({
   "load #testweb"() {
-    $(".resize").resizable({ handles: "s", helper: "ui-resizable-helper" });
-  },
+    id = "#testweb"
+
+    GitSync.focusForm(id)
+    setInterval(function() {
+      try {
+        var h = $(id).contents().find("iframe").contents().height()
+        $(id).height(h);
+      } catch (e) {}
+    }, 100);
+    },
 
   "click .toggle"(e) {
     e.preventDefault();
     Session.set("testWeb", !Session.get("testWeb") );
-    $(".resize").resizable({ handles: "s" });
   },
 
   "click .reload"(e) {
