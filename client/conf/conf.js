@@ -103,21 +103,25 @@ Template.forkRepo.events({
     Session.set("loadingRepo", true);
     Meteor.call("forkRepo", user, repo, function (err, res) {
 
-      // finding just forked repo
-      console.log(err)
-      console.log(res)
-      let repo = Repos.findOne({ "repo.full_name": `${user}/${repo}` });
+      // finding repo which was just forked
+      let fName = prof().login + '/' + repo
+      let fRepo = Repos.findOne({ "repo.full_name": fName })
       Session.set("forking", false);
-      if (!repo || err) {
+      console.log(fName)
+      console.log(fRepo)
+      if (!fRepo || err) {
         Session.set("loadingRepo", false);
         return console.error(err)
       }
 
-      // set repo to current
-      console.log(repo)
-      Meteor.call("setRepo", repo, function (err, res) {
-        Session.set("loadingRepo", false);
-        if (err) console.error(err)
+      // set repo to current, stop if error
+      Meteor.call("setRepo", fRepo, function (e, r) {
+        if (e) Session.set("loadingRepo", false)
+      });
+
+      // load the repo's contents
+      Meteor.call("loadRepo", fRepo, function () {
+        Session.set("loadingRepo", false)
       });
     });
   },

@@ -23,7 +23,7 @@ Meteor.methods({
 
     // if has loaded files, then just set the repo
     var anyFile = Files.findOne({repo: gr._id})
-    if (anyFile) return;
+    if (anyFile) return true;
 
     Meteor.call("loadHead", branch); // load the head of gr branch into CP
     const full = `${gr.repo.owner.login}/${gr.repo.name}`;
@@ -46,7 +46,6 @@ Meteor.methods({
       Meteor.call("getRepo", user, repo);
       Meteor.call("postRepo", user, repo);
       Meteor.call("getAllRepos");
-      return `${user}/${repo}`
     } catch (err) {
       throw new Meteor.Error("null-repo"); // this repo no fork :O
       dlog(err);
