@@ -99,10 +99,26 @@ Template.forkRepo.events({
 
     if (split.length !== 2 || !user || !repo || selfFork)
       return false;
+
     Session.set("loadingRepo", true);
     Meteor.call("forkRepo", user, repo, function (err, res) {
-      Session.set("loadingRepo", false);
+
+      // finding just forked repo
+      console.log(err)
+      console.log(res)
+      let repo = Repos.findOne({ "repo.full_name": `${user}/${repo}` });
       Session.set("forking", false);
+      if (!repo || err) {
+        Session.set("loadingRepo", false);
+        return console.error(err)
+      }
+
+      // set repo to current
+      console.log(repo)
+      Meteor.call("setRepo", repo, function (err, res) {
+        Session.set("loadingRepo", false);
+        if (err) console.error(err)
+      });
     });
   },
 
@@ -158,16 +174,15 @@ Template.newBranch.events({
 Template.repo.events({
 
   "click .repo"(e) { // load a different repo into GitSync
-    Session.set("loadingRepo", true)
-    if (prof().repo !== this._id) // selecting different repo
-      Meteor.call("loadRepo", this,
-        function () {
-          console.log("Done loading repo")
-          console.log(Session)
-          Session.set("loadingRepo", false)
-          Session.set("focusPane", null);
-          Session.set("testFile", null);
-        });
+    if (prof().repo !== this._id) { // selecting different repo
+      Session.set("loadingRepo", true)
+      Meteor.call("loadRepo", this, function () {
+        Session.set("loadingRepo", false)
+      });
+    }
+
+    Session.set("focusPane", null);
+    Session.set("testFile", null);
   }
 
 });

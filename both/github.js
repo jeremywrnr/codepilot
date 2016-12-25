@@ -20,6 +20,11 @@ Meteor.methods({
     const branch = gr.repo.default_branch;
     Meteor.call("setBranch", branch); // set branch
     Meteor.call("initCommits"); // pull commit history for gr repo
+
+    // if has loaded files, then just set the repo
+    var anyFile = Files.findOne({repo: gr._id})
+    if (anyFile) return;
+
     Meteor.call("loadHead", branch); // load the head of gr branch into CP
     const full = `${gr.repo.owner.login}/${gr.repo.name}`;
     Meteor.call("addMessage", `started working on repo - ${full}`);
@@ -41,6 +46,7 @@ Meteor.methods({
       Meteor.call("getRepo", user, repo);
       Meteor.call("postRepo", user, repo);
       Meteor.call("getAllRepos");
+      return `${user}/${repo}`
     } catch (err) {
       throw new Meteor.Error("null-repo"); // this repo no fork :O
       dlog(err);
@@ -83,6 +89,4 @@ Meteor.methods({
         "profile.repoBranch": bn,
       }});
   },
-
 });
-

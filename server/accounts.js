@@ -24,7 +24,7 @@ Accounts.onCreateUser((options, user) => {
 
   // set default target repo
   user.profile.repoBranch = 'master'
-  user.profile.repoName = 'Click here to select your repo!'
+  user.profile.repoName = ' click to select your repo!'
   user.profile.repoOwner = ''
   user.profile.role = 'pilot'
   user.profile.repo = ''
