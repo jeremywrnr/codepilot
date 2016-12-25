@@ -1,5 +1,4 @@
 // default session settings
-
 Session.setDefault("feedCount", 0);
 Session.setDefault("document", null);
 Session.setDefault("focusPane", null);
@@ -10,10 +9,6 @@ Session.setDefault("testViz", true);
 Session.setDefault("testInt", false);
 Session.setDefault("testWeb", false);
 Session.setDefault("testFile", null);
-
-// remembering height of the debugger
-// TODO
-
 
 // checking which firebase to use
 Meteor.call("firebase", (err, res) => {
@@ -40,6 +35,8 @@ Tracker.autorun(() => { // subscribe on login
       Meteor.subscribe("commits", user.repo, branch);
 
       // TODO get files just that are in this commit (how...)
+      // probably in files include a title unique marker and then have a dict
+      // with key values of commit ids and two sub fields - cached and content
       Meteor.subscribe("files", user.repo, branch);
     }
   }

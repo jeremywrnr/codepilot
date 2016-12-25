@@ -14,7 +14,9 @@
   <div class="list-group" id="setup">
     {{#if repoSelecting}}
     <button class="list-group-item unfocus">
-      <button class="label label-danger btn btn-xs pull-right"> cancel </button>
+      <button class="btn btn-xs pull-right">
+        <span class="glyphicon glyphicon-minus"></span>
+      </button>
       repo: <a href="#">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
     </button>
     {{> forkRepo }}
@@ -25,7 +27,7 @@
     {{else}}
     <button class="list-group-item repoSelect">
       <button class="btn btn-xs pull-right">
-        <span class="glyphicon glyphicon-list"></span>
+        <span class="glyphicon glyphicon-plus"></span>
       </button>
       repo: <a href="#">{{ currentUser.profile.repoOwner }}/{{ currentUser.profile.repoName }}</a>
     </button>
@@ -34,7 +36,9 @@
     {{#if userHasRepo}}
     {{#if branchSelecting}}
     <button class="list-group-item unfocus">
-      <button class="label label-danger btn btn-xs pull-right"> cancel </button>
+      <button class="btn btn-xs pull-right">
+        <span class="glyphicon glyphicon-minus"></span>
+      </button>
       branch: <a href="#">{{ currentUser.profile.repoBranch }}</a>
     </button>
     {{> newBranch }}
@@ -45,7 +49,7 @@
     {{else}}
     <button class="list-group-item branchSelect">
       <button class="btn btn-xs pull-right">
-        <span class="glyphicon glyphicon-list"></span>
+        <span class="glyphicon glyphicon-plus"></span>
       </button>
       branch: <a href="#">{{ currentUser.profile.repoBranch }}</a>
     </button>
@@ -82,7 +86,7 @@
     <div class="alert alert-success nomargin">
       <div class="input-group">
         <form class="forker">
-          <input placeholder="enter a repo to fork (eg: jeremywrnr/git-sync) ..."
+          <input placeholder="enter github repo to fork (e.g. cs61bl/skeleton)"
           id="repoForker" class="form-control" type="text" name="title" value=""> </form>
         <span class="input-group-btn">
           <button type="button" class="btn btn-default del cancelFork">cancel</button> </span> </div>
@@ -105,7 +109,7 @@
     <div class="alert alert-success nomargin">
       <div class="input-group">
         <form class="brancher">
-          <input placeholder="enter the new branch name..."
+          <input placeholder="enter new branch name"
           id="branchNamer" class="form-control" type="text" name="title" value=""> </form>
         <span class="input-group-btn">
           <button type="button" class="btn btn-default del cancelBranch">cancel</button> </span> </div>

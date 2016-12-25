@@ -19,7 +19,7 @@ Template.account.helpers({
       return [];
   },
 
-  userHasRepo() { // empty string is default value for repo
+  userHasRepo() { // empty string is default value for repo // selecting different repo
     return (Meteor.user() && Meteor.user().profile.repo != "")
   },
 
@@ -94,12 +94,16 @@ Template.forkRepo.events({
     //const [user, repo] = $("#repoForker")[0].value.split("/"); // ES6 not working???
     //https://babeljs.io/docs/learn-es2015/#destructuring - sadness :(((((((((
     const split = $("#repoForker")[0].value.split("/");
-    const user = split[0];
-    const repo = split[1];
+    const user = split[0], repo = split[1];
     const selfFork = (prof().login === user); // cant fork self
-    if (split.length !== 2 || !user || !repo || selfFork) return false;
-    Meteor.call("forkRepo", user, repo);
-    Session.set("forking", false);
+
+    if (split.length !== 2 || !user || !repo || selfFork)
+      return false;
+    Session.set("loadingRepo", true);
+    Meteor.call("forkRepo", user, repo, function (err, res) {
+      Session.set("loadingRepo", false);
+      Session.set("forking", false);
+    });
   },
 
   "click .cancelFork"(e) {
@@ -154,16 +158,16 @@ Template.newBranch.events({
 Template.repo.events({
 
   "click .repo"(e) { // load a different repo into GitSync
-    //Session.set("loadingRepo", true)
-    if (prof().repo !== this._id)
+    Session.set("loadingRepo", true)
+    if (prof().repo !== this._id) // selecting different repo
       Meteor.call("loadRepo", this,
-        function() {
+        function () {
           console.log("Done loading repo")
           console.log(Session)
           Session.set("loadingRepo", false)
+          Session.set("focusPane", null);
+          Session.set("testFile", null);
         });
-    Session.set("focusPane", null);
-    Session.set("testFile", null);
   }
 
 });
