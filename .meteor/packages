@@ -21,3 +21,4 @@ mizzao:jquery-ui
 ecmascript@0.6.1
 meteor-platform@1.2.6
 standard-minifier-js
+es5-shim
