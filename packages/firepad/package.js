@@ -14,7 +14,7 @@ Package.onUse(function(api) {
 
 
 Package.onTest(function (api) {
-  api.use(["tinytest", "jeremywrnr:firepad"]);
+  api.use(["tinytest", "ecmascript", "jeremywrnr:firepad"]);
   api.addFiles("firepad-tests.js");
 });
 

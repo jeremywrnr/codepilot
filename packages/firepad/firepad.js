@@ -86,3 +86,4 @@ FirepadAPI.setText = setText;
 FirepadAPI.userfiles = userfiles;
 FirepadAPI.getAllText = getAllText;
 FirepadAPI.setAllText = setAllText;
+

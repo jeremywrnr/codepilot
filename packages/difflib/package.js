@@ -14,6 +14,6 @@ Package.onUse(function(api) {
 
 
 Package.onTest(function (api) {
-  api.use(["tinytest", "jeremywrnr:difflib"]);
+  api.use(["tinytest", "ecmascript", "jeremywrnr:difflib"]);
   api.addFiles("difflib-tests.js");
 });
