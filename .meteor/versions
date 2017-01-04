@@ -84,7 +84,6 @@ sha@1.0.9
 spacebars@1.0.13
 spacebars-compiler@1.0.13
 srp@1.0.10
-standard-minifier-js@1.2.1
 stylus@2.513.8
 templating@1.2.15
 templating-compiler@1.2.15
