@@ -41,13 +41,17 @@ Meteor.methods({
       }});
   },
 
-  forkRepo(user, repo) { // create a fork of a repo for user
-    try { // that is, if the repo exists/isForkable
-      Meteor.call("getRepo", user, repo);
-      Meteor.call("postRepo", user, repo);
+  forkRepo(user, repo) { // create a fork
+    try { // if the repo exists/isForkable
+      console.log(Meteor.call("getRepo", user, repo));
+
+      // try to post a forked version on GH
+      console.log(Meteor.call("postRepo", user, repo));
+
+      // pull in the forked version
       Meteor.call("getAllRepos");
-    } catch (err) {
-      throw new Meteor.Error("null-repo"); // this repo no fork :O
+
+    } catch (err) { // this repo won't no fork
       dlog(err);
     }
   },

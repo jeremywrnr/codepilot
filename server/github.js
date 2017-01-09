@@ -53,7 +53,8 @@ Meteor.methods({
     });
   },
 
-  getRepo(owner, repo) { // give github repo res (todo: check this works well)
+  getRepo(owner, repo) { // give github repo res (need to validate first so you can get a private repo)
+    Meteor.call("ghAuth");
     return github.repos.get({
       user: owner,
       repo
@@ -167,7 +168,7 @@ Meteor.methods({
     Meteor.call("ghAuth");
     return  github.repos.fork({
       user: owner,
-      repo
+      repo: repo
     });
   },
 });
