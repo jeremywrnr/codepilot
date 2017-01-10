@@ -91,8 +91,8 @@ Template.forkRepo.events({
   "submit .forker"(e) { // fork and load a repo into code pilot
     e.preventDefault();
     $(e.target).blur(); // parse string arg for user, repo
-    //const [user, repo] = $("#repoForker")[0].value.split("/"); // ES6 not working???
     //https://babeljs.io/docs/learn-es2015/#destructuring - sadness :(((((((((
+    //const [user, repo] = $("#repoForker")[0].value.split("/"); // ES6 not working???
     const split = $("#repoForker")[0].value.split("/");
     const user = split[0], repo = split[1];
     const selfFork = (prof().login === user); // cant fork self
@@ -128,6 +128,68 @@ Template.forkRepo.events({
 
   "click .cancelFork"(e) {
     Session.set("forking", false);
+  },
+});
+
+
+
+Template.typeRepo.helpers({
+
+  typing() {
+    return Session.equals("typing", true);
+  },
+
+});
+
+
+Template.typeRepo.events({
+
+  "click .typerepo"(e) { // display the typing code box
+    e.preventDefault();
+    Session.set("typing", true);
+    focusForm("#repoTyper");
+  },
+
+  "submit .typer"(e) { // type and load a repo into code pilot
+    e.preventDefault();
+    $(e.target).blur();
+
+    // parse string arg for user, repo
+    const full = $("#repoTyper")[0].value,
+      split = full.split("/"),
+      user = split[0],
+      repo = split[1];
+
+    if (split.length !== 2 || !user || !repo)
+      return false;
+
+    Session.set("loadingRepo", true);
+    Meteor.call("typeRepo", user, repo, function (err, res) {
+
+      // finding repo which was just typed
+      let fRepo = Repos.findOne({ "repo.full_name": full })
+      Session.set("typing", false);
+      console.log(full)
+      console.log(fRepo)
+      if (!fRepo || err) {
+        Session.set("loadingRepo", false);
+        return console.error(err)
+      }
+
+      // set repo to current, stop if error
+      Meteor.call("setRepo", fRepo, function (e, r) {
+        if (e) Session.set("loadingRepo", false)
+      });
+
+      // load the repo's contents
+      Meteor.call("loadRepo", fRepo, function () {
+        Session.set("loadingRepo", false)
+      });
+    });
+  },
+
+  "click .cancelType"(e) {
+    Session.set("typing", false);
   },
 });
 

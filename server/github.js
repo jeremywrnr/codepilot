@@ -57,7 +57,7 @@ Meteor.methods({
     Meteor.call("ghAuth");
     return github.repos.get({
       user: owner,
-      repo
+      repo: repo,
     });
   },
 

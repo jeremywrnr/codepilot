@@ -23,6 +23,7 @@
     {{#each repos}}
     {{> repo}}
     {{/each}}
+    {{> typeRepo }}
 
     {{else}}
     <button class="list-group-item repoSelect">
@@ -97,6 +98,29 @@
 
   <button class="list-group-item forkrepo">
     <div class="wider grn btn btn-lg forkrepo"> fork a repo from github </div>
+  </button>
+
+  {{/if}}
+</template>
+
+<template name="typeRepo">
+  {{#if typing}}
+
+  <button class="list-group-item">
+    <div class="alert alert-success nomargin">
+      <div class="input-group">
+        <form class="typer">
+          <input placeholder="manually enter github repo (e.g. user/repo)"
+          id="repoTyper" class="form-control" type="text" name="title" value=""> </form>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default del cancelType">cancel</button> </span> </div>
+    </div>
+  </button>
+
+  {{else}}
+
+  <button class="list-group-item typerepo">
+    <div class="wider grn btn btn-lg typerepo"> don't see your repo? click here </div>
   </button>
 
   {{/if}}
