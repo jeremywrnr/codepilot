@@ -50,29 +50,11 @@ Meteor.methods({
 
       // pull in the forked version
       Meteor.call("getAllRepos");
-
-      return {user: user, repo: repo};
     } catch (err) { // this repo won't no fork
-      console.error(err);
+      toastr.error(`couldn't fork repo '${repo}'`);
     }
   },
 
-  typeRepo(user, grepo) { // choose a repo
-    Meteor.call("getRepo", user, grepo, function(err, res) {
-      if (err) return console.error(err)
-
-      const repo = Repos.findOne({ "repo.full_name": `${user}/${grepo}`});
-      if (repo) { // repo already exists
-
-        const attached = (repo.users.indexOf( uid ) > -1);
-        if (! attached) // not attached, push user to collaborators
-          Repos.update(repo._id, {$push: {users: uid }});
-
-      } else { // brand new repo, just insert.
-        Repos.insert({ id: gr.id, users: [ uid ], repo: gr });
-      }
-    });
-  },
 
 
   ////////////////////
@@ -110,3 +92,4 @@ Meteor.methods({
       }});
   },
 });
+

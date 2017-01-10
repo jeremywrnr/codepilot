@@ -42,6 +42,8 @@ Once this is setup, simply start running it locally:
 
     meteor
 
+Toasts: https://atmospherejs.com/chrismbeckett/toastr
+
 
 ## deployment
 

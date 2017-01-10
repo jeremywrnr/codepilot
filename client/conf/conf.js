@@ -161,19 +161,20 @@ Template.typeRepo.events({
       repo = split[1];
 
     if (split.length !== 2 || !user || !repo)
-      return false;
+      return toastr.error("enter repo in the form 'user/repo'");
 
     Session.set("loadingRepo", true);
-    Meteor.call("typeRepo", user, repo, function (err, res) {
+    Meteor.call("getRepo", user, repo, function (err, res) {
 
       // finding repo which was just typed
       let fRepo = Repos.findOne({ "repo.full_name": full })
+      console.log(full);
+      console.log(fRepo);
       Session.set("typing", false);
-      console.log(full)
-      console.log(fRepo)
       if (!fRepo || err) {
         Session.set("loadingRepo", false);
-        return console.error(err)
+        toastr.error(`couldn't select repo '${full}'`);
+        return false;
       }
 
       // set repo to current, stop if error

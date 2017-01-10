@@ -20,6 +20,7 @@ Meteor.methods({
     github.repos.getAll({
       user: Meteor.user().profile.login,
       per_page: 100
+      //per_page: 1 // for testing
     }).map(function attachUser(gr){ // attach user to git repo (gr)
 
       const repo = Repos.findOne({ id: gr.id });
@@ -55,10 +56,24 @@ Meteor.methods({
 
   getRepo(owner, repo) { // give github repo res (need to validate first so you can get a private repo)
     Meteor.call("ghAuth");
-    return github.repos.get({
+    let gh = github.repos.get({
       user: owner,
       repo: repo,
     });
+
+    const uid = Meteor.userId(); // userID, used below
+    return [gh].map(function attachUser(gr){ // attach user to git repo (gr)
+      const repo = Repos.findOne({ "repo.full_name": `${owner}/${repo}`});
+      if (repo) { // repo already exists
+
+        const attached = (repo.users.indexOf( uid ) > -1);
+        if (! attached) // not attached, push user to collaborators
+          Repos.update(repo._id, {$push: {users: uid }});
+
+      } else { // brand new repo, just insert.
+        Repos.insert({ id: gr.id, users: [ uid ], repo: gr });
+      }
+    })
   },
 
   getCommit(commitSHA) { // give commit res
