@@ -53,7 +53,8 @@ var getText = function (id, cb) { // return the contents of firepad
 var getAllText = function(files, cb) { // apply callmback to all files
   files.map(function(id) {
     FirepadAPI.getText(id, function(txt) {
-      cb(id, txt); });
+      cb(id, txt);
+    });
   });
 }
 
@@ -67,15 +68,24 @@ var getAllText = function(files, cb) { // apply callmback to all files
    * - dispose removes the connection to the firepad instance.
    ***/
 
-var setText = function (id) { // update firebase with their ids
+var setText = function (id, cb) { // update firebase with their ids
   var headless = Firepad.Headless(Session.get("fb") + id);
-  headless.setText(Files.findOne(id).cache,
-    function() { headless.dispose() });
+  headless.setText(
+    Files.findOne(id).cache,
+    function() {
+      headless.dispose()
+      cb(); // callback once done
+    }
+  );
 }
 
-var setAllText = function () { // update all project caches from firepad (for reset)
+var setAllText = function (cb) { // update all project caches from firepad (for reset)
   FirepadAPI.userfiles().fetch().map(function(file) {
-    FirepadAPI.setText(file._id) });
+    // TODO if the last one - then pass in the callback
+    FirepadAPI.setText(file._id)
+  });
+
+  cb(); // callback once done
 }
 
 

@@ -38,6 +38,7 @@ Meteor.methods({
   },
 
   getAllIssues(gr) { // return all issues for repo
+    Meteor.call("ghAuth"); // auth for getting issues
     return github.issues.repoIssues({
       user: gr.repo.owner.login,
       repo: gr.repo.name,
@@ -46,6 +47,7 @@ Meteor.methods({
   },
 
   getAllCommits() { // give all commits for branch
+    Meteor.call("ghAuth"); // auth for private repos
     return github.repos.getCommits({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -56,6 +58,7 @@ Meteor.methods({
 
   getRepo(owner, repo) { // give github repo res (need to validate first so you can get a private repo)
     Meteor.call("ghAuth");
+
     let gh = github.repos.get({
       user: owner,
       repo: repo,
@@ -77,6 +80,7 @@ Meteor.methods({
   },
 
   getCommit(commitSHA) { // give commit res
+    Meteor.call("ghAuth"); // auth for private repos
     return github.repos.getCommit({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -85,6 +89,7 @@ Meteor.methods({
   },
 
   getBranches(gr) { // update all branches for repo
+    Meteor.call("ghAuth"); // auth for private repos
     return github.repos.getBranches({
       user: gr.repo.owner.login,
       repo: gr.repo.name
@@ -92,6 +97,7 @@ Meteor.methods({
   },
 
   getBranch(branchName) { // give branch res
+    Meteor.call("ghAuth"); // auth for private repos
     return github.repos.getBranch({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -100,6 +106,7 @@ Meteor.methods({
   },
 
   getTree(treeSHA) { // gives tree res
+    Meteor.call("ghAuth"); // auth for private repos
     return github.gitdata.getTree({
       user: Meteor.user().profile.repoOwner,
       repo: Meteor.user().profile.repoName,
@@ -109,6 +116,7 @@ Meteor.methods({
   },
 
   getBlob(blob) { // give a blobs file contents
+    Meteor.call("ghAuth"); // auth for private repos
     return github.gitdata.getBlob({
       headers: {"Accept":"application/vnd.github.VERSION.raw"},
       user: Meteor.user().profile.repoOwner,
@@ -186,4 +194,5 @@ Meteor.methods({
       repo: repo
     });
   },
+
 });

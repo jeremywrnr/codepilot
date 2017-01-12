@@ -71,7 +71,7 @@ Template.navigation.helpers({ // uses glyphicons in template
     return [
       { iconpath:"/code", iconname:"pencil",   name:"code" },
       { iconpath:"/test", iconname:"search",   name:"check" },
-      { iconpath:"/save", iconname:"list-alt", name:"save" } ] }
+      { iconpath:"/save", iconname:"list-alt", name:"commit" } ] }
 });
 
 // bring renderer to the top of the page

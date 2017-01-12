@@ -29,6 +29,7 @@ Meteor.methods({
 
   loadHead(bname) { // load head of branch, from sha
     let sha =  Meteor.call("getBranch", bname).commit.sha;
+    console.log(`loading ${bname} @ ${sha}`)
     if (sha) Meteor.call("loadCommit", sha);
   },
 
@@ -38,7 +39,7 @@ Meteor.methods({
     let treeResults = Meteor.call("getTree", treeSHA);
 
     // only load files, not folders/trees
-    treeResults.tree.forEach(blob => {
+    treeResults.tree.forEach(function load(blob) {
       if ((!GitSync.imgcheck(blob.path)) && blob.type === "blob")
         Meteor.call("getBlob", blob, (err, content) => {
           if (err) return console.error(err)

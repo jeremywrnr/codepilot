@@ -59,10 +59,14 @@ Template.commitPanel.events({
 
   "click .loadhead"(e) { // load head of branch into SJS
     e.preventDefault();
-    const trulyLoad = confirm("This will overwrite any uncommitted changes. Proceed?");
+    let trulyLoad = confirm("This will overwrite any uncommitted changes. Proceed?");
     if (trulyLoad) {
-      Meteor.call("loadHead", prof().repoBranch);
-      FirepadAPI.setAllText();
+      Session.set("loadingRepo", true);
+      Meteor.call("loadHead", prof().repoBranch, function () {
+        FirepadAPI.setAllText(function onDone() {
+          Session.set("loadingRepo", false);
+        });
+      });
     }
   },
 
@@ -203,10 +207,16 @@ Template.diff.helpers({
 Template.diff.events({
 
   "click .reset"(e) {
-    console.log(this.id)
+    let id = this.id
     const trulyReset = confirm("This will reset this file back to the last commit. Proceed?");
-    if (trulyReset) Meteor.call("resetFile", this.id);
-    FirepadAPI.setText(this.id)
+    if (trulyReset) { // TODO fix this so it doesn't use an api call. info is stored locally!!!
+      Session.set("loadingRepo", true);
+      Meteor.call("resetFile", id, function(){
+        FirepadAPI.setText(id, function(){
+          Session.set("loadingRepo", false);
+        })
+      });
+    }
   }
 
 });

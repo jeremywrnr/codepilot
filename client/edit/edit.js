@@ -110,16 +110,12 @@ Template.filename.events({
 
   // test the current file
   "click .test"(e) {
-    Session.set("testVis", true)
-    console.log(`testing: ${Session.get("document")}`)
-    Session.set("testFile", Session.get("document"))
-  },
-
-  // save the current file
-  "click button.save"(e) {
-    e.preventDefault();
-    FirepadAPI.getAllText(ufids(), (id, txt) => {
-      Meteor.call("updateFile", id, txt);
+    let doc = Session.get("document")
+    console.log(`testing: ${doc}`)
+    Session.set("testViz", true)
+    Session.set("testFile", doc)
+    FirepadAPI.getText(doc, function (txt) {
+      Meteor.call("updateFile", doc, txt);
     });
   },
 
@@ -143,4 +139,3 @@ Template.filename.events({
     }
   }
 });
-
