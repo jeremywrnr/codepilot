@@ -26,8 +26,7 @@ repos field, there will be a branches dict with a keymap from branch name to
 sha. then in the files we can add an array of commits in which they appear so
 we can filter out files which do not appear in certain commits.
 
-gahhhhh really need to switch to using node-git instead of doing so many api
-calls.
+gahhhhh really need to switch to using node-git instead of doing so many api calls.
 
 
 ## UI / UX
