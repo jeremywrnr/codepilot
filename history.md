@@ -1,6 +1,27 @@
 TODOS
 =====
 
+## todoist dump
+
+including current commit data
+filter files to those in current commit
+adding debugger to interact panel
+when you set repo, current document should become null
+adding loading icon for when checking out a commirt
+optimize reset button to just set current version to the cached version
+passing in complete callback on done
+before files ready, set up the loading screen
+change loadingrepo to just loading session var
+make feed be plus or minus dependent on whether is expanded or not...
+make left bar less wide
+show side by side editing
+use markdown syntax to embed image inline
+Tagging visual updates of issues with code (save that as screenshot)
+break apart the visualization into two separate parts with css (x-domain issues)
+Provided by Todoist.com 1 of 1 11/24/17, 1:18 PM 
+
+# older todos
+
 better notifications of who is working on project, what file is open in their
 buffer and what branch they are on.
 
