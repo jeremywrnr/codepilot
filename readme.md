@@ -1,8 +1,8 @@
-[git-sync](http://git-sync.com)
-==================================
+CodePilot
+=========
 
 [![MIT License](https://img.shields.io/npm/l/alt.svg?style=flat)](http://jeremywrnr.com/mit-license)
-[![Build Status](https://travis-ci.org/jeremywrnr/git-sync.svg?branch=dev)](https://travis-ci.org/jeremywrnr/git-sync)
+
 
 This is a tool meant to help people collaborate on code more seamlessly by
 integrating some core programming tasks into a single web IDE. It also
@@ -21,7 +21,7 @@ can serve as a bridge for people learning to use version control.
 
 First:
 
-    git clone https://github.com/jeremywrnr/git-sync.git
+    git clone https://github.com/jeremywrnr/codepilot.git
 
 You will need to register an application key with github in order to login with
 their OAuth system - more information on how you can do that [here][oauth]. On
