@@ -38,7 +38,6 @@ Template.fileitem.events({
   "click .file"() {
     //if (!Session.equals("document", this._id))
       //Meteor.call("addMessage", "opened file " + this.title);
-    Session.set("firepadRef", Session.get("fb") + this._id);
     Session.set("document", this._id);
   },
 

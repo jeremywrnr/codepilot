@@ -30,4 +30,5 @@ npm-debug.log
 .DS_Store
 clock.yml
 private/*json
+settings.json
 node_modules/

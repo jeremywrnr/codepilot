@@ -8,7 +8,8 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.export("Difflib");
-  api.versionsFrom("METEOR@1.3");
+  api.versionsFrom("3.0");
+  api.use(["ecmascript"]);
   api.addFiles(["difflib.js"]);
 });
 

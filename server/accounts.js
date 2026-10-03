@@ -1,18 +1,11 @@
 // setting up a new account with github api
 
-Accounts.onCreateUser((options, user) => {
-  const accessToken = user.services.github.accessToken;
-  var result;
-  let profile;
-  var result = Meteor.http.get('https://api.github.com/user', {
-    headers: { 'User-Agent': 'GitSync' },
-    params: { access_token: accessToken }
-  });
+import { githubFor } from "/imports/server/github";
 
-  if (result.error) throw result.error;
-  profile = _.pick(
-    result.data, 'login', 'name', 'avatar_url', 'url', 'email', 'html_url');
-  user.profile = profile
+Accounts.onCreateUser(async (options, user) => {
+  const data = await githubFor(user)("GET /user");
+  const { login, name, avatar_url, url, email, html_url } = data;
+  user.profile = { login, name, avatar_url, url, email, html_url };
 
   // use default address if none publicly available
   if(!user.profile.email)

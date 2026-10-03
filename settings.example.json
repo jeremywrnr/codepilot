@@ -1,0 +1,15 @@
+{
+  "github": {
+    "clientId": "YOUR-GITHUB-OAUTH-CLIENT-ID",
+    "secret": "YOUR-GITHUB-OAUTH-CLIENT-SECRET"
+  },
+  "public": {
+    "devMode": false,
+    "firebase": {
+      "apiKey": "",
+      "authDomain": "YOUR-PROJECT.firebaseapp.com",
+      "databaseURL": "https://YOUR-PROJECT-default-rtdb.firebaseio.com",
+      "projectId": "YOUR-PROJECT"
+    }
+  }
+}

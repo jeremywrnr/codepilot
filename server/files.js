@@ -1,8 +1,7 @@
 // server files methods
 // git-sync - jeremywrnr
 
-const ufiles = GitSync.userfiles;
-const hoster = GitSync.host;
+import { ghContext, userFiles } from "/imports/server/github";
 
 Meteor.methods({
 
@@ -10,26 +9,23 @@ Meteor.methods({
   // FILE MANAGEMENT
   //////////////////
 
-  firebase() { // expose production host for connection
-    return FirepadAPI.host; // server's version
-  },
-
   newFile() { // create a new unnamed file
-    return Meteor.call("createFile", {
+    return Meteor.callAsync("createFile", {
       path: "untitled",
     });
   },
 
-  createFile(file) { // create or update a file, make sjs doc
+  async createFile(file) { // create or update a file
     // handle null cache/contents when createing a file
-    file.branch =  Meteor.user().profile.repoBranch;
-    file.repo   = Meteor.user().profile.repo;
-    file.path   = file.path || "untitled";
+    const { prof } = await ghContext();
+    file.branch = prof.repoBranch;
+    file.repo   = prof.repo;
+    file.path   = file.path || file.title || "untitled";
 
     // update or insert file
-    let fs = Files.upsert({
-      repo: Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
+    const fs = await Files.upsertAsync({
+      repo: prof.repo,
+      branch: prof.repoBranch,
       title: file.path,
     },{ $set: {
       content: file.content || "",
@@ -38,57 +34,59 @@ Meteor.methods({
       type: file.type || "file",
     }});
 
-    if (fs.insertedId) { // if a new file made, create firepad
-      //Meteor.call("addMessage", ` created new file ${file.path}`);
+    if (fs.insertedId) { // if a new file made, give its id
       return fs.insertedId;
     }
   },
 
-  updateAllFiles() {
-    Files.find({
-      repo:  Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-    }).fetch().filter(file => // remove imgs
+  async updateAllFiles() {
+    const { prof } = await ghContext();
+    const files = await userFiles(prof).fetchAsync();
+    await Promise.all(files.filter(file => // remove imgs
       file.type === "file" && file.content != undefined
     ).map(file => // set file cache
-      Files.update(file._id, {$set: {cache: file.content}})
-    );
+      Files.updateAsync(file._id, {$set: {cache: file.content}})
+    ));
   },
 
-  renameFile(fileid, name) { // rename a file with id and name
-    let file = Files.findOne(fileid);
-    Meteor.call("addMessage", ` renamed file ${file.title} to ${name}`);
-    Files.update(
+  async renameFile(fileid, name) { // rename a file with id and name
+    const file = await Files.findOneAsync(fileid);
+    await Meteor.callAsync("addMessage", ` renamed file ${file.title} to ${name}`);
+    await Files.updateAsync(
       fileid,
       {$set: {
         title: name
       }});
   },
 
-  deleteFile(id) { // with id, delete a file from system
-    let file = Files.findOne(id);
-    Meteor.call("addMessage", ` deleted file ${file.title}`);
-    Files.remove(id);
+  async deleteFile(id) { // with id, delete a file from system
+    const file = await Files.findOneAsync(id);
+    await Meteor.callAsync("addMessage", ` deleted file ${file.title}`);
+    await Files.removeAsync(id);
   },
 
-  setFileType(file, type) { // set the type field of a file
-    Files.update(
+  async setFileType(file, type) { // set the type field of a file
+    await Files.updateAsync(
       file._id,
       {$set: {
         type
       }});
   },
 
-  resetFile(id) { // reset file back to cached version
-    let old = Files.findOne(id); // overwrite content
+  async resetFile(id) { // reset file back to cached version
+    const old = await Files.findOneAsync(id); // overwrite content
     if (old)
-      Files.update(id, {$set: {content: old.cache}});
+      await Files.updateAsync(id, {$set: {content: old.cache}});
   },
 
-  resetFiles() { // reset db and hard code simple website structure
-    ufiles().map(function delFile(f){ Meteor.call("deleteFile", f._id)});
-    let base = [{"title":"site.html"},{"title":"site.css"},{"title":"site.js"}];
-    base.map(f => { Meteor.call("createFile", f) });
+  async resetFiles() { // reset db and hard code simple website structure
+    const { prof } = await ghContext();
+    const files = await userFiles(prof).fetchAsync();
+    for (const f of files)
+      await Meteor.callAsync("deleteFile", f._id);
+    const base = [{"title":"site.html"},{"title":"site.css"},{"title":"site.js"}];
+    for (const f of base)
+      await Meteor.callAsync("createFile", f);
   },
 
 });

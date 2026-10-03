@@ -7,9 +7,10 @@ Package.describe({
 
 
 Package.onUse(function(api) {
-  api.export("FirepadAPI");
-  api.versionsFrom("METEOR@1.3");
-  api.addFiles(["firepad.js"]);
+  api.export("FirepadAPI", "client");
+  api.versionsFrom("3.0");
+  api.use(["ecmascript", "mongo", "jeremywrnr:git-sync"]);
+  api.addFiles(["firepad.js"], "client");
 });
 
 

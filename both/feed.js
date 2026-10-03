@@ -6,28 +6,29 @@ Meteor.methods({
   // FEED MANAGEMENT
   //////////////////
 
-  addMessage(msg) { // add a generic message to the activity feed
+  async addMessage(msg) { // add a generic message to the activity feed
     if (msg.length) {
-      Messages.insert({
-        owner: Meteor.userId(),
-        repo: Meteor.user().profile.repo,
-        name: Meteor.user().profile.login,
+      const user = await Meteor.userAsync();
+      await Messages.insertAsync({
+        owner: user._id,
+        repo: user.profile.repo,
+        name: user.profile.login,
         time: Date.now(),
         message: msg,
       });
 
       // scroll to the bottom of the feed
-      if(Meteor.isClient)
+      if(Meteor.isClient && $("#feed").length)
         $("#feed").stop().animate({ scrollTop: $("#feed")[0].scrollHeight }, 500);
     } else
       throw new Meteor.Error("null-message"); // passed in empty message
   },
 
-  addUserMessage(usr, msg) { // add message, with userId() (issues)
-    const poster = Meteor.users.findOne(usr);
+  async addUserMessage(usr, msg) { // add message, with userId() (issues)
+    const poster = await Meteor.users.findOneAsync(usr);
     if (msg.value !== "") {
       if (poster) {
-        Messages.insert({
+        await Messages.insertAsync({
           owner: poster._id,
           repo: poster.profile.repo,
           name: poster.profile.login,

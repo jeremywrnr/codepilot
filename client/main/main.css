@@ -1,0 +1,329 @@
+/* compiled from the old main.styl (stylus is not available on meteor 3) */
+html {
+  font-family: Verdana, sans-serif;
+}
+html,
+body {
+  line-height: normal;
+  height: 100%;
+}
+h1 > code {
+  background: transparent;
+}
+h5 {
+  text-decoration: underline;
+}
+iframe {
+  width: 100%;
+}
+img {
+  max-width: 100%;
+}
+.main-content {
+  padding-bottom: 5em;
+  position: absolute;
+  max-width: 70vw;
+  top: 50px;
+  width: 70vw;
+  left: 30vw;
+}
+.setup {
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 600px;
+  width: 600px;
+  top: 40px;
+}
+.header {
+  border-width: 1px 0px 0px 0px;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+  border-style: solid;
+  font-size: 16px;
+  height: 48px;
+  color: #000;
+}
+.sidebar {
+  border-right: thin dotted #222;
+  position: fixed;
+  max-width: 30vw;
+  top: 50px;
+  width: 30vw;
+  height: 100%;
+  left: 0px;
+}
+.navbar-nav {
+  font-size: 16px;
+}
+.navbar-text {
+  vertical-align: middle;
+  margin-bottom: 0px;
+  margin-top: 14px;
+}
+.navbar-form {
+  vertical-align: middle;
+  margin-bottom: 0px;
+  margin-top: 6.5px;
+}
+.account {
+  height: 100%;
+}
+.sidelist {
+  max-height: 30vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.nav.sidelist > li.msg {
+  padding: 5px;
+}
+.center {
+  display: block;
+  margin: auto;
+}
+.tcenter {
+  text-align: center;
+}
+.round {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.hidden {
+  visibility: hidden;
+}
+.wide {
+  max-width: 500px;
+  width: 100%;
+}
+.wider {
+  width: 100%;
+}
+.nomargin {
+  margin: 0px;
+}
+.nomargin-image {
+  margin-top: -20px;
+}
+.jumbotron {
+  background: #d9edf7;
+  padding: 40px 15vw 20px 15vw;
+  margin-bottom: 0px;
+}
+.welcome>.jumbotron {
+  padding: 10px 15vw 16px 15vw;
+  margin-bottom: 25px;
+  max-width: 100%;
+}
+.jumbotron > * {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 750px;
+}
+.jumbotron > h2 {
+  margin-right: initial;
+}
+.panel,
+.panel-heading {
+  border-width: 1px 0px 0px 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.about-panel {
+  padding: 0px 48px 16px 48px;
+  text-align: center;
+  line-height: normal;
+  font-weight: 200;
+  max-width: 800px;
+  font-size: 21px;
+  display: block;
+  margin: auto;
+}
+.alert,
+.list-group {
+  margin-bottom: 0;
+}
+a.btn {
+  background: buttonface;
+  color: #555;
+  text-decoration: none;
+}
+a.powered-by-firepad {
+  display: none;
+}
+.btn:hover {
+  color: #fff;
+}
+.grn:hover {
+  background-color: #008000;
+}
+.edit:hover {
+  background-color: #ffa500;
+}
+.del:hover {
+  background-color: #f00;
+}
+#mainhead {
+  border-width: 1px 0px 0px 0px;
+  background-color: #337ab7;
+  border-color: #fff;
+  border-style: solid;
+  font-size: 16px;
+  height: 48px;
+  color: #fff;
+}
+#editor-head {
+  border-width: 1px 0px 0px 0px;
+  background-color: #337ab7;
+  border-color: #fff;
+  border-style: solid;
+  font-size: 16px;
+  height: 48px;
+  color: #fff;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+}
+#editor-head .navbar-form {
+  margin-right: 31vw;
+  padding: 0px;
+}
+#editor-container {
+  min-height: calc(100vh - 120px);
+  overflow: hidden;
+  height: 83vh;
+}
+#editor {
+  position: absolute;
+  top: 48px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+#feed {
+  padding: 10px 5px;
+}
+#active-file,
+#active-issue,
+#active-commit,
+li.file:hover a,
+button.list-group-item:hover {
+  background-color: #d9edf7;
+  color: #337ab7;
+}
+.github-logo {
+  height: 25px;
+}
+div.setup>h2 {
+  font-family: monospace;
+  color: #e95e45;
+}
+pre.diff {
+  line-height: 1;
+  padding: 5px;
+  border: none;
+  margin: 0;
+}
+pre.ins {
+  background: #dff0d8;
+}
+pre.del {
+  background: #f2dede;
+}
+span.lineno {
+  font-weight: lighter;
+  font-style: italic;
+  margin-left: 0.5em;
+  float: left;
+}
+@media (min-width: 400px) {
+  .navbar-toggle {
+    display: none;
+  }
+  .navbar-collapse {
+    border-top: 0 none;
+    box-shadow: none;
+    width: auto;
+  }
+  .navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+  .navbar-nav {
+    float: left !important;
+    margin: 0;
+  }
+  .navbar-right {
+    float: right !important;
+    margin: 0;
+  }
+  .navbar-nav>li {
+    float: left;
+  }
+  .navbar-nav>li>a {
+    height: 50px;
+    padding-top: 10px;
+    line-height: 30px;
+    padding-bottom: 10px;
+  }
+  .navbar-right>li>a {
+    padding-top: 16px;
+  }
+}
+@media (min-width: 600px) {
+  .navbar a {
+    font-size: 25px;
+  }
+}
+#sitenav {
+  z-index: 1;
+  background: #fff;
+  max-height: 50px;
+  position: fixed;
+  height: 50px;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+}
+#sitenav > div {
+  display: block;
+  height: 50px;
+}
+a.sitelink {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  font-family: monospace;
+  display: inline-block;
+  margin-right: 1em;
+  vertical-align: middle;
+  margin-bottom: 0px;
+  margin-top: 12px;
+  font-size: 20px;
+  color: #e95e45;
+}
+a.sitelink.grn.login {
+  margin-right: -0.5em;
+}
+a.sitelink:hover {
+  background: #e95e45;
+  color: #fff;
+}
+#siteleft {
+  padding-left: 1em;
+  float: left;
+}
+#siteright {
+  padding-right: 1.5em;
+  float: right;
+}
+#siteimg {
+  max-height: 50px;
+  padding: 7px;
+  float: left;
+}

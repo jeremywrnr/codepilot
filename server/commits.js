@@ -1,9 +1,15 @@
-// server (privileged); methods, can run sync.
-// so: files, shareJS, and top-level functions
-// dlog is debugger log, see server/setup.js
+// server (privileged) commit methods
 
-const ufiles = GitSync.userfiles;
-const hoster = GitSync.host;
+import { ghContext, userFiles } from "/imports/server/github";
+
+// adds a commit, links to repo + branch
+const upsertCommit = (prof, c) => Commits.upsertAsync({
+  repo: prof.repo,
+  branch: prof.repoBranch,
+  sha: c.sha
+},{
+  $set: { commit: c }
+});
 
 Meteor.methods({
 
@@ -11,43 +17,46 @@ Meteor.methods({
   // COMMIT MANAGEMENT
   /////////////////////
 
-  initCommits() { // re-populating the commit log
-    Meteor.call("getAllCommits").map(c => {
-      Meteor.call("addCommit", c);
-    });
+  async initCommits() { // re-populating the commit log
+    const { prof } = await ghContext();
+    const commits = await Meteor.callAsync("getAllCommits");
+    await Promise.all(commits.map(c => upsertCommit(prof, c)));
   },
 
-  addCommit(c) { // adds a commit, links to repo + branch
-    Commits.upsert({
-      repo: Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-      sha: c.sha
-    },{
-      $set: { commit: c }
-    });
+  async addCommit(c) {
+    const { prof } = await ghContext();
+    await upsertCommit(prof, c);
   },
 
-  loadHead(bname) { // load head of branch, from sha
-    let sha =  Meteor.call("getBranch", bname).commit.sha;
+  async loadHead(bname) { // load head of branch, from sha
+    const sha = (await Meteor.callAsync("getBranch", bname)).commit.sha;
     console.log(`loading ${bname} @ ${sha}`)
-    if (sha) Meteor.call("loadCommit", sha);
+    if (sha) await Meteor.callAsync("loadCommit", sha);
   },
 
-  loadCommit(sha) { // takes commit sha, loads into sjs
-    let commitResults = Meteor.call("getCommit", sha);
-    let treeSHA = commitResults.commit.tree.sha;
-    let treeResults = Meteor.call("getTree", treeSHA);
+  async loadCommit(sha) { // takes commit sha, loads into mongo
+    const commitResults = await Meteor.callAsync("getCommit", sha);
+    const treeSHA = commitResults.commit.tree.sha;
+    const treeResults = await Meteor.callAsync("getTree", treeSHA);
 
-    // only load files, not folders/trees
-    treeResults.tree.forEach(function load(blob) {
-      if ((!GitSync.imgcheck(blob.path)) && blob.type === "blob")
-        Meteor.call("getBlob", blob, (err, content) => {
-          if (err) return console.error(err)
+    // only load small files, not images or folders/trees
+    const blobs = treeResults.tree.filter(blob =>
+      !GitSync.imgcheck(blob.path) && blob.type === "blob" &&
+      !(blob.size >= GitSync.maxFileLength));
+
+    // fetch in small batches - github rejects too many concurrent requests
+    const BATCH = 8;
+    for (let i = 0; i < blobs.length; i += BATCH)
+      await Promise.all(blobs.slice(i, i + BATCH).map(async blob => {
+        try {
+          const content = await Meteor.callAsync("getBlob", blob);
           blob.content = content;
           if (content && content.length < GitSync.maxFileLength)
-            Meteor.call("createFile", blob);
-        });
-    });
+            await Meteor.callAsync("createFile", blob);
+        } catch (err) {
+          console.error(err);
+        }
+      }));
   },
 
 
@@ -55,44 +64,39 @@ Meteor.methods({
   // top level function, grab files and commit to github
   ////////////////////////////////////////////////////////
 
-  newCommit(msg) { // grab cache content, commit to github
+  async newCommit(msg) { // grab cache content, commit to github
 
     // getting all file ids, names, and content
-    let user = Meteor.user().profile;
-    let bname = user.repoBranch;
-    let blobs = Files.find({
-      repo:  Meteor.user().profile.repo,
-      branch: Meteor.user().profile.repoBranch,
-    }).fetch().filter(function typeCheck(file) { // remove imgs
+    const { prof } = await ghContext();
+    const bname = prof.repoBranch;
+    const files = (await userFiles(prof).fetchAsync()).filter(function typeCheck(file) { // remove imgs
       return (file.type === "file" || file.type === "blob") && file.content != undefined;
-    }).map(function makeBlob(file) { // set file cache
-      Files.update(file._id, {$set: {cache: file.content}});
+    });
+
+    const blobs = await Promise.all(files.map(async function makeBlob(file) { // set file cache
+      await Files.updateAsync(file._id, {$set: {cache: file.content}});
       return {
         content: file.content,
         path: file.title,
         mode: file.mode,
         type: "blob",
       };
-    });
+    }));
 
-    //console.log("blobs are", blobs)
-
-    // get old tree and update it with new shas, post and get that sha
-    let branch = Meteor.call("getBranch", bname);
-    let oldTree = Meteor.call("getTree", branch.commit.commit.tree.sha);
-    if (!oldTree) oldTree = {"sha": ""} // resetting for new file
-    let newTree = {base: oldTree.sha, tree: blobs};
-    let treeSHA = Meteor.call("postTree", newTree);
+    // update the branch's tree with the new blobs, post and get that sha
+    const branch = await Meteor.callAsync("getBranch", bname);
+    const newTree = {base: branch.commit.commit.tree.sha, tree: blobs};
+    const treeSHA = await Meteor.callAsync("postTree", newTree);
 
     // specify author of this commit
-    let commitAuthor = {
-      name: user.login,
-      email: user.email,
+    const commitAuthor = {
+      name: prof.login,
+      email: prof.email,
       date: new Date(),
     };
 
     // make the new commit result object
-    let commitResult = Meteor.call("postCommit", {
+    const commitResult = await Meteor.callAsync("postCommit", {
       message: msg, // passed in
       author: commitAuthor,
       parents: [branch.commit.sha],
@@ -100,16 +104,14 @@ Meteor.methods({
     });
 
     // update the ref, point to new commmit
-    Meteor.call("postRef", commitResult);
+    await Meteor.callAsync("postRef", commitResult);
 
     // get the latest commit from the branch head
-    let lastCommit = Meteor.call("getBranch", bname).commit;
+    const lastCommit = (await Meteor.callAsync("getBranch", bname)).commit;
 
-    // post into commit db with repo tag
-    Meteor.call("addCommit", lastCommit);
-
-    // update the feed with new commit
-    Meteor.call("addMessage", `committed - ${msg}`);
+    // post into commit db with repo tag, and update the feed
+    await upsertCommit(prof, lastCommit);
+    await Meteor.callAsync("addMessage", `committed - ${msg}`);
   },
 
 });
