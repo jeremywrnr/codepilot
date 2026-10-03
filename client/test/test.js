@@ -61,8 +61,8 @@ Template.testviz.helpers({
 
 Template.testviz.events({
   "load #testviz"() {
-    id = "#testviz"
-    $(id).load(function() {
+    const id = "#testviz"
+    $(id).on("load", function() {
       $(this).height( 600 );
     });
   },
@@ -145,10 +145,6 @@ Template.testint.helpers({
 
 
 Template.testint.events({
-  "load #testint"() {
-    $(".resize").resizable({ handles: "s", helper: "ui-resizable-helper" });
-  },
-
   "click .toggle"(e) {
     e.preventDefault();
     Session.set("testInt", !Session.get("testInt") );
@@ -192,7 +188,7 @@ Template.testweb.helpers({
 
 Template.testweb.events({
   "load #testweb"() {
-    id = "#testweb"
+    const id = "#testweb"
 
     GitSync.focusForm(id)
     setInterval(function() {
@@ -277,9 +273,9 @@ Template.issue.events({
 // resize in a timely manner
 
 Template.interactJs.onRendered(() => {
-  id = "#interactJs"
+  const id = "#interactJs"
 
-  $(id).load(function() {
+  $(id).on("load", function() {
     $(this).height( $(this).contents().find("html").height() );
   });
 

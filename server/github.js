@@ -1,5 +1,17 @@
 // wrappers for github api methods
-// dlog is debugger log, see server/setup.js
+
+import { ghContext } from "/imports/server/github";
+
+// attach the current user to a github repo (gr), inserting it if new
+const attachUser = async (uid, gr) => {
+  const repo = await Repos.findOneAsync({ id: gr.id });
+  if (repo) { // repo already exists
+    if (! repo.users.includes(uid)) // not attached, push user to collaborators
+      await Repos.updateAsync(repo._id, {$push: {users: uid }});
+  } else { // brand new repo, just insert.
+    await Repos.insertAsync({ id: gr.id, users: [ uid ], repo: gr });
+  }
+};
 
 Meteor.methods({
 
@@ -7,122 +19,76 @@ Meteor.methods({
   // GITHUB GET REQUESTS
   //////////////////////
 
-  ghAuth() { // authenticate for secure api calls
-    github.authenticate({
-      type: "token",
-      token: Meteor.user().services.github.accessToken
-    });
+  async getAllRepos() { // put them in db, serve to user (no return)
+    const { gh } = await ghContext();
+    const repos = await gh("GET /user/repos", { per_page: 100 });
+    for (const gr of repos)
+      await attachUser(this.userId, gr);
   },
 
-  getAllRepos() { // put them in db, serve to user (no return)
-    Meteor.call("ghAuth"); // auth for getting all pushable repos
-    const uid = Meteor.userId(); // userID, used below
-    github.repos.getAll({
-      user: Meteor.user().profile.login,
-      per_page: 100
-      //per_page: 1 // for testing
-    }).map(function attachUser(gr){ // attach user to git repo (gr)
-
-      const repo = Repos.findOne({ id: gr.id });
-      if (repo) { // repo already exists
-
-        const attached = (repo.users.indexOf( uid ) > -1);
-        if (! attached) // not attached, push user to collaborators
-          Repos.update(repo._id, {$push: {users: uid }});
-
-      } else { // brand new repo, just insert.
-        Repos.insert({ id: gr.id, users: [ uid ], repo: gr });
-      }
-
-    });
-  },
-
-  getAllIssues(gr) { // return all issues for repo
-    Meteor.call("ghAuth"); // auth for getting issues
-    return github.issues.repoIssues({
-      user: gr.repo.owner.login,
+  async getAllIssues(gr) { // return all issues for repo
+    const { gh } = await ghContext();
+    return await gh("GET /repos/{owner}/{repo}/issues", {
+      owner: gr.repo.owner.login,
       repo: gr.repo.name,
       state: "open", // or closed, etc
     });
   },
 
-  getAllCommits() { // give all commits for branch
-    Meteor.call("ghAuth"); // auth for private repos
-    return github.repos.getCommits({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      sha: Meteor.user().profile.repoBranch,
+  async getAllCommits() { // give all commits for branch
+    const { gh, target, prof } = await ghContext();
+    return await gh("GET /repos/{owner}/{repo}/commits", {
+      ...target,
+      sha: prof.repoBranch,
       per_page: 100
     });
   },
 
-  getRepo(owner, repo) { // give github repo res (need to validate first so you can get a private repo)
-    Meteor.call("ghAuth");
-
-    let gh = github.repos.get({
-      user: owner,
-      repo: repo,
-    });
-
-    const uid = Meteor.userId(); // userID, used below
-    return [gh].map(function attachUser(gr){ // attach user to git repo (gr)
-      const repo = Repos.findOne({ "repo.full_name": `${owner}/${repo}`});
-      if (repo) { // repo already exists
-
-        const attached = (repo.users.indexOf( uid ) > -1);
-        if (! attached) // not attached, push user to collaborators
-          Repos.update(repo._id, {$push: {users: uid }});
-
-      } else { // brand new repo, just insert.
-        Repos.insert({ id: gr.id, users: [ uid ], repo: gr });
-      }
-    })
+  async getRepo(owner, repo) { // validate access first, so private repos work
+    const { gh } = await ghContext();
+    const gr = await gh("GET /repos/{owner}/{repo}", { owner, repo });
+    await attachUser(this.userId, gr);
   },
 
-  getCommit(commitSHA) { // give commit res
-    Meteor.call("ghAuth"); // auth for private repos
-    return github.repos.getCommit({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      sha: commitSHA
+  async getCommit(commitSHA) { // give commit res
+    const { gh, target } = await ghContext();
+    return await gh("GET /repos/{owner}/{repo}/commits/{ref}", {
+      ...target,
+      ref: commitSHA
     });
   },
 
-  getBranches(gr) { // update all branches for repo
-    Meteor.call("ghAuth"); // auth for private repos
-    return github.repos.getBranches({
-      user: gr.repo.owner.login,
+  async getBranches(gr) { // update all branches for repo
+    const { gh } = await ghContext();
+    return await gh("GET /repos/{owner}/{repo}/branches", {
+      owner: gr.repo.owner.login,
       repo: gr.repo.name
     });
   },
 
-  getBranch(branchName) { // give branch res
-    Meteor.call("ghAuth"); // auth for private repos
-    return github.repos.getBranch({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
+  async getBranch(branchName) { // give branch res
+    const { gh, target } = await ghContext();
+    return await gh("GET /repos/{owner}/{repo}/branches/{branch}", {
+      ...target,
       branch: branchName
     });
   },
 
-  getTree(treeSHA) { // gives tree res
-    Meteor.call("ghAuth"); // auth for private repos
-    return github.gitdata.getTree({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
+  async getTree(treeSHA) { // gives tree res
+    const { gh, target } = await ghContext();
+    return await gh("GET /repos/{owner}/{repo}/git/trees/{sha}", {
+      ...target,
       sha: treeSHA,
-      recursive: true // handle folders
+      recursive: 1 // handle folders
     });
   },
 
-  getBlob(blob) { // give a blobs file contents
-    Meteor.call("ghAuth"); // auth for private repos
-    return github.gitdata.getBlob({
-      headers: {"Accept":"application/vnd.github.VERSION.raw"},
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
+  async getBlob(blob) { // give a blobs file contents
+    const { gh, target } = await ghContext();
+    return await gh("GET /repos/{owner}/{repo}/git/blobs/{sha}", {
+      ...target,
       sha: blob.sha
-    });
+    }, { raw: true });
   },
 
 
@@ -131,68 +97,48 @@ Meteor.methods({
   // GITHUB POST REQUESTS
   ///////////////////////
 
-  postIssue(issue) { // takes feedback issue, creates GH issue
-    // custom login - iframe not given Meteor.user() scope
-    const user = Meteor.users.findOne(issue.user);
-    const token = user.services.github.accessToken;
-    github.authenticate({ type: "token", token });
-    return github.issues.create({ // return githubs issue response
-      user: user.profile.repoOwner,
-      repo: user.profile.repoName,
-      title: issue.note,
-      body: issue.body,
-      labels: ["bug", "GitSync"]
-    });
-  },
-
-  postTree(t) { // takes tree, gives tree SHA hash id
-    Meteor.call("ghAuth");
-    return github.gitdata.createTree({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      base_tree: t.base || "",
+  async postTree(t) { // takes tree, gives tree SHA hash id
+    const { gh, target } = await ghContext();
+    const tree = await gh("POST /repos/{owner}/{repo}/git/trees", {
+      ...target,
+      ...(t.base ? { base_tree: t.base } : {}),
       tree: t.tree,
-    }).sha; // beware!! - returns sha, not the entire post response
+    });
+    return tree.sha; // beware!! - returns sha, not the entire post response
   },
 
-  postBranch(branch, parent) { // make new branch off current
-    Meteor.call("ghAuth");
-    return github.gitdata.createReference({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
+  async postBranch(branch, parent) { // make new branch off current
+    const { gh, target } = await ghContext();
+    return await gh("POST /repos/{owner}/{repo}/git/refs", {
+      ...target,
       ref: `refs/heads/${branch}`, // new branch name
       sha: parent, // sha hash of parent
     });
   },
 
-  postCommit(c) { // takes commit c, returns gh commit respns.
-    Meteor.call("ghAuth");
-    return github.gitdata.createCommit({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
+  async postCommit(c) { // takes commit c, returns gh commit respns.
+    const { gh, target } = await ghContext();
+    return await gh("POST /repos/{owner}/{repo}/git/commits", {
+      ...target,
       message: c.message,
-      author: c.author,
+      author: { ...c.author, date: new Date(c.author.date).toISOString() },
       parents: c.parents,
       tree: c.tree,
     });
   },
 
-  postRef(cr) { // takes commit results (cr),  updates ref
-    Meteor.call("ghAuth");
-    return github.gitdata.updateReference({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      ref: `heads/${Meteor.user().profile.repoBranch}`,
+  async postRef(cr) { // takes commit results (cr),  updates ref
+    const { gh, target, prof } = await ghContext();
+    return await gh("PATCH /repos/{owner}/{repo}/git/refs/{ref}", {
+      ...target,
+      ref: `heads/${prof.repoBranch}`,
       sha: cr.sha
     });
   },
 
-  postRepo(owner, repo) { // done to fork a repo for a new user
-    Meteor.call("ghAuth");
-    return  github.repos.fork({
-      user: owner,
-      repo: repo
-    });
+  async postRepo(owner, repo) { // done to fork a repo for a new user
+    const { gh } = await ghContext();
+    return await gh("POST /repos/{owner}/{repo}/forks", { owner, repo });
   },
 
 });

@@ -1,5 +1,54 @@
-const ufiles = GitSync.userfiles;
-const hoster = GitSync.host;
+import { githubFor, ghContext } from "/imports/server/github";
+
+const hoster = Meteor.absoluteUrl();
+
+// takes feedback issue, creates GH issue as the user who sent the feedback
+// (not a method - the feedback iframe has no Meteor.user() scope)
+const postIssue = async issue => {
+  const user = await Meteor.users.findOneAsync(issue.user);
+  return await githubFor(user)("POST /repos/{owner}/{repo}/issues", {
+    owner: user.profile.repoOwner,
+    repo: user.profile.repoName,
+    title: issue.note,
+    body: issue.body,
+    labels: ["bug", "GitSync"]
+  }); // githubs issue response
+};
+
+// adds a feedback issue to github (called from the /feedback/ route)
+export const addIssue = async feedback => {
+  // save screen, attach screenshot id to this issue
+  feedback.imglink = await Screens.insertAsync({img: feedback.img});
+  delete feedback.img; // delete redundant png
+
+  // insert a dummy issue to get id, use later in GH issue body txt
+  const issueId = await Issues.insertAsync({issue: null});
+
+  // construct and append the text of the github issue, including links to screenshot and demo
+  const imglink = `[issue screenshot](${hoster}screenshot/${feedback.imglink})\n`;
+  const livelink = `[live code here](${hoster}render/${issueId})\n`;
+  const htmllink = `html:\n\`\`\`html\n${feedback.html}\n\`\`\`\n`;
+  const csslink = `css:\n\`\`\`css\n${feedback.css}\n\`\`\`\n`;
+  const jslink = `js:\n\`\`\`js\n${feedback.js}\n\`\`\`\n`;
+  const loglink = `console log:\n\`\`\`\n${feedback.log}\`\`\`\n`;
+  feedback.body = imglink + livelink + htmllink + csslink + jslink + loglink;
+
+  // post the issue to github, and get the GH generated content
+  const issue = await postIssue(feedback);
+
+  // replace the dummy with the complete issue, and add it to the feed
+  await Issues.updateAsync(issueId, { // no modifier, so this replaces
+    ghid: issue.id, // (from github)
+    repo: feedback.repo, // attach repo forming data
+    feedback, // attach feedback issue data
+    issue // returned from github call
+  });
+  await Meteor.callAsync(
+    "addUserMessage",
+    feedback.user,
+    `opened issue - ${feedback.note}`
+  );
+};
 
 Meteor.methods({
 
@@ -7,74 +56,30 @@ Meteor.methods({
   // ISSUE MANAGEMENT
   ///////////////////
 
-  initIssues() { // re-populating git repo issues
-    let repo = Repos.findOne(Meteor.user().profile.repo);
+  async initIssues() { // re-populating git repo issues
+    const repo = await Repos.findOneAsync((await Meteor.userAsync()).profile.repo);
     if (repo) {
-      Meteor.call("getAllIssues", repo).map(function load(issue) {
-        Issues.upsert({
+      const issues = await Meteor.callAsync("getAllIssues", repo);
+      for (const issue of issues)
+        await Issues.upsertAsync({
           repo: repo._id,
           ghid: issue.id // (from github)
         },{
           $set: {issue},
         });
-      });
     }
   },
 
-  addIssue(feedback) { // adds a feedback issue to github
-    feedback.imglink = Async.runSync(done => { // save screens, give id
-      Screens.insert({img: feedback.img}, (err, id) => {
-        done(err, id);
-      });
-    }).result; // attach screenshot to this issue
-    delete feedback.img; // delete redundant png
-
-    // insert a dummy issue to get id, use later in GH issue body txt
-    let issueId = Async.runSync(done => {
-      Issues.insert({issue: null}, (err, id) => {
-        done(err, id);
-      });
-    }).result; // get the id of the newly inserted issue
-
-    // letruct and append the text of the github issue, including links to screenshot and demo
-    let imglink = `[issue screenshot](${hoster}screenshot/${feedback.imglink})\n`;
-    let livelink = `[live code here](${hoster}render/${issueId})\n`;
-    let htmllink = `html:\n\`\`\`html\n${feedback.html}\n\`\`\`\n`;
-    let csslink = `css:\n\`\`\`css\n${feedback.css}\n\`\`\`\n`;
-    let jslink = `js:\n\`\`\`js\n${feedback.js}\n\`\`\`\n`;
-    let loglink = `console log:\n\`\`\`\n${feedback.log}\`\`\`\n`;
-    feedback.body = imglink + livelink + htmllink + csslink + jslink + loglink;
-
-    // post the issue to github, and get the GH generated content
-    let issue = Meteor.call("postIssue", feedback);
-    let ghIssue = { // the entire issue object
-      _id: issueId,
-      ghid: issue.id, // (from github)
-      repo: feedback.repo, // attach repo forming data
-      feedback, // attach feedback issue data
-      issue // returned from github call
-    };
-
-    // insert complete issue, and add it to the feed
-    Issues.update(issueId, ghIssue);
-    Meteor.call(
-      "addUserMessage",
-      feedback.user,
-      `opened issue - ${feedback.note}`
-    );
-  },
-
-  closeIssue(issue) { // close an issue on github by number
-    Meteor.call("ghAuth");
-    Meteor.call("addMessage", `closed issue - ${issue.issue.title}`);
-    github.issues.edit({
-      user: Meteor.user().profile.repoOwner,
-      repo: Meteor.user().profile.repoName,
-      number: issue.issue.number,
+  async closeIssue(issue) { // close an issue on github by number
+    const { gh, target } = await ghContext();
+    await Meteor.callAsync("addMessage", `closed issue - ${issue.issue.title}`);
+    await gh("PATCH /repos/{owner}/{repo}/issues/{issue_number}", {
+      ...target,
+      issue_number: issue.issue.number,
       state: "closed"
     });
 
-    Issues.remove(issue._id); // remove from the local database
+    await Issues.removeAsync(issue._id); // remove from the local database
   },
 
 });

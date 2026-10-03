@@ -5,9 +5,18 @@ const ufids = GitSync.ufids;
 const imgcheck = GitSync.imgcheck;
 const focusForm = GitSync.focusForm;
 
+let firepad = null; // the live firepad, disposed before making a new one
+let renderedDoc = null; // which document the live firepad is for
+
 const renderEditor = () => {
+  const doc = Session.get("document");
+  if (doc === renderedDoc && $("#editor .ace_editor, #editor.ace_editor").length) return;
+
   // deleting old editor
-  console.log(`rendering: ${Session.get("document")}`)
+  console.log(`rendering: ${doc}`)
+  if (firepad) firepad.dispose();
+  firepad = null;
+  renderedDoc = null;
   $("#editor-container").empty();
   $("#editor-container").append("<div id='editor'></div>");
   focusForm("#editor");
@@ -17,7 +26,6 @@ const renderEditor = () => {
 
   // make fresh new editor
   const editor = ace.edit("editor");
-  editor.$blockScrolling = Infinity;
   editor.setTheme("ace/theme/monokai");
   editor.setShowPrintMargin(false);
   const session = editor.getSession();
@@ -25,24 +33,37 @@ const renderEditor = () => {
   session.setUseWorker(false);
   focusForm("#editor");
 
-  // Create Firepad.
-  const firepadRef = new Firebase(Session.get("firepadRef"));
-  const firepad = Firepad.fromACE(firepadRef,
-    editor, { userId: prof().login, });
+  const file = Files.findOne(doc);
+  renderedDoc = doc;
 
-  // Get cached content for when history empty
-  const file = Files.findOne(Session.get("document"));
-  firepad.on('ready', () => {
-    if (firepad.isHistoryEmpty() && file.content)
-      firepad.setText(file.content);
+  if (FirepadAPI.enabled) {
+    // Create Firepad.
+    const pad = firepad = Firepad.fromACE(FirepadAPI.ref(doc),
+      editor, { userId: prof().login, });
 
-    // Focus the editor panel
+    // Get cached content for when history empty
+    pad.on('ready', () => {
+      if (pad.isHistoryEmpty() && file && file.content)
+        pad.setText(file.content);
+
+      // Focus the editor panel
+      editor.focus();
+      editor.gotoLine(1);
+    });
+  } else {
+    // no firebase: edit file.content in mongo directly (no live co-editing)
+    editor.setValue((file && file.content) || "", -1);
+    let saveTimer = null;
+    editor.on("change", () => {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() =>
+        Meteor.callAsync("updateFile", doc, editor.getValue()), 500);
+    });
     editor.focus();
-    editor.gotoLine(1);
-  });
+  }
 
   // Filemode and suggestions
-  const mode = GitSync.findFileMode(Session.get("document"));
+  const mode = GitSync.findFileMode(doc);
   editor.getSession().setMode(mode);
   const beautify = ace.require("ace/ext/beautify");
   editor.commands.addCommands(beautify.commands);
@@ -77,6 +98,11 @@ Template.editor.helpers({
 });
 
 Template.editor.onRendered(renderEditor);
+Template.editor.onDestroyed(() => { // leaving the editor, drop firepad
+  if (firepad) firepad.dispose();
+  firepad = null;
+  renderedDoc = null;
+});
 
 
 

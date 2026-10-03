@@ -9,7 +9,8 @@ Package.describe({
 Package.onUse(function(api) {
   api.export("GitSync");
 
-  api.versionsFrom("METEOR@1.3");
+  api.versionsFrom("3.0");
+  api.use(["ecmascript", "mongo", "jquery"]);
   api.addFiles(["git-sync.js"]);
 });
 

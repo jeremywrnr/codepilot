@@ -6,12 +6,6 @@ GitSync = {
 
   maxFileLength: 15000,
 
-  firebaseSetup: function(dev) {
-    var prodFB = "https://project-3627267568762325747.firebaseio.com/"
-    var devFB = "https://gitsync-test.firebaseio.com/"
-    this.firebase = (dev ? devFB : prodFB)
-  },
-
   any: function(ary, fn) {
     return ary.reduce(function(o, n){
       return o || fn(n)
@@ -56,10 +50,11 @@ GitSync = {
   },
 
   focusForm: function(id) { // takes id of form, waits til exists, and focuses
-    setInterval(function() {
-      if ($(id).length) {
+    var tries = 0;
+    var timer = setInterval(function() {
+      if ($(id).length || ++tries > 100) { // give up after ~1s
         $(id).focus();
-        clearInterval(this);
+        clearInterval(timer);
       } //wait til element exists, focus
     }, 10); // check every 10ms
   },
@@ -99,10 +94,19 @@ GitSync = {
     return doc[0].innerHTML;
   },
 
-  linkify: function(str) { // take in string, parse and wrap any links inside
-    var domain = /^http.*\.(io|com|web|net|org|gov|edu)(\/.*)?/g
+  escapeHtml: function(str) { // make user text safe to insert as html
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  },
 
-    return str.split(' ').map(function linker(s) { // open in new tab, too
+  linkify: function(str) { // escape string, then wrap any links inside
+    var domain = /^https?:\/\/.*\.(io|com|web|net|org|gov|edu)(\/.*)?/
+
+    return GitSync.escapeHtml(str).split(' ').map(function linker(s) { // open in new tab, too
       if (s.match(domain))
         return '<a target="_blank" href="' + s + '">' + s + '</a>'
       else

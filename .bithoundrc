@@ -1,9 +1,0 @@
-"ignore":
-[
-    "public/**.js",
-    "packages/git-sync/difflib.js",
-]
-"test":
-[
-    "packages/git-sync/git-sync-tests.js",
-]

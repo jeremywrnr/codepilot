@@ -6,19 +6,19 @@ Meteor.methods({
   // FILE MANAGEMENT
   //////////////////
 
-  updateFile(id, txt) { // updating files from firepad snapshot
-    Files.update(id, {$set: { content: txt }});
+  async updateFile(id, txt) { // updating files from firepad snapshot
+    await Files.updateAsync(id, {$set: { content: txt }});
   },
 
-  setPilot() { // change the current users profile.role to pilot
-    return Meteor.users.update(
+  async setPilot() { // change the current users profile.role to pilot
+    return await Meteor.users.updateAsync(
       {"_id": Meteor.userId()},
       {$set : {"profile.role":"pilot"}}
     );
   },
 
-  setCopilot() { // change the current users profile.role to pilot
-    return Meteor.users.update(
+  async setCopilot() { // change the current users profile.role to pilot
+    return await Meteor.users.updateAsync(
       {"_id": Meteor.userId()},
       {$set : {"profile.role":"copilot"}}
     );

@@ -4,13 +4,17 @@
 
 FirepadAPI = {}
 
-// getting whether the host is in production or development
+// firebase realtime db ref for a file id; firebase is initialized from
+// Meteor.settings.public.firebase in client/main/main.js
 
-var setup = function (dev) {
-  var prodFB = "https://project-3627267568762325747.firebaseio.com/"
-  var devFB = "https://gitsync-test.firebaseio.com/"
-  this.host = (dev ? devFB : prodFB);
+var ref = function (id) {
+  return firebase.database().ref(id);
 }
+
+// without a firebase apiKey (local dev), there is no firepad: the editor
+// reads and writes file.content in mongo directly, with no live co-editing
+var fbconf = Meteor.settings.public && Meteor.settings.public.firebase;
+var enabled = !!(fbconf && fbconf.apiKey);
 
 // return the current branch/repo files
 
@@ -20,8 +24,8 @@ var userfiles = function () {
   if (user)
     prof = user.profile;
   if (prof) return Files.find({
-    repo: user.repo,
-    branch: user.repoBranch
+    repo: prof.repo,
+    branch: prof.repoBranch
   });
 }
 
@@ -43,7 +47,11 @@ var userfiles = function () {
    ***/
 
 var getText = function (id, cb) { // return the contents of firepad
-  var headless = Firepad.Headless(Session.get("fb") + id);
+  if (!enabled) {
+    var file = Files.findOne(id);
+    return cb(file ? file.content : "");
+  }
+  var headless = Firepad.Headless(ref(id));
   headless.getText(function(txt) {
     headless.dispose();
     cb(txt);
@@ -69,28 +77,35 @@ var getAllText = function(files, cb) { // apply callmback to all files
    ***/
 
 var setText = function (id, cb) { // update firebase with their ids
-  var headless = Firepad.Headless(Session.get("fb") + id);
+  if (!enabled) { // the server already reset file.content to the cache
+    if (cb) cb();
+    return;
+  }
+  var headless = Firepad.Headless(ref(id));
   headless.setText(
     Files.findOne(id).cache,
     function() {
       headless.dispose()
-      cb(); // callback once done
+      if (cb) cb(); // callback once done
     }
   );
 }
 
 var setAllText = function (cb) { // update all project caches from firepad (for reset)
-  FirepadAPI.userfiles().fetch().map(function(file) {
-    // TODO if the last one - then pass in the callback
-    FirepadAPI.setText(file._id)
+  var files = FirepadAPI.userfiles().fetch();
+  var left = files.length;
+  if (!left && cb) return cb();
+  files.forEach(function(file) {
+    FirepadAPI.setText(file._id, function() {
+      if (--left === 0 && cb) cb(); // callback once all are done
+    });
   });
-
-  cb(); // callback once done
 }
 
 
 // exporting to package
-FirepadAPI.setup = setup;
+FirepadAPI.ref = ref;
+FirepadAPI.enabled = enabled;
 FirepadAPI.getText = getText;
 FirepadAPI.setText = setText;
 FirepadAPI.userfiles = userfiles;

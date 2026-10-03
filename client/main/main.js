@@ -10,10 +10,10 @@ Session.setDefault("testInt", false);
 Session.setDefault("testWeb", false);
 Session.setDefault("testFile", null);
 
-// checking which firebase to use
-Meteor.call("firebase", (err, res) => {
-  if (!err) Session.set("fb", res)
-});
+// firebase realtime db backs firepad (see settings.example.json)
+// without an apiKey, files are edited straight from mongo (see FirepadAPI)
+if (FirepadAPI.enabled)
+  firebase.initializeApp(Meteor.settings.public.firebase);
 
 
 
@@ -93,8 +93,16 @@ Template.main.helpers({ // check if user has setup repo yet
 
 });
 
+Template.userLoggedout.helpers({
+  devMode() { return Meteor.settings.public.devMode; },
+});
+
 Template.userLoggedout.events({
   "click .login"(e) {
+    e.preventDefault();
+    if (Meteor.settings.public.devMode) // see server/devmode.js
+      return Accounts.callLoginMethod({ methodArguments: [{ devLogin: true }] });
+
     Meteor.loginWithGithub({
       requestPermissions: ["user", "repo"],
       loginStyle: "redirect",
