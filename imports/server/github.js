@@ -39,14 +39,20 @@ const realGithub = user => async (route, params = {}, { raw = false } = {}) => {
   return raw ? res.text() : res.json();
 };
 
-// the logged in user, their github client, and their active owner/repo
+// a user's github client and their active owner/repo
+export const contextFor = user => ({
+  user,
+  prof: user.profile,
+  gh: githubFor(user),
+  target: { owner: user.profile.repoOwner, repo: user.profile.repoName },
+});
+
+// the same, for the logged in user
 export const ghContext = async () => {
   const user = await Meteor.userAsync();
   if (!user) throw new Meteor.Error("not-logged-in");
-  return {
-    user,
-    prof: user.profile,
-    gh: githubFor(user),
-    target: { owner: user.profile.repoOwner, repo: user.profile.repoName },
-  };
+  return contextFor(user);
 };
+
+// a user's files, for their active repo + branch
+export const userFiles = prof => Files.find({ repo: prof.repo, branch: prof.repoBranch });

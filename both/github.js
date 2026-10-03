@@ -8,7 +8,7 @@ Meteor.methods({
   //////////////////
 
   async updateRepo() { // update when repo was last updated
-    return await Meteor.users.updateAsync(
+    return Meteor.users.updateAsync(
       {"_id": Meteor.userId()},
       {$set : {
         "profile.lastUpdated": new Date(),
@@ -16,7 +16,7 @@ Meteor.methods({
   },
 
   async setRepo(gr) { // set git repo & default branch
-    return await Meteor.users.updateAsync(
+    return Meteor.users.updateAsync(
       {"_id": Meteor.userId()},
       {$set : {
         "profile.repo": gr._id,
@@ -27,7 +27,7 @@ Meteor.methods({
   },
 
   async setBranch(bn) { // set branch name
-    return await Meteor.users.updateAsync(
+    return Meteor.users.updateAsync(
       {"_id": Meteor.userId()},
       {$set : {
         "profile.repoBranch": bn,

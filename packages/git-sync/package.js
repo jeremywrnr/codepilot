@@ -10,7 +10,7 @@ Package.onUse(function(api) {
   api.export("GitSync");
 
   api.versionsFrom("3.0");
-  api.use(["ecmascript", "mongo", "jquery"]);
+  api.use(["ecmascript", "mongo", "jquery", "tracker"]);
   api.addFiles(["git-sync.js"]);
 });
 

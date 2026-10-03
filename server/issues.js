@@ -1,14 +1,13 @@
-import { githubFor, ghContext } from "/imports/server/github";
+import { contextFor, ghContext } from "/imports/server/github";
 
 const hoster = Meteor.absoluteUrl();
 
 // takes feedback issue, creates GH issue as the user who sent the feedback
 // (not a method - the feedback iframe has no Meteor.user() scope)
 const postIssue = async issue => {
-  const user = await Meteor.users.findOneAsync(issue.user);
-  return await githubFor(user)("POST /repos/{owner}/{repo}/issues", {
-    owner: user.profile.repoOwner,
-    repo: user.profile.repoName,
+  const { gh, target } = contextFor(await Meteor.users.findOneAsync(issue.user));
+  return gh("POST /repos/{owner}/{repo}/issues", {
+    ...target,
     title: issue.note,
     body: issue.body,
     labels: ["bug", "GitSync"]
@@ -57,16 +56,16 @@ Meteor.methods({
   ///////////////////
 
   async initIssues() { // re-populating git repo issues
-    const repo = await Repos.findOneAsync((await Meteor.userAsync()).profile.repo);
+    const { prof } = await ghContext();
+    const repo = await Repos.findOneAsync(prof.repo);
     if (repo) {
       const issues = await Meteor.callAsync("getAllIssues", repo);
-      for (const issue of issues)
-        await Issues.upsertAsync({
-          repo: repo._id,
-          ghid: issue.id // (from github)
-        },{
-          $set: {issue},
-        });
+      await Promise.all(issues.map(issue => Issues.upsertAsync({
+        repo: repo._id,
+        ghid: issue.id // (from github)
+      },{
+        $set: {issue},
+      })));
     }
   },
 

@@ -2,16 +2,11 @@
 
 import { ghContext } from "/imports/server/github";
 
-// attach the current user to a github repo (gr), inserting it if new
-const attachUser = async (uid, gr) => {
-  const repo = await Repos.findOneAsync({ id: gr.id });
-  if (repo) { // repo already exists
-    if (! repo.users.includes(uid)) // not attached, push user to collaborators
-      await Repos.updateAsync(repo._id, {$push: {users: uid }});
-  } else { // brand new repo, just insert.
-    await Repos.insertAsync({ id: gr.id, users: [ uid ], repo: gr });
-  }
-};
+// attach a user to a github repo (gr), inserting the repo if new
+const attachUser = (uid, gr) => Repos.upsertAsync(
+  { id: gr.id },
+  { $addToSet: { users: uid }, $setOnInsert: { repo: gr } }
+);
 
 Meteor.methods({
 
@@ -22,13 +17,12 @@ Meteor.methods({
   async getAllRepos() { // put them in db, serve to user (no return)
     const { gh } = await ghContext();
     const repos = await gh("GET /user/repos", { per_page: 100 });
-    for (const gr of repos)
-      await attachUser(this.userId, gr);
+    await Promise.all(repos.map(gr => attachUser(this.userId, gr)));
   },
 
   async getAllIssues(gr) { // return all issues for repo
     const { gh } = await ghContext();
-    return await gh("GET /repos/{owner}/{repo}/issues", {
+    return gh("GET /repos/{owner}/{repo}/issues", {
       owner: gr.repo.owner.login,
       repo: gr.repo.name,
       state: "open", // or closed, etc
@@ -37,7 +31,7 @@ Meteor.methods({
 
   async getAllCommits() { // give all commits for branch
     const { gh, target, prof } = await ghContext();
-    return await gh("GET /repos/{owner}/{repo}/commits", {
+    return gh("GET /repos/{owner}/{repo}/commits", {
       ...target,
       sha: prof.repoBranch,
       per_page: 100
@@ -52,7 +46,7 @@ Meteor.methods({
 
   async getCommit(commitSHA) { // give commit res
     const { gh, target } = await ghContext();
-    return await gh("GET /repos/{owner}/{repo}/commits/{ref}", {
+    return gh("GET /repos/{owner}/{repo}/commits/{ref}", {
       ...target,
       ref: commitSHA
     });
@@ -60,7 +54,7 @@ Meteor.methods({
 
   async getBranches(gr) { // update all branches for repo
     const { gh } = await ghContext();
-    return await gh("GET /repos/{owner}/{repo}/branches", {
+    return gh("GET /repos/{owner}/{repo}/branches", {
       owner: gr.repo.owner.login,
       repo: gr.repo.name
     });
@@ -68,7 +62,7 @@ Meteor.methods({
 
   async getBranch(branchName) { // give branch res
     const { gh, target } = await ghContext();
-    return await gh("GET /repos/{owner}/{repo}/branches/{branch}", {
+    return gh("GET /repos/{owner}/{repo}/branches/{branch}", {
       ...target,
       branch: branchName
     });
@@ -76,7 +70,7 @@ Meteor.methods({
 
   async getTree(treeSHA) { // gives tree res
     const { gh, target } = await ghContext();
-    return await gh("GET /repos/{owner}/{repo}/git/trees/{sha}", {
+    return gh("GET /repos/{owner}/{repo}/git/trees/{sha}", {
       ...target,
       sha: treeSHA,
       recursive: 1 // handle folders
@@ -85,7 +79,7 @@ Meteor.methods({
 
   async getBlob(blob) { // give a blobs file contents
     const { gh, target } = await ghContext();
-    return await gh("GET /repos/{owner}/{repo}/git/blobs/{sha}", {
+    return gh("GET /repos/{owner}/{repo}/git/blobs/{sha}", {
       ...target,
       sha: blob.sha
     }, { raw: true });
@@ -109,7 +103,7 @@ Meteor.methods({
 
   async postBranch(branch, parent) { // make new branch off current
     const { gh, target } = await ghContext();
-    return await gh("POST /repos/{owner}/{repo}/git/refs", {
+    return gh("POST /repos/{owner}/{repo}/git/refs", {
       ...target,
       ref: `refs/heads/${branch}`, // new branch name
       sha: parent, // sha hash of parent
@@ -118,7 +112,7 @@ Meteor.methods({
 
   async postCommit(c) { // takes commit c, returns gh commit respns.
     const { gh, target } = await ghContext();
-    return await gh("POST /repos/{owner}/{repo}/git/commits", {
+    return gh("POST /repos/{owner}/{repo}/git/commits", {
       ...target,
       message: c.message,
       author: { ...c.author, date: new Date(c.author.date).toISOString() },
@@ -129,7 +123,7 @@ Meteor.methods({
 
   async postRef(cr) { // takes commit results (cr),  updates ref
     const { gh, target, prof } = await ghContext();
-    return await gh("PATCH /repos/{owner}/{repo}/git/refs/{ref}", {
+    return gh("PATCH /repos/{owner}/{repo}/git/refs/{ref}", {
       ...target,
       ref: `heads/${prof.repoBranch}`,
       sha: cr.sha
@@ -138,7 +132,7 @@ Meteor.methods({
 
   async postRepo(owner, repo) { // done to fork a repo for a new user
     const { gh } = await ghContext();
-    return await gh("POST /repos/{owner}/{repo}/forks", { owner, repo });
+    return gh("POST /repos/{owner}/{repo}/forks", { owner, repo });
   },
 
 });

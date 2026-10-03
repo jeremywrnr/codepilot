@@ -49,14 +49,8 @@ GitSync = {
     });
   },
 
-  focusForm: function(id) { // takes id of form, waits til exists, and focuses
-    var tries = 0;
-    var timer = setInterval(function() {
-      if ($(id).length || ++tries > 100) { // give up after ~1s
-        $(id).focus();
-        clearInterval(timer);
-      } //wait til element exists, focus
-    }, 10); // check every 10ms
+  focusForm: function(id) { // focus a form once blaze has re-rendered
+    Tracker.afterFlush(function() { $(id).focus(); });
   },
 
   grabTagContentsToRender: function(full, tag) { // return parsed html from tag

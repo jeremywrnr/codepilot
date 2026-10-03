@@ -1,5 +1,16 @@
 // server (privileged) commit methods
 
+import { ghContext, userFiles } from "/imports/server/github";
+
+// adds a commit, links to repo + branch
+const upsertCommit = (prof, c) => Commits.upsertAsync({
+  repo: prof.repo,
+  branch: prof.repoBranch,
+  sha: c.sha
+},{
+  $set: { commit: c }
+});
+
 Meteor.methods({
 
   /////////////////////
@@ -7,20 +18,14 @@ Meteor.methods({
   /////////////////////
 
   async initCommits() { // re-populating the commit log
+    const { prof } = await ghContext();
     const commits = await Meteor.callAsync("getAllCommits");
-    for (const c of commits)
-      await Meteor.callAsync("addCommit", c);
+    await Promise.all(commits.map(c => upsertCommit(prof, c)));
   },
 
-  async addCommit(c) { // adds a commit, links to repo + branch
-    const prof = (await Meteor.userAsync()).profile;
-    await Commits.upsertAsync({
-      repo: prof.repo,
-      branch: prof.repoBranch,
-      sha: c.sha
-    },{
-      $set: { commit: c }
-    });
+  async addCommit(c) {
+    const { prof } = await ghContext();
+    await upsertCommit(prof, c);
   },
 
   async loadHead(bname) { // load head of branch, from sha
@@ -34,20 +39,24 @@ Meteor.methods({
     const treeSHA = commitResults.commit.tree.sha;
     const treeResults = await Meteor.callAsync("getTree", treeSHA);
 
-    // only load files, not folders/trees
+    // only load small files, not images or folders/trees
     const blobs = treeResults.tree.filter(blob =>
-      !GitSync.imgcheck(blob.path) && blob.type === "blob");
+      !GitSync.imgcheck(blob.path) && blob.type === "blob" &&
+      !(blob.size >= GitSync.maxFileLength));
 
-    await Promise.all(blobs.map(async blob => {
-      try {
-        const content = await Meteor.callAsync("getBlob", blob);
-        blob.content = content;
-        if (content && content.length < GitSync.maxFileLength)
-          await Meteor.callAsync("createFile", blob);
-      } catch (err) {
-        console.error(err);
-      }
-    }));
+    // fetch in small batches - github rejects too many concurrent requests
+    const BATCH = 8;
+    for (let i = 0; i < blobs.length; i += BATCH)
+      await Promise.all(blobs.slice(i, i + BATCH).map(async blob => {
+        try {
+          const content = await Meteor.callAsync("getBlob", blob);
+          blob.content = content;
+          if (content && content.length < GitSync.maxFileLength)
+            await Meteor.callAsync("createFile", blob);
+        } catch (err) {
+          console.error(err);
+        }
+      }));
   },
 
 
@@ -58,12 +67,9 @@ Meteor.methods({
   async newCommit(msg) { // grab cache content, commit to github
 
     // getting all file ids, names, and content
-    const user = (await Meteor.userAsync()).profile;
-    const bname = user.repoBranch;
-    const files = (await Files.find({
-      repo: user.repo,
-      branch: user.repoBranch,
-    }).fetchAsync()).filter(function typeCheck(file) { // remove imgs
+    const { prof } = await ghContext();
+    const bname = prof.repoBranch;
+    const files = (await userFiles(prof).fetchAsync()).filter(function typeCheck(file) { // remove imgs
       return (file.type === "file" || file.type === "blob") && file.content != undefined;
     });
 
@@ -77,17 +83,15 @@ Meteor.methods({
       };
     }));
 
-    // get old tree and update it with new shas, post and get that sha
+    // update the branch's tree with the new blobs, post and get that sha
     const branch = await Meteor.callAsync("getBranch", bname);
-    let oldTree = await Meteor.callAsync("getTree", branch.commit.commit.tree.sha);
-    if (!oldTree) oldTree = {"sha": ""} // resetting for new file
-    const newTree = {base: oldTree.sha, tree: blobs};
+    const newTree = {base: branch.commit.commit.tree.sha, tree: blobs};
     const treeSHA = await Meteor.callAsync("postTree", newTree);
 
     // specify author of this commit
     const commitAuthor = {
-      name: user.login,
-      email: user.email,
+      name: prof.login,
+      email: prof.email,
       date: new Date(),
     };
 
@@ -105,10 +109,8 @@ Meteor.methods({
     // get the latest commit from the branch head
     const lastCommit = (await Meteor.callAsync("getBranch", bname)).commit;
 
-    // post into commit db with repo tag
-    await Meteor.callAsync("addCommit", lastCommit);
-
-    // update the feed with new commit
+    // post into commit db with repo tag, and update the feed
+    await upsertCommit(prof, lastCommit);
     await Meteor.callAsync("addMessage", `committed - ${msg}`);
   },
 

@@ -4,29 +4,55 @@
 
 FirepadAPI = {}
 
-// firebase realtime db ref for a file id; firebase is initialized from
-// Meteor.settings.public.firebase in client/main/main.js
+// firebase realtime db backs firepad, configured by settings.public.firebase.
+// without a firebase apiKey (local dev), there is no firepad: files are read
+// and written straight from mongo, with no live co-editing
 
-var ref = function (id) {
+var fbconf = Meteor.settings.public && Meteor.settings.public.firebase;
+var enabled = !!(fbconf && fbconf.apiKey);
+if (enabled) firebase.initializeApp(fbconf);
+
+var ref = function (id) { // firebase realtime db ref for a file id
   return firebase.database().ref(id);
 }
 
-// without a firebase apiKey (local dev), there is no firepad: the editor
-// reads and writes file.content in mongo directly, with no live co-editing
-var fbconf = Meteor.settings.public && Meteor.settings.public.firebase;
-var enabled = !!(fbconf && fbconf.apiKey);
 
-// return the current branch/repo files
+  /***
+   * |ATTACH|
+   *
+   * connect an ace editor to a file, returns a function that disconnects it
+   ***/
 
-var userfiles = function () {
-  var user = Meteor.user(),
-    prof = undefined;
-  if (user)
-    prof = user.profile;
-  if (prof) return Files.find({
-    repo: prof.repo,
-    branch: prof.repoBranch
+var attach = function (editor, id, userId) {
+  var file = Files.findOne(id);
+  var initial = (file && file.content) || "";
+
+  if (enabled) {
+    var pad = Firepad.fromACE(ref(id), editor, { userId: userId });
+    pad.on("ready", function () { // use cached content when history empty
+      if (pad.isHistoryEmpty() && initial) pad.setText(initial);
+      editor.focus();
+      editor.gotoLine(1);
+    });
+    return function () { pad.dispose(); };
+  }
+
+  // no firebase: save edits to mongo shortly after typing stops
+  var timer = null;
+  var save = function () {
+    timer = null;
+    Meteor.callAsync("updateFile", id, editor.getValue())
+      .catch(function (err) { console.error("couldn't save file", err); });
+  };
+  editor.setValue(initial, -1);
+  editor.on("change", function () {
+    clearTimeout(timer);
+    timer = setTimeout(save, 500);
   });
+  editor.focus();
+  return function () { // flush any pending save
+    if (timer) { clearTimeout(timer); save(); }
+  };
 }
 
 
@@ -77,22 +103,20 @@ var getAllText = function(files, cb) { // apply callmback to all files
    ***/
 
 var setText = function (id, cb) { // update firebase with their ids
-  if (!enabled) { // the server already reset file.content to the cache
-    if (cb) cb();
-    return;
-  }
+  cb = cb || function () {};
+  if (!enabled) return cb(); // the server already reset file.content to the cache
   var headless = Firepad.Headless(ref(id));
   headless.setText(
     Files.findOne(id).cache,
     function() {
       headless.dispose()
-      if (cb) cb(); // callback once done
+      cb(); // callback once done
     }
   );
 }
 
 var setAllText = function (cb) { // update all project caches from firepad (for reset)
-  var files = FirepadAPI.userfiles().fetch();
+  var files = GitSync.userfiles().fetch();
   var left = files.length;
   if (!left && cb) return cb();
   files.forEach(function(file) {
@@ -104,11 +128,9 @@ var setAllText = function (cb) { // update all project caches from firepad (for 
 
 
 // exporting to package
-FirepadAPI.ref = ref;
-FirepadAPI.enabled = enabled;
+FirepadAPI.attach = attach;
 FirepadAPI.getText = getText;
 FirepadAPI.setText = setText;
-FirepadAPI.userfiles = userfiles;
 FirepadAPI.getAllText = getAllText;
 FirepadAPI.setAllText = setAllText;
 

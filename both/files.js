@@ -11,14 +11,14 @@ Meteor.methods({
   },
 
   async setPilot() { // change the current users profile.role to pilot
-    return await Meteor.users.updateAsync(
+    return Meteor.users.updateAsync(
       {"_id": Meteor.userId()},
       {$set : {"profile.role":"pilot"}}
     );
   },
 
   async setCopilot() { // change the current users profile.role to pilot
-    return await Meteor.users.updateAsync(
+    return Meteor.users.updateAsync(
       {"_id": Meteor.userId()},
       {$set : {"profile.role":"copilot"}}
     );

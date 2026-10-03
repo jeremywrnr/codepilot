@@ -10,10 +10,6 @@ Session.setDefault("testInt", false);
 Session.setDefault("testWeb", false);
 Session.setDefault("testFile", null);
 
-// firebase realtime db backs firepad (see settings.example.json)
-// without an apiKey, files are edited straight from mongo (see FirepadAPI)
-if (FirepadAPI.enabled)
-  firebase.initializeApp(Meteor.settings.public.firebase);
 
 
 

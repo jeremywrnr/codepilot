@@ -1,21 +1,23 @@
 // server files methods
 // git-sync - jeremywrnr
 
+import { ghContext, userFiles } from "/imports/server/github";
+
 Meteor.methods({
 
   //////////////////
   // FILE MANAGEMENT
   //////////////////
 
-  async newFile() { // create a new unnamed file
-    return await Meteor.callAsync("createFile", {
+  newFile() { // create a new unnamed file
+    return Meteor.callAsync("createFile", {
       path: "untitled",
     });
   },
 
   async createFile(file) { // create or update a file
     // handle null cache/contents when createing a file
-    const prof = (await Meteor.userAsync()).profile;
+    const { prof } = await ghContext();
     file.branch = prof.repoBranch;
     file.repo   = prof.repo;
     file.path   = file.path || file.title || "untitled";
@@ -38,11 +40,8 @@ Meteor.methods({
   },
 
   async updateAllFiles() {
-    const prof = (await Meteor.userAsync()).profile;
-    const files = await Files.find({
-      repo: prof.repo,
-      branch: prof.repoBranch,
-    }).fetchAsync();
+    const { prof } = await ghContext();
+    const files = await userFiles(prof).fetchAsync();
     await Promise.all(files.filter(file => // remove imgs
       file.type === "file" && file.content != undefined
     ).map(file => // set file cache
@@ -81,11 +80,8 @@ Meteor.methods({
   },
 
   async resetFiles() { // reset db and hard code simple website structure
-    const prof = (await Meteor.userAsync()).profile;
-    const files = await Files.find({
-      repo: prof.repo,
-      branch: prof.repoBranch,
-    }).fetchAsync();
+    const { prof } = await ghContext();
+    const files = await userFiles(prof).fetchAsync();
     for (const f of files)
       await Meteor.callAsync("deleteFile", f._id);
     const base = [{"title":"site.html"},{"title":"site.css"},{"title":"site.js"}];

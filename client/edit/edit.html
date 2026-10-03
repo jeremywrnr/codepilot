@@ -13,9 +13,12 @@
   {{> renderImage }}
   {{else}}
   {{> filename }}
-  <div id="editor-container"></div>
-  {{render}}
+  {{> aceEditor }}
   {{/if}}
+</template>
+
+<template name="aceEditor">
+  <div id="editor-container"></div>
 </template>
 
 

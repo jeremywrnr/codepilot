@@ -9,7 +9,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.export("FirepadAPI", "client");
   api.versionsFrom("3.0");
-  api.use(["ecmascript", "mongo", "session"]);
+  api.use(["ecmascript", "mongo", "jeremywrnr:git-sync"]);
   api.addFiles(["firepad.js"], "client");
 });
 

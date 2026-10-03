@@ -1,5 +1,7 @@
 // server repo and branch loading
 
+import { ghContext } from "/imports/server/github";
+
 Meteor.methods({
 
   //////////////////
@@ -18,8 +20,7 @@ Meteor.methods({
     if (anyFile) return true;
 
     await Meteor.callAsync("loadHead", branch); // load the head of gr branch into CP
-    const full = `${gr.repo.owner.login}/${gr.repo.name}`;
-    await Meteor.callAsync("addMessage", `started working on repo - ${full}`);
+    await Meteor.callAsync("addMessage", `started working on repo - ${gr.repo.full_name}`);
   },
 
   async forkRepo(user, repo) { // create a fork
@@ -50,7 +51,7 @@ Meteor.methods({
   },
 
   async addBranch(bn) { // create a new branch from branchname (bn)
-    const prof = (await Meteor.userAsync()).profile;
+    const { prof } = await ghContext();
     const repo = await Repos.findOneAsync(prof.repo);
     const parent = (await Meteor.callAsync("getBranch", prof.repoBranch)).commit.sha;
     await Meteor.callAsync("postBranch", bn, parent);
